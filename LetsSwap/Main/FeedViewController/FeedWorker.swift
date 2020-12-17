@@ -9,5 +9,25 @@
 import UIKit
 
 class FeedService {
-
+    var fetcher: FeedDataFetcher
+    private var feedResponse: FeedResponse?
+    private var newFromInProcess: String? //Для запроса новой пачки предложений
+    
+    init() {
+        self.fetcher = NetworkDataFetcher()
+    }
+    
+    func getFeed(completion: @escaping (Result<FeedResponse, FeedError>) -> Void) {
+        fetcher.getFeed(nextBatchFrom: nil) { [weak self](result) in
+            guard let self = self else { return }
+            switch result {
+            
+            case .success(let feed):
+                self.feedResponse = feed
+                completion(result)
+            case .failure(let _):
+                completion(result)
+            }
+        }
+    }
 }

@@ -61,11 +61,20 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     }
   
     func displayData(viewModel: Feed.Model.ViewModel.ViewModelData) {
-
+        switch viewModel {
+        
+        case .displayFeed(feedViewModel: let feedViewModel):
+            print("reload data")
+        case .displayError(error: let error):
+            showAlert(title: "Ошибка", message: error.localizedDescription)
+        case .displayEmptyFeed: //war
+            #warning("TODO: ждать дизайнеров")
+            showAlert(title: "Ошибка", message: "")
+        }
     }
     
     private func setupSearchBar() {
-//        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.barTintColor = .white
 //        navigationController?.navigationBar.shadowImage = UIImage()
 //        let searchController = UISearchController(searchResultsController: nil)
 //        navigationItem.searchController = searchController
@@ -87,3 +96,25 @@ extension FeedViewController: UISearchBarDelegate {
         print(searchText)
     }
 }
+
+// MARK: - SwiftUI
+import SwiftUI
+
+struct FeedVCProvider: PreviewProvider {
+    static var previews: some View {
+        ContainerView().edgesIgnoringSafeArea(.all)
+    }
+
+    struct ContainerView: UIViewControllerRepresentable {
+        let feedVC = MainTabBarController()
+
+        func makeUIViewController(context: Context) -> some MainTabBarController {
+            return feedVC
+        }
+
+        func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+
+        }
+    }
+}
+

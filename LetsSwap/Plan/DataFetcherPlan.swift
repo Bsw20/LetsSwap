@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class DataFetcher {
+class DataFetcherPlan {
     //Логинка все функции..
     
     //Функция запроса новостей, в запросе будет фильтр в виде тегов

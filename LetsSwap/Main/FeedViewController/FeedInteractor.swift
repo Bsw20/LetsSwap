@@ -14,13 +14,20 @@ protocol FeedBusinessLogic {
 
 class FeedInteractor: FeedBusinessLogic {
 
-  var presenter: FeedPresentationLogic?
-  var service: FeedService?
+    var presenter: FeedPresentationLogic?
+    var service: FeedService?
   
-  func makeRequest(request: Feed.Model.Request.RequestType) {
-    if service == nil {
-      service = FeedService()
-    }
+    func makeRequest(request: Feed.Model.Request.RequestType) {
+        if service == nil {
+            service = FeedService()
+        }
+        switch request {
+        
+        case .getFeed:
+            service?.getFeed(completion: { [weak self] (result) in
+                self?.presenter?.presentData(response: .presentFeed(result: result))
+            })
+        }
+    
   }
-  
 }
