@@ -49,6 +49,7 @@ class TagCell: UICollectionViewCell {
         self.layer.cornerRadius = 21
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.mainYellow().cgColor
+        self.clipsToBounds = true
     }
     
     override func prepareForReuse() {

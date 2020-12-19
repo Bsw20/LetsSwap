@@ -57,7 +57,7 @@ extension TagsCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         //tags collection view
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.reuseId, for: indexPath) as! TagCell
-        var stringTag = getDisplayedTagString(index: indexPath.item)
+        let stringTag = getDisplayedTagString(index: indexPath.item)
         if selectedIndexes.contains(indexPath) {
             cell.selectedCellSet(tagString: stringTag)
         } else {

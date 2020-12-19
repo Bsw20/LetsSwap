@@ -40,6 +40,7 @@
 		308366072589FDC000578AE2 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308366062589FDC000578AE2 /* Constraints.swift */; };
 		3083660B258A019A00578AE2 /* InsertableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3083660A258A019A00578AE2 /* InsertableTextField.swift */; };
 		308D28CE258E4BA70088D340 /* TagsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308D28CD258E4BA70088D340 /* TagsCollectionView.swift */; };
+		308D28D3258E6C530088D340 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308D28D2258E6C530088D340 /* TagsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +79,7 @@
 		308366062589FDC000578AE2 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
 		3083660A258A019A00578AE2 /* InsertableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertableTextField.swift; sourceTree = "<group>"; };
 		308D28CD258E4BA70088D340 /* TagsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsCollectionView.swift; sourceTree = "<group>"; };
+		308D28D2258E6C530088D340 /* TagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				302CDE9C258D6439000B4275 /* FeedConstants.swift */,
+				308D28D1258E6C2B0088D340 /* Associated ViewControllers */,
 				308D28CC258E4B810088D340 /* TagsCollectionView */,
 				307304DB258B68DC0091D2F1 /* Cells */,
 				308365EF2589F27A00578AE2 /* TitleView */,
@@ -258,6 +261,14 @@
 				308D28CD258E4BA70088D340 /* TagsCollectionView.swift */,
 			);
 			path = TagsCollectionView;
+			sourceTree = "<group>";
+		};
+		308D28D1258E6C2B0088D340 /* Associated ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				308D28D2258E6C530088D340 /* TagsViewController.swift */,
+			);
+			path = "Associated ViewControllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -330,6 +341,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				302CDE96258D6049000B4275 /* UIFont + Extension.swift in Sources */,
+				308D28D3258E6C530088D340 /* TagsViewController.swift in Sources */,
 				308365FF2589F61700578AE2 /* UIColor + Extension.swift in Sources */,
 				308366022589F81D00578AE2 /* UIButton + Extension.swift in Sources */,
 				307304F4258B86CC0091D2F1 /* FeedError.swift in Sources */,

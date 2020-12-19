@@ -12,4 +12,6 @@ struct FeedConstants {
     static let tagCellPadding: CGFloat = 30
     static let tagsCollectionViewHeight: CGFloat = 43
     static let tagsCollectionViewInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+    
+    static let tagsViewControllerTagsInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 10)
 }
