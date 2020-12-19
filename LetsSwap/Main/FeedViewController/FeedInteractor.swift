@@ -27,6 +27,8 @@ class FeedInteractor: FeedBusinessLogic {
             service?.getFeed(completion: { [weak self] (result) in
                 self?.presenter?.presentData(response: .presentFeed(result: result))
             })
+        case .getFilteredFeed(tags: let tags):
+            print("get filtered feed interactor")
         }
     
   }

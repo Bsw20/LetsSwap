@@ -44,7 +44,8 @@ class FeedPresenter: FeedPresentationLogic {
         if let photo = feedItem.photo, let photoURL = URL(string: photo.url) {
             url = photoURL
         }
-        return FeedViewModel.Cell.init(title: feedItem.title,
+        return FeedViewModel.Cell.init(orderId: feedItem.orderId,
+                                       title: feedItem.title,
                                        description: feedItem.description,
                                        counterOffer: feedItem.counterOffer,
                                        photo: url,

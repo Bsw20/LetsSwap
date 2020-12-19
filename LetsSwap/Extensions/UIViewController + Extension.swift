@@ -17,5 +17,9 @@ extension UIViewController {
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
     }
+    
+    var topbarHeight: CGFloat {
+        return self.navigationController?.navigationBar.frame.height ?? 0.0
+    }
 }
 

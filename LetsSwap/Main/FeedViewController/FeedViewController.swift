@@ -14,10 +14,22 @@ protocol FeedDisplayLogic: class {
 
 class FeedViewController: UIViewController, FeedDisplayLogic {
     //variables
-    var collectionViewe: UICollectionView!
-    var titleView = TitleView()
+
+    private var selectedTags = Set<FeedTag>()
+    private var feedCollectionView: UICollectionView!
+    private var tagsCollectionView: TagsCollectionView = {
+       var collectionView = TagsCollectionView()
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
+    private var dataSource: UICollectionViewDiffableDataSource<Section, FeedViewModel.Cell>!
+    private var titleView = TitleView()
+    private var feedViewModel = FeedViewModel.init(cells: [])
+
     
-    
+    enum Section: Int, CaseIterable {
+        case tags, orders
+    }
     
     var interactor: FeedBusinessLogic?
     var router: (NSObjectProtocol & FeedRoutingLogic)?
@@ -49,7 +61,6 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     }
   
   // MARK: Routing
-  
 
   
   // MARK: View lifecycle
@@ -58,8 +69,9 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         super.viewDidLoad()
         view.backgroundColor = .mainBackground()
         setupSearchBar()
+        setupConstraints()
+        tagsCollectionView.tagDelegate = self
     }
-  
     func displayData(viewModel: Feed.Model.ViewModel.ViewModelData) {
         switch viewModel {
         
@@ -87,6 +99,8 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationItem.titleView = titleView
     }
+    
+
 }
 
 //MARK: - SearchBar
@@ -96,6 +110,40 @@ extension FeedViewController: UISearchBarDelegate {
         print(searchText)
     }
 }
+
+extension FeedViewController: TagCollectionViewDelegate {
+    func tagDidSelect(tag: FeedTag) {
+        if selectedTags.contains(tag) {
+            selectedTags.remove(tag)
+        } else {
+            selectedTags.insert(tag)
+        }
+        print(selectedTags)
+        interactor?.makeRequest(request: .getFilteredFeed(tags: selectedTags))
+    }
+    
+    func moreTagsCellDidSelect() {
+        print("more button selected")
+    }
+    
+    
+}
+
+
+//MARK: - constraints
+extension FeedViewController {
+    private func setupConstraints() {
+        view.addSubview(tagsCollectionView)
+
+        NSLayoutConstraint.activate([
+            tagsCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            tagsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tagsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tagsCollectionView.heightAnchor.constraint(equalToConstant: FeedConstants.tagsCollectionViewHeight)
+        ])
+    }
+}
+
 
 // MARK: - SwiftUI
 import SwiftUI

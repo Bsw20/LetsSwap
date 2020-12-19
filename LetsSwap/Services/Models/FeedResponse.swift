@@ -14,7 +14,7 @@ struct FeedResponse: Decodable {
 }
 
 struct FeedItem: Decodable {
-    let postId: Int
+    let orderId: Int
     let title: String
     let description: String
     let counterOffer: String
