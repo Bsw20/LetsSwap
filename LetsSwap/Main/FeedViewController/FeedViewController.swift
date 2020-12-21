@@ -22,17 +22,14 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         return collectionView
     }()
     
-    private var feedCollectionView: UICollectionView!
-    private var dataSource: UICollectionViewDiffableDataSource<Section, FeedViewModel.Cell>!
-    private var titleView = TitleView()
-    private var feedViewModel = FeedViewModel.init(cells: [FeedViewModel.Cell.init(orderId: 12, title: "123", description: "123", counterOffer: "123", photo: nil, isFavourite: true, isFree: true),
-                                                           FeedViewModel.Cell.init(orderId: 13, title: "123", description: "156", counterOffer: "134", photo: nil, isFavourite: true, isFree: true)])
+    private var feedCollectionView: FeedCollectionView = {
+       var collectionView = FeedCollectionView()
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
 
-    
-    enum Section: Int, CaseIterable {
-        case orders
-    }
-    
+    private var titleView = TitleView()
+//    private var feedViewModel = FeedViewModel.init(cells: [])
     var interactor: FeedBusinessLogic?
     var router: (NSObjectProtocol & FeedRoutingLogic)?
 
@@ -72,11 +69,9 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         view.backgroundColor = .mainBackground()
         tagsCollectionView.tagDelegate = self
         
-        setupFeedCollectionView()
-        createDataSourse()
         setupSearchBar()
         setupConstraints()
-        self.reloadData(with: nil)
+        interactor?.makeRequest(request: .getFeed)
 
     }
     func displayData(viewModel: Feed.Model.ViewModel.ViewModelData) {
@@ -84,26 +79,21 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         
         case .displayFeed(feedViewModel: let feedViewModel):
             print("reload data")
+            print(feedViewModel.cells.count)
+            feedCollectionView.updateData(feedViewModel: feedViewModel)
         case .displayError(error: let error):
             showAlert(title: "Ошибка", message: error.localizedDescription)
-        case .displayEmptyFeed: //war
+        case .displayEmptyFeed:
             #warning("TODO: ждать дизайнеров")
             showAlert(title: "Ошибка", message: "")
         }
     }
     
-    private func setupFeedCollectionView() {
-        feedCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionalLayout())
-        feedCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        feedCollectionView.register(FeedCell.self, forCellWithReuseIdentifier: FeedCell.reuseId)
-        feedCollectionView.backgroundColor = .mainBackground()
-        
-//        feedCollectionView.delegate = self
-    }
+
     
     private func setupSearchBar() {
         navigationController?.navigationBar.barTintColor = .white
-//        navigationController?.navigationBar.shadowImage = UIImage()
+
 //        let searchController = UISearchController(searchResultsController: nil)
 //        navigationItem.searchController = searchController
 //        navigationItem.hidesSearchBarWhenScrolling = false
@@ -115,79 +105,6 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationItem.titleView = titleView
     }
-    
-    private func reloadData(with searchText: String?) {
-//        let filtred = users.filter { (user) -> Bool in
-//            user.contains(filter: searchText)
-//        }
-        var snapshot = NSDiffableDataSourceSnapshot<Section, FeedViewModel.Cell>()
-        
-        snapshot.appendSections([.orders])
-        snapshot.appendItems(feedViewModel.cells, toSection: .orders)
-
-        dataSource?.apply(snapshot, animatingDifferences: true)
-    }
-
-}
-//MARK: - FeedCollecitonView DataSource
-extension FeedViewController {
-    private func createDataSourse() {
-        dataSource = UICollectionViewDiffableDataSource<Section, FeedViewModel.Cell> (collectionView: feedCollectionView, cellProvider: { (collectionView, indexPath, user) -> UICollectionViewCell? in
-            guard let section = Section(rawValue: indexPath.section) else { fatalError("Unknown section kind") }
-            print("Created")
-            
-            switch section {
-            
-            case .orders:
-                print("generate cell")
-                let cell = self.feedCollectionView.dequeueReusableCell(withReuseIdentifier: FeedCell.reuseId, for: indexPath)
-                return cell
-            }
-        })
-    }
-}
-
-//MARK: - FeedCollecitonView layout
-extension FeedViewController {
-    private func createCompositionalLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-            
-            guard let section = Section(rawValue: sectionIndex) else {
-                fatalError("Unknown section kind")
-            }
-        
-            switch section {
-            case .orders:
-                return self.createOrdersSection()
-            }
-            
-        }
-        
-        let config = UICollectionViewCompositionalLayoutConfiguration()
-        config.interSectionSpacing = 20
-        layout.configuration = config
-        return layout
-    }
-    private func createOrdersSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-        
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.6))
-        
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
-        
-        let spacing = CGFloat(15)
-        group.interItemSpacing = .fixed(spacing)
-        let section = NSCollectionLayoutSection(group: group)
-        
-        section.interGroupSpacing = spacing
-        section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 15)
-
-        return section
-    }
-    
-    
 }
 
 
@@ -235,7 +152,7 @@ extension FeedViewController {
         ])
         
         NSLayoutConstraint.activate([
-            feedCollectionView.topAnchor.constraint(equalTo: tagsCollectionView.bottomAnchor, constant: 40),
+            feedCollectionView.topAnchor.constraint(equalTo: tagsCollectionView.bottomAnchor, constant: 20),
             feedCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             feedCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             feedCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),

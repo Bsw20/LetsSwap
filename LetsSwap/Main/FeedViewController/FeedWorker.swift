@@ -25,7 +25,7 @@ class FeedService {
             case .success(let feed):
                 self.feedResponse = feed
                 completion(result)
-            case .failure(let _):
+            case .failure( _):
                 completion(result)
             }
         }

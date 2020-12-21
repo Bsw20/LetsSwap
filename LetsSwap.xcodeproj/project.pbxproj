@@ -41,6 +41,7 @@
 		3083660B258A019A00578AE2 /* InsertableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3083660A258A019A00578AE2 /* InsertableTextField.swift */; };
 		308D28CE258E4BA70088D340 /* TagsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308D28CD258E4BA70088D340 /* TagsCollectionView.swift */; };
 		308D28D3258E6C530088D340 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308D28D2258E6C530088D340 /* TagsViewController.swift */; };
+		30ED20C6258F8BF70039818A /* FeedCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30ED20C5258F8BF70039818A /* FeedCollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,7 @@
 		3083660A258A019A00578AE2 /* InsertableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertableTextField.swift; sourceTree = "<group>"; };
 		308D28CD258E4BA70088D340 /* TagsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsCollectionView.swift; sourceTree = "<group>"; };
 		308D28D2258E6C530088D340 /* TagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
+		30ED20C5258F8BF70039818A /* FeedCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,14 +137,6 @@
 				303AB7A82581715300F287C2 /* DataFetcherPlan.swift */,
 			);
 			path = Plan;
-			sourceTree = "<group>";
-		};
-		307304DB258B68DC0091D2F1 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				307304DC258B692A0091D2F1 /* FeedCell.swift */,
-			);
-			path = Cells;
 			sourceTree = "<group>";
 		};
 		307304E0258B74B20091D2F1 /* Services */ = {
@@ -205,7 +199,7 @@
 				302CDE9C258D6439000B4275 /* FeedConstants.swift */,
 				308D28D1258E6C2B0088D340 /* Associated ViewControllers */,
 				308D28CC258E4B810088D340 /* TagsCollectionView */,
-				307304DB258B68DC0091D2F1 /* Cells */,
+				30ED20C4258F8BDE0039818A /* FeedCollectionView */,
 				308365EF2589F27A00578AE2 /* TitleView */,
 				308365E12589E65200578AE2 /* FeedViewController.swift */,
 				308365E22589E65200578AE2 /* FeedInteractor.swift */,
@@ -269,6 +263,15 @@
 				308D28D2258E6C530088D340 /* TagsViewController.swift */,
 			);
 			path = "Associated ViewControllers";
+			sourceTree = "<group>";
+		};
+		30ED20C4258F8BDE0039818A /* FeedCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				307304DC258B692A0091D2F1 /* FeedCell.swift */,
+				30ED20C5258F8BF70039818A /* FeedCollectionView.swift */,
+			);
+			path = FeedCollectionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -365,6 +368,7 @@
 				307304DD258B692A0091D2F1 /* FeedCell.swift in Sources */,
 				308365E72589E65200578AE2 /* FeedModels.swift in Sources */,
 				303AB7A6258163F400F287C2 /* ModelsPlan.swift in Sources */,
+				30ED20C6258F8BF70039818A /* FeedCollectionView.swift in Sources */,
 				308365E62589E65200578AE2 /* FeedRouter.swift in Sources */,
 				307304E4258B75BC0091D2F1 /* FeedResponse.swift in Sources */,
 				308365E42589E65200578AE2 /* FeedPresenter.swift in Sources */,
