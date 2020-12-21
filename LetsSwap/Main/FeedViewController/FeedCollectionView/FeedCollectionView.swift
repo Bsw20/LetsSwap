@@ -69,11 +69,22 @@ extension FeedCollectionView {
                 let cell = self?.dequeueReusableCell(withReuseIdentifier: FeedCell.reuseId, for: indexPath) as! FeedCell
                 let cellModel = self?.feedViewModel.cells[indexPath.item]
                 #warning("Если cell model не корректный(мб allert)")
-                cell.set(cellModel: cellModel!)
+                cell.set(cellModel: cellModel!, indexPath: indexPath)
+                cell.delegate = self
                 return cell
             }
         })
     }
+}
+
+
+extension FeedCollectionView: FeedCellDelegate {
+    #warning("Обсудить put запрос с бэком")
+    func favouriteButtonDidTapped(indexPath: IndexPath) {
+        print("favourite button tapped + \(indexPath)")
+    }
+    
+    
 }
 
 //MARK: - FeedCollecitonView layout

@@ -15,11 +15,13 @@ class InsertableTextField: UITextField {
         super.init(frame: frame)
         
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
+        backgroundColor = .white
+        layer.borderWidth = 0.5
+        layer.borderColor = UIColor.lightGray.cgColor
         placeholder =  "Найди на что хочешь махнуться"
         font = UIFont.systemFont(ofSize: 14)
         clearButtonMode = .whileEditing
-        layer.cornerRadius = 10
+        layer.cornerRadius = 20
         layer.masksToBounds = true
         
         let image = UIImage(named: "search")

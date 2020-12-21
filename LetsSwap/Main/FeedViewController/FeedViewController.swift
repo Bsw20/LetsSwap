@@ -93,14 +93,6 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     
     private func setupSearchBar() {
         navigationController?.navigationBar.barTintColor = .white
-
-//        let searchController = UISearchController(searchResultsController: nil)
-//        navigationItem.searchController = searchController
-//        navigationItem.hidesSearchBarWhenScrolling = false
-//        searchController.hidesNavigationBarDuringPresentation = false
-//        searchController.obscuresBackgroundDuringPresentation = false
-//        searchController.searchBar.delegate = self
-        
         self.navigationController?.hidesBarsOnSwipe = false
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationItem.titleView = titleView

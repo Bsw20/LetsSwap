@@ -17,9 +17,15 @@ protocol FeedCellViewModel {
     var isFree: Bool { get }
 }
 
+protocol FeedCellDelegate: AnyObject {
+    func favouriteButtonDidTapped(indexPath: IndexPath)
+}
+
 final class FeedCell: UICollectionViewCell {
     static let reuseId = "FeedCell"
 //    private let cellModel: FeedCellViewModel
+    private var indexPath: IndexPath!
+    weak var delegate: FeedCellDelegate?
     
     private let containerView: UIView = {
        let view = UIView()
@@ -62,12 +68,13 @@ final class FeedCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = FeedConstants.favouriteButtonSize.height / 2
         button.clipsToBounds = true
+
         
         return button
     }()
     
     @objc private func favouriteButtonTapped() {
-        print("tapped")
+        delegate?.favouriteButtonDidTapped(indexPath: self.indexPath)
     }
     
     override init(frame: CGRect) {
@@ -94,8 +101,9 @@ final class FeedCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(cellModel: FeedViewModel.Cell) {
+    func set(cellModel: FeedCellViewModel, indexPath: IndexPath) {
         titleLabel.text = cellModel.title
+        self.indexPath = indexPath
         if cellModel.isFavourite {
             favouriteButton.backgroundColor = #colorLiteral(red: 0.4321040969, green: 0.2213571924, blue: 0.840117021, alpha: 1)
         }
@@ -103,6 +111,7 @@ final class FeedCell: UICollectionViewCell {
         if cellModel.isFree {
             containerView.backgroundColor = .freeFeedCell()
         }
+        
         if let userURL = cellModel.photo {
             //TODO: подгрузка фотографии
             imageView.image = UIImage(named: "personImage")
@@ -118,10 +127,6 @@ final class FeedCell: UICollectionViewCell {
         containerView.backgroundColor = .white
         favouriteButton.backgroundColor = .white
     }
-    
-    
-    
-    
 }
 
 //MARK: - Constraints

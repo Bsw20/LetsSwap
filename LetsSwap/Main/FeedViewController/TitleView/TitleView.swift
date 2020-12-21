@@ -11,7 +11,7 @@ import UIKit
 class TitleView: UIView {
     
     private var myTextField = InsertableTextField()
-    private var cityButton = UIButton.init(image: UIImage(named: "cityImage"), backgroundColor: .white, cornerRadius: 1, isShadow: true, borderColor: .red, borderWidth: 0)
+    private var cityButton = UIButton.init(image: UIImage(named: "cityImage"), backgroundColor: .white, cornerRadius: 1, isShadow: true, borderColor: .lightGray, borderWidth: 0.5)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,7 +31,7 @@ class TitleView: UIView {
                             leading: nil,
                             bottom: nil,
                             trailing: trailingAnchor,
-                            padding: UIEdgeInsets(top: 4, left: 777, bottom: 777, right: 4))
+                            padding: UIEdgeInsets(top: 2, left: 777, bottom: 777, right: 4))
         cityButton.heightAnchor.constraint(equalTo: myTextField.heightAnchor, multiplier: 1).isActive = true
         cityButton.widthAnchor.constraint(equalTo: myTextField.heightAnchor, multiplier: 1).isActive = true
         
@@ -40,7 +40,7 @@ class TitleView: UIView {
                            leading: leadingAnchor,
                            bottom: bottomAnchor,
                            trailing: cityButton.leadingAnchor,
-                           padding: UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 12))
+                           padding: UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 12))
         
     }
     
