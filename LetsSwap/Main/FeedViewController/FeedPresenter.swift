@@ -36,6 +36,14 @@ class FeedPresenter: FeedPresentationLogic {
                     viewController?.displayData(viewModel: .displayError(error: feedError))
                 }
             }
+        case .presentOrder(result: let result):
+            switch result {
+            
+            case .success(let order):
+                viewController?.displayData(viewModel: .displayOrder(orderViewModel: orderViewModel(from: order)))
+            case .failure(let orderError):
+                viewController?.displayData(viewModel: .displayError(error: orderError))
+            }
         }
     }
     
@@ -51,5 +59,25 @@ class FeedPresenter: FeedPresentationLogic {
                                        photo: url,
                                        isFavourite: feedItem.isFavourite,
                                        isFree: feedItem.isFree)
+    }
+    private func orderViewModel(from orderResponse: OrderResponse) -> OrderViewModel {
+        let tags = orderResponse.order.tags.compactMap { stringTag in
+            FeedTag.init(rawValue: stringTag)
+        }
+        let attachments = orderResponse.order.photoAttachments.compactMap { photo in
+            URL(string: photo.url)
+        }
+        
+        var userPhoto: URL? = nil
+        if let photoStringUrl = orderResponse.user.photo?.url {
+            userPhoto = URL(string: photoStringUrl)
+        }
+        
+        let orderViewModel = OrderViewModel.init(order: OrderViewModel.Order.init(title: orderResponse.order.title, description: orderResponse.order.description, counterOffer: orderResponse.order.counterOffer, isFree: orderResponse.order.isFree, tags: tags, photoAttachments: attachments),
+                                                 user: OrderViewModel.User.init(userName: orderResponse.user.name, userLastName: orderResponse.user.lastName, userCity: orderResponse.user.city, userPhoto: userPhoto),
+                                                 orderId: orderResponse.order.orderId,
+                                                 userId: orderResponse.user.userId)
+        
+        return orderViewModel
     }
 }

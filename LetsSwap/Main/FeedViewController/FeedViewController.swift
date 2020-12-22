@@ -68,6 +68,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         super.viewDidLoad()
         view.backgroundColor = .mainBackground()
         tagsCollectionView.tagDelegate = self
+        feedCollectionView.feedDelegate = self
         
         setupSearchBar()
         setupConstraints()
@@ -81,6 +82,8 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
             print("reload data")
             print(feedViewModel.cells.count)
             feedCollectionView.updateData(feedViewModel: feedViewModel)
+        case .displayOrder(orderViewModel: let orderViewModel):
+            router?.routeToFeedOrderController(orderViewModel: orderViewModel)
         case .displayError(error: let error):
             showAlert(title: "Ошибка", message: error.localizedDescription)
         case .displayEmptyFeed:
@@ -99,7 +102,18 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     }
 }
 
-
+//MARK: - FeedViewControllerDelegate
+extension FeedViewController: FeedCollectionViewDelegate {
+    func cellDidSelect(orderId: Int) {
+        interactor?.makeRequest(request: .getOrder(orderId: orderId))
+    }
+    
+    func favouriteButtonTapped(newState: Bool) {
+        print("favouriteButtonTapped")
+    }
+    
+    
+}
 
 //MARK: - SearchBar
 extension FeedViewController: UISearchBarDelegate {
@@ -125,8 +139,6 @@ extension FeedViewController: TagCollectionViewDelegate {
         print("more button selected")
         router?.routeToTagsController(currentTags: selectedTags)
     }
-    
-    
 }
 
 

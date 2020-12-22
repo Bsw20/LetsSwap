@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-private struct User {
+private struct UserPlan {
     var id: Int?
     var lastname: String
     var firstname: String
@@ -18,10 +18,10 @@ private struct User {
     var swapsCount: Int
     var raiting: Double
     var photo: PhotoPlan
-    var posts: [Post]
+    var posts: [PostPlan]
     var favouritePosts: [FavouritePost]
 }
-private struct Order {
+private struct OrderPlan {
     var orderId: Int?
     var postId: Int
     var userId: Int
@@ -35,7 +35,7 @@ private enum OrderState {
     //..
 }
 
-private struct Post {
+private struct PostPlan {
     var userId: Int
     var postId: Int? //TODO: check
     var title: String
@@ -43,10 +43,10 @@ private struct Post {
     var anotherOffer: String
     var isFree: Bool
     var isHiden: Bool
-    var tags: [Tag]
+    var tags: [TagPlan]
 }
 
-private struct Tag {
+private struct TagPlan {
     var name: String
 }
 

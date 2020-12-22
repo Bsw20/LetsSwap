@@ -22,9 +22,6 @@ struct FeedItem: Decodable {
     let isFree: Bool
     let date: Double
     let photo: Photo?
-    
 }
 
-struct Photo: Decodable {
-    var url: String
-}
+

@@ -10,6 +10,7 @@ import UIKit
 
 protocol FeedRoutingLogic {
     func routeToTagsController(currentTags: Set<FeedTag>)
+    func routeToFeedOrderController(orderViewModel: OrderViewModel)
     func routeToCitiesController()
 }
 
@@ -21,6 +22,10 @@ class FeedRouter: NSObject, FeedRoutingLogic {
     func routeToTagsController(currentTags: Set<FeedTag>) {
         let vc = TagsViewController()
         viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func routeToFeedOrderController(orderViewModel: OrderViewModel) {
+        print("routing to feed order")
     }
     
 

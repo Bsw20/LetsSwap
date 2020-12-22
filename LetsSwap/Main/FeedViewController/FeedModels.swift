@@ -15,16 +15,19 @@ enum Feed {
       enum RequestType {
         case getFeed
         case getFilteredFeed(tags: Set<FeedTag>)
+        case getOrder(orderId: Int)
       }
     }
     struct Response {
       enum ResponseType {
         case presentFeed(result: Result<FeedResponse, FeedError>)
+        case presentOrder(result: Result<OrderResponse, OrderError>)
       }
     }
     struct ViewModel {
       enum ViewModelData {
         case displayFeed(feedViewModel: FeedViewModel)
+        case displayOrder(orderViewModel: OrderViewModel)
         case displayError(error: Error)
         case displayEmptyFeed
       }
@@ -55,6 +58,28 @@ struct FeedViewModel {
     }
     
     let cells: [Cell]
+}
+
+struct OrderViewModel {
+    struct Order: OrderRepresentableModel {
+        var title: String
+        var description: String
+        var counterOffer: String
+        var isFree: Bool
+        var tags: [FeedTag]
+        var photoAttachments: [URL]
+    }
+    struct User: UserRepresentableModel {
+        var userName: String
+        var userLastName: String
+        var userCity: String
+        var userPhoto: URL?
+    }
+    var order: OrderViewModel.Order
+    var user: OrderViewModel.User
+    
+    var orderId: Int
+    var userId: Int
 }
 
 enum FeedTag: String, CaseIterable, Hashable {

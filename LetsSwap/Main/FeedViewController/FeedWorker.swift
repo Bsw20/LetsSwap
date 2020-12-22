@@ -30,4 +30,12 @@ class FeedService {
             }
         }
     }
+    
+    func getOrder(orderId: Int, completion: @escaping (Result<OrderResponse, OrderError>) -> Void) {
+        fetcher.getOrder(orderId: orderId) { [weak self] (result) in
+            guard let self = self else { return }
+            completion(result)
+        }
+        
+    }
 }

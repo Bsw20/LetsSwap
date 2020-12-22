@@ -94,7 +94,6 @@ final class FeedCell: UICollectionViewCell {
         super.layoutSubviews()
         self.containerView.layer.cornerRadius = 21
         self.containerView.clipsToBounds = true
-        print("layout subviews")
     }
     
     required init?(coder: NSCoder) {
