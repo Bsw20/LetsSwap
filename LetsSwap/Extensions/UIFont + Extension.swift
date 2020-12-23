@@ -9,9 +9,12 @@ import Foundation
 import UIKit
 
 extension UIFont {
-    #warning("TODO")
-    static func circeNormal(with size: CGFloat) -> UIFont {
+    static func circeRegular(with size: CGFloat) -> UIFont {
         //IF nil fatal error
-        return UIFont.systemFont(ofSize: size)
+        return UIFont.init(name: "Circe-Regular", size: size)!
+    }
+    
+    static func circeBold(with size: CGFloat) -> UIFont {
+        return UIFont.init(name: "Circe-Bold", size: size)!
     }
 }

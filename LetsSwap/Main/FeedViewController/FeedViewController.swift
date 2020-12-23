@@ -14,8 +14,9 @@ protocol FeedDisplayLogic: class {
 
 class FeedViewController: UIViewController, FeedDisplayLogic {
     //variables
-
     private var selectedTags = Set<FeedTag>()
+    
+    //controls
     private var tagsCollectionView: TagsCollectionView = {
        var collectionView = TagsCollectionView()
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +30,6 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     }()
 
     private var titleView = TitleView()
-//    private var feedViewModel = FeedViewModel.init(cells: [])
     var interactor: FeedBusinessLogic?
     var router: (NSObjectProtocol & FeedRoutingLogic)?
 
@@ -46,7 +46,6 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     
   
   // MARK: Setup
-  
     private func setup() {
         let viewController        = self
         let interactor            = FeedInteractor()
@@ -59,11 +58,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         router.viewController     = viewController
     }
   
-  // MARK: Routing
-
-  
   // MARK: View lifecycle
-  
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .mainBackground()
@@ -75,6 +70,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         interactor?.makeRequest(request: .getFeed)
 
     }
+    
     func displayData(viewModel: Feed.Model.ViewModel.ViewModelData) {
         switch viewModel {
         
@@ -91,8 +87,6 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
             showAlert(title: "Ошибка", message: "")
         }
     }
-    
-
     
     private func setupSearchBar() {
         navigationController?.navigationBar.barTintColor = .white

@@ -10,6 +10,10 @@
 		302CDE93258D5E08000B4275 /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302CDE92258D5E08000B4275 /* String + Extension.swift */; };
 		302CDE96258D6049000B4275 /* UIFont + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302CDE95258D6049000B4275 /* UIFont + Extension.swift */; };
 		302CDE9D258D6439000B4275 /* FeedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302CDE9C258D6439000B4275 /* FeedConstants.swift */; };
+		303A06602593694300C14BFD /* Circe-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 303A065F2593694300C14BFD /* Circe-Bold.ttf */; };
+		303A067D2593843F00C14BFD /* LittleRoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303A067C2593843E00C14BFD /* LittleRoundButton.swift */; };
+		303A06822593B92200C14BFD /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303A06812593B92200C14BFD /* PhotoCell.swift */; };
+		303A06862593B93400C14BFD /* PhotosCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303A06852593B93400C14BFD /* PhotosCollectionView.swift */; };
 		303AB78E2580FB3300F287C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303AB78D2580FB3300F287C2 /* AppDelegate.swift */; };
 		303AB7902580FB3300F287C2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303AB78F2580FB3300F287C2 /* SceneDelegate.swift */; };
 		303AB7972580FB3600F287C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 303AB7962580FB3600F287C2 /* Assets.xcassets */; };
@@ -50,6 +54,11 @@
 		30CB74E8259123DB00CB84D6 /* OrderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74E7259123DB00CB84D6 /* OrderError.swift */; };
 		30CB74EC2591257B00CB84D6 /* OrderResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74EB2591257B00CB84D6 /* OrderResponse.swift */; };
 		30CB74EF25912B3200CB84D6 /* GeneralModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74EE25912B3200CB84D6 /* GeneralModels.swift */; };
+		30CB74F42592344900CB84D6 /* OrderTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74F32592344800CB84D6 /* OrderTitleView.swift */; };
+		30CB74FA259237ED00CB84D6 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74F9259237ED00CB84D6 /* WebImageView.swift */; };
+		30CB74FD259238EF00CB84D6 /* FeedOrderConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74FC259238EF00CB84D6 /* FeedOrderConstants.swift */; };
+		30CB75022592795200CB84D6 /* Circe-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30CB75012592795200CB84D6 /* Circe-Regular.ttf */; };
+		30CB750525927A4700CB84D6 /* FontsCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB750425927A4700CB84D6 /* FontsCheck.swift */; };
 		30ED20C6258F8BF70039818A /* FeedCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30ED20C5258F8BF70039818A /* FeedCollectionView.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +66,10 @@
 		302CDE92258D5E08000B4275 /* String + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extension.swift"; sourceTree = "<group>"; };
 		302CDE95258D6049000B4275 /* UIFont + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont + Extension.swift"; sourceTree = "<group>"; };
 		302CDE9C258D6439000B4275 /* FeedConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedConstants.swift; sourceTree = "<group>"; };
+		303A065F2593694300C14BFD /* Circe-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Circe-Bold.ttf"; sourceTree = "<group>"; };
+		303A067C2593843E00C14BFD /* LittleRoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittleRoundButton.swift; sourceTree = "<group>"; };
+		303A06812593B92200C14BFD /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		303A06852593B93400C14BFD /* PhotosCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionView.swift; sourceTree = "<group>"; };
 		303AB78A2580FB3300F287C2 /* LetsSwap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LetsSwap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		303AB78D2580FB3300F287C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		303AB78F2580FB3300F287C2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +112,11 @@
 		30CB74E7259123DB00CB84D6 /* OrderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderError.swift; sourceTree = "<group>"; };
 		30CB74EB2591257B00CB84D6 /* OrderResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderResponse.swift; sourceTree = "<group>"; };
 		30CB74EE25912B3200CB84D6 /* GeneralModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralModels.swift; sourceTree = "<group>"; };
+		30CB74F32592344800CB84D6 /* OrderTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTitleView.swift; sourceTree = "<group>"; };
+		30CB74F9259237ED00CB84D6 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
+		30CB74FC259238EF00CB84D6 /* FeedOrderConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOrderConstants.swift; sourceTree = "<group>"; };
+		30CB75012592795200CB84D6 /* Circe-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Circe-Regular.ttf"; sourceTree = "<group>"; };
+		30CB750425927A4700CB84D6 /* FontsCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontsCheck.swift; sourceTree = "<group>"; };
 		30ED20C5258F8BF70039818A /* FeedCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +131,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		303A06802593B8F200C14BFD /* PhotosCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				303A06812593B92200C14BFD /* PhotoCell.swift */,
+				303A06852593B93400C14BFD /* PhotosCollectionView.swift */,
+			);
+			path = PhotosCollectionView;
+			sourceTree = "<group>";
+		};
 		303AB7812580FB3300F287C2 = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +166,7 @@
 				308365CA2589E4DA00578AE2 /* Main */,
 				308365F92589F48B00578AE2 /* Views */,
 				308365F82589F46A00578AE2 /* Extensions */,
+				30CB75002592789900CB84D6 /* Fonts */,
 				308366052589FDB200578AE2 /* Helpers */,
 				303AB7A3258163C900F287C2 /* Plan */,
 				303AB7962580FB3600F287C2 /* Assets.xcassets */,
@@ -205,8 +233,8 @@
 		308365CB2589E53000578AE2 /* MainTabBarController */ = {
 			isa = PBXGroup;
 			children = (
-				308365CC2589E59500578AE2 /* MainTabBarPresenter.swift */,
 				308365D02589E59500578AE2 /* MainTabBarController.swift */,
+				308365CC2589E59500578AE2 /* MainTabBarPresenter.swift */,
 				308365CD2589E59500578AE2 /* MainTabBarWorker.swift */,
 				308365CE2589E59500578AE2 /* MainTabBarRouter.swift */,
 				308365CF2589E59500578AE2 /* MainTabBarModels.swift */,
@@ -257,6 +285,8 @@
 		308365F92589F48B00578AE2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				30CB74F9259237ED00CB84D6 /* WebImageView.swift */,
+				303A067C2593843E00C14BFD /* LittleRoundButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -266,6 +296,7 @@
 			children = (
 				307304F1258B86B10091D2F1 /* Errors */,
 				308366062589FDC000578AE2 /* Constraints.swift */,
+				30CB750425927A4700CB84D6 /* FontsCheck.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -290,14 +321,34 @@
 		30CB74D02591218000CB84D6 /* FeedOrderViewController */ = {
 			isa = PBXGroup;
 			children = (
+				30CB74FC259238EF00CB84D6 /* FeedOrderConstants.swift */,
+				30CB74F72592354000CB84D6 /* Views */,
+				303A06802593B8F200C14BFD /* PhotosCollectionView */,
 				30CB74DB259121C700CB84D6 /* FeedOrderViewController.swift */,
+				30CB74DC259121C700CB84D6 /* FeedOrderInteractor.swift */,
 				30CB74D7259121C700CB84D6 /* FeedOrderPresenter.swift */,
 				30CB74D8259121C700CB84D6 /* FeedOrderWorker.swift */,
 				30CB74D9259121C700CB84D6 /* FeedOrderRouter.swift */,
 				30CB74DA259121C700CB84D6 /* FeedOrderModels.swift */,
-				30CB74DC259121C700CB84D6 /* FeedOrderInteractor.swift */,
 			);
 			path = FeedOrderViewController;
+			sourceTree = "<group>";
+		};
+		30CB74F72592354000CB84D6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				30CB74F32592344800CB84D6 /* OrderTitleView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		30CB75002592789900CB84D6 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				303A065F2593694300C14BFD /* Circe-Bold.ttf */,
+				30CB75012592795200CB84D6 /* Circe-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		30ED20C4258F8BDE0039818A /* FeedCollectionView */ = {
@@ -367,6 +418,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				303AB79A2580FB3600F287C2 /* LaunchScreen.storyboard in Resources */,
+				30CB75022592795200CB84D6 /* Circe-Regular.ttf in Resources */,
+				303A06602593694300C14BFD /* Circe-Bold.ttf in Resources */,
 				303AB7972580FB3600F287C2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -382,7 +435,9 @@
 				308D28D3258E6C530088D340 /* TagsViewController.swift in Sources */,
 				30CB74E1259121C700CB84D6 /* FeedOrderModels.swift in Sources */,
 				308365FF2589F61700578AE2 /* UIColor + Extension.swift in Sources */,
+				303A06822593B92200C14BFD /* PhotoCell.swift in Sources */,
 				30CB74EC2591257B00CB84D6 /* OrderResponse.swift in Sources */,
+				30CB750525927A4700CB84D6 /* FontsCheck.swift in Sources */,
 				308366022589F81D00578AE2 /* UIButton + Extension.swift in Sources */,
 				307304F4258B86CC0091D2F1 /* FeedError.swift in Sources */,
 				302CDE93258D5E08000B4275 /* String + Extension.swift in Sources */,
@@ -390,6 +445,7 @@
 				308365D62589E59500578AE2 /* MainTabBarModels.swift in Sources */,
 				30CB74E8259123DB00CB84D6 /* OrderError.swift in Sources */,
 				303AB7A92581715300F287C2 /* DataFetcherPlan.swift in Sources */,
+				303A067D2593843F00C14BFD /* LittleRoundButton.swift in Sources */,
 				307304FA258BF4C80091D2F1 /* TagCell.swift in Sources */,
 				308366072589FDC000578AE2 /* Constraints.swift in Sources */,
 				308365D42589E59500578AE2 /* MainTabBarWorker.swift in Sources */,
@@ -397,6 +453,7 @@
 				308365F12589F2A200578AE2 /* TitleView.swift in Sources */,
 				308365D52589E59500578AE2 /* MainTabBarRouter.swift in Sources */,
 				308365D72589E59500578AE2 /* MainTabBarController.swift in Sources */,
+				30CB74FD259238EF00CB84D6 /* FeedOrderConstants.swift in Sources */,
 				30CB74E3259121C700CB84D6 /* FeedOrderInteractor.swift in Sources */,
 				308365E82589E65200578AE2 /* FeedViewController.swift in Sources */,
 				303AB78E2580FB3300F287C2 /* AppDelegate.swift in Sources */,
@@ -410,15 +467,18 @@
 				308365E72589E65200578AE2 /* FeedModels.swift in Sources */,
 				30CB74E2259121C700CB84D6 /* FeedOrderViewController.swift in Sources */,
 				303AB7A6258163F400F287C2 /* ModelsPlan.swift in Sources */,
+				303A06862593B93400C14BFD /* PhotosCollectionView.swift in Sources */,
 				30ED20C6258F8BF70039818A /* FeedCollectionView.swift in Sources */,
 				308365E62589E65200578AE2 /* FeedRouter.swift in Sources */,
 				30CB74E0259121C700CB84D6 /* FeedOrderRouter.swift in Sources */,
 				307304E4258B75BC0091D2F1 /* FeedResponse.swift in Sources */,
 				30CB74EF25912B3200CB84D6 /* GeneralModels.swift in Sources */,
+				30CB74FA259237ED00CB84D6 /* WebImageView.swift in Sources */,
 				308365E42589E65200578AE2 /* FeedPresenter.swift in Sources */,
 				308365E52589E65200578AE2 /* FeedWorker.swift in Sources */,
 				307304F7258B913D0091D2F1 /* UIViewController + Extension.swift in Sources */,
 				302CDE9D258D6439000B4275 /* FeedConstants.swift in Sources */,
+				30CB74F42592344900CB84D6 /* OrderTitleView.swift in Sources */,
 				308365D32589E59500578AE2 /* MainTabBarPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

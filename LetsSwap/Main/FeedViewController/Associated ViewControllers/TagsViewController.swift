@@ -67,7 +67,7 @@ extension TagsViewController: UICollectionViewDelegate, UICollectionViewDataSour
 extension TagsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let currentStringTag = displayedTags[indexPath.item].rawValue
-        let stringSize = currentStringTag.sizeOfString(usingFont: UIFont.circeNormal(with: 15))
+        let stringSize = currentStringTag.sizeOfString(usingFont: UIFont.circeRegular(with: 15))
         let cellWidth = stringSize.width + FeedConstants.tagCellPadding * 2
         let cellHeight = FeedConstants.tagsCollectionViewHeight
         return CGSize(width: cellWidth, height: cellHeight)
