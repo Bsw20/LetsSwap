@@ -9,10 +9,15 @@
 import UIKit
 
 protocol CommentRoutingLogic {
-
+    func routeToRequestSentViewController()
 }
 
 class CommentRouter: NSObject, CommentRoutingLogic {
+    func routeToRequestSentViewController() {
+        let vc = RequestSentViewController()
+        viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 
   weak var viewController: CommentViewController?
   

@@ -13,7 +13,7 @@ protocol CommentDisplayLogic: class {
 }
 
 class CommentViewController: UIViewController, CommentDisplayLogic {
-
+    private var commentsModel: CommentsViewModel
 //    private var placeholder: String = ""
     private lazy var commentLabel: UILabel = {
        let label = UILabel()
@@ -49,9 +49,11 @@ class CommentViewController: UIViewController, CommentDisplayLogic {
 
     // MARK: Object lifecycle
   
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    init(commentsModel: CommentsViewModel) {
+        self.commentsModel = commentsModel
+        super.init(nibName: nil, bundle: nil)
         setup()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -98,6 +100,8 @@ class CommentViewController: UIViewController, CommentDisplayLogic {
         textView.resignFirstResponder()
         print("swapButtonTapped")
         print(textView.text)
+        router?.routeToRequestSentViewController()
+        print("router worked")
     }
     
     @objc private func tapOutsideTextView() {

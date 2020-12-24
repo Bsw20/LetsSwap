@@ -8,13 +8,13 @@
 import Foundation
 import UIKit
 
-protocol RequestSentDelegate: AnyObject {
-    func sentButtonTapped()
-}
+//protocol RequestSentDelegate: AnyObject {
+//    func sentButtonTapped()
+//}
 
 class RequestSentViewController: UIViewController {
     
-    weak var delegate: RequestSentDelegate?
+//    weak var delegate: RequestSentDelegate?
     
     private lazy var titleLabel: UILabel = {
        let label = UILabel()
@@ -67,9 +67,22 @@ class RequestSentViewController: UIViewController {
         view.backgroundColor = .mainBackground()
         setupConstraints()
         goBackButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     @objc private func buttonTapped() {
-        delegate?.sentButtonTapped()
+//        delegate?.sentButtonTapped()
+        navigationController?.popToRootViewController(animated: true)
     }
 }
 
@@ -82,12 +95,12 @@ extension RequestSentViewController {
         view.addSubview(goBackButton)
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
         ])
         
         NSLayoutConstraint.activate([
-            tickImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60),
+            tickImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
             tickImageView.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 20),
             tickImageView.heightAnchor.constraint(equalToConstant: 20),
             tickImageView.widthAnchor.constraint(equalToConstant: 20)

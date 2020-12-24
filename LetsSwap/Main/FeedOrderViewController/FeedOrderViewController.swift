@@ -33,17 +33,8 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
     //variables
     private var orderViewModel: OrderViewModel!
     //controls
-    private var photosCollectionView: PhotosCollectionView = {
-        var collectionView = PhotosCollectionView(photoAttachments: [URL(string: "https://docs.google.com/spreadsheets/d/1AhhHjDJGgdtP8hAuqXCmajBaPVaxxr11Pgm84Dox7LM/edit#gid=835090974")!,
-            URL(string: "https://docs.google.com/spreadsheets/d/1AhhHjDJGgdtP8hAuqXCmajBaPVaxxr11Pgm84Dox7LM/edit#gid=835090974")!])
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-    return collectionView
-}()
-    private var tagsCollectionView: TagsCollectionView = {
-        var collectionView = TagsCollectionView(displayedTags: [.advertAgain, .building, .fashion, .IT], showOnly: true)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        return collectionView
-    }()
+    private var photosCollectionView: PhotosCollectionView!
+    private var tagsCollectionView: TagsCollectionView!
     
     private var scrollView: UIScrollView = {
        let scrollView = UIScrollView()
@@ -128,19 +119,18 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
 
   // MARK: Object lifecycle
   
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+
+    init(orderViewModel: OrderViewModel) {
+        self.orderViewModel = orderViewModel
+        super.init(nibName: nil, bundle: nil)
         setup()
     }
-//    init(orderViewModel: OrderViewModel) {
-//        self.orderViewModel = orderViewModel
-//    setup()
-//    }
-  
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
+    
+
   
   // MARK: Setup
   
@@ -167,11 +157,20 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         view.backgroundColor = .mainBackground()
 
         swapButton.addTarget(self, action: #selector(swapButtonTapped), for: .touchUpInside)
+        titleLabel.text = orderViewModel.order.title
+        descriptionLabel.text = orderViewModel.order.description
+        counterOfferLabel.text = orderViewModel.order.counterOffer
+        
         print(swapButton.frame)
         
     }
     override func loadView() {
         super.loadView()
+        tagsCollectionView = TagsCollectionView(displayedTags: orderViewModel.order.tags, showOnly: true)
+        tagsCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        photosCollectionView = PhotosCollectionView(photoAttachments: orderViewModel.order.photoAttachments)
+        photosCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        
         setupConstraints()
 
     }
@@ -188,6 +187,8 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
     }
     @objc private func swapButtonTapped() {
         print("Swap button tapped")
+        #warning("мб имеет смысл сделать проверку, можно ли обратиться к order(возможно его уже приняли)")
+        router?.routeToComments(commentsModel: CommentsOrderModel(orderId: orderViewModel.orderId))
     }
 }
 
@@ -249,7 +250,8 @@ extension FeedOrderViewController {
             counterOfferLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: FeedOrderConstants.counterOfferLabelInsets.right)
         ])
         #warning("setup with real data")
-        let isFree = true
+//        let isFree = true
+        let isFree = orderViewModel.order.isFree
         let interimView: UIView
         if isFree {
             scrollView.addSubview(freeSwapLabel)

@@ -29,3 +29,10 @@ enum FeedOrder {
   }
   
 }
+
+protocol CommentsViewModel {
+    var orderId: Int { get }
+}
+struct CommentsOrderModel: CommentsViewModel {
+    var orderId: Int
+}

@@ -8,11 +8,18 @@
 
 import UIKit
 
-protocol FeedOrderRoutingLogic {
 
+protocol FeedOrderRoutingLogic {
+    func routeToComments(commentsModel: CommentsViewModel)
 }
 
 class FeedOrderRouter: NSObject, FeedOrderRoutingLogic {
+    func routeToComments(commentsModel: CommentsViewModel) {
+        let vc = CommentViewController(commentsModel: commentsModel)
+        vc.hidesBottomBarWhenPushed = true
+        viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 
     weak var viewController: FeedOrderViewController?
   
