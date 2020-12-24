@@ -53,7 +53,9 @@ class MainTabBarController: UITabBarController, MainTabBarDisplayLogic {
         super.viewDidLoad()
         viewControllers = [
 //            generateNavigationController(rootViewController: FeedViewController(), image: UIImage(named: "feedIcon")!)
-            generateNavigationController(rootViewController: FeedOrderViewController(), image: UIImage(named: "feedIcon")!)
+//            generateNavigationController(rootViewController: FeedOrderViewController(), image: UIImage(named: "feedIcon")!)
+//            generateNavigationController(rootViewController: CommentViewController(), image: UIImage(named: "feedIcon")!)
+            generateNavigationController(rootViewController: RequestSentViewController(), image: UIImage(named: "feedIcon")!)
         ]
         
     }

@@ -167,12 +167,13 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         view.backgroundColor = .mainBackground()
 
         swapButton.addTarget(self, action: #selector(swapButtonTapped), for: .touchUpInside)
-
+        print(swapButton.frame)
         
     }
     override func loadView() {
         super.loadView()
         setupConstraints()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -193,15 +194,15 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
 //MARK:- constraints
 extension FeedOrderViewController {
     private func setupConstraints() {
-//        scrollView.isScrollEnabled = true
+        scrollView.isScrollEnabled = true
         view.addSubview(scrollView)
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor)
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
         
@@ -284,7 +285,8 @@ extension FeedOrderViewController {
             swapButton.topAnchor.constraint(equalTo: tagsCollectionView.bottomAnchor, constant: FeedOrderConstants.swapButtonInsets.top),
             swapButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: FeedOrderConstants.swapButtonInsets.left),
             swapButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: FeedOrderConstants.swapButtonInsets.right),
-            swapButton.heightAnchor.constraint(equalToConstant: FeedOrderConstants.swapButtonHeight)
+            swapButton.heightAnchor.constraint(equalToConstant: FeedOrderConstants.swapButtonHeight),
+            swapButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
         ])
     }
 }

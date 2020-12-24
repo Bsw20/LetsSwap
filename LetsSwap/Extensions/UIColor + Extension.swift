@@ -19,4 +19,8 @@ extension UIColor {
     static func freeFeedCell() -> UIColor {
         return #colorLiteral(red: 1, green: 0.9333333333, blue: 0.6274509804, alpha: 1)
     }
+    
+    static func mainTextColor() -> UIColor {
+        return #colorLiteral(red: 0.3019607843, green: 0.3019607843, blue: 0.3019607843, alpha: 1)
+    }
 }

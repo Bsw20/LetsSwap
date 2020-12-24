@@ -28,4 +28,26 @@ extension UIButton {
             self.layer.shadowOffset = CGSize(width: 0, height: 4)
         }
     }
+    
+    static func getLittleRoundButton(backgroundColor: UIColor, text: String?, image: UIImage?, font: UIFont, textColor: UIColor) -> UIButton {
+        let button = UIButton(type: .system)
+        button.backgroundColor = backgroundColor
+        button.setTitle(text, for: .normal)
+        button.setImage(image, for: .normal)
+        button.setTitleColor(textColor, for: .normal)
+        button.titleLabel?.font = font
+        button.titleLabel?.textAlignment = .center
+        button.layer.cornerRadius = 10
+        return button
+    }
+    
+    static func getSwapButton() -> UIButton{
+        let button = UIButton.getLittleRoundButton(backgroundColor: .mainYellow(), text: "Махнуться", image: nil, font: .circeRegular(with: 22), textColor: .white)
+        return button
+    }
+    
+    static func getLittleRoundButton(text: String) -> UIButton{
+        let button = UIButton.getLittleRoundButton(backgroundColor: .mainYellow(), text: text, image: nil, font: .circeRegular(with: 22), textColor: .white)
+        return button
+    }
 }
