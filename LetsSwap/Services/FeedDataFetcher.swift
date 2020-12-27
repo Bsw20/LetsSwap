@@ -37,4 +37,9 @@ struct NetworkDataFetcher: FeedDataFetcher {
                 ]))
     
     
+    func chooseOrder(chooseOrderModel: ChooseOrderModel, completion: @escaping (Result<Void, ChooseOrderError>) -> Void) {
+        completion(.success(Void()))
+//        completion(.failure(ChooseOrderError.orderAlreadyChoose))
+    }
+    
 }

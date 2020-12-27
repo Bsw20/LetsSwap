@@ -8,13 +8,11 @@
 
 import UIKit
 
-protocol CommentDisplayLogic: class {
-    func displayData(viewModel: Comment.Model.ViewModel.ViewModelData)
-}
 
-class CommentViewController: UIViewController, CommentDisplayLogic {
+class CommentViewController: UIViewController {
     private var commentsModel: CommentsViewModel
-//    private var placeholder: String = ""
+    private var dataFetcher: NetworkDataFetcher = NetworkDataFetcher()
+    
     private lazy var commentLabel: UILabel = {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +41,6 @@ class CommentViewController: UIViewController, CommentDisplayLogic {
         tf.clipsToBounds = true
         return tf
     }()
-    var interactor: CommentBusinessLogic?
     var router: (NSObjectProtocol & CommentRoutingLogic)?
 
 
@@ -66,13 +63,8 @@ class CommentViewController: UIViewController, CommentDisplayLogic {
   
     private func setup() {
         let viewController        = self
-        let interactor            = CommentInteractor()
-        let presenter             = CommentPresenter()
         let router                = CommentRouter()
-        viewController.interactor = interactor
         viewController.router     = router
-        interactor.presenter      = presenter
-        presenter.viewController  = viewController
         router.viewController     = viewController
     }
   
@@ -92,16 +84,21 @@ class CommentViewController: UIViewController, CommentDisplayLogic {
         self.view.addGestureRecognizer(recognizer)
     }
   
-    func displayData(viewModel: Comment.Model.ViewModel.ViewModelData) {
-
-    }
     @objc private func swapButtonTapped() {
-        #warning("validators")
+        #warning("validators или на сервере?")
         textView.resignFirstResponder()
-        print("swapButtonTapped")
-        print(textView.text)
-        router?.routeToRequestSentViewController()
-        print("router worked")
+        dataFetcher.chooseOrder(chooseOrderModel: ChooseOrderModel(orderId: commentsModel.orderId, orderComment: textView.text)) { [weak self] (result) in
+            switch result {
+            
+            case .success():
+                self?.router?.routeToRequestSentViewController()
+                print("router worked")
+            case .failure(let error):
+                self?.showAlert(title: "Ошибка", message: error.localizedDescription)
+            }
+        }
+
+
     }
     
     @objc private func tapOutsideTextView() {
