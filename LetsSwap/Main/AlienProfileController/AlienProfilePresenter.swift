@@ -30,6 +30,14 @@ class AlienProfilePresenter: AlienProfilePresentationLogic {
         case .failure(let error):
             print("error")
         }
+    case .presentOrder(result: let result):
+        switch result {
+        
+        case .success(let order):
+            viewController?.displayData(viewModel: .displayOrder(orderViewModel: FeedPresenter.orderViewModel(from: order)))
+        case .failure(let orderError):
+            viewController?.displayData(viewModel: .displayError(error: orderError))
+        }
     }
   }
     static func getProfileDescriptionViewModel(profileDescription: ProfileDescription) -> ProfileDescriptionViewModel{

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AlienProfileRoutingLogic {
-
+    func routeToFeedOrderController(orderViewModel: OrderViewModel)
 }
 
 class AlienProfileRouter: NSObject, AlienProfileRoutingLogic {
@@ -17,5 +17,9 @@ class AlienProfileRouter: NSObject, AlienProfileRoutingLogic {
   weak var viewController: AlienProfileViewController?
   
   // MARK: Routing
-  
+    func routeToFeedOrderController(orderViewModel: OrderViewModel) {
+        print("routing to feed order")
+        let vc = FeedOrderViewController(orderViewModel: orderViewModel)
+        viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
 }

@@ -37,7 +37,7 @@ class FeedPresenter: FeedPresentationLogic {
             switch result {
             
             case .success(let order):
-                viewController?.displayData(viewModel: .displayOrder(orderViewModel: orderViewModel(from: order)))
+                viewController?.displayData(viewModel: .displayOrder(orderViewModel: FeedPresenter.orderViewModel(from: order)))
             case .failure(let orderError):
                 viewController?.displayData(viewModel: .displayError(error: orderError))
             }
@@ -65,7 +65,7 @@ class FeedPresenter: FeedPresentationLogic {
                                        isFavourite: feedItem.isFavourite,
                                        isFree: feedItem.isFree)
     }
-    private func orderViewModel(from orderResponse: OrderResponse) -> OrderViewModel {
+    static public func orderViewModel(from orderResponse: OrderResponse) -> OrderViewModel {
         let tags = orderResponse.order.tags.compactMap { stringTag in
             FeedTag.init(rawValue: stringTag)
         }

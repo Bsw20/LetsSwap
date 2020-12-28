@@ -14,16 +14,20 @@ enum AlienProfile {
     struct Request {
       enum RequestType {
         case getProfile(userId: Int)
+        case getOrder(orderId: Int)
       }
     }
     struct Response {
       enum ResponseType {
         case presentFullProfile(result: Result<ProfileResponse, AlienProfileError>)
+        case presentOrder(result: Result<OrderResponse, OrderError>)
       }
     }
     struct ViewModel {
       enum ViewModelData {
         case displayFullProfile(profileViewModel: ProfileViewModel)
+        case displayOrder(orderViewModel: OrderViewModel)
+        case displayError(error: Error)
       }
     }
   }

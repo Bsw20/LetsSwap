@@ -77,7 +77,6 @@ extension FeedCollectionView {
     }
 }
 
-
 extension FeedCollectionView: FeedCellDelegate {
     #warning("Обсудить put запрос с бэком")
     func favouriteButtonDidTapped(indexPath: IndexPath) {

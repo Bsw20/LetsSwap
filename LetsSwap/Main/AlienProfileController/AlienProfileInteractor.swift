@@ -27,7 +27,13 @@ class AlienProfileInteractor: AlienProfileBusinessLogic {
         service?.getProfile(completion: { [weak self] (result) in
             self?.presenter?.presentData(response: .presentFullProfile(result: result))
         })
+    case .getOrder(orderId: let orderId):
+        service?.getOrder(orderId: orderId, completion: {[weak self] (result) in
+            self?.presenter?.presentData(response: .presentOrder(result: result))
+        } )
     }
   }
+    
+    
   
 }
