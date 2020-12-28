@@ -11,9 +11,15 @@ import UIKit
 
 protocol FeedOrderRoutingLogic {
     func routeToComments(commentsModel: CommentsViewModel)
+    func routToAlienProfile(userId: Int)
 }
 
 class FeedOrderRouter: NSObject, FeedOrderRoutingLogic {
+    func routToAlienProfile(userId: Int) {
+        let vc = AlienProfileViewController(userId: userId)
+        viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func routeToComments(commentsModel: CommentsViewModel) {
         let vc = CommentViewController(commentsModel: commentsModel)
         vc.hidesBottomBarWhenPushed = true

@@ -13,6 +13,8 @@ protocol AlienProfileDisplayLogic: class {
 }
 
 class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
+    //variables
+    private var userId: Int
     
     //Controls
     private var scrollView: UIScrollView = {
@@ -65,15 +67,18 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
 
     // MARK: Object lifecycle
   
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    
+    #warning("Убрать =0")
+    init(userId: Int = 0) {
+        self.userId = userId
+        super.init(nibName: nil, bundle: nil)
         setup()
     }
-  
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
+    
   
     // MARK: Setup
   
@@ -102,7 +107,7 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
         setupConstraints()
         chatButton.addTarget(self, action: #selector(chatButtonTapped), for: .touchUpInside)
         topView.setup(swapsCount: 25, raiting: 3.5, imageView: nil)
-        interactor?.makeRequest(request: .getProfile(userId: 123))
+        interactor?.makeRequest(request: .getProfile(userId: userId))
         feedCollectionView.feedDelegate = self
 
     }

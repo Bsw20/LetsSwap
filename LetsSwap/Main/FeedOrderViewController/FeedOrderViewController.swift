@@ -54,6 +54,8 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
     private var topView: OrderTitleView = {
        let view = OrderTitleView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = true
+
         return view
     }()
     
@@ -161,7 +163,10 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         descriptionLabel.text = orderViewModel.order.description
         counterOfferLabel.text = orderViewModel.order.counterOffer
         
-        print(swapButton.frame)
+        let gesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(topViewTapped))
+        gesture.numberOfTapsRequired = 1
+        topView.addGestureRecognizer(gesture)
+        
         
     }
     override func loadView() {
@@ -189,6 +194,11 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         print("Swap button tapped")
         #warning("мб имеет смысл сделать проверку, можно ли обратиться к order(возможно его уже приняли)")
         router?.routeToComments(commentsModel: CommentsOrderModel(orderId: orderViewModel.orderId))
+    }
+    
+    @objc private func topViewTapped(userId: Int) {
+        print("topviewtapped")
+        router?.routToAlienProfile(userId: orderViewModel.userId)
     }
 }
 
