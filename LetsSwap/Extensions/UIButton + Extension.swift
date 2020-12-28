@@ -38,6 +38,7 @@ extension UIButton {
         button.titleLabel?.font = font
         button.titleLabel?.textAlignment = .center
         button.layer.cornerRadius = 10
+        button.clipsToBounds = true
         return button
     }
     
@@ -48,6 +49,15 @@ extension UIButton {
     
     static func getLittleRoundButton(text: String) -> UIButton{
         let button = UIButton.getLittleRoundButton(backgroundColor: .mainYellow(), text: text, image: nil, font: .circeRegular(with: 22), textColor: .white)
+        return button
+    }
+    
+    public static func roundButton(backgroundColor: UIColor, image: UIImage?, cornerRadius: CGFloat) -> UIButton {
+        let button = UIButton(type: .system)
+        button.backgroundColor = backgroundColor
+        button.setImage(image, for: .normal)
+        button.clipsToBounds = true
+        button.layer.cornerRadius = cornerRadius
         return button
     }
 }

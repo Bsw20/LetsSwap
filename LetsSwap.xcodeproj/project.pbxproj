@@ -51,6 +51,20 @@
 		308D28CE258E4BA70088D340 /* TagsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308D28CD258E4BA70088D340 /* TagsCollectionView.swift */; };
 		308D28D3258E6C530088D340 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308D28D2258E6C530088D340 /* TagsViewController.swift */; };
 		30BC10AE2599042000066D9B /* ChooseOrderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10AD2599042000066D9B /* ChooseOrderError.swift */; };
+		30BC10BA2599156A00066D9B /* AlienProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10B32599156A00066D9B /* AlienProfilePresenter.swift */; };
+		30BC10BB2599156A00066D9B /* AlienProfileWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10B42599156A00066D9B /* AlienProfileWorker.swift */; };
+		30BC10BC2599156A00066D9B /* AlienProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10B52599156A00066D9B /* AlienProfileRouter.swift */; };
+		30BC10BD2599156A00066D9B /* AlienProfileModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10B62599156A00066D9B /* AlienProfileModels.swift */; };
+		30BC10BE2599156A00066D9B /* AlienProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10B72599156A00066D9B /* AlienProfileViewController.swift */; };
+		30BC10BF2599156A00066D9B /* AlienProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10B82599156A00066D9B /* AlienProfileInteractor.swift */; };
+		30BC10C525991AF500066D9B /* ProfileTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10C425991AF500066D9B /* ProfileTopView.swift */; };
+		30BC10C8259920DA00066D9B /* AlienProfileConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10C7259920DA00066D9B /* AlienProfileConstants.swift */; };
+		30BC10CC2599342D00066D9B /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10CB2599342C00066D9B /* UIView + Extension.swift */; };
+		30BC10CF2599479000066D9B /* NameCityLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10CE2599479000066D9B /* NameCityLabel.swift */; };
+		30BC10D4259A021F00066D9B /* GlobalModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10D3259A021F00066D9B /* GlobalModels.swift */; };
+		30BC10D8259A025900066D9B /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10D7259A025900066D9B /* FeedViewModel.swift */; };
+		30BC10DF259A04C200066D9B /* AlienProfileError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10DE259A04C200066D9B /* AlienProfileError.swift */; };
+		30BC10E3259A141400066D9B /* ProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10E2259A141400066D9B /* ProfileResponse.swift */; };
 		30CB74DE259121C700CB84D6 /* FeedOrderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74D7259121C700CB84D6 /* FeedOrderPresenter.swift */; };
 		30CB74DF259121C700CB84D6 /* FeedOrderWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74D8259121C700CB84D6 /* FeedOrderWorker.swift */; };
 		30CB74E0259121C700CB84D6 /* FeedOrderRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74D9259121C700CB84D6 /* FeedOrderRouter.swift */; };
@@ -115,6 +129,20 @@
 		308D28CD258E4BA70088D340 /* TagsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsCollectionView.swift; sourceTree = "<group>"; };
 		308D28D2258E6C530088D340 /* TagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
 		30BC10AD2599042000066D9B /* ChooseOrderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseOrderError.swift; sourceTree = "<group>"; };
+		30BC10B32599156A00066D9B /* AlienProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienProfilePresenter.swift; sourceTree = "<group>"; };
+		30BC10B42599156A00066D9B /* AlienProfileWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienProfileWorker.swift; sourceTree = "<group>"; };
+		30BC10B52599156A00066D9B /* AlienProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienProfileRouter.swift; sourceTree = "<group>"; };
+		30BC10B62599156A00066D9B /* AlienProfileModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienProfileModels.swift; sourceTree = "<group>"; };
+		30BC10B72599156A00066D9B /* AlienProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienProfileViewController.swift; sourceTree = "<group>"; };
+		30BC10B82599156A00066D9B /* AlienProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienProfileInteractor.swift; sourceTree = "<group>"; };
+		30BC10C425991AF500066D9B /* ProfileTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTopView.swift; sourceTree = "<group>"; };
+		30BC10C7259920DA00066D9B /* AlienProfileConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienProfileConstants.swift; sourceTree = "<group>"; };
+		30BC10CB2599342C00066D9B /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
+		30BC10CE2599479000066D9B /* NameCityLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameCityLabel.swift; sourceTree = "<group>"; };
+		30BC10D3259A021F00066D9B /* GlobalModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalModels.swift; sourceTree = "<group>"; };
+		30BC10D7259A025900066D9B /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
+		30BC10DE259A04C200066D9B /* AlienProfileError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienProfileError.swift; sourceTree = "<group>"; };
+		30BC10E2259A141400066D9B /* ProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileResponse.swift; sourceTree = "<group>"; };
 		30CB74D7259121C700CB84D6 /* FeedOrderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOrderPresenter.swift; sourceTree = "<group>"; };
 		30CB74D8259121C700CB84D6 /* FeedOrderWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOrderWorker.swift; sourceTree = "<group>"; };
 		30CB74D9259121C700CB84D6 /* FeedOrderRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOrderRouter.swift; sourceTree = "<group>"; };
@@ -187,6 +215,7 @@
 				307304E0258B74B20091D2F1 /* Services */,
 				308365C92589E41800578AE2 /* SignIn&Auth */,
 				308365CA2589E4DA00578AE2 /* Main */,
+				30BC10D2259A01F500066D9B /* Global Models */,
 				308365F92589F48B00578AE2 /* Views */,
 				308365F82589F46A00578AE2 /* Extensions */,
 				30CB75002592789900CB84D6 /* Fonts */,
@@ -223,6 +252,7 @@
 				30CB74EE25912B3200CB84D6 /* GeneralModels.swift */,
 				307304E3258B75BC0091D2F1 /* FeedResponse.swift */,
 				30CB74EB2591257B00CB84D6 /* OrderResponse.swift */,
+				30BC10E2259A141400066D9B /* ProfileResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -230,6 +260,7 @@
 		307304F1258B86B10091D2F1 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
+				30BC10DE259A04C200066D9B /* AlienProfileError.swift */,
 				307304F3258B86CC0091D2F1 /* FeedError.swift */,
 				30CB74E7259123DB00CB84D6 /* OrderError.swift */,
 				30BC10AD2599042000066D9B /* ChooseOrderError.swift */,
@@ -247,11 +278,11 @@
 		308365CA2589E4DA00578AE2 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				30895F7A2594AE820091FA31 /* RequestSentViewController.swift */,
-				303A068A259477E100C14BFD /* CommentViewController */,
+				30BC10B22599150F00066D9B /* AlienProfileController */,
 				308365DC2589E60D00578AE2 /* FeedViewController */,
 				30CB74D02591218000CB84D6 /* FeedOrderViewController */,
 				308365CB2589E53000578AE2 /* MainTabBarController */,
+				30BC10B025990FEA00066D9B /* EndOfChosingOrder */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -275,7 +306,6 @@
 				302CDE9C258D6439000B4275 /* FeedConstants.swift */,
 				308D28D1258E6C2B0088D340 /* Associated ViewControllers */,
 				308D28CC258E4B810088D340 /* TagsCollectionView */,
-				30ED20C4258F8BDE0039818A /* FeedCollectionView */,
 				308365EF2589F27A00578AE2 /* TitleView */,
 				308365E12589E65200578AE2 /* FeedViewController.swift */,
 				308365E22589E65200578AE2 /* FeedInteractor.swift */,
@@ -304,6 +334,7 @@
 				307304F6258B913D0091D2F1 /* UIViewController + Extension.swift */,
 				302CDE92258D5E08000B4275 /* String + Extension.swift */,
 				302CDE95258D6049000B4275 /* UIFont + Extension.swift */,
+				30BC10CB2599342C00066D9B /* UIView + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -311,8 +342,11 @@
 		308365F92589F48B00578AE2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				30ED20C4258F8BDE0039818A /* FeedCollectionView */,
 				30CB74F9259237ED00CB84D6 /* WebImageView.swift */,
 				303A067C2593843E00C14BFD /* LittleRoundButton.swift */,
+				30BC10C425991AF500066D9B /* ProfileTopView.swift */,
+				30BC10CE2599479000066D9B /* NameCityLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -342,6 +376,37 @@
 				308D28D2258E6C530088D340 /* TagsViewController.swift */,
 			);
 			path = "Associated ViewControllers";
+			sourceTree = "<group>";
+		};
+		30BC10B025990FEA00066D9B /* EndOfChosingOrder */ = {
+			isa = PBXGroup;
+			children = (
+				30895F7A2594AE820091FA31 /* RequestSentViewController.swift */,
+				303A068A259477E100C14BFD /* CommentViewController */,
+			);
+			path = EndOfChosingOrder;
+			sourceTree = "<group>";
+		};
+		30BC10B22599150F00066D9B /* AlienProfileController */ = {
+			isa = PBXGroup;
+			children = (
+				30BC10C7259920DA00066D9B /* AlienProfileConstants.swift */,
+				30BC10B72599156A00066D9B /* AlienProfileViewController.swift */,
+				30BC10B82599156A00066D9B /* AlienProfileInteractor.swift */,
+				30BC10B42599156A00066D9B /* AlienProfileWorker.swift */,
+				30BC10B32599156A00066D9B /* AlienProfilePresenter.swift */,
+				30BC10B52599156A00066D9B /* AlienProfileRouter.swift */,
+				30BC10B62599156A00066D9B /* AlienProfileModels.swift */,
+			);
+			path = AlienProfileController;
+			sourceTree = "<group>";
+		};
+		30BC10D2259A01F500066D9B /* Global Models */ = {
+			isa = PBXGroup;
+			children = (
+				30BC10D3259A021F00066D9B /* GlobalModels.swift */,
+			);
+			path = "Global Models";
 			sourceTree = "<group>";
 		};
 		30CB74D02591218000CB84D6 /* FeedOrderViewController */ = {
@@ -382,6 +447,7 @@
 			children = (
 				307304DC258B692A0091D2F1 /* FeedCell.swift */,
 				30ED20C5258F8BF70039818A /* FeedCollectionView.swift */,
+				30BC10D7259A025900066D9B /* FeedViewModel.swift */,
 			);
 			path = FeedCollectionView;
 			sourceTree = "<group>";
@@ -463,22 +529,30 @@
 				308365FF2589F61700578AE2 /* UIColor + Extension.swift in Sources */,
 				303A06822593B92200C14BFD /* PhotoCell.swift in Sources */,
 				30CB74EC2591257B00CB84D6 /* OrderResponse.swift in Sources */,
+				30BC10C525991AF500066D9B /* ProfileTopView.swift in Sources */,
 				30CB750525927A4700CB84D6 /* FontsCheck.swift in Sources */,
 				308366022589F81D00578AE2 /* UIButton + Extension.swift in Sources */,
+				30BC10BF2599156A00066D9B /* AlienProfileInteractor.swift in Sources */,
 				303A0696259477FF00C14BFD /* CommentViewController.swift in Sources */,
 				307304F4258B86CC0091D2F1 /* FeedError.swift in Sources */,
 				302CDE93258D5E08000B4275 /* String + Extension.swift in Sources */,
 				30CB74DF259121C700CB84D6 /* FeedOrderWorker.swift in Sources */,
+				30BC10D4259A021F00066D9B /* GlobalModels.swift in Sources */,
+				30BC10CF2599479000066D9B /* NameCityLabel.swift in Sources */,
 				308365D62589E59500578AE2 /* MainTabBarModels.swift in Sources */,
 				30CB74E8259123DB00CB84D6 /* OrderError.swift in Sources */,
+				30BC10D8259A025900066D9B /* FeedViewModel.swift in Sources */,
 				303AB7A92581715300F287C2 /* DataFetcherPlan.swift in Sources */,
 				303A067D2593843F00C14BFD /* LittleRoundButton.swift in Sources */,
 				307304FA258BF4C80091D2F1 /* TagCell.swift in Sources */,
 				308366072589FDC000578AE2 /* Constraints.swift in Sources */,
+				30BC10CC2599342D00066D9B /* UIView + Extension.swift in Sources */,
 				308365D42589E59500578AE2 /* MainTabBarWorker.swift in Sources */,
 				308365E92589E65200578AE2 /* FeedInteractor.swift in Sources */,
+				30BC10BE2599156A00066D9B /* AlienProfileViewController.swift in Sources */,
 				30895F7B2594AE820091FA31 /* RequestSentViewController.swift in Sources */,
 				303A0695259477FF00C14BFD /* CommentModels.swift in Sources */,
+				30BC10E3259A141400066D9B /* ProfileResponse.swift in Sources */,
 				308365F12589F2A200578AE2 /* TitleView.swift in Sources */,
 				308365D52589E59500578AE2 /* MainTabBarRouter.swift in Sources */,
 				30BC10AE2599042000066D9B /* ChooseOrderError.swift in Sources */,
@@ -492,19 +566,25 @@
 				308D28CE258E4BA70088D340 /* TagsCollectionView.swift in Sources */,
 				3083660B258A019A00578AE2 /* InsertableTextField.swift in Sources */,
 				303AB7902580FB3300F287C2 /* SceneDelegate.swift in Sources */,
+				30BC10BB2599156A00066D9B /* AlienProfileWorker.swift in Sources */,
 				30CB74DE259121C700CB84D6 /* FeedOrderPresenter.swift in Sources */,
 				307304EA258B7D0A0091D2F1 /* FeedDataFetcher.swift in Sources */,
 				307304DD258B692A0091D2F1 /* FeedCell.swift in Sources */,
 				308365E72589E65200578AE2 /* FeedModels.swift in Sources */,
 				30CB74E2259121C700CB84D6 /* FeedOrderViewController.swift in Sources */,
+				30BC10C8259920DA00066D9B /* AlienProfileConstants.swift in Sources */,
 				303AB7A6258163F400F287C2 /* ModelsPlan.swift in Sources */,
 				303A06862593B93400C14BFD /* PhotosCollectionView.swift in Sources */,
+				30BC10BD2599156A00066D9B /* AlienProfileModels.swift in Sources */,
 				30ED20C6258F8BF70039818A /* FeedCollectionView.swift in Sources */,
 				308365E62589E65200578AE2 /* FeedRouter.swift in Sources */,
+				30BC10DF259A04C200066D9B /* AlienProfileError.swift in Sources */,
 				30CB74E0259121C700CB84D6 /* FeedOrderRouter.swift in Sources */,
 				307304E4258B75BC0091D2F1 /* FeedResponse.swift in Sources */,
 				30CB74EF25912B3200CB84D6 /* GeneralModels.swift in Sources */,
+				30BC10BC2599156A00066D9B /* AlienProfileRouter.swift in Sources */,
 				30CB74FA259237ED00CB84D6 /* WebImageView.swift in Sources */,
+				30BC10BA2599156A00066D9B /* AlienProfilePresenter.swift in Sources */,
 				308365E42589E65200578AE2 /* FeedPresenter.swift in Sources */,
 				308365E52589E65200578AE2 /* FeedWorker.swift in Sources */,
 				307304F7258B913D0091D2F1 /* UIViewController + Extension.swift in Sources */,

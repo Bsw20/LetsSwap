@@ -22,10 +22,7 @@ class FeedPresenter: FeedPresentationLogic {
             switch result {
             
             case .success(let feed):
-                let cells = feed.items.map { feedItem in
-                    cellViewModel(from: feedItem)
-                }
-                let feedViewModel = FeedViewModel.init(cells: cells)
+                let feedViewModel = FeedPresenter.getFeedViewModel(feed: feed)
                 viewController?.displayData(viewModel: .displayFeed(feedViewModel: feedViewModel))
             case .failure(let feedError):
                 switch feedError {
@@ -47,7 +44,15 @@ class FeedPresenter: FeedPresentationLogic {
         }
     }
     
-    private func cellViewModel(from feedItem: FeedItem) -> FeedViewModel.Cell {
+    static func getFeedViewModel(feed: FeedResponse) -> FeedViewModel {
+        let cells = feed.items.map { feedItem in
+            cellViewModel(from: feedItem)
+        }
+        let feedViewModel = FeedViewModel.init(cells: cells)
+        return feedViewModel
+    }
+    
+    private static func cellViewModel(from feedItem: FeedItem) -> FeedViewModel.Cell {
         var url: URL? = nil
         if let photo = feedItem.photo, let photoURL = URL(string: photo.url) {
             url = photoURL

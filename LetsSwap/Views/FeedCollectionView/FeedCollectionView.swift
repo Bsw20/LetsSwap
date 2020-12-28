@@ -83,8 +83,6 @@ extension FeedCollectionView: FeedCellDelegate {
     func favouriteButtonDidTapped(indexPath: IndexPath) {
         print("favourite button tapped + \(indexPath)")
     }
-    
-    
 }
 
 //MARK: - FeedCollecitonView layout

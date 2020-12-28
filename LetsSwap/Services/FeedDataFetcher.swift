@@ -10,7 +10,8 @@ import UIKit
 
 protocol FeedDataFetcher {
     func getFeed(nextBatchFrom: String?,  completion: @escaping(Result<FeedResponse, FeedError>) -> Void)
-    func getOrder(orderId: Int, completion: @escaping (Result<OrderResponse, OrderError>) -> Void) 
+    func getOrder(orderId: Int, completion: @escaping (Result<OrderResponse, OrderError>) -> Void)
+    func getAlienProfile(completion: @escaping (Result<ProfileResponse, AlienProfileError>) -> Void)
 }
 
 struct NetworkDataFetcher: FeedDataFetcher {
@@ -40,6 +41,13 @@ struct NetworkDataFetcher: FeedDataFetcher {
     func chooseOrder(chooseOrderModel: ChooseOrderModel, completion: @escaping (Result<Void, ChooseOrderError>) -> Void) {
         completion(.success(Void()))
 //        completion(.failure(ChooseOrderError.orderAlreadyChoose))
+    }
+    
+    func getAlienProfile(completion: @escaping (Result<ProfileResponse, AlienProfileError>) -> Void) {
+//        completion(.success(FeedResponse(items: feedItems, nextFrom: "nextBatch")))
+        completion(.success(ProfileResponse.init(userId: 12345,
+                                                 userDescription: ProfileDescription.init(userPhoto: Photo(url: "https://sun1-88.userapi.com/impf/KZGdkJtVB-AQ9imSxU9RbqU-OgWveyknsm7K6g/qTHsmOrwUNo.jpg?size=483x604&quality=96&sign=e86bd8569b831bd154e0d3fb80bd0504&c_uniq_tag=5crVQs-fadyrOqggKl_yhOI1kWZuCLlhm290z_IMgIY&type=album"), swapsCount: 67, raiting: 4.8, name: "Ярослав", lastName: "Карпунькин", cityName: "г.Москва"),
+                                                 feedResponse: FeedResponse(items: feedItems, nextFrom: "nextBatchFrom"))))
     }
     
 }

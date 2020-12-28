@@ -81,7 +81,6 @@ class RequestSentViewController: UIViewController {
     }
     
     @objc private func buttonTapped() {
-//        delegate?.sentButtonTapped()
         navigationController?.popToRootViewController(animated: true)
     }
 }

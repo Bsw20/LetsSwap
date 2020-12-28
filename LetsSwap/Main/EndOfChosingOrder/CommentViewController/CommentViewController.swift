@@ -47,6 +47,7 @@ class CommentViewController: UIViewController {
     // MARK: Object lifecycle
   
     init(commentsModel: CommentsViewModel) {
+        #warning("в navigation имя")
         self.commentsModel = commentsModel
         super.init(nibName: nil, bundle: nil)
         setup()
