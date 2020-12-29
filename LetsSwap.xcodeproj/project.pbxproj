@@ -24,6 +24,7 @@
 		303AB79A2580FB3600F287C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 303AB7982580FB3600F287C2 /* LaunchScreen.storyboard */; };
 		303AB7A6258163F400F287C2 /* ModelsPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303AB7A5258163F400F287C2 /* ModelsPlan.swift */; };
 		303AB7A92581715300F287C2 /* DataFetcherPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303AB7A82581715300F287C2 /* DataFetcherPlan.swift */; };
+		3060281F259B8DAA0046A2B0 /* MyProfileConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3060281E259B8DAA0046A2B0 /* MyProfileConstants.swift */; };
 		307304DD258B692A0091D2F1 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307304DC258B692A0091D2F1 /* FeedCell.swift */; };
 		307304E4258B75BC0091D2F1 /* FeedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307304E3258B75BC0091D2F1 /* FeedResponse.swift */; };
 		307304EA258B7D0A0091D2F1 /* FeedDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307304E9258B7D0A0091D2F1 /* FeedDataFetcher.swift */; };
@@ -65,6 +66,12 @@
 		30BC10D8259A025900066D9B /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10D7259A025900066D9B /* FeedViewModel.swift */; };
 		30BC10DF259A04C200066D9B /* AlienProfileError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10DE259A04C200066D9B /* AlienProfileError.swift */; };
 		30BC10E3259A141400066D9B /* ProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10E2259A141400066D9B /* ProfileResponse.swift */; };
+		30BC10FF259AA0C500066D9B /* MyProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10F8259AA0C500066D9B /* MyProfilePresenter.swift */; };
+		30BC1100259AA0C500066D9B /* MyProfileWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10F9259AA0C500066D9B /* MyProfileWorker.swift */; };
+		30BC1101259AA0C500066D9B /* MyProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10FA259AA0C500066D9B /* MyProfileRouter.swift */; };
+		30BC1102259AA0C500066D9B /* MyProfileModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10FB259AA0C500066D9B /* MyProfileModels.swift */; };
+		30BC1103259AA0C500066D9B /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10FC259AA0C500066D9B /* MyProfileViewController.swift */; };
+		30BC1104259AA0C500066D9B /* MyProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10FD259AA0C500066D9B /* MyProfileInteractor.swift */; };
 		30CB74DE259121C700CB84D6 /* FeedOrderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74D7259121C700CB84D6 /* FeedOrderPresenter.swift */; };
 		30CB74DF259121C700CB84D6 /* FeedOrderWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74D8259121C700CB84D6 /* FeedOrderWorker.swift */; };
 		30CB74E0259121C700CB84D6 /* FeedOrderRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74D9259121C700CB84D6 /* FeedOrderRouter.swift */; };
@@ -102,6 +109,7 @@
 		303AB79B2580FB3600F287C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		303AB7A5258163F400F287C2 /* ModelsPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsPlan.swift; sourceTree = "<group>"; };
 		303AB7A82581715300F287C2 /* DataFetcherPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetcherPlan.swift; sourceTree = "<group>"; };
+		3060281E259B8DAA0046A2B0 /* MyProfileConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileConstants.swift; sourceTree = "<group>"; };
 		307304DC258B692A0091D2F1 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		307304E3258B75BC0091D2F1 /* FeedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedResponse.swift; sourceTree = "<group>"; };
 		307304E9258B7D0A0091D2F1 /* FeedDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDataFetcher.swift; sourceTree = "<group>"; };
@@ -143,6 +151,12 @@
 		30BC10D7259A025900066D9B /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		30BC10DE259A04C200066D9B /* AlienProfileError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienProfileError.swift; sourceTree = "<group>"; };
 		30BC10E2259A141400066D9B /* ProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileResponse.swift; sourceTree = "<group>"; };
+		30BC10F8259AA0C500066D9B /* MyProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfilePresenter.swift; sourceTree = "<group>"; };
+		30BC10F9259AA0C500066D9B /* MyProfileWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileWorker.swift; sourceTree = "<group>"; };
+		30BC10FA259AA0C500066D9B /* MyProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileRouter.swift; sourceTree = "<group>"; };
+		30BC10FB259AA0C500066D9B /* MyProfileModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileModels.swift; sourceTree = "<group>"; };
+		30BC10FC259AA0C500066D9B /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
+		30BC10FD259AA0C500066D9B /* MyProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileInteractor.swift; sourceTree = "<group>"; };
 		30CB74D7259121C700CB84D6 /* FeedOrderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOrderPresenter.swift; sourceTree = "<group>"; };
 		30CB74D8259121C700CB84D6 /* FeedOrderWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOrderWorker.swift; sourceTree = "<group>"; };
 		30CB74D9259121C700CB84D6 /* FeedOrderRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOrderRouter.swift; sourceTree = "<group>"; };
@@ -278,6 +292,7 @@
 		308365CA2589E4DA00578AE2 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				30BC10F7259AA0A900066D9B /* MyProfileController */,
 				30BC10B22599150F00066D9B /* AlienProfileController */,
 				308365DC2589E60D00578AE2 /* FeedViewController */,
 				30CB74D02591218000CB84D6 /* FeedOrderViewController */,
@@ -409,6 +424,20 @@
 			path = "Global Models";
 			sourceTree = "<group>";
 		};
+		30BC10F7259AA0A900066D9B /* MyProfileController */ = {
+			isa = PBXGroup;
+			children = (
+				3060281E259B8DAA0046A2B0 /* MyProfileConstants.swift */,
+				30BC10FC259AA0C500066D9B /* MyProfileViewController.swift */,
+				30BC10FD259AA0C500066D9B /* MyProfileInteractor.swift */,
+				30BC10F9259AA0C500066D9B /* MyProfileWorker.swift */,
+				30BC10F8259AA0C500066D9B /* MyProfilePresenter.swift */,
+				30BC10FA259AA0C500066D9B /* MyProfileRouter.swift */,
+				30BC10FB259AA0C500066D9B /* MyProfileModels.swift */,
+			);
+			path = MyProfileController;
+			sourceTree = "<group>";
+		};
 		30CB74D02591218000CB84D6 /* FeedOrderViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -531,6 +560,7 @@
 				30CB74EC2591257B00CB84D6 /* OrderResponse.swift in Sources */,
 				30BC10C525991AF500066D9B /* ProfileTopView.swift in Sources */,
 				30CB750525927A4700CB84D6 /* FontsCheck.swift in Sources */,
+				30BC1101259AA0C500066D9B /* MyProfileRouter.swift in Sources */,
 				308366022589F81D00578AE2 /* UIButton + Extension.swift in Sources */,
 				30BC10BF2599156A00066D9B /* AlienProfileInteractor.swift in Sources */,
 				303A0696259477FF00C14BFD /* CommentViewController.swift in Sources */,
@@ -557,6 +587,7 @@
 				308365D52589E59500578AE2 /* MainTabBarRouter.swift in Sources */,
 				30BC10AE2599042000066D9B /* ChooseOrderError.swift in Sources */,
 				308365D72589E59500578AE2 /* MainTabBarController.swift in Sources */,
+				3060281F259B8DAA0046A2B0 /* MyProfileConstants.swift in Sources */,
 				30CB74FD259238EF00CB84D6 /* FeedOrderConstants.swift in Sources */,
 				30CB74E3259121C700CB84D6 /* FeedOrderInteractor.swift in Sources */,
 				308365E82589E65200578AE2 /* FeedViewController.swift in Sources */,
@@ -581,10 +612,15 @@
 				30BC10DF259A04C200066D9B /* AlienProfileError.swift in Sources */,
 				30CB74E0259121C700CB84D6 /* FeedOrderRouter.swift in Sources */,
 				307304E4258B75BC0091D2F1 /* FeedResponse.swift in Sources */,
+				30BC1102259AA0C500066D9B /* MyProfileModels.swift in Sources */,
+				30BC1103259AA0C500066D9B /* MyProfileViewController.swift in Sources */,
 				30CB74EF25912B3200CB84D6 /* GeneralModels.swift in Sources */,
+				30BC1104259AA0C500066D9B /* MyProfileInteractor.swift in Sources */,
 				30BC10BC2599156A00066D9B /* AlienProfileRouter.swift in Sources */,
 				30CB74FA259237ED00CB84D6 /* WebImageView.swift in Sources */,
 				30BC10BA2599156A00066D9B /* AlienProfilePresenter.swift in Sources */,
+				30BC10FF259AA0C500066D9B /* MyProfilePresenter.swift in Sources */,
+				30BC1100259AA0C500066D9B /* MyProfileWorker.swift in Sources */,
 				308365E42589E65200578AE2 /* FeedPresenter.swift in Sources */,
 				308365E52589E65200578AE2 /* FeedWorker.swift in Sources */,
 				307304F7258B913D0091D2F1 /* UIViewController + Extension.swift in Sources */,

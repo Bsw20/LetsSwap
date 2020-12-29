@@ -39,8 +39,9 @@ class NameCityLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup() {
-//        setupConstraints()
+    func setup(name: String, city: String) {
+        nameLabel.text = name
+        cityLabel.text = city
     }
     
     private func setupConstraints() {

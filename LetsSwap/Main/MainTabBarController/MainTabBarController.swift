@@ -51,12 +51,15 @@ class MainTabBarController: UITabBarController, MainTabBarDisplayLogic {
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBar.isTranslucent = false
+        tabBar.tintColor = .mainBackground()
         viewControllers = [
 //            generateNavigationController(rootViewController: FeedViewController(), image: UIImage(named: "feedIcon")!)
 //            generateNavigationController(rootViewController: FeedOrderViewController(), image: UIImage(named: "feedIcon")!)
 //            generateNavigationController(rootViewController: CommentViewController(), image: UIImage(named: "feedIcon")!)
 //            generateNavigationController(rootViewController: RequestSentViewController(), image: UIImage(named: "feedIcon")!)
-            generateNavigationController(rootViewController: AlienProfileViewController(), image: UIImage(named: "feedIcon")!)
+//            generateNavigationController(rootViewController: FeedViewController(), image: UIImage(named: "feedIcon")!),
+            generateNavigationController(rootViewController: MyProfileViewController(), image: UIImage(named: "personIconOff")!)
         ]
         
     }
@@ -64,6 +67,8 @@ class MainTabBarController: UITabBarController, MainTabBarDisplayLogic {
     private func generateNavigationController(rootViewController: UIViewController, image: UIImage) -> UIViewController {
         let navigationVC = UINavigationController(rootViewController: rootViewController)
         navigationVC.tabBarItem.image = image
+        navigationVC.navigationBar.barTintColor = .mainBackground()
+        navigationVC.navigationBar.isTranslucent = false
         return navigationVC
     }
   
@@ -72,3 +77,26 @@ class MainTabBarController: UITabBarController, MainTabBarDisplayLogic {
     }
   
 }
+
+
+// MARK: - SwiftUI
+import SwiftUI
+
+struct MainVCProvider: PreviewProvider {
+    static var previews: some View {
+        ContainerView().edgesIgnoringSafeArea(.all)
+    }
+
+    struct ContainerView: UIViewControllerRepresentable {
+        let feedVC = MainTabBarController()
+
+        func makeUIViewController(context: Context) -> some MainTabBarController {
+            return feedVC
+        }
+
+        func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+
+        }
+    }
+}
+

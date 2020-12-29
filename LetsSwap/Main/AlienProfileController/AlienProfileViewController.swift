@@ -56,7 +56,6 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
     
     private lazy var cityNameLabel: NameCityLabel = {
         let label = NameCityLabel(frame: .zero)
-        label.setup()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .blue
         return label
