@@ -30,10 +30,11 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     private lazy var titleTextView: UITextView = {
         let tf = UITextView.getNormalTextView()
         tf.text = "Добавь название"
+        tf.textContainerInset = UIEdgeInsets(top: 12, left: 25, bottom: 0, right: 18)
         return tf
     }()
     
-    private lazy var descriptionView: UITextView = {
+    private lazy var descriptionTextView: UITextView = {
         let tf = UITextView.getNormalTextView()
         tf.text = "Добавь описание"
         return tf
@@ -54,6 +55,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     private lazy var freeSwitch: UISwitch = {
        let sw = UISwitch()
         sw.translatesAutoresizingMaskIntoConstraints = false
+        sw.onTintColor = .mainDetailsYellow()
         return sw
     }()
     
@@ -75,6 +77,29 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    private lazy var bottomEmptyView: UIView = {
+       let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    private lazy var photoLabel: UILabel = {
+        let label = UILabel.getNormalLabel(fontSize: 17, text: "Добавь фото")
+        return label
+    }()
+    
+    private lazy var videoLabel: UILabel = {
+        let label = UILabel.getNormalLabel(fontSize: 17, text: "Добавь видео")
+        return label
+    }()
+    
+    private lazy var addPhotoButton: UIButton = UIButton.getPickerButton()
+    
+//    private lazy var addVideoButton: UIButton = UIButton.getPickerButton()
+    
+    private lazy var addVideoButton: UIButton = UIButton.getPickerButton()
 
   // MARK: Object lifecycle
   
@@ -117,14 +142,56 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
         
         chooseTagsView.coverButton.addTarget(self, action: #selector(chooseTagsButtonTapped), for: .touchUpInside)
+        addPhotoButton.addTarget(self, action: #selector(addPhotoButtonTapped), for: .touchUpInside)
+        addVideoButton.addTarget(self, action: #selector(addVideoButtonTapped), for: .touchUpInside)
+        
+        titleTextView.delegate = self
+        descriptionTextView.delegate = self
+        counterOfferTextView.delegate = self
+        
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(tapOutsideTextView))
+        self.view.addGestureRecognizer(recognizer)
+        navigationController?.navigationBar.topItem?.setRightBarButton(UIBarButtonItem(image: UIImage(named: "threeLinesIcon"), style: .plain, target: self, action: #selector(rightBarButtonTapped)), animated: true)
+        
+        freeSwitch.addTarget(self, action: #selector(switchValueDidChange), for: .valueChanged)
+        
+        //threeLinesIcon
     }
   
     func displayData(viewModel: FullOrder.Model.ViewModel.ViewModelData) {
 
     }
     
+    @objc private func switchValueDidChange() {
+        #warning("Поменять модель")
+        if freeSwitch.isOn {
+            print("on")
+            counterOfferTextView.backgroundColor = .freeFeedCell()
+        } else {
+            print("off")
+            counterOfferTextView.backgroundColor = .white
+        }
+    }
+    @objc private func rightBarButtonTapped() {
+        print("right bar button tapped")
+    }
+    
     @objc private func chooseTagsButtonTapped() {
         print("choose tags button tapped")
+    }
+    
+    @objc private func addPhotoButtonTapped() {
+        print("add photo picker")
+    }
+    
+    @objc private func addVideoButtonTapped() {
+        print("add video picker")
+    }
+    
+    @objc private func tapOutsideTextView() {
+        titleTextView.resignFirstResponder()
+        descriptionTextView.resignFirstResponder()
+        counterOfferTextView.resignFirstResponder()
     }
 }
 
@@ -148,12 +215,17 @@ extension FullOrderViewController {
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
         ])
         contentView.addSubview(titleTextView)
-        contentView.addSubview(descriptionView)
+        contentView.addSubview(descriptionTextView)
         contentView.addSubview(counterOfferTextView)
         contentView.addSubview(freeOfferLabel)
         contentView.addSubview(freeSwitch)
         contentView.addSubview(yellowButton)
         contentView.addSubview(chooseTagsView)
+        contentView.addSubview(bottomEmptyView)
+        contentView.addSubview(photoLabel)
+        contentView.addSubview(addPhotoButton)
+        contentView.addSubview(videoLabel)
+        contentView.addSubview(addVideoButton)
         
         
         
@@ -165,17 +237,17 @@ extension FullOrderViewController {
         ])
         
         NSLayoutConstraint.activate([
-            descriptionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            descriptionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            descriptionView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: FullOrderConstants.space),
-            descriptionView.heightAnchor.constraint(equalToConstant: FullOrderConstants.descriptinViewHeight)
+            descriptionTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            descriptionTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            descriptionTextView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: FullOrderConstants.space),
+            descriptionTextView.heightAnchor.constraint(equalToConstant: FullOrderConstants.descriptinViewHeight)
         ])
         
         NSLayoutConstraint.activate([
             counterOfferTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             counterOfferTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            counterOfferTextView.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: FullOrderConstants.space),
-            counterOfferTextView.heightAnchor.constraint(equalToConstant: FullOrderConstants.descriptinViewHeight)
+            counterOfferTextView.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: FullOrderConstants.space),
+            counterOfferTextView.heightAnchor.constraint(equalToConstant: FullOrderConstants.counterOfferViewHeight)
         ])
         
         
@@ -197,20 +269,86 @@ extension FullOrderViewController {
             chooseTagsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             chooseTagsView.heightAnchor.constraint(equalToConstant: FullOrderConstants.chooseTagsButtonHeight),
         ])
+        
+
+        
+
+        
         NSLayoutConstraint.activate([
-            yellowButton.topAnchor.constraint(equalTo: chooseTagsView.bottomAnchor, constant: FullOrderConstants.space),
+            photoLabel.topAnchor.constraint(equalTo: chooseTagsView.bottomAnchor, constant: FullOrderConstants.space),
+            photoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            addPhotoButton.topAnchor.constraint(equalTo: photoLabel.bottomAnchor, constant: FullOrderConstants.labelPickerSpace),
+            addPhotoButton.heightAnchor.constraint(equalToConstant: 80),
+            addPhotoButton.widthAnchor.constraint(equalToConstant: 78),
+            addPhotoButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            videoLabel.topAnchor.constraint(equalTo: addPhotoButton.bottomAnchor, constant: FullOrderConstants.space),
+            videoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            addVideoButton.topAnchor.constraint(equalTo: videoLabel.bottomAnchor, constant: FullOrderConstants.labelPickerSpace),
+            addVideoButton.heightAnchor.constraint(equalToConstant: 80),
+            addVideoButton.widthAnchor.constraint(equalToConstant: 78),
+            addVideoButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            yellowButton.topAnchor.constraint(equalTo: addVideoButton.bottomAnchor, constant: FullOrderConstants.space),
             yellowButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             yellowButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-                                        yellowButton.heightAnchor.constraint(equalToConstant: FullOrderConstants.yellowButtonHeight),
-            yellowButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+            yellowButton.heightAnchor.constraint(equalToConstant: FullOrderConstants.yellowButtonHeight)
         ])
-//
-//        NSLayoutConstraint.activate([
-//            freeOfferLabel.leadingAnchor.constraint(equalTo: titleTextView.trailingAnchor),
-//            freeOfferLabel.topAnchor.constraint(equalTo: titleTextView.topAnchor)
-//        ])
+        
+        NSLayoutConstraint.activate([
+            bottomEmptyView.heightAnchor.constraint(equalToConstant: 30),
+            bottomEmptyView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            bottomEmptyView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            bottomEmptyView.topAnchor.constraint(equalTo: yellowButton.bottomAnchor),
+            bottomEmptyView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+            
+        ])
         
     }
+}
+
+
+// MARK: - TextViewDelegate
+extension FullOrderViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == CommentConstants.textViewTextColor {
+            textView.text = nil
+                textView.textColor = UIColor.black
+        }
+        print("did begin")
+        }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.textColor = CommentConstants.textViewTextColor
+            print("is empty")
+            if textView == titleTextView {
+                textView.text = "Добавь название"
+            } else if textView == descriptionTextView {
+                textView.text = "Добавь описание"
+            } else if textView == counterOfferTextView {
+                textView.text = "Напиши, что хочешь взамен"
+            }
+        }
+    }
+    #warning("TODO")
+//    func textViewDidChange(_ textView: UITextView) {
+//        if textView.text.isEmpty || textView.text == stringPlaceholder {
+//            swapButton.isEnabled = false
+//        } else {
+//            swapButton.isEnabled = true
+//        }
+//    }
+    
 }
 
 // MARK: - SwiftUI

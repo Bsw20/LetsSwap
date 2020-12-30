@@ -15,6 +15,8 @@ struct FullOrderConstants {
     static var yellowButtonHeight: CGFloat = 48
     static var chooseTagsButtonHeight: CGFloat = 48
     
+    static var labelPickerSpace: CGFloat = 13
+    
     static var leadingTrailingViewOffset: CGFloat = 16
     static var space: CGFloat = 16
 }

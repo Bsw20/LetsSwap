@@ -17,7 +17,7 @@ extension UITextView {
         textView.layer.cornerRadius = 10
         textView.layer.borderColor = #colorLiteral(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
         textView.layer.borderWidth = 1
-        
+        textView.textContainerInset = UIEdgeInsets(top: 23, left: 24, bottom: 24, right: 23)
         textView.clipsToBounds = true
         return textView
     }

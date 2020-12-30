@@ -11,7 +11,7 @@ import UIKit
 class ChooseTagsView: UIView {
     private let fontSize: CGFloat = 17
     private lazy var label1: UILabel = {
-        let label = UILabel.getNormalLabel(fontSize: fontSize, text: "Выбранные тэги:")
+        let label = UILabel.getNormalLabel(fontSize: fontSize, text: "Выбери тэги")
         label.textAlignment = .left
         label.backgroundColor = .clear
         label.lineBreakMode = .byWordWrapping
@@ -38,6 +38,12 @@ class ChooseTagsView: UIView {
         return button
     }()
     
+    internal func set(tagsString: String) {
+        self.tagsLabel.text = tagsString
+//        if !tagsString.isEmpty {
+//            label1.text = "Выбранные тэги:"
+//        }
+    }
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
@@ -69,8 +75,8 @@ extension ChooseTagsView {
             arrowView.heightAnchor.constraint(equalToConstant: 14),
             arrowView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -14)
         ])
-        #warning("разобраться с шириной label1")
-        let labelWidth = "Выбранные тэги:".sizeOfString(usingFont: label1.font).width
+        #warning("разобраться с шириной label1 и если text в label изменится, изменить ширину")
+        let labelWidth = "Выбери тэги".sizeOfString(usingFont: label1.font).width
         NSLayoutConstraint.activate([
             label1.centerYAnchor.constraint(equalTo: centerYAnchor),
             label1.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),

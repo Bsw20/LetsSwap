@@ -133,7 +133,7 @@ extension MyProfileViewController {
         
         NSLayoutConstraint.activate([
             videoLabel.topAnchor.constraint(equalTo: cityNameLabel.bottomAnchor, constant: 15),
-            videoLabel.leadingAnchor.constraint(equalTo: topView.leadingAnchor )
+            videoLabel.leadingAnchor.constraint(equalTo: topView.leadingAnchor)
         ])
         
     }

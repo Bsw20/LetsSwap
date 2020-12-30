@@ -60,4 +60,18 @@ extension UIButton {
         button.layer.cornerRadius = cornerRadius
         return button
     }
+    
+    public static func getPickerButton() -> UIButton {
+//        button.setBackgroundImage(UIImage(named: "pickerPlus") , for: .normal)
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.backgroundColor = #colorLiteral(red: 0.937254902, green: 0.937254902, blue: 0.937254902, alpha: 1)
+        
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "pickerPlus"), for: .normal)
+        button.contentMode = .center
+        button.clipsToBounds = true
+        button.backgroundColor = #colorLiteral(red: 0.937254902, green: 0.937254902, blue: 0.937254902, alpha: 1)
+        return button
+    }
 }
