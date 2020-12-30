@@ -8,8 +8,14 @@
 import Foundation
 import UIKit
 
+protocol PhotosCollectionViewDelegate: AnyObject {
+    func photosCollectionViewSize() -> CGSize
+}
+
 class PhotosCollectionView: UICollectionView {
     private var photoAttachments: [URL]
+    
+    weak var photosDelegate: PhotosCollectionViewDelegate!
     init(photoAttachments: [URL]) {
         self.photoAttachments = photoAttachments
         let flowLayout = UICollectionViewFlowLayout()
@@ -40,8 +46,6 @@ extension PhotosCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = UIScreen.main.bounds.width - FeedOrderConstants.photosCollectionViewInset.left + FeedOrderConstants.photosCollectionViewInset.right
-        let height = FeedOrderConstants.photosCollectionViewHeight
-        return CGSize(width: width, height: 281)
+        return photosDelegate.photosCollectionViewSize()
     }
 }

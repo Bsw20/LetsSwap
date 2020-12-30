@@ -19,4 +19,6 @@ struct FullOrderConstants {
     
     static var leadingTrailingViewOffset: CGFloat = 16
     static var space: CGFloat = 16
+    
+    static var photosCollectionViewSize = CGSize(width: 78, height: 80)
 }

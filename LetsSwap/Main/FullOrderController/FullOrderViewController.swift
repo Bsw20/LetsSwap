@@ -17,7 +17,9 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     var interactor: FullOrderBusinessLogic?
     var router: (NSObjectProtocol & FullOrderRoutingLogic)?
     
-    private var scrollView: UIScrollView = {
+    private var photosCollectionView: PhotosCollectionView!
+    
+    private lazy var scrollView: UIScrollView = {
        let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.backgroundColor = .clear
@@ -134,12 +136,15 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     // MARK: View lifecycle
   
     override func viewDidLoad() {
+//        OrderViewModel(order: OrderViewModel.Order.init(title: "123", description: "123", counterOffer: "123", isFree: true, tags: [], photoAttachments: [URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!]), user: OrderViewModel.User(userName: "123", userLastName: "123", userCity: "123", userPhoto: nil), orderId: 123, userId: 123)
+        
         super.viewDidLoad()
         view.backgroundColor = .mainBackground()
+        photosCollectionView = PhotosCollectionView(photoAttachments: [URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,
+                                                                       URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!] )
         setupConstraints()
-        
-        navigationController?.navigationBar.topItem?.title = "Новое предложение"
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
+        setupNavigation()
+
         
         chooseTagsView.coverButton.addTarget(self, action: #selector(chooseTagsButtonTapped), for: .touchUpInside)
         addPhotoButton.addTarget(self, action: #selector(addPhotoButtonTapped), for: .touchUpInside)
@@ -148,16 +153,25 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
         titleTextView.delegate = self
         descriptionTextView.delegate = self
         counterOfferTextView.delegate = self
+        photosCollectionView.photosDelegate = self
         
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(tapOutsideTextView))
-        self.view.addGestureRecognizer(recognizer)
-        navigationController?.navigationBar.topItem?.setRightBarButton(UIBarButtonItem(image: UIImage(named: "threeLinesIcon"), style: .plain, target: self, action: #selector(rightBarButtonTapped)), animated: true)
+
+        photosCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         freeSwitch.addTarget(self, action: #selector(switchValueDidChange), for: .valueChanged)
         
         //threeLinesIcon
     }
-  
+    
+    private func setupNavigation() {
+        navigationController?.navigationBar.topItem?.title = "Новое предложение"
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
+        
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(tapOutsideTextView))
+        self.view.addGestureRecognizer(recognizer)
+        navigationController?.navigationBar.topItem?.setRightBarButton(UIBarButtonItem(image: UIImage(named: "threeLinesIcon"), style: .plain, target: self, action: #selector(rightBarButtonTapped)), animated: true)
+    }
+    
     func displayData(viewModel: FullOrder.Model.ViewModel.ViewModelData) {
 
     }
@@ -195,6 +209,16 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     }
 }
 
+//MARK: - PhotosCollectionViewDelegate
+extension FullOrderViewController: PhotosCollectionViewDelegate {
+    func photosCollectionViewSize() -> CGSize {
+        return FullOrderConstants.photosCollectionViewSize
+    }
+    
+    
+}
+
+//MARK: - Constraints
 extension FullOrderViewController {
     
     private func setupConstraints() {
@@ -226,6 +250,7 @@ extension FullOrderViewController {
         contentView.addSubview(addPhotoButton)
         contentView.addSubview(videoLabel)
         contentView.addSubview(addVideoButton)
+        contentView.addSubview(photosCollectionView)
         
         
         
@@ -311,6 +336,14 @@ extension FullOrderViewController {
             bottomEmptyView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             bottomEmptyView.topAnchor.constraint(equalTo: yellowButton.bottomAnchor),
             bottomEmptyView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+            
+        ])
+        
+        NSLayoutConstraint.activate([
+            photosCollectionView.heightAnchor.constraint(equalToConstant: FullOrderConstants.photosCollectionViewSize.height),
+            photosCollectionView.leadingAnchor.constraint(equalTo: addPhotoButton.trailingAnchor, constant: 20),
+            photosCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            photosCollectionView.topAnchor.constraint(equalTo: addPhotoButton.topAnchor)
             
         ])
         

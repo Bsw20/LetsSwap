@@ -123,6 +123,7 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
   
 
     init(orderViewModel: OrderViewModel) {
+//        = OrderViewModel(order: OrderViewModel.Order.init(title: "123", description: "123", counterOffer: "123", isFree: true, tags: [], photoAttachments: [URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!]), user: OrderViewModel.User(userName: "123", userLastName: "123", userCity: "123", userPhoto: nil), orderId: 123, userId: 123)
         self.orderViewModel = orderViewModel
         super.init(nibName: nil, bundle: nil)
         setup()
@@ -166,6 +167,7 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         let gesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(topViewTapped))
         gesture.numberOfTapsRequired = 1
         topView.addGestureRecognizer(gesture)
+        photosCollectionView.photosDelegate = self
         
         
     }
@@ -200,6 +202,17 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         print("topviewtapped")
         router?.routToAlienProfile(userId: orderViewModel.userId)
     }
+}
+
+//MARK: PhotosCollectionViewDelegate
+extension FeedOrderViewController: PhotosCollectionViewDelegate {
+    func photosCollectionViewSize() -> CGSize {
+        let width = UIScreen.main.bounds.width - FeedOrderConstants.photosCollectionViewInset.left + FeedOrderConstants.photosCollectionViewInset.right
+        let height = FeedOrderConstants.photosCollectionViewHeight
+        return CGSize(width: width, height: 281)
+    }
+    
+    
 }
 
 //MARK:- constraints
