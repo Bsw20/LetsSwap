@@ -70,7 +70,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
         return button
     }()
     
-    private lazy var chooseTagsView: UIView = {
+    private lazy var chooseTagsView: ChooseTagsView = {
         let view = ChooseTagsView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -115,10 +115,16 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
         
         navigationController?.navigationBar.topItem?.title = "Новое предложение"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
+        
+        chooseTagsView.coverButton.addTarget(self, action: #selector(chooseTagsButtonTapped), for: .touchUpInside)
     }
   
     func displayData(viewModel: FullOrder.Model.ViewModel.ViewModelData) {
 
+    }
+    
+    @objc private func chooseTagsButtonTapped() {
+        print("choose tags button tapped")
     }
 }
 
@@ -174,7 +180,7 @@ extension FullOrderViewController {
         
         
         NSLayoutConstraint.activate([
-            freeSwitch.topAnchor.constraint(equalTo: counterOfferTextView.bottomAnchor, constant: FullOrderConstants.space),
+            freeSwitch.topAnchor.constraint(equalTo: counterOfferTextView.bottomAnchor, constant: FullOrderConstants.space + 10),
             freeSwitch.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -2)
         ])
         

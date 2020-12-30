@@ -19,7 +19,8 @@ class ChooseTagsView: UIView {
     }()
     
     private lazy var tagsLabel: UILabel = {
-        let label = UILabel.getNormalLabel(fontSize: fontSize, text: "Ремонт, IT, реклама, ремонт", textColor: .yellowTextColor())
+        let label = UILabel.getNormalLabel(fontSize: fontSize, text: "", textColor: .yellowTextColor())
+        //"Ремонт, IT, реклама, ремонт"
         label.textAlignment = .left
         label.backgroundColor = .clear
         return label
@@ -30,7 +31,7 @@ class ChooseTagsView: UIView {
         return view
     }()
     
-    private lazy var coverButton: UIButton = {
+    internal lazy var coverButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .clear
