@@ -29,16 +29,8 @@ class CommentViewController: UIViewController {
     
     private var stringPlaceholder = "Расскажите о своих пожеланиях"
     private lazy var textView: UITextView = {
-        let tf = UITextView(frame: .zero)
-        tf.font = UIFont.circeRegular(with: 17)
-        tf.textColor = #colorLiteral(red: 0.7843137255, green: 0.7843137255, blue: 0.7843137255, alpha: 1)
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.layer.cornerRadius = 10
-        tf.layer.borderColor = #colorLiteral(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
-        tf.layer.borderWidth = 1
+        let tf = UITextView.getNormalTextView()
         tf.text = stringPlaceholder
-        
-        tf.clipsToBounds = true
         return tf
     }()
     var router: (NSObjectProtocol & CommentRoutingLogic)?

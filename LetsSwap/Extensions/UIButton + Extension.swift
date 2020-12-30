@@ -29,7 +29,7 @@ extension UIButton {
         }
     }
     
-    static func getLittleRoundButton(backgroundColor: UIColor, text: String?, image: UIImage?, font: UIFont, textColor: UIColor) -> UIButton {
+    static func getLittleRoundButton(backgroundColor: UIColor, text: String?, image: UIImage?, font: UIFont?, textColor: UIColor) -> UIButton {
         let button = UIButton(type: .system)
         button.backgroundColor = backgroundColor
         button.setTitle(text, for: .normal)

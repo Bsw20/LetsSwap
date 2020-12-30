@@ -56,10 +56,11 @@ class MainTabBarController: UITabBarController, MainTabBarDisplayLogic {
         viewControllers = [
 //            generateNavigationController(rootViewController: FeedViewController(), image: UIImage(named: "feedIcon")!)
 //            generateNavigationController(rootViewController: FeedOrderViewController(), image: UIImage(named: "feedIcon")!)
-//            generateNavigationController(rootViewController: CommentViewController(), image: UIImage(named: "feedIcon")!)
+//            generateNavigationController(rootViewController: CommentViewController(commentsModel: CommentsOrderModel(orderId: 12387)), image: UIImage(named: "feedIcon")!)
 //            generateNavigationController(rootViewController: RequestSentViewController(), image: UIImage(named: "feedIcon")!)
 //            generateNavigationController(rootViewController: FeedViewController(), image: UIImage(named: "feedIcon")!),
-            generateNavigationController(rootViewController: MyProfileViewController(), image: UIImage(named: "personIconOff")!)
+//            generateNavigationController(rootViewController: MyProfileViewController(), image: UIImage(named: "personIconOff")!)
+            generateNavigationController(rootViewController: FullOrderViewController(), image: UIImage(named: "personIconOff")!)
         ]
         
     }
