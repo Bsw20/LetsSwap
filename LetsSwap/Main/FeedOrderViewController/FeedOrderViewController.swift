@@ -151,8 +151,6 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
   
   // MARK: Routing
   
-
-  
   // MARK: View lifecycle
   
     override func viewDidLoad() {

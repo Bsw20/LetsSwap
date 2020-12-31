@@ -155,6 +155,8 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
         counterOfferTextView.delegate = self
         photosCollectionView.photosDelegate = self
         
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(tapOutsideTextView))
+        self.view.addGestureRecognizer(recognizer)
 
         photosCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -167,8 +169,6 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
         navigationController?.navigationBar.topItem?.title = "Новое предложение"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
         
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(tapOutsideTextView))
-        self.view.addGestureRecognizer(recognizer)
         navigationController?.navigationBar.topItem?.setRightBarButton(UIBarButtonItem(image: UIImage(named: "threeLinesIcon"), style: .plain, target: self, action: #selector(rightBarButtonTapped)), animated: true)
     }
     
