@@ -37,7 +37,6 @@
 		30602842259CFEBC0046A2B0 /* ChooseTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30602841259CFEBC0046A2B0 /* ChooseTagsView.swift */; };
 		30602848259DE2F80046A2B0 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30602847259DE2F80046A2B0 /* EditProfileViewController.swift */; };
 		3060284C259DE52C0046A2B0 /* UITextField + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3060284B259DE52B0046A2B0 /* UITextField + Extension.swift */; };
-		3060284F259DE7D80046A2B0 /* StackView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3060284E259DE7D80046A2B0 /* StackView + Extension.swift */; };
 		30602852259DEB2F0046A2B0 /* EditProfileConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30602851259DEB2F0046A2B0 /* EditProfileConstants.swift */; };
 		30602856259DEF0F0046A2B0 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30602855259DEF0F0046A2B0 /* TextFieldView.swift */; };
 		3060285B259E1E5A0046A2B0 /* CityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3060285A259E1E5A0046A2B0 /* CityView.swift */; };
@@ -68,6 +67,7 @@
 		30895F7B2594AE820091FA31 /* RequestSentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30895F7A2594AE820091FA31 /* RequestSentViewController.swift */; };
 		308D28CE258E4BA70088D340 /* TagsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308D28CD258E4BA70088D340 /* TagsCollectionView.swift */; };
 		308D28D3258E6C530088D340 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308D28D2258E6C530088D340 /* TagsViewController.swift */; };
+		30A4C9E425B8AD2400003DDE /* StackView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4C9E325B8AD2400003DDE /* StackView + Extension.swift */; };
 		30BC10AE2599042000066D9B /* ChooseOrderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10AD2599042000066D9B /* ChooseOrderError.swift */; };
 		30BC10BA2599156A00066D9B /* AlienProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10B32599156A00066D9B /* AlienProfilePresenter.swift */; };
 		30BC10BB2599156A00066D9B /* AlienProfileWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10B42599156A00066D9B /* AlienProfileWorker.swift */; };
@@ -139,7 +139,6 @@
 		30602841259CFEBC0046A2B0 /* ChooseTagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTagsView.swift; sourceTree = "<group>"; };
 		30602847259DE2F80046A2B0 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		3060284B259DE52B0046A2B0 /* UITextField + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField + Extension.swift"; sourceTree = "<group>"; };
-		3060284E259DE7D80046A2B0 /* StackView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StackView + Extension.swift"; sourceTree = "<group>"; };
 		30602851259DEB2F0046A2B0 /* EditProfileConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileConstants.swift; sourceTree = "<group>"; };
 		30602855259DEF0F0046A2B0 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		3060285A259E1E5A0046A2B0 /* CityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityView.swift; sourceTree = "<group>"; };
@@ -170,6 +169,7 @@
 		30895F7A2594AE820091FA31 /* RequestSentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSentViewController.swift; sourceTree = "<group>"; };
 		308D28CD258E4BA70088D340 /* TagsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsCollectionView.swift; sourceTree = "<group>"; };
 		308D28D2258E6C530088D340 /* TagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
+		30A4C9E325B8AD2400003DDE /* StackView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StackView + Extension.swift"; sourceTree = "<group>"; };
 		30BC10AD2599042000066D9B /* ChooseOrderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseOrderError.swift; sourceTree = "<group>"; };
 		30BC10B32599156A00066D9B /* AlienProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienProfilePresenter.swift; sourceTree = "<group>"; };
 		30BC10B42599156A00066D9B /* AlienProfileWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienProfileWorker.swift; sourceTree = "<group>"; };
@@ -424,7 +424,7 @@
 				3060283A259BC58E0046A2B0 /* UITextView + Extension.swift */,
 				3060283D259BC94F0046A2B0 /* UILabel + Extension.swift */,
 				3060284B259DE52B0046A2B0 /* UITextField + Extension.swift */,
-				3060284E259DE7D80046A2B0 /* StackView + Extension.swift */,
+				30A4C9E325B8AD2400003DDE /* StackView + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -666,6 +666,7 @@
 				3060282C259BBE400046A2B0 /* FullOrderWorker.swift in Sources */,
 				303A0695259477FF00C14BFD /* CommentModels.swift in Sources */,
 				30BC10E3259A141400066D9B /* ProfileResponse.swift in Sources */,
+				30A4C9E425B8AD2400003DDE /* StackView + Extension.swift in Sources */,
 				3060282F259BBE400046A2B0 /* FullOrderViewController.swift in Sources */,
 				308365F12589F2A200578AE2 /* TitleView.swift in Sources */,
 				308365D52589E59500578AE2 /* MainTabBarRouter.swift in Sources */,
@@ -674,7 +675,6 @@
 				308365D72589E59500578AE2 /* MainTabBarController.swift in Sources */,
 				3060281F259B8DAA0046A2B0 /* MyProfileConstants.swift in Sources */,
 				30CB74FD259238EF00CB84D6 /* FeedOrderConstants.swift in Sources */,
-				3060284F259DE7D80046A2B0 /* StackView + Extension.swift in Sources */,
 				30CB74E3259121C700CB84D6 /* FeedOrderInteractor.swift in Sources */,
 				308365E82589E65200578AE2 /* FeedViewController.swift in Sources */,
 				30602842259CFEBC0046A2B0 /* ChooseTagsView.swift in Sources */,
