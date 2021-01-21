@@ -61,7 +61,8 @@ class MainTabBarController: UITabBarController, MainTabBarDisplayLogic {
 //            generateNavigationController(rootViewController: FeedViewController(), image: UIImage(named: "feedIcon")!),
 //            generateNavigationController(rootViewController: MyProfileViewController(), image: UIImage(named: "personIconOff")!)
 //            generateNavigationController(rootViewController: FullOrderViewController(), image: UIImage(named: "personIconOff")!)
-            generateNavigationController(rootViewController: EditProfileViewController(), image: UIImage(named: "personIconOff")!)
+//            generateNavigationController(rootViewController: EditProfileViewController(), image: UIImage(named: "personIconOff")!)
+            generateNavigationController(rootViewController: NotificationViewController(), image: UIImage(named: "notificationIcon")!)
         ]
         
     }
