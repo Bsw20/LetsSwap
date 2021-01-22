@@ -192,6 +192,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     
     @objc private func chooseTagsButtonTapped() {
         print("choose tags button tapped")
+        navigationController?.pushViewController(TagsListViewController(), animated: true)
     }
     
     @objc private func addPhotoButtonTapped() {

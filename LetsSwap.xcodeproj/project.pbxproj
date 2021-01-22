@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3022F5D825BB07F9004C50B7 /* russia.json in Resources */ = {isa = PBXBuildFile; fileRef = 3022F5D725BB07F9004C50B7 /* russia.json */; };
+		3022F5DC25BB0A2F004C50B7 /* CitiesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F5DB25BB0A2F004C50B7 /* CitiesListViewController.swift */; };
+		3022F5DF25BB0A3D004C50B7 /* TagsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F5DE25BB0A3D004C50B7 /* TagsListViewController.swift */; };
+		3022F5E325BB0BCE004C50B7 /* ChoosePropertyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F5E225BB0BCE004C50B7 /* ChoosePropertyCell.swift */; };
 		302CDE93258D5E08000B4275 /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302CDE92258D5E08000B4275 /* String + Extension.swift */; };
 		302CDE96258D6049000B4275 /* UIFont + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302CDE95258D6049000B4275 /* UIFont + Extension.swift */; };
 		302CDE9D258D6439000B4275 /* FeedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302CDE9C258D6439000B4275 /* FeedConstants.swift */; };
@@ -116,6 +120,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3022F5D725BB07F9004C50B7 /* russia.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = russia.json; sourceTree = "<group>"; };
+		3022F5DB25BB0A2F004C50B7 /* CitiesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesListViewController.swift; sourceTree = "<group>"; };
+		3022F5DE25BB0A3D004C50B7 /* TagsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsListViewController.swift; sourceTree = "<group>"; };
+		3022F5E225BB0BCE004C50B7 /* ChoosePropertyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePropertyCell.swift; sourceTree = "<group>"; };
 		302CDE92258D5E08000B4275 /* String + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extension.swift"; sourceTree = "<group>"; };
 		302CDE95258D6049000B4275 /* UIFont + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont + Extension.swift"; sourceTree = "<group>"; };
 		302CDE9C258D6439000B4275 /* FeedConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedConstants.swift; sourceTree = "<group>"; };
@@ -237,6 +245,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3022F5DA25BB0A0B004C50B7 /* ListScenes */ = {
+			isa = PBXGroup;
+			children = (
+				3022F5E125BB0B5A004C50B7 /* Views */,
+				3022F5DB25BB0A2F004C50B7 /* CitiesListViewController.swift */,
+				3022F5DE25BB0A3D004C50B7 /* TagsListViewController.swift */,
+			);
+			path = ListScenes;
+			sourceTree = "<group>";
+		};
+		3022F5E125BB0B5A004C50B7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3022F5E225BB0BCE004C50B7 /* ChoosePropertyCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		303A06802593B8F200C14BFD /* PhotosCollectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -286,6 +312,7 @@
 				30CB75002592789900CB84D6 /* Fonts */,
 				308366052589FDB200578AE2 /* Helpers */,
 				303AB7A3258163C900F287C2 /* Plan */,
+				3022F5D725BB07F9004C50B7 /* russia.json */,
 				303AB7962580FB3600F287C2 /* Assets.xcassets */,
 				303AB7982580FB3600F287C2 /* LaunchScreen.storyboard */,
 				303AB79B2580FB3600F287C2 /* Info.plist */,
@@ -379,6 +406,7 @@
 		308365CA2589E4DA00578AE2 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				3022F5DA25BB0A0B004C50B7 /* ListScenes */,
 				30A4C9E625B8AF3200003DDE /* NotificationsScene */,
 				30602846259DE2870046A2B0 /* EditProfileController */,
 				30602823259BBDD30046A2B0 /* FullOrderController */,
@@ -658,6 +686,7 @@
 			files = (
 				303AB79A2580FB3600F287C2 /* LaunchScreen.storyboard in Resources */,
 				30CB75022592795200CB84D6 /* Circe-Regular.ttf in Resources */,
+				3022F5D825BB07F9004C50B7 /* russia.json in Resources */,
 				303A06602593694300C14BFD /* Circe-Bold.ttf in Resources */,
 				303AB7972580FB3600F287C2 /* Assets.xcassets in Resources */,
 			);
@@ -687,6 +716,7 @@
 				308366022589F81D00578AE2 /* UIButton + Extension.swift in Sources */,
 				30BC10BF2599156A00066D9B /* AlienProfileInteractor.swift in Sources */,
 				303A0696259477FF00C14BFD /* CommentViewController.swift in Sources */,
+				3022F5E325BB0BCE004C50B7 /* ChoosePropertyCell.swift in Sources */,
 				307304F4258B86CC0091D2F1 /* FeedError.swift in Sources */,
 				302CDE93258D5E08000B4275 /* String + Extension.swift in Sources */,
 				30CB74DF259121C700CB84D6 /* FeedOrderWorker.swift in Sources */,
@@ -711,6 +741,7 @@
 				30BC10BE2599156A00066D9B /* AlienProfileViewController.swift in Sources */,
 				30895F7B2594AE820091FA31 /* RequestSentViewController.swift in Sources */,
 				30A4C9F125B8AF8200003DDE /* NotificationModels.swift in Sources */,
+				3022F5DC25BB0A2F004C50B7 /* CitiesListViewController.swift in Sources */,
 				3060282C259BBE400046A2B0 /* FullOrderWorker.swift in Sources */,
 				303A0695259477FF00C14BFD /* CommentModels.swift in Sources */,
 				30BC10E3259A141400066D9B /* ProfileResponse.swift in Sources */,
@@ -726,6 +757,7 @@
 				30CB74FD259238EF00CB84D6 /* FeedOrderConstants.swift in Sources */,
 				30CB74E3259121C700CB84D6 /* FeedOrderInteractor.swift in Sources */,
 				308365E82589E65200578AE2 /* FeedViewController.swift in Sources */,
+				3022F5DF25BB0A3D004C50B7 /* TagsListViewController.swift in Sources */,
 				30602842259CFEBC0046A2B0 /* ChooseTagsView.swift in Sources */,
 				303A069E25947C8400C14BFD /* CommentConstants.swift in Sources */,
 				303AB78E2580FB3300F287C2 /* AppDelegate.swift in Sources */,
