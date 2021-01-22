@@ -17,9 +17,8 @@ class TagsListViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .mainBackground()
         
-//        self.tabBarController?.tabBar.isHidden = true
-//        hidesBottomBarWhenPushed = true
-//        extendedLayoutIncludesOpaqueBars = true
+        self.tabBarController?.tabBar.isHidden = true
+        extendedLayoutIncludesOpaqueBars = true
 
         setupCollectionView()
         setupConstraints()
