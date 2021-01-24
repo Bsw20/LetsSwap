@@ -17,6 +17,8 @@ protocol FeedRoutingLogic {
 class FeedRouter: NSObject, FeedRoutingLogic {
     func routeToCitiesController() {
         print("route to cities contrller")
+        let vc = CitiesListViewController()
+        viewController?.navigationController?.pushViewController( vc, animated: true)
     }
     
     func routeToTagsController(currentTags: Set<FeedTag>) {

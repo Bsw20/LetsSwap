@@ -11,6 +11,7 @@
 		3022F5DC25BB0A2F004C50B7 /* CitiesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F5DB25BB0A2F004C50B7 /* CitiesListViewController.swift */; };
 		3022F5DF25BB0A3D004C50B7 /* TagsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F5DE25BB0A3D004C50B7 /* TagsListViewController.swift */; };
 		3022F5E325BB0BCE004C50B7 /* ChoosePropertyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F5E225BB0BCE004C50B7 /* ChoosePropertyCell.swift */; };
+		3022F5E725BB32B0004C50B7 /* CityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F5E625BB32B0004C50B7 /* CityModel.swift */; };
 		302CDE93258D5E08000B4275 /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302CDE92258D5E08000B4275 /* String + Extension.swift */; };
 		302CDE96258D6049000B4275 /* UIFont + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302CDE95258D6049000B4275 /* UIFont + Extension.swift */; };
 		302CDE9D258D6439000B4275 /* FeedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302CDE9C258D6439000B4275 /* FeedConstants.swift */; };
@@ -124,6 +125,7 @@
 		3022F5DB25BB0A2F004C50B7 /* CitiesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesListViewController.swift; sourceTree = "<group>"; };
 		3022F5DE25BB0A3D004C50B7 /* TagsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsListViewController.swift; sourceTree = "<group>"; };
 		3022F5E225BB0BCE004C50B7 /* ChoosePropertyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePropertyCell.swift; sourceTree = "<group>"; };
+		3022F5E625BB32B0004C50B7 /* CityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityModel.swift; sourceTree = "<group>"; };
 		302CDE92258D5E08000B4275 /* String + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extension.swift"; sourceTree = "<group>"; };
 		302CDE95258D6049000B4275 /* UIFont + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont + Extension.swift"; sourceTree = "<group>"; };
 		302CDE9C258D6439000B4275 /* FeedConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedConstants.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 		3022F5DA25BB0A0B004C50B7 /* ListScenes */ = {
 			isa = PBXGroup;
 			children = (
+				3022F5EA25BB32B9004C50B7 /* Models */,
 				3022F5E125BB0B5A004C50B7 /* Views */,
 				3022F5DB25BB0A2F004C50B7 /* CitiesListViewController.swift */,
 				3022F5DE25BB0A3D004C50B7 /* TagsListViewController.swift */,
@@ -261,6 +264,14 @@
 				3022F5E225BB0BCE004C50B7 /* ChoosePropertyCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		3022F5EA25BB32B9004C50B7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3022F5E625BB32B0004C50B7 /* CityModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		303A06802593B8F200C14BFD /* PhotosCollectionView */ = {
@@ -709,6 +720,7 @@
 				303A06822593B92200C14BFD /* PhotoCell.swift in Sources */,
 				30CB74EC2591257B00CB84D6 /* OrderResponse.swift in Sources */,
 				30BC10C525991AF500066D9B /* ProfileTopView.swift in Sources */,
+				3022F5E725BB32B0004C50B7 /* CityModel.swift in Sources */,
 				30CB750525927A4700CB84D6 /* FontsCheck.swift in Sources */,
 				3060282D259BBE400046A2B0 /* FullOrderRouter.swift in Sources */,
 				30BC1101259AA0C500066D9B /* MyProfileRouter.swift in Sources */,

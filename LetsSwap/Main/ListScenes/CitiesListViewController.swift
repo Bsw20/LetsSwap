@@ -9,24 +9,46 @@ import Foundation
 import UIKit
 
 class CitiesListViewController: UIViewController {
-    
+    //MARK: - Variables
+    private var selectedCity: City!
+    private var allCities = City.getCities()
+    private var filtredCities: [City]  = City.getCities()
     //MARK: - Controls
-    private var selectedTags: Set<FeedTag>  = []
+
     private var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .mainBackground()
         
-//        self.tabBarController?.tabBar.isHidden = true
-//        hidesBottomBarWhenPushed = true
-//        extendedLayoutIncludesOpaqueBars = true
-
         setupCollectionView()
         setupConstraints()
         setupNavigationController()
+        setupSearchBar()
+        reloadData(with: nil)
+    }
+    
+    private func reloadData(with searchText: String?) {
+        filtredCities = allCities.filter { (city) -> Bool in
+            city.contains(filter: searchText)
+        }
+        collectionView.reloadData()
+    }
+    
+    private func setupSearchBar() {
+        navigationController?.navigationBar.shadowImage = UIImage()
+        let searchController = UISearchController(searchResultsController: nil)
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
     }
     private func setupNavigationController() {
-        navigationItem.title = "Выбери тэги"
+        
+        self.tabBarController?.tabBar.isHidden = true
+        extendedLayoutIncludesOpaqueBars = true
+        
+        navigationItem.title = "Выбери город"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
         
         navigationItem.setLeftBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "goBackIcon"), style: .plain, target: self, action: #selector(leftBarButtonTapped)), animated: true)
@@ -45,7 +67,7 @@ class CitiesListViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.allowsSelection = true
-        collectionView.allowsMultipleSelection = true
+        collectionView.allowsMultipleSelection = false
         
         collectionView.register(ChoosePropertyCell.self, forCellWithReuseIdentifier: ChoosePropertyCell.reuseId)
     }
@@ -60,41 +82,48 @@ class CitiesListViewController: UIViewController {
 //MARK: - CollectionDelegate&DataSource
 extension CitiesListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return FeedTag.allCases.count
+        return filtredCities.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChoosePropertyCell.reuseId, for: indexPath) as! ChoosePropertyCell
-        let selected = selectedTags.contains(FeedTag.allCases[indexPath.item])
-        cell.set(property: FeedTag.allCases[indexPath.item].rawValue,selected: selected )
+        let selected = selectedCity == filtredCities[indexPath.item]
+        cell.set(property: filtredCities[indexPath.item].city,selected: selected )
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("select at \(indexPath)")
-        print("add \(FeedTag.allCases[indexPath.item])")
-        selectedTags.insert(FeedTag.allCases[indexPath.item])
+        selectedCity = filtredCities[indexPath.item]
         (collectionView.cellForItem(at: indexPath) as! ChoosePropertyCell).setSelected()
         
-        print(selectedTags)
+        print("selected \(selectedCity)")
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         print("deselect at \(indexPath)")
-        print("remove \(FeedTag.allCases[indexPath.item])")
-        selectedTags.remove(FeedTag.allCases[indexPath.item])
         (collectionView.cellForItem(at: indexPath) as! ChoosePropertyCell).setDeselected()
-        print(selectedTags)
+        print("deselected \(selectedCity)")
+        
+        
 //        collectionView.reloadData()
     }
-    
-    
 }
 
 //MARK: - FlowLayoutDelegate
 extension CitiesListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: UIScreen.main.bounds.width, height: 54)
+    }
+}
+
+//MARK: - SearchBarDelegate
+extension CitiesListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        reloadData(with: searchText)
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        reloadData(with: nil)
     }
 }
 

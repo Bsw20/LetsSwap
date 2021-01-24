@@ -52,6 +52,7 @@ class FeedCollectionView: UICollectionView {
 extension FeedCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cellModel = feedViewModel.cells[indexPath.item]
+        print(indexPath)
         feedDelegate?.cellDidSelect(orderId: cellModel.orderId)
         
     }

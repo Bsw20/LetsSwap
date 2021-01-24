@@ -64,6 +64,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         view.backgroundColor = .mainBackground()
         tagsCollectionView.tagDelegate = self
         feedCollectionView.feedDelegate = self
+        titleView.delegate = self
         
         setupSearchBar()
         setupConstraints()
@@ -158,6 +159,13 @@ extension FeedViewController {
     }
 }
 
+extension FeedViewController: TitleViewDelegate {
+    func cityButtonTapped() {
+        router?.routeToCitiesController()
+    }
+    
+    
+}
 
 // MARK: - SwiftUI
 import SwiftUI

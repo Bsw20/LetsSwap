@@ -18,6 +18,8 @@ struct FeedItem: Decodable {
     let title: String
     let description: String
     let counterOffer: String
+    #warning("Если использовать в MyProfileVC, то сделать его опциональным")
+    #warning("IsHidden ")
     let isFavourite: Bool
     let isFree: Bool
     let date: Double

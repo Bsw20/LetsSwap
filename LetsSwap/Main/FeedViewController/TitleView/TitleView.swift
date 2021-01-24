@@ -8,7 +8,12 @@
 import Foundation
 import UIKit
 
+protocol TitleViewDelegate: AnyObject {
+    func cityButtonTapped()
+}
+
 class TitleView: UIView {
+    weak var delegate: TitleViewDelegate!
     
     private var myTextField = InsertableTextField()
     private var cityButton = UIButton.init(image: UIImage(named: "cityImage"), backgroundColor: .white, cornerRadius: 1, isShadow: true, borderColor: .lightGray, borderWidth: 0.5)
@@ -18,12 +23,16 @@ class TitleView: UIView {
         
         translatesAutoresizingMaskIntoConstraints = false
         cityButton.translatesAutoresizingMaskIntoConstraints = false
+        cityButton.addTarget(self, action: #selector(cityButtonTapped), for: .touchUpInside)
         
         addSubview(myTextField)
         addSubview(cityButton)
         makeConstraints()
     }
     
+    @objc private func cityButtonTapped() {
+        delegate.cityButtonTapped()
+    }
     
     private func makeConstraints(){
         //myAvatarView constraints
