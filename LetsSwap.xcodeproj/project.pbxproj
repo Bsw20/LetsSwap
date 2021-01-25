@@ -287,6 +287,33 @@
 			path = MyProfileFeedCollection;
 			sourceTree = "<group>";
 		};
+		3022F5F625BF42DA004C50B7 /* ScenesWithOrdersFeed */ = {
+			isa = PBXGroup;
+			children = (
+				3022F5FA25BF431B004C50B7 /* SharedViews */,
+				3022F5FC25BF43E6004C50B7 /* Scenes */,
+			);
+			path = ScenesWithOrdersFeed;
+			sourceTree = "<group>";
+		};
+		3022F5FA25BF431B004C50B7 /* SharedViews */ = {
+			isa = PBXGroup;
+			children = (
+				30ED20C4258F8BDE0039818A /* FeedCollectionView */,
+			);
+			path = SharedViews;
+			sourceTree = "<group>";
+		};
+		3022F5FC25BF43E6004C50B7 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				30BC10F7259AA0A900066D9B /* MyProfileScene */,
+				30BC10B22599150F00066D9B /* AlienProfileScene */,
+				308365DC2589E60D00578AE2 /* MainFeedScene */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
 		303A06802593B8F200C14BFD /* PhotosCollectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -434,9 +461,7 @@
 				30A4C9E625B8AF3200003DDE /* NotificationsScene */,
 				30602846259DE2870046A2B0 /* EditProfileController */,
 				30602823259BBDD30046A2B0 /* FullOrderController */,
-				30BC10F7259AA0A900066D9B /* MyProfileController */,
-				30BC10B22599150F00066D9B /* AlienProfileController */,
-				308365DC2589E60D00578AE2 /* FeedViewController */,
+				3022F5F625BF42DA004C50B7 /* ScenesWithOrdersFeed */,
 				30CB74D02591218000CB84D6 /* FeedOrderViewController */,
 				308365CB2589E53000578AE2 /* MainTabBarController */,
 				30BC10B025990FEA00066D9B /* EndOfChosingOrder */,
@@ -457,7 +482,7 @@
 			path = MainTabBarController;
 			sourceTree = "<group>";
 		};
-		308365DC2589E60D00578AE2 /* FeedViewController */ = {
+		308365DC2589E60D00578AE2 /* MainFeedScene */ = {
 			isa = PBXGroup;
 			children = (
 				302CDE9C258D6439000B4275 /* FeedConstants.swift */,
@@ -471,7 +496,7 @@
 				308365DF2589E65200578AE2 /* FeedRouter.swift */,
 				308365E02589E65200578AE2 /* FeedModels.swift */,
 			);
-			path = FeedViewController;
+			path = MainFeedScene;
 			sourceTree = "<group>";
 		};
 		308365EF2589F27A00578AE2 /* TitleView */ = {
@@ -503,7 +528,6 @@
 		308365F92589F48B00578AE2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				30ED20C4258F8BDE0039818A /* FeedCollectionView */,
 				30CB74F9259237ED00CB84D6 /* WebImageView.swift */,
 				303A067C2593843E00C14BFD /* LittleRoundButton.swift */,
 				30BC10C425991AF500066D9B /* ProfileTopView.swift */,
@@ -572,7 +596,7 @@
 			path = EndOfChosingOrder;
 			sourceTree = "<group>";
 		};
-		30BC10B22599150F00066D9B /* AlienProfileController */ = {
+		30BC10B22599150F00066D9B /* AlienProfileScene */ = {
 			isa = PBXGroup;
 			children = (
 				30BC10C7259920DA00066D9B /* AlienProfileConstants.swift */,
@@ -583,7 +607,7 @@
 				30BC10B52599156A00066D9B /* AlienProfileRouter.swift */,
 				30BC10B62599156A00066D9B /* AlienProfileModels.swift */,
 			);
-			path = AlienProfileController;
+			path = AlienProfileScene;
 			sourceTree = "<group>";
 		};
 		30BC10D2259A01F500066D9B /* Global Models */ = {
@@ -594,7 +618,7 @@
 			path = "Global Models";
 			sourceTree = "<group>";
 		};
-		30BC10F7259AA0A900066D9B /* MyProfileController */ = {
+		30BC10F7259AA0A900066D9B /* MyProfileScene */ = {
 			isa = PBXGroup;
 			children = (
 				3060281E259B8DAA0046A2B0 /* MyProfileConstants.swift */,
@@ -606,7 +630,7 @@
 				30BC10FA259AA0C500066D9B /* MyProfileRouter.swift */,
 				30BC10FB259AA0C500066D9B /* MyProfileModels.swift */,
 			);
-			path = MyProfileController;
+			path = MyProfileScene;
 			sourceTree = "<group>";
 		};
 		30CB74D02591218000CB84D6 /* FeedOrderViewController */ = {

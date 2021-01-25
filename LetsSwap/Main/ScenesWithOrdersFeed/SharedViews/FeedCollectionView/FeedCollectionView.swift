@@ -32,7 +32,6 @@ class FeedCollectionView: UICollectionView {
         backgroundColor = .mainBackground()
         register(FeedCell.self, forCellWithReuseIdentifier: FeedCell.reuseId)
         
-        register(CreateOrderCell.self, forCellWithReuseIdentifier: CreateOrderCell.reuseId)
     }
     
     required init?(coder: NSCoder) {
@@ -69,13 +68,12 @@ extension FeedCollectionView {
             switch section {
             
             case .orders:
-//                let cell = self?.dequeueReusableCell(withReuseIdentifier: FeedCell.reuseId, for: indexPath) as! FeedCell
-//                let cellModel = self?.feedViewModel.cells[indexPath.item]
-//                #warning("Если cell model не корректный(мб allert)")
-//                cell.set(cellModel: cellModel!, indexPath: indexPath)
-//                cell.delegate = self
-//                return cell
-                let cell = self?.dequeueReusableCell(withReuseIdentifier: CreateOrderCell.reuseId, for: indexPath)
+                let cell = self?.dequeueReusableCell(withReuseIdentifier: FeedCell.reuseId, for: indexPath) as! FeedCell
+                let cellModel = self?.feedViewModel.cells[indexPath.item]
+                #warning("Если cell model не корректный(мб allert)")
+                cell.set(cellModel: cellModel!, indexPath: indexPath)
+                cell.delegate = self
+                return cell
                 return cell
             }
         })

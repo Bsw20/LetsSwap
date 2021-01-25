@@ -17,11 +17,25 @@ protocol FeedCellViewModel {
     var isFree: Bool { get }
 }
 
+protocol MyProfileCellViewModel {
+    var title: String { get }
+    var description: String { get }
+    var counterOffer: String { get }
+    var photo: URL? { get }
+    var isFree: Bool { get }
+}
+
 protocol FeedCellDelegate: AnyObject {
     func favouriteButtonDidTapped(indexPath: IndexPath)
 }
 
 final class FeedCell: UICollectionViewCell {
+    enum FeedCellType {
+        case mainFeedCell(cellViewModel: FeedCellViewModel)
+        case myProfileCommonCell(cellViewModel: MyProfileCellViewModel)
+        case myProfileHiddenCell(cellViewModel: MyProfileCellViewModel)
+    }
+    
     static let reuseId = "FeedCell"
 //    private let cellModel: FeedCellViewModel
     private var indexPath: IndexPath!
@@ -68,6 +82,7 @@ final class FeedCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = FeedConstants.favouriteButtonSize.height / 2
         button.clipsToBounds = true
+        button.isHidden = true
 
         
         return button
