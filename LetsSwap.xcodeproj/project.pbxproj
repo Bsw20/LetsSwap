@@ -12,6 +12,8 @@
 		3022F5DF25BB0A3D004C50B7 /* TagsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F5DE25BB0A3D004C50B7 /* TagsListViewController.swift */; };
 		3022F5E325BB0BCE004C50B7 /* ChoosePropertyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F5E225BB0BCE004C50B7 /* ChoosePropertyCell.swift */; };
 		3022F5E725BB32B0004C50B7 /* CityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F5E625BB32B0004C50B7 /* CityModel.swift */; };
+		3022F5EF25BDFC00004C50B7 /* MyProfileFeedCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F5EE25BDFBFF004C50B7 /* MyProfileFeedCollectionView.swift */; };
+		3022F5F325BDFDBF004C50B7 /* CreateOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F5F225BDFDBF004C50B7 /* CreateOrderCell.swift */; };
 		302CDE93258D5E08000B4275 /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302CDE92258D5E08000B4275 /* String + Extension.swift */; };
 		302CDE96258D6049000B4275 /* UIFont + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302CDE95258D6049000B4275 /* UIFont + Extension.swift */; };
 		302CDE9D258D6439000B4275 /* FeedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302CDE9C258D6439000B4275 /* FeedConstants.swift */; };
@@ -126,6 +128,8 @@
 		3022F5DE25BB0A3D004C50B7 /* TagsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsListViewController.swift; sourceTree = "<group>"; };
 		3022F5E225BB0BCE004C50B7 /* ChoosePropertyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePropertyCell.swift; sourceTree = "<group>"; };
 		3022F5E625BB32B0004C50B7 /* CityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityModel.swift; sourceTree = "<group>"; };
+		3022F5EE25BDFBFF004C50B7 /* MyProfileFeedCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileFeedCollectionView.swift; sourceTree = "<group>"; };
+		3022F5F225BDFDBF004C50B7 /* CreateOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrderCell.swift; sourceTree = "<group>"; };
 		302CDE92258D5E08000B4275 /* String + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extension.swift"; sourceTree = "<group>"; };
 		302CDE95258D6049000B4275 /* UIFont + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont + Extension.swift"; sourceTree = "<group>"; };
 		302CDE9C258D6439000B4275 /* FeedConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedConstants.swift; sourceTree = "<group>"; };
@@ -272,6 +276,15 @@
 				3022F5E625BB32B0004C50B7 /* CityModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		3022F5ED25BDFBE2004C50B7 /* MyProfileFeedCollection */ = {
+			isa = PBXGroup;
+			children = (
+				3022F5EE25BDFBFF004C50B7 /* MyProfileFeedCollectionView.swift */,
+				3022F5F225BDFDBF004C50B7 /* CreateOrderCell.swift */,
+			);
+			path = MyProfileFeedCollection;
 			sourceTree = "<group>";
 		};
 		303A06802593B8F200C14BFD /* PhotosCollectionView */ = {
@@ -585,6 +598,7 @@
 			isa = PBXGroup;
 			children = (
 				3060281E259B8DAA0046A2B0 /* MyProfileConstants.swift */,
+				3022F5ED25BDFBE2004C50B7 /* MyProfileFeedCollection */,
 				30BC10FC259AA0C500066D9B /* MyProfileViewController.swift */,
 				30BC10FD259AA0C500066D9B /* MyProfileInteractor.swift */,
 				30BC10F9259AA0C500066D9B /* MyProfileWorker.swift */,
@@ -779,12 +793,14 @@
 				303AB7902580FB3300F287C2 /* SceneDelegate.swift in Sources */,
 				30BC10BB2599156A00066D9B /* AlienProfileWorker.swift in Sources */,
 				30CB74DE259121C700CB84D6 /* FeedOrderPresenter.swift in Sources */,
+				3022F5EF25BDFC00004C50B7 /* MyProfileFeedCollectionView.swift in Sources */,
 				307304EA258B7D0A0091D2F1 /* FeedDataFetcher.swift in Sources */,
 				307304DD258B692A0091D2F1 /* FeedCell.swift in Sources */,
 				308365E72589E65200578AE2 /* FeedModels.swift in Sources */,
 				30CB74E2259121C700CB84D6 /* FeedOrderViewController.swift in Sources */,
 				30BC10C8259920DA00066D9B /* AlienProfileConstants.swift in Sources */,
 				30602852259DEB2F0046A2B0 /* EditProfileConstants.swift in Sources */,
+				3022F5F325BDFDBF004C50B7 /* CreateOrderCell.swift in Sources */,
 				303AB7A6258163F400F287C2 /* ModelsPlan.swift in Sources */,
 				303A06862593B93400C14BFD /* PhotosCollectionView.swift in Sources */,
 				30BC10BD2599156A00066D9B /* AlienProfileModels.swift in Sources */,

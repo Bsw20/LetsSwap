@@ -158,46 +158,6 @@ extension FeedCell {
         ])
     }
     
-//    private func imageTypeConstraints() {
-//        let clearView = UIView()
-//        clearView.backgroundColor = .clear
-//        containerView.addSubview(titleLabel)
-//        containerView.addSubview(imageView)
-//
-//        titleLabel.addSubview(clearView)
-//
-//        clearView.addSubview(favouriteButton)
-//
-//        NSLayoutConstraint.activate([
-//            titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: FeedConstants.titleFeedCellInset.top),
-//            titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: FeedConstants.titleFeedCellInset.left),
-//            titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -FeedConstants.titleFeedCellInset.right)
-//        ])
-//
-//        NSLayoutConstraint.activate([
-//            imageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-//            imageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-//            imageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-//            imageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: FeedConstants.titleFeedCellInset.bottom)
-////            imageView.heightAnchor.constraint(equalToConstant: 50)
-//        ])
-//
-//        NSLayoutConstraint.activate([
-//            clearView.topAnchor.constraint(equalTo: containerView.topAnchor),
-//            clearView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-//            clearView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-//            clearView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
-//        ])
-//
-//        NSLayoutConstraint.activate([
-//            favouriteButton.heightAnchor.constraint(equalToConstant: FeedConstants.favouriteButtonSize.height),
-//            favouriteButton.widthAnchor.constraint(equalToConstant: FeedConstants.favouriteButtonSize.width),
-//            favouriteButton.bottomAnchor.constraint(equalTo: clearView.bottomAnchor, constant: -(FeedConstants.favoutiteButtonInset.bottom)),
-//            favouriteButton.trailingAnchor.constraint(equalTo: clearView.trailingAnchor, constant: -FeedConstants.favoutiteButtonInset.right)
-//
-//        ])
-//    }
-    
     private func descriptionTypeConstraints() {
         containerView.addSubview(titleLabel)
         containerView.addSubview(descriptionLabel)

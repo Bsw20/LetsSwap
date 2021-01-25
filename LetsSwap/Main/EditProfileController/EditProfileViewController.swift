@@ -40,10 +40,10 @@ class EditProfileViewController: UIViewController {
     }
     
     private func setupNavigation() {
-        navigationController?.navigationBar.topItem?.title = "Редактирование профиля"
+        navigationItem.title = "Редактирование профиля"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
         
-        navigationController?.navigationBar.topItem?.setRightBarButton(UIBarButtonItem(image: UIImage(named: "tick"), style: .plain, target: self, action: #selector(rightBarButtonTapped)), animated: true)
+        navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(named: "tick"), style: .plain, target: self, action: #selector(rightBarButtonTapped)), animated: true)
     }
     
     @objc private func resignTextFields() {

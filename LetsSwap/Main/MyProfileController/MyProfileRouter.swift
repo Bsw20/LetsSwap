@@ -9,12 +9,16 @@
 import UIKit
 
 protocol MyProfileRoutingLogic {
-
+    func routeToEditScreen()
 }
 
 class MyProfileRouter: NSObject, MyProfileRoutingLogic {
+    func routeToEditScreen() {
+        let vc = EditProfileViewController()
+        viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
 
-  weak var viewController: MyProfileViewController?
+    weak var viewController: MyProfileViewController?
   
   // MARK: Routing
   

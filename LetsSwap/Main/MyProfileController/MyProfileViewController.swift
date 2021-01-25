@@ -95,6 +95,7 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
     
     @objc private func settingsButtonTapped() {
         print("settings button tapped")
+        router?.routeToEditScreen()
     }
   
     func displayData(viewModel: MyProfile.Model.ViewModel.ViewModelData) {
