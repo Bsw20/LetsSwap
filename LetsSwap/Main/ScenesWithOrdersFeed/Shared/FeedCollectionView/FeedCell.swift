@@ -139,7 +139,7 @@ final class FeedCell: UICollectionViewCell {
             favouriteButton.isHidden = false
             hiddenView.isHidden = true
             if cellViewModel.isFavourite {
-                favouriteButton.backgroundColor = #colorLiteral(red: 0.4321040969, green: 0.2213571924, blue: 0.840117021, alpha: 1)
+                setFavourite()
             }
             setupCell(cellModel: cellViewModel)
             
@@ -152,6 +152,7 @@ final class FeedCell: UICollectionViewCell {
             setupCell(cellModel: cellViewModel)
         }
     }
+    
     private func setupCell(cellModel: BaseFeedCellViewModel) {
         if let userURL = cellModel.photo {
             //TODO: подгрузка фотографии
@@ -166,11 +167,20 @@ final class FeedCell: UICollectionViewCell {
             containerView.backgroundColor = .freeFeedCell()
         }
     }
+    
     override func prepareForReuse() {
         imageView.image = nil
         containerView.backgroundColor = .white
-        favouriteButton.backgroundColor = .white
+        setUnfavourite()
         hiddenView.isHidden = true
+    }
+    
+    private func setUnfavourite() {
+        favouriteButton.setImage(UIImage(named: "tabIconFilled"), for: .normal)
+    }
+    
+    private func setFavourite() {
+        favouriteButton.setImage(UIImage(named: "tabIcon"), for: .normal)
     }
 }
 
