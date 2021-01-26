@@ -13,8 +13,15 @@ protocol MyProfileDisplayLogic: class {
 }
 
 class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
-    
     //Controls
+    private lazy var feedCollectionView: MyProfileFeedCollectionView = {
+       var collectionView = MyProfileFeedCollectionView()
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .clear
+        collectionView.isScrollEnabled = false
+        return collectionView
+    }()
+    
     private lazy var topView: ProfileTopView = {
         let view = ProfileTopView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -83,14 +90,18 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .mainBackground()
-        navigationController?.navigationBar.topItem?.title = "Мой профиль"
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
-        
-        navigationController?.navigationBar.topItem?.setRightBarButton(UIBarButtonItem(image: UIImage(named: "settingsIcon"), style: .plain, target: self, action: #selector(settingsButtonTapped)), animated: true)
+        setupNavigationController()
          
         setupConstraints()
         topView.setup(swapsCount: 23, raiting: 3.8, imageView: nil)
         cityNameLabel.setup(name: "Митя Матвеев", city: "г. Москва")
+    }
+    
+    private func setupNavigationController() {
+        navigationItem.title = "Мой профиль"
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
+        
+        navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(named: "settingsIcon"), style: .plain, target: self, action: #selector(settingsButtonTapped)), animated: true)
     }
     
     @objc private func settingsButtonTapped() {
@@ -118,6 +129,7 @@ extension MyProfileViewController {
         
         scrollView.addSubview(topView)
         scrollView.addSubview(cityNameLabel)
+        scrollView.addSubview(feedCollectionView)
         scrollView.addSubview(videoLabel)
         
         NSLayoutConstraint.activate([
@@ -131,10 +143,18 @@ extension MyProfileViewController {
             cityNameLabel.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 15),
             cityNameLabel.leadingAnchor.constraint(equalTo: topView.leadingAnchor)
         ])
+        NSLayoutConstraint.activate([
+            feedCollectionView.topAnchor.constraint(equalTo: cityNameLabel.bottomAnchor, constant: 10),
+            feedCollectionView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            feedCollectionView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            feedCollectionView.heightAnchor.constraint(equalToConstant: 700)
+        ])
+        #warning("убрать fix размер высоты")
         
         NSLayoutConstraint.activate([
-            videoLabel.topAnchor.constraint(equalTo: cityNameLabel.bottomAnchor, constant: 15),
-            videoLabel.leadingAnchor.constraint(equalTo: topView.leadingAnchor)
+            videoLabel.topAnchor.constraint(equalTo: feedCollectionView.bottomAnchor, constant: 15),
+            videoLabel.leadingAnchor.constraint(equalTo: topView.leadingAnchor),
+            videoLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -40)
         ])
         
     }

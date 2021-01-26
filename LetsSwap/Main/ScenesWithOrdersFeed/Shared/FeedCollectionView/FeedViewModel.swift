@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 struct FeedViewModel {
-    struct Cell: FeedCellViewModel, Hashable {
+    struct Cell: BaseFeedCellViewModel, Hashable {
         
         var orderId: Int
         

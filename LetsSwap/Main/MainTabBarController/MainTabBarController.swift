@@ -54,7 +54,7 @@ class MainTabBarController: UITabBarController, MainTabBarDisplayLogic {
         tabBar.isTranslucent = false
         tabBar.tintColor = .mainBackground()
         viewControllers = [
-            generateNavigationController(rootViewController: FeedViewController(), image: UIImage(named: "feedIcon")!)
+//            generateNavigationController(rootViewController: FeedViewController(), image: UIImage(named: "feedIcon")!)
 //            generateNavigationController(rootViewController: FeedOrderViewController(), image: UIImage(named: "feedIcon")!)
 //            generateNavigationController(rootViewController: CommentViewController(commentsModel: CommentsOrderModel(orderId: 12387)), image: UIImage(named: "feedIcon")!)
 //            generateNavigationController(rootViewController: RequestSentViewController(), image: UIImage(named: "feedIcon")!)
@@ -69,7 +69,7 @@ class MainTabBarController: UITabBarController, MainTabBarDisplayLogic {
             
 //            generateNavigationController(rootViewController: FeedViewController(), image: UIImage(named: "feedIcon")!),
 //            generateNavigationController(rootViewController: NotificationViewController(), image: UIImage(named: "notificationIcon")!),
-//                        generateNavigationController(rootViewController: MyProfileViewController(), image: UIImage(named: "personIconOff")!)
+                        generateNavigationController(rootViewController: MyProfileViewController(), image: UIImage(named: "personIconOff")!)
             
             
         ]

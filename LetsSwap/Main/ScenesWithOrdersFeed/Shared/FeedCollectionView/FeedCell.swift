@@ -8,22 +8,13 @@
 import Foundation
 import UIKit
 
-protocol FeedCellViewModel {
+protocol BaseFeedCellViewModel {
     var title: String { get }
-    var description: String { get }
     var counterOffer: String { get }
     var photo: URL? { get }
-    var isFavourite: Bool { get }
     var isFree: Bool { get }
 }
 
-protocol MyProfileCellViewModel {
-    var title: String { get }
-    var description: String { get }
-    var counterOffer: String { get }
-    var photo: URL? { get }
-    var isFree: Bool { get }
-}
 
 protocol FeedCellDelegate: AnyObject {
     func favouriteButtonDidTapped(indexPath: IndexPath)
@@ -31,9 +22,8 @@ protocol FeedCellDelegate: AnyObject {
 
 final class FeedCell: UICollectionViewCell {
     enum FeedCellType {
-        case mainFeedCell(cellViewModel: FeedCellViewModel)
-        case myProfileCommonCell(cellViewModel: MyProfileCellViewModel)
-        case myProfileHiddenCell(cellViewModel: MyProfileCellViewModel)
+        case mainFeedCell(cellViewModel: FeedViewModel.Cell)
+        case myProfileCell(cellViewModel: MyProfileViewModel.FeedModel.Cell)
     }
     
     static let reuseId = "FeedCell"
@@ -54,7 +44,8 @@ final class FeedCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 3
         label.backgroundColor = .clear
-        label.font = UIFont.systemFont(ofSize: 15,weight: .regular)
+        label.font = UIFont.circeBold(with: 15)
+        label.textColor = .mainTextColor()
         return label
     }()
     private lazy var descriptionLabel: UILabel = {
@@ -88,6 +79,31 @@ final class FeedCell: UICollectionViewCell {
         return button
     }()
     
+    private lazy var hiddenView: UIView = {
+       let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.85)
+        view.clipsToBounds = true
+        #warning("Убрать константу")
+        let label = UILabel()
+        label.text = "Предложение скрыто"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.circeBold(with: 15)
+        label.textColor = .mainTextColor()
+        label.numberOfLines = 2
+        label.textAlignment = .center
+        
+        view.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
+            label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -35)
+        ])
+        return view
+    }()
+    
+    
+    
     @objc private func favouriteButtonTapped() {
         delegate?.favouriteButtonDidTapped(indexPath: self.indexPath)
     }
@@ -115,31 +131,46 @@ final class FeedCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(cellModel: FeedCellViewModel, indexPath: IndexPath) {
-        titleLabel.text = cellModel.title
+    func set(cellType: FeedCellType, indexPath: IndexPath) {
         self.indexPath = indexPath
-        if cellModel.isFavourite {
-            favouriteButton.backgroundColor = #colorLiteral(red: 0.4321040969, green: 0.2213571924, blue: 0.840117021, alpha: 1)
-        }
+        switch cellType {
         
-        if cellModel.isFree {
-            containerView.backgroundColor = .freeFeedCell()
+        case .mainFeedCell(cellViewModel: let cellViewModel):
+            favouriteButton.isHidden = false
+            hiddenView.isHidden = true
+            if cellViewModel.isFavourite {
+                favouriteButton.backgroundColor = #colorLiteral(red: 0.4321040969, green: 0.2213571924, blue: 0.840117021, alpha: 1)
+            }
+            setupCell(cellModel: cellViewModel)
+            
+        case .myProfileCell(cellViewModel: let cellViewModel):
+            if cellViewModel.isHidden {
+                hiddenView.isHidden = true
+            } else {
+                hiddenView.isHidden = false
+            }
+            setupCell(cellModel: cellViewModel)
         }
-        
+    }
+    private func setupCell(cellModel: BaseFeedCellViewModel) {
         if let userURL = cellModel.photo {
             //TODO: подгрузка фотографии
             imageView.image = UIImage(named: "personImage")
             imageTypeConstraints()
         } else {
-            descriptionLabel.text = cellModel.description
             descriptionTypeConstraints()
         }
-        
+        titleLabel.text = cellModel.title
+        descriptionLabel.text = cellModel.counterOffer
+        if cellModel.isFree {
+            containerView.backgroundColor = .freeFeedCell()
+        }
     }
     override func prepareForReuse() {
         imageView.image = nil
         containerView.backgroundColor = .white
         favouriteButton.backgroundColor = .white
+        hiddenView.isHidden = true
     }
 }
 
@@ -171,6 +202,10 @@ extension FeedCell {
             favouriteButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -FeedConstants.favoutiteButtonInset.right)
 
         ])
+        
+        containerView.addSubview(hiddenView)
+        hiddenView.fillSuperview()
+        
     }
     
     private func descriptionTypeConstraints() {
@@ -198,6 +233,8 @@ extension FeedCell {
             favouriteButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -FeedConstants.favoutiteButtonInset.right)
 
         ])
+        containerView.addSubview(hiddenView)
+        hiddenView.fillSuperview()
     }
     
 }
