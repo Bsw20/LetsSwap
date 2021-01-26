@@ -317,6 +317,28 @@
 			path = Scenes;
 			sourceTree = "<group>";
 		};
+		3022F60225C08982004C50B7 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				3022F5DA25BB0A0B004C50B7 /* ListScenes */,
+				30A4C9E625B8AF3200003DDE /* NotificationsScene */,
+				30602846259DE2870046A2B0 /* EditProfileController */,
+				30602823259BBDD30046A2B0 /* FullOrderController */,
+				3022F5F625BF42DA004C50B7 /* ScenesWithOrdersFeed */,
+				30CB74D02591218000CB84D6 /* FeedOrderViewController */,
+				308365CB2589E53000578AE2 /* MainTabBarController */,
+				30BC10B025990FEA00066D9B /* EndOfChosingOrder */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		3022F60325C08991004C50B7 /* SignIn&Auth */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "SignIn&Auth";
+			sourceTree = "<group>";
+		};
 		303A06802593B8F200C14BFD /* PhotosCollectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,7 +381,7 @@
 				303AB78D2580FB3300F287C2 /* AppDelegate.swift */,
 				303AB78F2580FB3300F287C2 /* SceneDelegate.swift */,
 				307304E0258B74B20091D2F1 /* Services */,
-				308365CA2589E4DA00578AE2 /* Main */,
+				308365CA2589E4DA00578AE2 /* Modules */,
 				30BC10D2259A01F500066D9B /* Global Models */,
 				308365F92589F48B00578AE2 /* Views */,
 				308365F82589F46A00578AE2 /* Extensions */,
@@ -457,19 +479,13 @@
 			path = Errors;
 			sourceTree = "<group>";
 		};
-		308365CA2589E4DA00578AE2 /* Main */ = {
+		308365CA2589E4DA00578AE2 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				3022F5DA25BB0A0B004C50B7 /* ListScenes */,
-				30A4C9E625B8AF3200003DDE /* NotificationsScene */,
-				30602846259DE2870046A2B0 /* EditProfileController */,
-				30602823259BBDD30046A2B0 /* FullOrderController */,
-				3022F5F625BF42DA004C50B7 /* ScenesWithOrdersFeed */,
-				30CB74D02591218000CB84D6 /* FeedOrderViewController */,
-				308365CB2589E53000578AE2 /* MainTabBarController */,
-				30BC10B025990FEA00066D9B /* EndOfChosingOrder */,
+				3022F60325C08991004C50B7 /* SignIn&Auth */,
+				3022F60225C08982004C50B7 /* Main */,
 			);
-			path = Main;
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		308365CB2589E53000578AE2 /* MainTabBarController */ = {

@@ -36,6 +36,8 @@ final class FeedCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         view.clipsToBounds = true
+        
+
         return view
     }()
     
@@ -115,6 +117,7 @@ final class FeedCell: UICollectionViewCell {
         addSubview(containerView)
         containerView.fillSuperview()
         favouriteButton.addTarget(self, action: #selector(favouriteButtonTapped), for: .touchUpInside)
+        
 //        self.layer.shadowColor = #colorLiteral(red: 0.7411764706, green: 0.7411764706, blue: 0.7411764706, alpha: 1)
 //        self.layer.shadowRadius = 3
 //        self.layer.shadowOpacity = 0.5
@@ -125,6 +128,11 @@ final class FeedCell: UICollectionViewCell {
         super.layoutSubviews()
         self.containerView.layer.cornerRadius = 21
         self.containerView.clipsToBounds = true
+        
+        containerView.layer.shadowColor = #colorLiteral(red: 0.7411764706, green: 0.7411764706, blue: 0.7411764706, alpha: 1)
+        containerView.layer.shadowRadius = 3
+        containerView.layer.shadowOpacity = 0.5
+        containerView.layer.shadowOffset = CGSize(width: 0, height: 4)
     }
     
     required init?(coder: NSCoder) {
