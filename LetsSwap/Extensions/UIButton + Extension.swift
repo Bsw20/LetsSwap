@@ -43,12 +43,12 @@ extension UIButton {
     }
     
     static func getSwapButton() -> UIButton{
-        let button = UIButton.getLittleRoundButton(backgroundColor: .mainYellow(), text: "Махнуться", image: nil, font: .circeRegular(with: 22), textColor: .white)
+        let button = UIButton.getLittleRoundButton(backgroundColor: .mainYellow(), text: "Махнуться", image: nil, font: .circeBold(with: 22), textColor: .white)
         return button
     }
     
     static func getLittleRoundButton(text: String) -> UIButton{
-        let button = UIButton.getLittleRoundButton(backgroundColor: .mainYellow(), text: text, image: nil, font: .circeRegular(with: 22), textColor: .white)
+        let button = UIButton.getLittleRoundButton(backgroundColor: .mainYellow(), text: text, image: nil, font: .circeBold(with: 22), textColor: .white)
         return button
     }
     

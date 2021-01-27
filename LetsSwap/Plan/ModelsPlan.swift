@@ -12,7 +12,7 @@ private struct UserPlan {
     var id: Int?
     var lastname: String
     var firstname: String
-    var phoneNumber: PhoneNumber?
+    var phoneNumber: PhoneNumberPlan?
     var email: Email?
     var city: String
     var swapsCount: Int
@@ -54,7 +54,7 @@ private struct PhotoPlan {
     var photoUrl: String
 }
 
-private struct PhoneNumber {
+private struct PhoneNumberPlan {
     var phone: String
 }
 private struct Email {

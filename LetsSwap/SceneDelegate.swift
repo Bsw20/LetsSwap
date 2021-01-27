@@ -18,10 +18,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+
+//        let mainTabBar = MainTabBarController()
+//        mainTabBar.modalPresentationStyle = .fullScreen
+//        window?.rootViewController = mainTabBar
+        let signInVC = SignInViewController()
+        let signUpVc = SignUpViewController()
+        
+        window?.rootViewController = UINavigationController(rootViewController: signInVC)
+        
         window?.windowScene = windowScene
-        let mainTabBar = MainTabBarController()
-        mainTabBar.modalPresentationStyle = .fullScreen
-        window?.rootViewController = mainTabBar
         window?.makeKeyAndVisible()
     }
 
