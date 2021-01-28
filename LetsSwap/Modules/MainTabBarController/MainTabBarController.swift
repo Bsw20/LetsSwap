@@ -67,17 +67,18 @@ class MainTabBarController: UITabBarController, MainTabBarDisplayLogic {
             
             
             
-            generateNavigationController(rootViewController: FeedViewController(), image: UIImage(named: "feedIcon")!),
-            generateNavigationController(rootViewController: NotificationViewController(), image: UIImage(named: "notificationIcon")!),
-                        generateNavigationController(rootViewController: MyProfileViewController(), image: UIImage(named: "personIconOff")!)
+            generateNavigationController(rootViewController: FeedViewController(), unselectedImage: UIImage(named: "feedIconOff")!, selectedImage: UIImage(named: "feedIconOn")!),
+            generateNavigationController(rootViewController: NotificationViewController(), unselectedImage: UIImage(named: "notificationIconOff")!, selectedImage: UIImage(named: "notificationIconOn")!),
+                        generateNavigationController(rootViewController: MyProfileViewController(), unselectedImage: UIImage(named: "personIconOff")!, selectedImage: UIImage(named: "personIconOn")!)
             
             
         ]
     }
     
-    private func generateNavigationController(rootViewController: UIViewController, image: UIImage) -> UIViewController {
+    private func generateNavigationController(rootViewController: UIViewController, unselectedImage: UIImage, selectedImage: UIImage) -> UIViewController {
         let navigationVC = UINavigationController(rootViewController: rootViewController)
-        navigationVC.tabBarItem.image = image
+        navigationVC.tabBarItem.image = unselectedImage
+        navigationVC.tabBarItem.selectedImage = selectedImage
         navigationVC.navigationBar.barTintColor = .mainBackground()
         navigationVC.navigationBar.isTranslucent = false
         return navigationVC

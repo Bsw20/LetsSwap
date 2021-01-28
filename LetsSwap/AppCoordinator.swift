@@ -20,30 +20,34 @@ class AppCoordinator {
     
     public func start() {
 //        startPresentation()
-        startSignIn()
-//        startMain()
+//        startSignIn()
+        startMain()
     }
     
     private func startAuth() {
     }
     
     private func startPresentation() {
+
         let presentationVC = SignUpPresentationViewController(presentationSlide: .firstSlide)
-        contentWindow.rootViewController = UINavigationController(rootViewController: presentationVC)
+        let navigationVC = UINavigationController(rootViewController: presentationVC)
+        contentWindow.rootViewController = navigationVC
     }
     private func startSignIn() {
         let signInVC = SignInViewController()
         contentWindow.rootViewController = UINavigationController(rootViewController: signInVC)
+        
+        
     }
     private func startMain() {
-        contentWindow.rootViewController = MainTabBarController()
         let options: UIView.AnimationOptions = .transitionFlipFromLeft
 
-        let duration: TimeInterval = 0.3
+        let duration: TimeInterval = 0.6
         UIView.transition(with: contentWindow, duration: duration, options: options, animations: {}, completion:
         { completed in
             // maybe do something on completion here
         })
+        contentWindow.rootViewController = MainTabBarController()
     }
     
 }
