@@ -21,8 +21,9 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
     }()
     
     private lazy var confirmButton: UIButton = {
-        let button = UIButton.getLittleRoundButton(text: "Подтвердить")
+        let button = UIButton.getLittleRoundButton(text: "Подтвердить телефон")
         button.translatesAutoresizingMaskIntoConstraints = false
+//        button.isEnabled = true
         return button
     }()
     
@@ -75,25 +76,33 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
         super.viewDidLoad()
         view.backgroundColor = .mainBackground()
         setupConstraints()
-        setupNavigation()
+        setupNavigationController()
         confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
         signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
     }
     
+    //MARK: - Objc funcs
     @objc private func confirmButtonTapped() {
         print(#function)
+        navigationController?.setupAsBaseScreen(self, animated: true)
+        navigationController?.pushViewController(SMSConfirmViewController(), animated: true)
     }
     @objc private func signUpButtonTapped() {
         print(#function)
+        let vc = SignUpViewController()
+        navigationController?.setupAsBaseScreen(self, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
   
     func displayData(viewModel: SignIn.Model.ViewModel.ViewModelData) {
 
     }
     
-    private func setupNavigation() {
+    private func setupNavigationController() {
         navigationItem.title = "Войти"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
+        
+        navigationController?.navigationBar.isHidden = false
     }
 }
 

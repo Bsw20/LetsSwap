@@ -29,9 +29,9 @@ extension UIButton {
         }
     }
     
-    static func getLittleRoundButton(backgroundColor: UIColor, text: String?, image: UIImage?, font: UIFont?, textColor: UIColor) -> UIButton {
-        let button = UIButton(type: .system)
-        button.backgroundColor = backgroundColor
+    static func getLittleRoundButton(backgroundColor: UIColor, text: String?, image: UIImage?, font: UIFont?, textColor: UIColor, disabledBackgroundColor: UIColor = .detailsGrey(), isEnabled: Bool = true) -> UIButton {
+        let button = BigYellowButton(type: .system)
+        button.setupColors(enabledColor: backgroundColor, disabledColor: disabledBackgroundColor)
         button.setTitle(text, for: .normal)
         button.setImage(image, for: .normal)
         button.setTitleColor(textColor, for: .normal)
@@ -39,6 +39,7 @@ extension UIButton {
         button.titleLabel?.textAlignment = .center
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
+        button.isEnabled = isEnabled
         return button
     }
     
@@ -73,5 +74,21 @@ extension UIButton {
         button.clipsToBounds = true
         button.backgroundColor = #colorLiteral(red: 0.937254902, green: 0.937254902, blue: 0.937254902, alpha: 1)
         return button
+    }
+}
+
+private class BigYellowButton: UIButton {
+    private var enabledColor: UIColor = .mainYellow()
+    private var disabledColor: UIColor = .detailsGrey()
+    
+    override open var isEnabled: Bool {
+        didSet {
+            backgroundColor = isEnabled ? enabledColor : disabledColor
+        }
+    }
+    
+    public func setupColors(enabledColor: UIColor = .mainYellow(), disabledColor: UIColor = .detailsGrey()) {
+        self.enabledColor = enabledColor
+        self.disabledColor = disabledColor
     }
 }

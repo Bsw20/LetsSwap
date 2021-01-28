@@ -31,6 +31,11 @@
 		3022F64925C1B598004C50B7 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F64225C1B598004C50B7 /* SignUpViewController.swift */; };
 		3022F64A25C1B598004C50B7 /* SignUpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F64325C1B598004C50B7 /* SignUpInteractor.swift */; };
 		3022F65225C1B747004C50B7 /* SignUpConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F65125C1B747004C50B7 /* SignUpConstants.swift */; };
+		3022F65625C1CAA6004C50B7 /* SMSConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F65525C1CAA5004C50B7 /* SMSConfirmViewController.swift */; };
+		3022F65925C1E930004C50B7 /* SignUpPresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F65825C1E92F004C50B7 /* SignUpPresentationViewController.swift */; };
+		3022F65C25C1F1F8004C50B7 /* UIPageControl + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F65B25C1F1F8004C50B7 /* UIPageControl + Extension.swift */; };
+		3022F65F25C2DA94004C50B7 /* NavigationController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F65E25C2DA94004C50B7 /* NavigationController + Extension.swift */; };
+		3022F66225C2E443004C50B7 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F66125C2E443004C50B7 /* AppCoordinator.swift */; };
 		302CDE93258D5E08000B4275 /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302CDE92258D5E08000B4275 /* String + Extension.swift */; };
 		302CDE96258D6049000B4275 /* UIFont + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302CDE95258D6049000B4275 /* UIFont + Extension.swift */; };
 		302CDE9D258D6439000B4275 /* FeedConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302CDE9C258D6439000B4275 /* FeedConstants.swift */; };
@@ -164,6 +169,11 @@
 		3022F64225C1B598004C50B7 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		3022F64325C1B598004C50B7 /* SignUpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInteractor.swift; sourceTree = "<group>"; };
 		3022F65125C1B747004C50B7 /* SignUpConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConstants.swift; sourceTree = "<group>"; };
+		3022F65525C1CAA5004C50B7 /* SMSConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSConfirmViewController.swift; sourceTree = "<group>"; };
+		3022F65825C1E92F004C50B7 /* SignUpPresentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPresentationViewController.swift; sourceTree = "<group>"; };
+		3022F65B25C1F1F8004C50B7 /* UIPageControl + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIPageControl + Extension.swift"; sourceTree = "<group>"; };
+		3022F65E25C2DA94004C50B7 /* NavigationController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationController + Extension.swift"; sourceTree = "<group>"; };
+		3022F66125C2E443004C50B7 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		302CDE92258D5E08000B4275 /* String + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extension.swift"; sourceTree = "<group>"; };
 		302CDE95258D6049000B4275 /* UIFont + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont + Extension.swift"; sourceTree = "<group>"; };
 		302CDE9C258D6439000B4275 /* FeedConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedConstants.swift; sourceTree = "<group>"; };
@@ -368,6 +378,8 @@
 			children = (
 				3022F63D25C1B582004C50B7 /* SignUpScene */,
 				3022F62325C1A106004C50B7 /* SignInScene */,
+				3022F65525C1CAA5004C50B7 /* SMSConfirmViewController.swift */,
+				3022F65825C1E92F004C50B7 /* SignUpPresentationViewController.swift */,
 			);
 			path = "SignIn&Auth";
 			sourceTree = "<group>";
@@ -439,6 +451,7 @@
 		303AB78C2580FB3300F287C2 /* LetsSwap */ = {
 			isa = PBXGroup;
 			children = (
+				3022F66125C2E443004C50B7 /* AppCoordinator.swift */,
 				303AB78D2580FB3300F287C2 /* AppDelegate.swift */,
 				303AB78F2580FB3300F287C2 /* SceneDelegate.swift */,
 				307304E0258B74B20091D2F1 /* Services */,
@@ -600,6 +613,8 @@
 				3060283D259BC94F0046A2B0 /* UILabel + Extension.swift */,
 				3060284B259DE52B0046A2B0 /* UITextField + Extension.swift */,
 				30A4C9E325B8AD2400003DDE /* StackView + Extension.swift */,
+				3022F65B25C1F1F8004C50B7 /* UIPageControl + Extension.swift */,
+				3022F65E25C2DA94004C50B7 /* NavigationController + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -833,6 +848,7 @@
 			files = (
 				302CDE96258D6049000B4275 /* UIFont + Extension.swift in Sources */,
 				30A4C9EE25B8AF8200003DDE /* NotificationPresenter.swift in Sources */,
+				3022F66225C2E443004C50B7 /* AppCoordinator.swift in Sources */,
 				30A4C9EF25B8AF8200003DDE /* NotificationWorker.swift in Sources */,
 				3060285B259E1E5A0046A2B0 /* CityView.swift in Sources */,
 				308D28D3258E6C530088D340 /* TagsViewController.swift in Sources */,
@@ -861,6 +877,7 @@
 				30CB74DF259121C700CB84D6 /* FeedOrderWorker.swift in Sources */,
 				30BC10D4259A021F00066D9B /* GlobalModels.swift in Sources */,
 				30BC10CF2599479000066D9B /* NameCityLabel.swift in Sources */,
+				3022F65C25C1F1F8004C50B7 /* UIPageControl + Extension.swift in Sources */,
 				308365D62589E59500578AE2 /* MainTabBarModels.swift in Sources */,
 				3060282E259BBE400046A2B0 /* FullOrderModels.swift in Sources */,
 				30A4C9F225B8AF8200003DDE /* NotificationViewController.swift in Sources */,
@@ -874,6 +891,7 @@
 				308366072589FDC000578AE2 /* Constraints.swift in Sources */,
 				30BC10CC2599342D00066D9B /* UIView + Extension.swift in Sources */,
 				308365D42589E59500578AE2 /* MainTabBarWorker.swift in Sources */,
+				3022F65F25C2DA94004C50B7 /* NavigationController + Extension.swift in Sources */,
 				30602856259DEF0F0046A2B0 /* TextFieldView.swift in Sources */,
 				30602848259DE2F80046A2B0 /* EditProfileViewController.swift in Sources */,
 				308365E92589E65200578AE2 /* FeedInteractor.swift in Sources */,
@@ -908,12 +926,14 @@
 				3083660B258A019A00578AE2 /* InsertableTextField.swift in Sources */,
 				303AB7902580FB3300F287C2 /* SceneDelegate.swift in Sources */,
 				30BC10BB2599156A00066D9B /* AlienProfileWorker.swift in Sources */,
+				3022F65625C1CAA6004C50B7 /* SMSConfirmViewController.swift in Sources */,
 				30CB74DE259121C700CB84D6 /* FeedOrderPresenter.swift in Sources */,
 				3022F5EF25BDFC00004C50B7 /* MyProfileFeedCollectionView.swift in Sources */,
 				307304EA258B7D0A0091D2F1 /* FeedDataFetcher.swift in Sources */,
 				307304DD258B692A0091D2F1 /* FeedCell.swift in Sources */,
 				308365E72589E65200578AE2 /* FeedModels.swift in Sources */,
 				30CB74E2259121C700CB84D6 /* FeedOrderViewController.swift in Sources */,
+				3022F65925C1E930004C50B7 /* SignUpPresentationViewController.swift in Sources */,
 				30BC10C8259920DA00066D9B /* AlienProfileConstants.swift in Sources */,
 				30602852259DEB2F0046A2B0 /* EditProfileConstants.swift in Sources */,
 				3022F5F325BDFDBF004C50B7 /* CreateOrderCell.swift in Sources */,

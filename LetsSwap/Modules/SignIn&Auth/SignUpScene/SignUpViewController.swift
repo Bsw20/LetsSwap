@@ -83,22 +83,31 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
         super.viewDidLoad()
         view.backgroundColor = .mainBackground()
         setupConstraints()
-        setupNavigation()
+        setupNavigationController()
         confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
         signInButton.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
     }
     
     @objc private func confirmButtonTapped() {
         print(#function)
+        navigationController?.setupAsBaseScreen(self, animated: true)
+        let vc = SMSConfirmViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc private func signInButtonTapped() {
         print(#function)
+        navigationController?.setupAsBaseScreen(self, animated: true)
+        let vc = SignInViewController()
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func setupNavigation() {
+    private func setupNavigationController() {
         navigationItem.title = "Регистрация"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
+        navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.tintColor = .black;
     }
   
   func displayData(viewModel: SignUp.Model.ViewModel.ViewModelData) {
