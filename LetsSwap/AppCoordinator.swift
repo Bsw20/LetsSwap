@@ -21,7 +21,8 @@ class AppCoordinator {
     public func start() {
 //        startPresentation()
 //        startSignIn()
-        startMain()
+        startSignUp()
+//        startMain()
     }
     
     private func startAuth() {
@@ -36,9 +37,13 @@ class AppCoordinator {
     private func startSignIn() {
         let signInVC = SignInViewController()
         contentWindow.rootViewController = UINavigationController(rootViewController: signInVC)
-        
-        
     }
+    
+    private func startSignUp() {
+        let signUpVC = SignUpViewController()
+        contentWindow.rootViewController = UINavigationController(rootViewController: signUpVC)
+    }
+    
     private func startMain() {
         let options: UIView.AnimationOptions = .transitionFlipFromLeft
 

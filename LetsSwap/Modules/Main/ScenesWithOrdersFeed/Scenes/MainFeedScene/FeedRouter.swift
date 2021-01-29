@@ -17,7 +17,8 @@ protocol FeedRoutingLogic {
 class FeedRouter: NSObject, FeedRoutingLogic {
     func routeToCitiesController() {
         print("route to cities contrller")
-        let vc = CitiesListViewController()
+        #warning("TODO ")
+        let vc = CitiesListViewController(selectedCity: City.getCities()[0])
         viewController?.navigationController?.pushViewController( vc, animated: true)
     }
     

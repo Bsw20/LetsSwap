@@ -52,7 +52,6 @@ class ChoosePropertyCell: UICollectionViewCell {
     }
     
     func setSelected() {
-        print("set yellow")
         tickImageView.image = #imageLiteral(resourceName: "tick")
     }
     func setDeselected() {

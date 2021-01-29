@@ -8,10 +8,15 @@
 import Foundation
 import UIKit
 
+protocol CityViewDelegate: NSObjectProtocol {
+    func editButtonTapped(currentCity: City)
+}
+
 class CityView: UIView {
+    //MARK: - Controls
     private lazy var label1: UILabel = UILabel.getNormalLabel(fontSize: 17, text: "Город", textColor: .greyTextColor())
     
-    private lazy var cityLabel: UILabel = UILabel.getNormalLabel(fontSize: 17, text: "")
+    private lazy var cityLabel: UILabel = UILabel.getNormalLabel(fontSize: 17, text: "Москва")
     
     private lazy var arrowImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "arrowIcon")?.withTintColor(.detailsYellow()))
@@ -30,6 +35,11 @@ class CityView: UIView {
         
         return button
     }()
+    
+    //MARK: - Variables
+    weak var delegate: CityViewDelegate?
+    private var currentCity: City = City.getCities()[0]
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .detailsGrey()
@@ -38,8 +48,19 @@ class CityView: UIView {
         editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
     }
     
+    //MARK: - funcs
+    public func setCity(city: City) {
+        currentCity = city
+        cityLabel.text = city.city
+    }
+    
+    public func getCity() -> City {
+        return currentCity
+    }
+    //MARK: - Objc funcs
     @objc private func editButtonTapped() {
         print("edit button tapped")
+        delegate?.editButtonTapped(currentCity: currentCity)
     }
     
     override func layoutSubviews() {
@@ -92,8 +113,5 @@ extension CityView {
             cityLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             cityLabel.trailingAnchor.constraint(equalTo: editButton.leadingAnchor, constant: -5)
         ])
-
-        
-        
     }
 }

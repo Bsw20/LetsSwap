@@ -85,7 +85,7 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
     @objc private func confirmButtonTapped() {
         print(#function)
         navigationController?.setupAsBaseScreen(self, animated: true)
-        navigationController?.pushViewController(SMSConfirmViewController(), animated: true)
+        navigationController?.pushViewController(SMSConfirmViewController(authType: .signIn), animated: true)
     }
     @objc private func signUpButtonTapped() {
         print(#function)

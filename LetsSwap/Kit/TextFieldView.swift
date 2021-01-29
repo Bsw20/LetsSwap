@@ -8,10 +8,16 @@
 import Foundation
 import UIKit
 
+protocol TextFieldViewDelegate: AnyObject {
+    func textDidChange(textFieldView: TextFieldView, newText: String)
+}
 
 class TextFieldView: UIView {
     
     private var textField: UITextField
+    
+    weak var delegate: TextFieldViewDelegate?
+    
     
     init(placeholder: String) {
         textField = UITextField.getNormalTextField(placeholder: placeholder)
@@ -23,7 +29,38 @@ class TextFieldView: UIView {
         addGestureRecognizer(recognizer)
         
         setupTextfield()
+        textField.addTarget(self, action: #selector(textFieldDidChange), for: UIControl.Event.editingChanged)
 
+    }
+    
+    //MARK: - funcs
+    private func setupTextfield() {
+        addSubview(textField)
+        textField.fillSuperview()
+        textField.layer.cornerRadius = 10
+        textField.backgroundColor = .detailsGrey()
+        textField.clipsToBounds = true
+    }
+    
+    public func isEmpty() -> Bool{
+        return textField.text?.isEmpty ?? true
+    }
+    
+    public func applyPatternOnNumbers(apply: Bool = true) {
+        
+    }
+    
+    
+    public func getText() -> String{
+        return textField.text ?? " "
+    }
+    
+    public func setText(newText: String) {
+        textField.text = newText
+    }
+    //MARK: - Objc funcs
+    @objc func textFieldDidChange(textField: UITextField) {
+        delegate?.textDidChange(textFieldView: self, newText: textField.text ?? "")
     }
     
 //    override func didMoveToSuperview() {
@@ -35,24 +72,13 @@ class TextFieldView: UIView {
 //        textField.resignFirstResponder()
 //    }
     
-    private func setupTextfield() {
-        addSubview(textField)
-        textField.fillSuperview()
-        textField.layer.cornerRadius = 10
-        textField.backgroundColor = .detailsGrey()
-        textField.clipsToBounds = true
-    }
-    
     @objc public func resignTextField() {
         textField.resignFirstResponder()
 //        self.endEditing(true)
 //        print("worked")
     }
     
-    
-    public func getText() -> String?{
-        return textField.text
-    }
+
     
     
     required init?(coder: NSCoder) {

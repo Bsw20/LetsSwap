@@ -8,14 +8,29 @@
 import Foundation
 import UIKit
 
+protocol CitiesListDelegate: NSObjectProtocol {
+    func citySelected(city: City)
+}
+
 class CitiesListViewController: UIViewController {
     //MARK: - Variables
-    private var selectedCity: City!
     private var allCities = City.getCities()
+    private var selectedCity: City
     private var filtredCities: [City]  = City.getCities()
+    
+    weak var delegate: CitiesListDelegate?
     //MARK: - Controls
-
     private var collectionView: UICollectionView!
+    
+    init(selectedCity: City) {
+        self.selectedCity = selectedCity
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .mainBackground()
@@ -93,20 +108,16 @@ extension CitiesListViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("select at \(indexPath)")
         selectedCity = filtredCities[indexPath.item]
         (collectionView.cellForItem(at: indexPath) as! ChoosePropertyCell).setSelected()
         
-        print("selected \(selectedCity)")
+        delegate?.citySelected(city: selectedCity)
+        navigationController?.popViewController(animated: true)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        print("deselect at \(indexPath)")
         (collectionView.cellForItem(at: indexPath) as! ChoosePropertyCell).setDeselected()
-        print("deselected \(selectedCity)")
-        
-        
-//        collectionView.reloadData()
     }
 }
 

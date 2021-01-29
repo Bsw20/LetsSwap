@@ -31,7 +31,6 @@
 		3022F64925C1B598004C50B7 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F64225C1B598004C50B7 /* SignUpViewController.swift */; };
 		3022F64A25C1B598004C50B7 /* SignUpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F64325C1B598004C50B7 /* SignUpInteractor.swift */; };
 		3022F65225C1B747004C50B7 /* SignUpConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F65125C1B747004C50B7 /* SignUpConstants.swift */; };
-		3022F65625C1CAA6004C50B7 /* SMSConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F65525C1CAA5004C50B7 /* SMSConfirmViewController.swift */; };
 		3022F65925C1E930004C50B7 /* SignUpPresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F65825C1E92F004C50B7 /* SignUpPresentationViewController.swift */; };
 		3022F65C25C1F1F8004C50B7 /* UIPageControl + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F65B25C1F1F8004C50B7 /* UIPageControl + Extension.swift */; };
 		3022F65F25C2DA94004C50B7 /* NavigationController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F65E25C2DA94004C50B7 /* NavigationController + Extension.swift */; };
@@ -70,6 +69,7 @@
 		30602856259DEF0F0046A2B0 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30602855259DEF0F0046A2B0 /* TextFieldView.swift */; };
 		3060285B259E1E5A0046A2B0 /* CityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3060285A259E1E5A0046A2B0 /* CityView.swift */; };
 		3060285E259E2B590046A2B0 /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3060285D259E2B590046A2B0 /* AddPhotoView.swift */; };
+		3072F33125C4750900CE7C65 /* SMSConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3072F33025C4750900CE7C65 /* SMSConfirmViewController.swift */; };
 		307304DD258B692A0091D2F1 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307304DC258B692A0091D2F1 /* FeedCell.swift */; };
 		307304E4258B75BC0091D2F1 /* FeedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307304E3258B75BC0091D2F1 /* FeedResponse.swift */; };
 		307304EA258B7D0A0091D2F1 /* FeedDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307304E9258B7D0A0091D2F1 /* FeedDataFetcher.swift */; };
@@ -96,6 +96,7 @@
 		30895F7B2594AE820091FA31 /* RequestSentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30895F7A2594AE820091FA31 /* RequestSentViewController.swift */; };
 		308D28CE258E4BA70088D340 /* TagsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308D28CD258E4BA70088D340 /* TagsCollectionView.swift */; };
 		308D28D3258E6C530088D340 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308D28D2258E6C530088D340 /* TagsViewController.swift */; };
+		3096301125C4335D0076090F /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3096301025C4335D0076090F /* AuthService.swift */; };
 		30A4C9E425B8AD2400003DDE /* StackView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4C9E325B8AD2400003DDE /* StackView + Extension.swift */; };
 		30A4C9EE25B8AF8200003DDE /* NotificationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4C9E725B8AF8200003DDE /* NotificationPresenter.swift */; };
 		30A4C9EF25B8AF8200003DDE /* NotificationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4C9E825B8AF8200003DDE /* NotificationWorker.swift */; };
@@ -169,7 +170,6 @@
 		3022F64225C1B598004C50B7 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		3022F64325C1B598004C50B7 /* SignUpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInteractor.swift; sourceTree = "<group>"; };
 		3022F65125C1B747004C50B7 /* SignUpConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConstants.swift; sourceTree = "<group>"; };
-		3022F65525C1CAA5004C50B7 /* SMSConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSConfirmViewController.swift; sourceTree = "<group>"; };
 		3022F65825C1E92F004C50B7 /* SignUpPresentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPresentationViewController.swift; sourceTree = "<group>"; };
 		3022F65B25C1F1F8004C50B7 /* UIPageControl + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIPageControl + Extension.swift"; sourceTree = "<group>"; };
 		3022F65E25C2DA94004C50B7 /* NavigationController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationController + Extension.swift"; sourceTree = "<group>"; };
@@ -210,6 +210,7 @@
 		30602855259DEF0F0046A2B0 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		3060285A259E1E5A0046A2B0 /* CityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityView.swift; sourceTree = "<group>"; };
 		3060285D259E2B590046A2B0 /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
+		3072F33025C4750900CE7C65 /* SMSConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSConfirmViewController.swift; sourceTree = "<group>"; };
 		307304DC258B692A0091D2F1 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		307304E3258B75BC0091D2F1 /* FeedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedResponse.swift; sourceTree = "<group>"; };
 		307304E9258B7D0A0091D2F1 /* FeedDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDataFetcher.swift; sourceTree = "<group>"; };
@@ -236,6 +237,7 @@
 		30895F7A2594AE820091FA31 /* RequestSentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSentViewController.swift; sourceTree = "<group>"; };
 		308D28CD258E4BA70088D340 /* TagsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsCollectionView.swift; sourceTree = "<group>"; };
 		308D28D2258E6C530088D340 /* TagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
+		3096301025C4335D0076090F /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		30A4C9E325B8AD2400003DDE /* StackView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StackView + Extension.swift"; sourceTree = "<group>"; };
 		30A4C9E725B8AF8200003DDE /* NotificationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPresenter.swift; sourceTree = "<group>"; };
 		30A4C9E825B8AF8200003DDE /* NotificationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationWorker.swift; sourceTree = "<group>"; };
@@ -298,7 +300,6 @@
 		3022F5DA25BB0A0B004C50B7 /* ListScenes */ = {
 			isa = PBXGroup;
 			children = (
-				3022F5EA25BB32B9004C50B7 /* Models */,
 				3022F5E125BB0B5A004C50B7 /* Views */,
 				3022F5DB25BB0A2F004C50B7 /* CitiesListViewController.swift */,
 				3022F5DE25BB0A3D004C50B7 /* TagsListViewController.swift */,
@@ -312,14 +313,6 @@
 				3022F5E225BB0BCE004C50B7 /* ChoosePropertyCell.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		3022F5EA25BB32B9004C50B7 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				3022F5E625BB32B0004C50B7 /* CityModel.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		3022F5ED25BDFBE2004C50B7 /* MyProfileFeedCollection */ = {
@@ -373,15 +366,16 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		3022F60325C08991004C50B7 /* SignIn&Auth */ = {
+		3022F60325C08991004C50B7 /* SignIn&SignUp */ = {
 			isa = PBXGroup;
 			children = (
+				3096301025C4335D0076090F /* AuthService.swift */,
 				3022F63D25C1B582004C50B7 /* SignUpScene */,
 				3022F62325C1A106004C50B7 /* SignInScene */,
-				3022F65525C1CAA5004C50B7 /* SMSConfirmViewController.swift */,
+				3072F33025C4750900CE7C65 /* SMSConfirmViewController.swift */,
 				3022F65825C1E92F004C50B7 /* SignUpPresentationViewController.swift */,
 			);
-			path = "SignIn&Auth";
+			path = "SignIn&SignUp";
 			sourceTree = "<group>";
 		};
 		3022F62325C1A106004C50B7 /* SignInScene */ = {
@@ -555,7 +549,7 @@
 			isa = PBXGroup;
 			children = (
 				308365CB2589E53000578AE2 /* MainTabBarController */,
-				3022F60325C08991004C50B7 /* SignIn&Auth */,
+				3022F60325C08991004C50B7 /* SignIn&SignUp */,
 				3022F60225C08982004C50B7 /* Main */,
 			);
 			path = Modules;
@@ -711,6 +705,7 @@
 		30BC10D2259A01F500066D9B /* Global Models */ = {
 			isa = PBXGroup;
 			children = (
+				3022F5E625BB32B0004C50B7 /* CityModel.swift */,
 				30BC10D3259A021F00066D9B /* GlobalModels.swift */,
 			);
 			path = "Global Models";
@@ -855,6 +850,7 @@
 				3022F64725C1B598004C50B7 /* SignUpRouter.swift in Sources */,
 				30CB74E1259121C700CB84D6 /* FeedOrderModels.swift in Sources */,
 				308365FF2589F61700578AE2 /* UIColor + Extension.swift in Sources */,
+				3096301125C4335D0076090F /* AuthService.swift in Sources */,
 				303A06822593B92200C14BFD /* PhotoCell.swift in Sources */,
 				3022F64825C1B598004C50B7 /* SignUpModels.swift in Sources */,
 				3022F5FF25BF48F6004C50B7 /* FeedCollectionLayout.swift in Sources */,
@@ -926,7 +922,7 @@
 				3083660B258A019A00578AE2 /* InsertableTextField.swift in Sources */,
 				303AB7902580FB3300F287C2 /* SceneDelegate.swift in Sources */,
 				30BC10BB2599156A00066D9B /* AlienProfileWorker.swift in Sources */,
-				3022F65625C1CAA6004C50B7 /* SMSConfirmViewController.swift in Sources */,
+				3072F33125C4750900CE7C65 /* SMSConfirmViewController.swift in Sources */,
 				30CB74DE259121C700CB84D6 /* FeedOrderPresenter.swift in Sources */,
 				3022F5EF25BDFC00004C50B7 /* MyProfileFeedCollectionView.swift in Sources */,
 				307304EA258B7D0A0091D2F1 /* FeedDataFetcher.swift in Sources */,

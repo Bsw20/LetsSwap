@@ -9,6 +9,10 @@ import Foundation
 import UIKit
 
 class SMSConfirmViewController: UIViewController {
+    enum AuthType {
+        case signIn
+        case signUp
+    }
     //MARK: - Controls
     private lazy var topLabel: UILabel = {
         let label = UILabel.getNormalLabel(fontSize: 22, text: "Введите проверочный код")
@@ -29,6 +33,18 @@ class SMSConfirmViewController: UIViewController {
     
     //MARK: - Variables
     weak var authDelegate: AuthFinishedDelegate? = SceneDelegate.shared().appCoordinator
+    private var authService = AuthService()
+    private var authType: AuthType
+    
+    init(authType: AuthType) {
+        self.authType = authType
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .mainBackground()
@@ -41,6 +57,23 @@ class SMSConfirmViewController: UIViewController {
     @objc private func confirmButtonTapped() {
         print(#function)
         print(textView.getText())
+        
+        let model = SignUpViewModel(name: "Ярослав",
+                                    lastName: "Карпунькин",
+                                    city: "Москва",
+                                    login: "89858182278",
+                                    smsCode: textView.getText())
+        
+        authService.signUp(signUpModel: model) { (result) in
+            print("RESULT FROM VC")
+            switch result {
+            
+            case .success(_):
+                print("NICE")
+            case .failure(_):
+                print("ZVIZDEC")
+            }
+        }
         
         authDelegate?.authFinished()
     }

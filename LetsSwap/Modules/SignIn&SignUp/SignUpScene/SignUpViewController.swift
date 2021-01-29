@@ -9,7 +9,24 @@
 import UIKit
 
 protocol SignUpDisplayLogic: class {
-  func displayData(viewModel: SignUp.Model.ViewModel.ViewModelData)
+    func displayData(viewModel: SignUp.Model.ViewModel.ViewModelData)
+}
+
+struct SignUpViewModel {
+    var name: String
+    var lastName: String
+    var city: String
+    var login: String
+    var smsCode: String?
+    
+    var representation: [String: Any] {
+        var rep = ["name": name]
+        rep["lastName"] = lastName
+        rep["city"] = city
+        rep["login"] = login
+        rep["smsCode"] = smsCode ?? ""
+        return rep
+    }
 }
 
 class SignUpViewController: UIViewController, SignUpDisplayLogic {
@@ -23,6 +40,7 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
     private lazy var confirmButton: UIButton = {
         let button = UIButton.getLittleRoundButton(text: "Подтвердить телефон")
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.isEnabled = false
         return button
     }()
     
@@ -44,6 +62,9 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    //MARK: - Variables
+    private let authService = AuthService()
     
     var interactor: SignUpBusinessLogic?
     var router: (NSObjectProtocol & SignUpRoutingLogic)?
@@ -84,16 +105,40 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
         view.backgroundColor = .mainBackground()
         setupConstraints()
         setupNavigationController()
-        confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
-        signInButton.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
+        setupActions()
+        setupDelegates()
     }
     
+    // MARK: Funcs
+    private func collectData() -> SignUpViewModel {
+        let phoneNumber = phoneNubmerView.getData().1.trimmingCharacters(in: .whitespaces)
+
+        return SignUpViewModel(name: nameTextView.getText().trimmingCharacters(in: .whitespaces),
+                               lastName: lastNameTextView.getText().trimmingCharacters(in: .whitespaces),
+                               city: cityView.getCity().city,
+                               login: "8" + phoneNumber,
+                               smsCode: nil)
+    }
+    
+    // MARK: Objc funcs
     @objc private func confirmButtonTapped() {
         print(#function)
+        let signUpViewModel = collectData()
+        print(signUpViewModel.representation)
+        authService.sendSms(login: signUpViewModel.login) { (result) in
+            switch(result) {
+
+            case .success(_):
+                print("ВСЕ ОК")
+            case .failure(_):
+                print("ГгГ")
+            }
+        }
         navigationController?.setupAsBaseScreen(self, animated: true)
-        let vc = SMSConfirmViewController()
+        let vc = SMSConfirmViewController(authType: .signUp)
         navigationController?.pushViewController(vc, animated: true)
     }
+    
     
     @objc private func signInButtonTapped() {
         print(#function)
@@ -103,17 +148,70 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    //MARK: - Funcs
     private func setupNavigationController() {
         navigationItem.title = "Регистрация"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
         navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.tintColor = .black;
     }
-  
-  func displayData(viewModel: SignUp.Model.ViewModel.ViewModelData) {
+    
+    private func setupActions() {
+        confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+        signInButton.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
+    }
+    
+    private func setupDelegates() {
+        nameTextView.delegate = self
+        lastNameTextView.delegate = self
+        cityView.delegate = self
+        phoneNubmerView.delegate = self
+    }
+    
+    private func confirmValidation() -> Bool{
+        return !(nameTextView.isEmpty() || lastNameTextView.isEmpty() || phoneNubmerView.isEmpty())
+    }
+    func displayData(viewModel: SignUp.Model.ViewModel.ViewModelData) {
 
-  }
-  
+    }
+}
+
+//MARK: - InputPhoneNumberViewDelegate
+extension SignUpViewController: InputPhoneNumberViewDelegate {
+    func phoneNumberDidChange(newPhoneNumber: String) {
+        if confirmValidation() {
+            confirmButton.isEnabled = true
+            return
+        }
+        confirmButton.isEnabled = false
+    }
+    
+}
+
+//MARK: - TextFieldViewDelegate
+extension SignUpViewController: TextFieldViewDelegate {
+    func textDidChange(textFieldView: TextFieldView, newText: String) {
+        if confirmValidation() {
+            confirmButton.isEnabled = true
+            return
+        }
+        confirmButton.isEnabled = false
+    }
+}
+
+//MARK: - CityViewDelegate
+extension SignUpViewController: CityViewDelegate {
+    func editButtonTapped(currentCity: City) {
+        print("yes")
+        router?.routeToCityListController(selectedCity: currentCity)
+    }
+}
+
+//MARK: - CitiesListDelegate
+extension SignUpViewController: CitiesListDelegate {
+    func citySelected(city: City) {
+        cityView.setCity(city: city)
+    }
 }
 
 //MARK: - Constraints

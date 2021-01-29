@@ -8,13 +8,17 @@
 import Foundation
 import UIKit
 
+protocol InputPhoneNumberViewDelegate: NSObjectProtocol {
+    func phoneNumberDidChange(newPhoneNumber: String)
+}
 
 class InputPhoneNumberView: UIView {
-    
+    //MARK: - Controls
     private lazy var countryCodeView: TextFieldView = {
        let view = TextFieldView(placeholder: "+7")
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = false
+        view.setText(newText: "+7")
         return view
     }()
     
@@ -30,19 +34,41 @@ class InputPhoneNumberView: UIView {
         return button
     }()
     
+    //MARK: - Variables
+    weak var delegate: InputPhoneNumberViewDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupConstraints()
         backgroundColor = .clear
         countryButton.addTarget(self, action: #selector(countryButtonTapped), for: .touchUpInside)
+        phoneNumberView.delegate = self
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Objc funcs
     @objc private func countryButtonTapped() {
         print(#function)
     }
+    
+    //MARK: - funcs
+    func getData() -> (String, String) {
+        #warning("Проверка на пустоту")
+        return (countryCodeView.getText(), phoneNumberView.getText())
+    }
+    func isEmpty() -> Bool{
+        return phoneNumberView.isEmpty()
+    }
+}
+
+extension InputPhoneNumberView: TextFieldViewDelegate {
+    func textDidChange(textFieldView: TextFieldView, newText: String) {
+        delegate?.phoneNumberDidChange(newPhoneNumber: newText)
+    }
+    
+    
 }
 
 //MARK: - Constraints
