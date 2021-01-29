@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Alamofire
 
 struct AuthService {
     func signUp(signUpModel: SignUpViewModel, completion: @escaping (Result<Bool, Error>) -> Void) {
@@ -22,7 +23,6 @@ struct AuthService {
 //
 //
 //        }
-        
         #warning("All checks")
 
         guard let url = URL(string: "http://92.63.105.87:3000/register") else {return}
