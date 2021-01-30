@@ -37,7 +37,6 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
         return button
     }()
     
-    var interactor: SignInBusinessLogic?
     var router: (NSObjectProtocol & SignInRoutingLogic)?
 
       // MARK: Object lifecycle
@@ -56,13 +55,8 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
   
     private func setup() {
         let viewController        = self
-        let interactor            = SignInInteractor()
-        let presenter             = SignInPresenter()
         let router                = SignInRouter()
-        viewController.interactor = interactor
         viewController.router     = router
-        interactor.presenter      = presenter
-        presenter.viewController  = viewController
         router.viewController     = viewController
     }
   
@@ -77,15 +71,17 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
         view.backgroundColor = .mainBackground()
         setupConstraints()
         setupNavigationController()
-        confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
-        signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+
+        setupDelegates()
+        setupActions()
+        
     }
     
     //MARK: - Objc funcs
     @objc private func confirmButtonTapped() {
         print(#function)
         navigationController?.setupAsBaseScreen(self, animated: true)
-        navigationController?.pushViewController(SMSConfirmViewController(authType: .signIn), animated: true)
+        router?.routeToSMSScene(data: collectData())
     }
     @objc private func signUpButtonTapped() {
         print(#function)
@@ -93,9 +89,25 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
         navigationController?.setupAsBaseScreen(self, animated: true)
         navigationController?.pushViewController(vc, animated: true)
     }
-  
+    
+    //MARK: - Funcs
+    private func setupActions() {
+        confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+    }
+    
+    private func setupDelegates() {
+        phoneNubmerView.delegate = self
+    }
     func displayData(viewModel: SignIn.Model.ViewModel.ViewModelData) {
 
+    }
+    
+    private func collectData() -> SignInViewModel {
+        let phoneNumber = phoneNubmerView.getData().1.trimmingCharacters(in: .whitespaces)
+
+        return SignInViewModel(login: "8" + phoneNumber,
+                               smsCode: nil)
     }
     
     private func setupNavigationController() {
@@ -104,8 +116,23 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
         
         navigationController?.navigationBar.isHidden = false
     }
+    
+    private func confirmValidation() -> Bool{
+        return !phoneNubmerView.isEmpty()
+    }
 }
 
+//MARK: - InputPhoneNumberViewDelegate
+extension SignInViewController: InputPhoneNumberViewDelegate {
+    func phoneNumberDidChange(newPhoneNumber: String) {
+        if confirmValidation() {
+            confirmButton.isEnabled = true
+            return
+        }
+        confirmButton.isEnabled = false
+    }
+    
+}
 //MARK: - Constraints
 extension SignInViewController {
     private func setupConstraints() {

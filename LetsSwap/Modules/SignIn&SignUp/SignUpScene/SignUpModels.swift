@@ -29,3 +29,21 @@ enum SignUp {
   }
   
 }
+
+
+struct SignUpViewModel {
+    var name: String
+    var lastName: String
+    var city: String
+    var login: String
+    var smsCode: String?
+    
+    var representation: [String: Any] {
+        var rep = ["name": name]
+        rep["lastName"] = lastName
+        rep["city"] = city
+        rep["login"] = login
+        rep["smsCode"] = smsCode ?? ""
+        return rep
+    }
+}

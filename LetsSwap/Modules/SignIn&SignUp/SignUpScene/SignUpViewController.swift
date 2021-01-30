@@ -12,23 +12,6 @@ protocol SignUpDisplayLogic: class {
     func displayData(viewModel: SignUp.Model.ViewModel.ViewModelData)
 }
 
-struct SignUpViewModel {
-    var name: String
-    var lastName: String
-    var city: String
-    var login: String
-    var smsCode: String?
-    
-    var representation: [String: Any] {
-        var rep = ["name": name]
-        rep["lastName"] = lastName
-        rep["city"] = city
-        rep["login"] = login
-        rep["smsCode"] = smsCode ?? ""
-        return rep
-    }
-}
-
 class SignUpViewController: UIViewController, SignUpDisplayLogic {
     //MARK: - Controls
     private lazy var phoneNubmerView: InputPhoneNumberView = {
@@ -66,7 +49,6 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
     //MARK: - Variables
     private let authService = AuthService()
     
-    var interactor: SignUpBusinessLogic?
     var router: (NSObjectProtocol & SignUpRoutingLogic)?
 
       // MARK: Object lifecycle
@@ -85,13 +67,9 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
   
     private func setup() {
         let viewController        = self
-        let interactor            = SignUpInteractor()
-        let presenter             = SignUpPresenter()
         let router                = SignUpRouter()
-        viewController.interactor = interactor
+
         viewController.router     = router
-        interactor.presenter      = presenter
-        presenter.viewController  = viewController
         router.viewController     = viewController
     }
   // MARK: Routing
@@ -123,6 +101,7 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
     // MARK: Objc funcs
     @objc private func confirmButtonTapped() {
         print(#function)
+        self.navigationController?.setupAsBaseScreen(self, animated: true)
         let signUpViewModel = collectData()
         print(signUpViewModel.representation)
 //        authService.sendSms(login: signUpViewModel.login) { (result) in
@@ -130,9 +109,7 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
 //
 //            case .success():
 //                print("sms sent")
-//                self.navigationController?.setupAsBaseScreen(self, animated: true)
-//                let vc = SMSConfirmViewController(authType: .signUp(data: signUpViewModel))
-//                self.navigationController?.pushViewController(vc, animated: true)
+//                router?.routeToSMSScene(data: signUpViewModel)
 //
 //            case .failure(let error):
 //                print("probs with sent sms")
@@ -140,9 +117,7 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
 //            }
 //        }
         
-        self.navigationController?.setupAsBaseScreen(self, animated: true)
-        let vc = SMSConfirmViewController(authType: .signUp(data: signUpViewModel))
-        self.navigationController?.pushViewController(vc, animated: true)
+        router?.routeToSMSScene(data: signUpViewModel)
 
     }
     

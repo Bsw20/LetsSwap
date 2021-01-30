@@ -13,6 +13,7 @@ struct AuthService {
     
     private static var sendSmsUrl = URL(string: "http://92.63.105.87:3000/smsSend")
     private static var signUpUrl = URL(string: "http://92.63.105.87:3000/register")
+    private static var signInUrl = URL(string: "http://92.63.105.87:3000/login")
     
     func sendSms(login: String, completion: @escaping (Result<Void, Error>) -> Void) {
         print(#function)
@@ -66,6 +67,47 @@ struct AuthService {
         }
         
         let userData = signUpModel.representation
+        let headers: HTTPHeaders = [
+                    "Content-Type":"application/json"
+                ]
+        AF.request(url, method: .post,
+                   parameters: userData,
+                   encoding: JSONEncoding.default,
+                   headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseJSON { (response) in
+                switch response.result {
+                
+                case .success(let data):
+                    if let data = data as? [String:String] {
+                        print(data)
+                        if let token = data["token"] {
+                            completion(.success(Void()))
+                            return
+                        }
+                    }
+                    completion(.failure(AuthError.serverError))
+                case .failure(let error):
+                    print(error)
+                    #warning("figure out with error types")
+                    completion(.failure(AuthError.serverError))
+            }
+        }
+    }
+    
+    func signIn(signInModel: SignInViewModel, completion: @escaping (Result<Void, AuthError>) -> Void) {
+        print(#function)
+        print(signInModel.representation)
+        guard let url = AuthService.signInUrl else {
+            completion(.failure(AuthError.APIUrlError))
+            return
+        }
+        
+        guard let _ = signInModel.smsCode else {
+            fatalError("Нет смс кода")
+        }
+        
+        let userData = signInModel.representation
         let headers: HTTPHeaders = [
                     "Content-Type":"application/json"
                 ]

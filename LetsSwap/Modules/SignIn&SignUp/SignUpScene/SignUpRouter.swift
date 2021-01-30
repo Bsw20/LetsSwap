@@ -10,16 +10,20 @@ import UIKit
 
 protocol SignUpRoutingLogic {
     func routeToCityListController(selectedCity: City)
+    func routeToSMSScene(data: SignUpViewModel)
 }
 
 class SignUpRouter: NSObject, SignUpRoutingLogic {
-
   weak var viewController: SignUpViewController?
   
-  // MARK: Routing
+    // MARK: Routing
     func routeToCityListController(selectedCity: City){
         let vc = CitiesListViewController(selectedCity: selectedCity)
         vc.delegate = viewController
+        viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    func routeToSMSScene(data: SignUpViewModel) {
+        let vc = SMSConfirmViewController(authType: .signUp(data: data))
         viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }

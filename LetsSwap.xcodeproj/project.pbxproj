@@ -17,20 +17,14 @@
 		3022F5F325BDFDBF004C50B7 /* CreateOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F5F225BDFDBF004C50B7 /* CreateOrderCell.swift */; };
 		3022F5FF25BF48F6004C50B7 /* FeedCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F5FE25BF48F6004C50B7 /* FeedCollectionLayout.swift */; };
 		3022F62125C19C97004C50B7 /* InputPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F62025C19C97004C50B7 /* InputPhoneNumberView.swift */; };
-		3022F62B25C1A120004C50B7 /* SignInPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F62425C1A120004C50B7 /* SignInPresenter.swift */; };
-		3022F62C25C1A120004C50B7 /* SignInWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F62525C1A120004C50B7 /* SignInWorker.swift */; };
 		3022F62D25C1A120004C50B7 /* SignInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F62625C1A120004C50B7 /* SignInRouter.swift */; };
 		3022F62E25C1A120004C50B7 /* SignInModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F62725C1A120004C50B7 /* SignInModels.swift */; };
 		3022F62F25C1A120004C50B7 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F62825C1A120004C50B7 /* SignInViewController.swift */; };
-		3022F63025C1A120004C50B7 /* SignInInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F62925C1A120004C50B7 /* SignInInteractor.swift */; };
 		3022F63725C1A273004C50B7 /* SignInConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F63625C1A273004C50B7 /* SignInConstants.swift */; };
 		3022F63B25C1AAB4004C50B7 /* PhoneCountryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F63A25C1AAB4004C50B7 /* PhoneCountryButton.swift */; };
-		3022F64525C1B598004C50B7 /* SignUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F63E25C1B597004C50B7 /* SignUpPresenter.swift */; };
-		3022F64625C1B598004C50B7 /* SignUpWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F63F25C1B598004C50B7 /* SignUpWorker.swift */; };
 		3022F64725C1B598004C50B7 /* SignUpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F64025C1B598004C50B7 /* SignUpRouter.swift */; };
 		3022F64825C1B598004C50B7 /* SignUpModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F64125C1B598004C50B7 /* SignUpModels.swift */; };
 		3022F64925C1B598004C50B7 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F64225C1B598004C50B7 /* SignUpViewController.swift */; };
-		3022F64A25C1B598004C50B7 /* SignUpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F64325C1B598004C50B7 /* SignUpInteractor.swift */; };
 		3022F65225C1B747004C50B7 /* SignUpConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F65125C1B747004C50B7 /* SignUpConstants.swift */; };
 		3022F65925C1E930004C50B7 /* SignUpPresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F65825C1E92F004C50B7 /* SignUpPresentationViewController.swift */; };
 		3022F65C25C1F1F8004C50B7 /* UIPageControl + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F65B25C1F1F8004C50B7 /* UIPageControl + Extension.swift */; };
@@ -162,20 +156,14 @@
 		3022F5F225BDFDBF004C50B7 /* CreateOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrderCell.swift; sourceTree = "<group>"; };
 		3022F5FE25BF48F6004C50B7 /* FeedCollectionLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionLayout.swift; sourceTree = "<group>"; };
 		3022F62025C19C97004C50B7 /* InputPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPhoneNumberView.swift; sourceTree = "<group>"; };
-		3022F62425C1A120004C50B7 /* SignInPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPresenter.swift; sourceTree = "<group>"; };
-		3022F62525C1A120004C50B7 /* SignInWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWorker.swift; sourceTree = "<group>"; };
 		3022F62625C1A120004C50B7 /* SignInRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInRouter.swift; sourceTree = "<group>"; };
 		3022F62725C1A120004C50B7 /* SignInModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInModels.swift; sourceTree = "<group>"; };
 		3022F62825C1A120004C50B7 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
-		3022F62925C1A120004C50B7 /* SignInInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInInteractor.swift; sourceTree = "<group>"; };
 		3022F63625C1A273004C50B7 /* SignInConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInConstants.swift; sourceTree = "<group>"; };
 		3022F63A25C1AAB4004C50B7 /* PhoneCountryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCountryButton.swift; sourceTree = "<group>"; };
-		3022F63E25C1B597004C50B7 /* SignUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPresenter.swift; sourceTree = "<group>"; };
-		3022F63F25C1B598004C50B7 /* SignUpWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWorker.swift; sourceTree = "<group>"; };
 		3022F64025C1B598004C50B7 /* SignUpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRouter.swift; sourceTree = "<group>"; };
 		3022F64125C1B598004C50B7 /* SignUpModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModels.swift; sourceTree = "<group>"; };
 		3022F64225C1B598004C50B7 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		3022F64325C1B598004C50B7 /* SignUpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInteractor.swift; sourceTree = "<group>"; };
 		3022F65125C1B747004C50B7 /* SignUpConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConstants.swift; sourceTree = "<group>"; };
 		3022F65825C1E92F004C50B7 /* SignUpPresentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPresentationViewController.swift; sourceTree = "<group>"; };
 		3022F65B25C1F1F8004C50B7 /* UIPageControl + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIPageControl + Extension.swift"; sourceTree = "<group>"; };
@@ -404,11 +392,8 @@
 			children = (
 				3022F63625C1A273004C50B7 /* SignInConstants.swift */,
 				3022F62825C1A120004C50B7 /* SignInViewController.swift */,
-				3022F62425C1A120004C50B7 /* SignInPresenter.swift */,
-				3022F62525C1A120004C50B7 /* SignInWorker.swift */,
 				3022F62625C1A120004C50B7 /* SignInRouter.swift */,
 				3022F62725C1A120004C50B7 /* SignInModels.swift */,
-				3022F62925C1A120004C50B7 /* SignInInteractor.swift */,
 			);
 			path = SignInScene;
 			sourceTree = "<group>";
@@ -418,11 +403,8 @@
 			children = (
 				3022F65125C1B747004C50B7 /* SignUpConstants.swift */,
 				3022F64225C1B598004C50B7 /* SignUpViewController.swift */,
-				3022F63E25C1B597004C50B7 /* SignUpPresenter.swift */,
-				3022F63F25C1B598004C50B7 /* SignUpWorker.swift */,
 				3022F64025C1B598004C50B7 /* SignUpRouter.swift */,
 				3022F64125C1B598004C50B7 /* SignUpModels.swift */,
-				3022F64325C1B598004C50B7 /* SignUpInteractor.swift */,
 			);
 			path = SignUpScene;
 			sourceTree = "<group>";
@@ -956,11 +938,9 @@
 				3022F5E725BB32B0004C50B7 /* CityModel.swift in Sources */,
 				30CB750525927A4700CB84D6 /* FontsCheck.swift in Sources */,
 				3060282D259BBE400046A2B0 /* FullOrderRouter.swift in Sources */,
-				3022F63025C1A120004C50B7 /* SignInInteractor.swift in Sources */,
 				30BC1101259AA0C500066D9B /* MyProfileRouter.swift in Sources */,
 				30602837259BC4160046A2B0 /* FullOrderConstants.swift in Sources */,
 				308366022589F81D00578AE2 /* UIButton + Extension.swift in Sources */,
-				3022F64525C1B598004C50B7 /* SignUpPresenter.swift in Sources */,
 				30BC10BF2599156A00066D9B /* AlienProfileInteractor.swift in Sources */,
 				303A0696259477FF00C14BFD /* CommentViewController.swift in Sources */,
 				3022F62125C19C97004C50B7 /* InputPhoneNumberView.swift in Sources */,
@@ -994,7 +974,6 @@
 				30A4C9F125B8AF8200003DDE /* NotificationModels.swift in Sources */,
 				3022F5DC25BB0A2F004C50B7 /* CitiesListViewController.swift in Sources */,
 				3060282C259BBE400046A2B0 /* FullOrderWorker.swift in Sources */,
-				3022F62C25C1A120004C50B7 /* SignInWorker.swift in Sources */,
 				303A0695259477FF00C14BFD /* CommentModels.swift in Sources */,
 				3022F63725C1A273004C50B7 /* SignInConstants.swift in Sources */,
 				30BC10E3259A141400066D9B /* ProfileResponse.swift in Sources */,
@@ -1003,7 +982,6 @@
 				30A4C9FB25B8B83F00003DDE /* NotificationCollectionView.swift in Sources */,
 				308365F12589F2A200578AE2 /* TitleView.swift in Sources */,
 				308365D52589E59500578AE2 /* MainTabBarRouter.swift in Sources */,
-				3022F62B25C1A120004C50B7 /* SignInPresenter.swift in Sources */,
 				3060284C259DE52C0046A2B0 /* UITextField + Extension.swift in Sources */,
 				30BC10AE2599042000066D9B /* ChooseOrderError.swift in Sources */,
 				308365D72589E59500578AE2 /* MainTabBarController.swift in Sources */,
@@ -1031,7 +1009,6 @@
 				30BC10C8259920DA00066D9B /* AlienProfileConstants.swift in Sources */,
 				30602852259DEB2F0046A2B0 /* EditProfileConstants.swift in Sources */,
 				3022F5F325BDFDBF004C50B7 /* CreateOrderCell.swift in Sources */,
-				3022F64A25C1B598004C50B7 /* SignUpInteractor.swift in Sources */,
 				303AB7A6258163F400F287C2 /* ModelsPlan.swift in Sources */,
 				303A06862593B93400C14BFD /* PhotosCollectionView.swift in Sources */,
 				3022F62F25C1A120004C50B7 /* SignInViewController.swift in Sources */,
@@ -1060,7 +1037,6 @@
 				30BC1100259AA0C500066D9B /* MyProfileWorker.swift in Sources */,
 				3060283E259BC94F0046A2B0 /* UILabel + Extension.swift in Sources */,
 				3022F63B25C1AAB4004C50B7 /* PhoneCountryButton.swift in Sources */,
-				3022F64625C1B598004C50B7 /* SignUpWorker.swift in Sources */,
 				3022F62D25C1A120004C50B7 /* SignInRouter.swift in Sources */,
 				3060282B259BBE400046A2B0 /* FullOrderPresenter.swift in Sources */,
 				30A4C9F325B8AF8200003DDE /* NotificationInteractor.swift in Sources */,

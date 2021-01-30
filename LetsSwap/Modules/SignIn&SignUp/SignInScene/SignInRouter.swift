@@ -9,13 +9,19 @@
 import UIKit
 
 protocol SignInRoutingLogic {
-
+    func routeToSMSScene(data: SignInViewModel)
 }
 
 class SignInRouter: NSObject, SignInRoutingLogic {
 
+
   weak var viewController: SignInViewController?
   
   // MARK: Routing
+    func routeToSMSScene(data: SignInViewModel) {
+        let vc = SMSConfirmViewController(authType: .signIn(data: data))
+        viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
   
 }

@@ -29,3 +29,14 @@ enum SignIn {
   }
   
 }
+
+struct SignInViewModel {
+    var login: String
+    var smsCode: String?
+    
+    var representation: [String: Any] {
+        var rep = ["login": login]
+        rep["smsCode"] = smsCode ?? ""
+        return rep
+    }
+}
