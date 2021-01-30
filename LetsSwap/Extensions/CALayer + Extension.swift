@@ -15,6 +15,9 @@ extension CALayer {
         animation.toValue = endColor.cgColor
         animation.duration = duration
         animation.autoreverses = autoreverses
+        if !autoreverses {
+            borderColor = endColor.cgColor
+        }
         animation.delegate = animationDelegate
         self.add(animation, forKey: "borderColor")
     }

@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 protocol OTPDelegate: class {
-    //always triggers when the OTP field is valid
     func didChangeValidity(isValid: Bool)
+    func animationWithCorrectCodeFinished()
 }
 
 class OTPStackView: UIStackView {
@@ -18,6 +18,8 @@ class OTPStackView: UIStackView {
     var textFieldsCollection: [OTPTextField] = []
     weak var delegate: OTPDelegate?
     var showsWarningColor = false
+    
+    var isCorrectCode: Bool = false
     
     //Colors
     let inactiveFieldBorderColor =  UIColor.detailsGrey()
@@ -105,18 +107,19 @@ class OTPStackView: UIStackView {
         showsWarningColor = isWarningColor
     }
     
-    final func finishEnterAnimation(colorForAnimation: UIColor) {
+    final func finishEnterAnimation(colorForAnimation: UIColor, isCorrectCode: Bool) {
         print("incorrect otp")
         textFieldsCollection[numberOfFields - 1].resignFirstResponder()
+        self.isCorrectCode = isCorrectCode
         
         for textField in self.textFieldsCollection{
             textField.isUserInteractionEnabled = false
             if textField == textFieldsCollection.last {
-                textField.layer.animateBorderColor(from: .clear, to: colorForAnimation, withDuration: 0.5, autoreverses: true, animationDelegate: self)
+                textField.layer.animateBorderColor(from: .clear, to: colorForAnimation, withDuration: 0.5, autoreverses: isCorrectCode ? false : true, animationDelegate: self)
                 continue
             }
             
-            textField.layer.animateBorderColor(from: .clear, to: colorForAnimation, withDuration: 0.5, autoreverses: true)
+            textField.layer.animateBorderColor(from: .clear, to: colorForAnimation, withDuration: 0.5, autoreverses: isCorrectCode ? false : true)
         }
     }
     
@@ -136,7 +139,10 @@ class OTPStackView: UIStackView {
 
 extension OTPStackView: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-
+        if isCorrectCode {
+            delegate?.animationWithCorrectCodeFinished()
+            return
+        }
         textFieldsCollection[0].layer.borderColor = activeFieldBorderColor.cgColor
         for textField in self.textFieldsCollection{
             UIView.transition(with: textField, duration: 0.25, options: .transitionCrossDissolve, animations: {
@@ -148,8 +154,6 @@ extension OTPStackView: CAAnimationDelegate {
                 self.textFieldsCollection[0].becomeFirstResponder()
             }
         }
-
-
     }
 }
 

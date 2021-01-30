@@ -89,6 +89,11 @@ class SMSConfirmViewController: UIViewController {
 //MARK: - OTPDelegate
 //ma token ["token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwiaWF0IjoxNjEyMDEzNzIwfQ.xppDQuayBeLYIhH7oNkLiednNrqJkoDoM8Oz1ZUzcf0"]
 extension SMSConfirmViewController: OTPDelegate {
+    func animationWithCorrectCodeFinished() {
+        print("animation with correct code finished")
+        self.authDelegate?.authFinished()
+    }
+    
     func didChangeValidity(isValid: Bool) {
         print(isValid)
         if isValid {
@@ -97,9 +102,11 @@ extension SMSConfirmViewController: OTPDelegate {
             case .signIn:
                 print("sign in sent code")
             case .signUp(data: var data):
-                let value = true
-                if value {
-                    numbersView.finishEnterAnimation(colorForAnimation: .green)
+                let isCorrectCode = numbersView.getOTP() == "111111"
+                if isCorrectCode {
+                    numbersView.finishEnterAnimation(colorForAnimation: .green, isCorrectCode: isCorrectCode)
+                } else {
+                    numbersView.finishEnterAnimation(colorForAnimation: .red, isCorrectCode: isCorrectCode)
                 }
 //                data.smsCode = numbersView.getOTP()
 //                authService.signUp(signUpModel: data) { (result) in
