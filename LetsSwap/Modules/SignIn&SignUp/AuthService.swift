@@ -10,88 +10,87 @@ import UIKit
 import Alamofire
 
 struct AuthService {
-    func signUp(signUpModel: SignUpViewModel, completion: @escaping (Result<Bool, Error>) -> Void) {
-        
-        
-//        auth.signIn(withEmail: email, password: password) { (result, error) in
-//            guard let result = result else {
-//                completion(.failure(error!))
-//                return
-//            }
-//
-//            completion(.success(result.user))
-//
-//
-//        }
-        #warning("All checks")
+    
+    private static var sendSmsUrl = URL(string: "http://92.63.105.87:3000/smsSend")
+    private static var signUpUrl = URL(string: "http://92.63.105.87:3000/register")
+    
+    func sendSms(login: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        print(#function)
+        guard let url = AuthService.sendSmsUrl else {
+            completion(.failure(AuthError.APIUrlError))
+            return
+        }
 
-        guard let url = URL(string: "http://92.63.105.87:3000/register") else {return}
+        let userData: [String: Any] = ["login": login]
+        print(login)
+        let headers: HTTPHeaders = [
+                    "Content-Type":"application/json"
+                ]
 
-        let userData = signUpModel.representation
+        AF.request(url, method: .post,
+                   parameters: userData,
+                   encoding: JSONEncoding.default,
+                   headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseJSON { (response) in
+                switch response.result {
 
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                case .success(let data):
+                    if let data = data as? [String:String] {
+                        print(data)
+                        if data["message"] == "success" {
+                            completion(.success(Void()))
+                            return
+                        }
+                    }
+                    completion(.failure(AuthError.serverError))
 
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: userData, options: []) else { return }
-        request.httpBody = httpBody
+                case .failure(let error):
+                    print(error)
+                    #warning("figure out with error types")
 
-        let session = URLSession.shared
-        session.dataTask(with: request) { (data, response, error) in
-
-            guard let response = response, let data = data else { return }
-            print("RESPONSE")
-            print(response)
-
-            print("DATA")
-            print(data)
-
-            do {
-                print("GET JSON")
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                print(json)
-            } catch {
-                print("GET ERROR")
-                print(error)
             }
-        } .resume()
+        }
     }
     
-    
-    
-    func sendSms(login: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func signUp(signUpModel: SignUpViewModel, completion: @escaping (Result<Void, AuthError>) -> Void) {
+        print(#function)
+        print(signUpModel.representation)
+        guard let url = AuthService.signUpUrl else {
+            completion(.failure(AuthError.APIUrlError))
+            return
+        }
         
-        #warning("All checks")
+        guard let _ = signUpModel.smsCode else {
+            fatalError("Нет смс кода")
+        }
         
-        guard let url = URL(string: "http://92.63.105.87:3000/smsSend") else {return}
-        
-        let userData = ["login": login]
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: userData, options: []) else { return }
-        request.httpBody = httpBody
-        
-        let session = URLSession.shared
-        session.dataTask(with: request) { (data, response, error) in
-            
-            guard let response = response, let data = data else { return }
-            print("RESPONSE")
-            print(response)
-            
-            print("DATA")
-            print(data)
-            
-            do {
-                print("GET JSON")
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                print(json)
-            } catch {
-                print("GET ERROR")
-                print(error)
+        let userData = signUpModel.representation
+        let headers: HTTPHeaders = [
+                    "Content-Type":"application/json"
+                ]
+        AF.request(url, method: .post,
+                   parameters: userData,
+                   encoding: JSONEncoding.default,
+                   headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseJSON { (response) in
+                switch response.result {
+                
+                case .success(let data):
+                    if let data = data as? [String:String] {
+                        print(data)
+                        if let token = data["token"] {
+                            completion(.success(Void()))
+                            return
+                        }
+                    }
+                    completion(.failure(AuthError.serverError))
+                case .failure(let error):
+                    print(error)
+                    #warning("figure out with error types")
+                    completion(.failure(AuthError.serverError))
             }
-        } .resume()
+        }
     }
 }

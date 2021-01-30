@@ -125,18 +125,25 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
         print(#function)
         let signUpViewModel = collectData()
         print(signUpViewModel.representation)
-        authService.sendSms(login: signUpViewModel.login) { (result) in
-            switch(result) {
+//        authService.sendSms(login: signUpViewModel.login) { (result) in
+//            switch(result) {
+//
+//            case .success():
+//                print("sms sent")
+//                self.navigationController?.setupAsBaseScreen(self, animated: true)
+//                let vc = SMSConfirmViewController(authType: .signUp(data: signUpViewModel))
+//                self.navigationController?.pushViewController(vc, animated: true)
+//
+//            case .failure(let error):
+//                print("probs with sent sms")
+//                self.showAlert(title: "Ошибка, попробуйте позже!", message: error.localizedDescription)
+//            }
+//        }
+        
+        self.navigationController?.setupAsBaseScreen(self, animated: true)
+        let vc = SMSConfirmViewController(authType: .signUp(data: signUpViewModel))
+        self.navigationController?.pushViewController(vc, animated: true)
 
-            case .success(_):
-                print("ВСЕ ОК")
-            case .failure(_):
-                print("ГгГ")
-            }
-        }
-        navigationController?.setupAsBaseScreen(self, animated: true)
-        let vc = SMSConfirmViewController(authType: .signUp)
-        navigationController?.pushViewController(vc, animated: true)
     }
     
     

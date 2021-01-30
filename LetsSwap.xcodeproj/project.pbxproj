@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -71,6 +71,10 @@
 		3060285B259E1E5A0046A2B0 /* CityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3060285A259E1E5A0046A2B0 /* CityView.swift */; };
 		3060285E259E2B590046A2B0 /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3060285D259E2B590046A2B0 /* AddPhotoView.swift */; };
 		3072F33125C4750900CE7C65 /* SMSConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3072F33025C4750900CE7C65 /* SMSConfirmViewController.swift */; };
+		3072F33925C4951C00CE7C65 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3072F33825C4951C00CE7C65 /* AuthError.swift */; };
+		3072F33F25C57A3A00CE7C65 /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3072F33E25C57A3A00CE7C65 /* OTPTextField.swift */; };
+		3072F34425C57C6E00CE7C65 /* OTPStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3072F34325C57C6E00CE7C65 /* OTPStackView.swift */; };
+		3072F34725C5A4B200CE7C65 /* CALayer + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3072F34625C5A4B200CE7C65 /* CALayer + Extension.swift */; };
 		307304DD258B692A0091D2F1 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307304DC258B692A0091D2F1 /* FeedCell.swift */; };
 		307304E4258B75BC0091D2F1 /* FeedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307304E3258B75BC0091D2F1 /* FeedResponse.swift */; };
 		307304EA258B7D0A0091D2F1 /* FeedDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307304E9258B7D0A0091D2F1 /* FeedDataFetcher.swift */; };
@@ -214,6 +218,10 @@
 		3060285A259E1E5A0046A2B0 /* CityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityView.swift; sourceTree = "<group>"; };
 		3060285D259E2B590046A2B0 /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
 		3072F33025C4750900CE7C65 /* SMSConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSConfirmViewController.swift; sourceTree = "<group>"; };
+		3072F33825C4951C00CE7C65 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
+		3072F33E25C57A3A00CE7C65 /* OTPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTextField.swift; sourceTree = "<group>"; };
+		3072F34325C57C6E00CE7C65 /* OTPStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPStackView.swift; sourceTree = "<group>"; };
+		3072F34625C5A4B200CE7C65 /* CALayer + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer + Extension.swift"; sourceTree = "<group>"; };
 		307304DC258B692A0091D2F1 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		307304E3258B75BC0091D2F1 /* FeedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedResponse.swift; sourceTree = "<group>"; };
 		307304E9258B7D0A0091D2F1 /* FeedDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDataFetcher.swift; sourceTree = "<group>"; };
@@ -385,7 +393,7 @@
 				3096301025C4335D0076090F /* AuthService.swift */,
 				3022F63D25C1B582004C50B7 /* SignUpScene */,
 				3022F62325C1A106004C50B7 /* SignInScene */,
-				3072F33025C4750900CE7C65 /* SMSConfirmViewController.swift */,
+				3072F33C25C57A0000CE7C65 /* OTPScene */,
 				3022F65825C1E92F004C50B7 /* SignUpPresentationViewController.swift */,
 			);
 			path = "SignIn&SignUp";
@@ -529,6 +537,24 @@
 			path = views;
 			sourceTree = "<group>";
 		};
+		3072F33C25C57A0000CE7C65 /* OTPScene */ = {
+			isa = PBXGroup;
+			children = (
+				3072F33025C4750900CE7C65 /* SMSConfirmViewController.swift */,
+				3072F34125C57A6200CE7C65 /* Views */,
+			);
+			path = OTPScene;
+			sourceTree = "<group>";
+		};
+		3072F34125C57A6200CE7C65 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3072F33E25C57A3A00CE7C65 /* OTPTextField.swift */,
+				3072F34325C57C6E00CE7C65 /* OTPStackView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		307304E0258B74B20091D2F1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -552,6 +578,7 @@
 		307304F1258B86B10091D2F1 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
+				3072F33825C4951C00CE7C65 /* AuthError.swift */,
 				30BC10DE259A04C200066D9B /* AlienProfileError.swift */,
 				307304F3258B86CC0091D2F1 /* FeedError.swift */,
 				30CB74E7259123DB00CB84D6 /* OrderError.swift */,
@@ -622,6 +649,7 @@
 				3060283D259BC94F0046A2B0 /* UILabel + Extension.swift */,
 				3060284B259DE52B0046A2B0 /* UITextField + Extension.swift */,
 				30A4C9E325B8AD2400003DDE /* StackView + Extension.swift */,
+				3072F34625C5A4B200CE7C65 /* CALayer + Extension.swift */,
 				3022F65B25C1F1F8004C50B7 /* UIPageControl + Extension.swift */,
 				3022F65E25C2DA94004C50B7 /* NavigationController + Extension.swift */,
 			);
@@ -790,7 +818,6 @@
 				0FDDB42C3174B459B64DF708 /* Pods-LetsSwap.debug.xcconfig */,
 				F22BB14CA9FFFBF0B5D58E92 /* Pods-LetsSwap.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -923,6 +950,7 @@
 				303A06822593B92200C14BFD /* PhotoCell.swift in Sources */,
 				3022F64825C1B598004C50B7 /* SignUpModels.swift in Sources */,
 				3022F5FF25BF48F6004C50B7 /* FeedCollectionLayout.swift in Sources */,
+				3072F34425C57C6E00CE7C65 /* OTPStackView.swift in Sources */,
 				30CB74EC2591257B00CB84D6 /* OrderResponse.swift in Sources */,
 				30BC10C525991AF500066D9B /* ProfileTopView.swift in Sources */,
 				3022F5E725BB32B0004C50B7 /* CityModel.swift in Sources */,
@@ -953,6 +981,7 @@
 				303AB7A92581715300F287C2 /* DataFetcherPlan.swift in Sources */,
 				303A067D2593843F00C14BFD /* LittleRoundButton.swift in Sources */,
 				307304FA258BF4C80091D2F1 /* TagCell.swift in Sources */,
+				3072F33F25C57A3A00CE7C65 /* OTPTextField.swift in Sources */,
 				308366072589FDC000578AE2 /* Constraints.swift in Sources */,
 				30BC10CC2599342D00066D9B /* UIView + Extension.swift in Sources */,
 				308365D42589E59500578AE2 /* MainTabBarWorker.swift in Sources */,
@@ -1015,6 +1044,7 @@
 				30A4C9FE25B8BB7800003DDE /* NotificationCell.swift in Sources */,
 				30BC10DF259A04C200066D9B /* AlienProfileError.swift in Sources */,
 				30602830259BBE400046A2B0 /* FullOrderInteractor.swift in Sources */,
+				3072F34725C5A4B200CE7C65 /* CALayer + Extension.swift in Sources */,
 				30CB74E0259121C700CB84D6 /* FeedOrderRouter.swift in Sources */,
 				307304E4258B75BC0091D2F1 /* FeedResponse.swift in Sources */,
 				30BC1102259AA0C500066D9B /* MyProfileModels.swift in Sources */,
@@ -1036,6 +1066,7 @@
 				30A4C9F325B8AF8200003DDE /* NotificationInteractor.swift in Sources */,
 				308365E42589E65200578AE2 /* FeedPresenter.swift in Sources */,
 				308365E52589E65200578AE2 /* FeedWorker.swift in Sources */,
+				3072F33925C4951C00CE7C65 /* AuthError.swift in Sources */,
 				307304F7258B913D0091D2F1 /* UIViewController + Extension.swift in Sources */,
 				302CDE9D258D6439000B4275 /* FeedConstants.swift in Sources */,
 				30CB74F42592344900CB84D6 /* OrderTitleView.swift in Sources */,
