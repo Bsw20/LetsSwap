@@ -8,10 +8,10 @@
 import Foundation
 import UIKit
 
-struct ProfileTopViewModel {
-    var profileImage: UIImage?
-    var swapsCount: Double
-    var rating: Double
+protocol ProfileTopViewModel {
+    var profileImage: String? { get }
+    var swapsCount: Int { get }
+    var raiting: Double { get }
 }
 class ProfileTopView: UIView {
     private lazy var imageView: WebImageView  = {
@@ -96,9 +96,10 @@ class ProfileTopView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(swapsCount: Int, raiting: Double, imageView: URL?) {
-        swapsCountLabel.text = "\(swapsCount)"
-        raitingLabel.text = String(format: "%.1f", raiting)
+    func setup(topViewModel: ProfileTopViewModel) {
+        swapsCountLabel.text = "\(topViewModel.swapsCount)"
+        raitingLabel.text = String(format: "%.1f", topViewModel.raiting)
+        #warning("IMAGE")
     }
     
     private func setupConstraints() {

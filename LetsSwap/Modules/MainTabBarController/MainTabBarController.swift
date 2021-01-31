@@ -59,7 +59,7 @@ class MainTabBarController: UITabBarController, MainTabBarDisplayLogic {
 //            generateNavigationController(rootViewController: CommentViewController(commentsModel: CommentsOrderModel(orderId: 12387)), image: UIImage(named: "feedIcon")!)
 //            generateNavigationController(rootViewController: RequestSentViewController(), image: UIImage(named: "feedIcon")!)
 //            generateNavigationController(rootViewController: FeedViewController(), image: UIImage(named: "feedIcon")!),
-//            generateNavigationController(rootViewController: MyProfileViewController(), image: UIImage(named: "personIconOff")!)
+            generateNavigationController(rootViewController: MyProfileViewController(), unselectedImage: UIImage(named: "personIconOff")!, selectedImage: UIImage(named: "personIconOn")!)
 //            generateNavigationController(rootViewController: FullOrderViewController(), image: UIImage(named: "personIconOff")!)
 //            generateNavigationController(rootViewController: EditProfileViewController(), image: UIImage(named: "personIconOff")!)
 //            generateNavigationController(rootViewController: NotificationViewController(), image: UIImage(named: "notificationIcon")!)
@@ -67,9 +67,9 @@ class MainTabBarController: UITabBarController, MainTabBarDisplayLogic {
             
             
             
-            generateNavigationController(rootViewController: FeedViewController(), unselectedImage: UIImage(named: "feedIconOff")!, selectedImage: UIImage(named: "feedIconOn")!),
-            generateNavigationController(rootViewController: NotificationViewController(), unselectedImage: UIImage(named: "notificationIconOff")!, selectedImage: UIImage(named: "notificationIconOn")!),
-                        generateNavigationController(rootViewController: MyProfileViewController(), unselectedImage: UIImage(named: "personIconOff")!, selectedImage: UIImage(named: "personIconOn")!)
+//            generateNavigationController(rootViewController: FeedViewController(), unselectedImage: UIImage(named: "feedIconOff")!, selectedImage: UIImage(named: "feedIconOn")!),
+//            generateNavigationController(rootViewController: NotificationViewController(), unselectedImage: UIImage(named: "notificationIconOff")!, selectedImage: UIImage(named: "notificationIconOn")!),
+//                        generateNavigationController(rootViewController: MyProfileViewController(), unselectedImage: UIImage(named: "personIconOff")!, selectedImage: UIImage(named: "personIconOn")!)
             
             
         ]

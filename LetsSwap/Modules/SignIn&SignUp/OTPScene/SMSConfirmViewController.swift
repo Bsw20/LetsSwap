@@ -119,24 +119,26 @@ extension SMSConfirmViewController: OTPDelegate {
 //                }
                 
             case .signUp(data: var data):
-                let isCorrectCode = numbersView.getOTP() == "111111"
-                if isCorrectCode {
-                    numbersView.finishEnterAnimation(colorForAnimation: .green, isCorrectCode: isCorrectCode)
-                } else {
-                    numbersView.finishEnterAnimation(colorForAnimation: .red, isCorrectCode: isCorrectCode)
-                }
-//                data.smsCode = numbersView.getOTP()
-//                authService.signUp(signUpModel: data) { (result) in
-//                    print("RESULT FROM VC")
-//                    switch result {
-//
-//                    case .success():
-//                        print("NICE")
-//                        self.authDelegate?.authFinished()
-//                    case .failure(_):
-//                        print("ZVIZDEC")
-//                    }
+//                ["token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTYxMjA5NjQ2NH0.sfXLi1rDR-uGqnUSvH6zVaVtLTwOm8EMs7S_glAWwaQ"]
+//                let isCorrectCode = numbersView.getOTP() == "111111"
+//                if isCorrectCode {
+//                    numbersView.finishEnterAnimation(colorForAnimation: .green, isCorrectCode: isCorrectCode)
+//                } else {
+//                    numbersView.finishEnterAnimation(colorForAnimation: .red, isCorrectCode: isCorrectCode)
 //                }
+                data.smsCode = numbersView.getOTP()
+                authService.signUp(signUpModel: data) { (result) in
+                    print("RESULT FROM VC")
+                    switch result {
+
+                    case .success():
+                        print("NICE")
+                        self.numbersView.finishEnterAnimation(colorForAnimation: .green, isCorrectCode: true)
+                    case .failure(_):
+                        self.numbersView.finishEnterAnimation(colorForAnimation: .green, isCorrectCode: false)
+                        print("ZVIZDEC")
+                    }
+                }
             }
         }
     }

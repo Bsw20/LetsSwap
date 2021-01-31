@@ -93,7 +93,7 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
         setupNavigationController()
          
         setupConstraints()
-        topView.setup(swapsCount: 23, raiting: 3.8, imageView: nil)
+//        topView.setup(swapsCount: 23, raiting: 3.8, imageView: nil)
         cityNameLabel.setup(name: "Митя Матвеев", city: "г. Москва")
     }
     
@@ -110,6 +110,14 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
     }
   
     func displayData(viewModel: MyProfile.Model.ViewModel.ViewModelData) {
+        switch viewModel {
+        
+        case .displayWholeProfile(myProfileViewModel: let myProfileViewModel):
+            topView.setup(topViewModel: myProfileViewModel.personInfo)
+            feedCollectionView.reloadData()
+        case .displayError(error: let error):
+            showAlert(title: "Ошибка", message: error.localizedDescription)
+        }
 
     }
   

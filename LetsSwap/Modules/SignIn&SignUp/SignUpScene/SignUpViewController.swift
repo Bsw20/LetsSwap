@@ -104,18 +104,19 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
         self.navigationController?.setupAsBaseScreen(self, animated: true)
         let signUpViewModel = collectData()
         print(signUpViewModel.representation)
-//        authService.sendSms(login: signUpViewModel.login) { (result) in
-//            switch(result) {
-//
-//            case .success():
-//                print("sms sent")
-//                router?.routeToSMSScene(data: signUpViewModel)
-//
-//            case .failure(let error):
-//                print("probs with sent sms")
-//                self.showAlert(title: "Ошибка, попробуйте позже!", message: error.localizedDescription)
-//            }
-//        }
+        
+        authService.sendSms(login: signUpViewModel.login) { (result) in
+            switch(result) {
+
+            case .success():
+                print("sms sent")
+                self.router?.routeToSMSScene(data: signUpViewModel)
+
+            case .failure(let error):
+                print("probs with sent sms")
+                self.showAlert(title: "Ошибка, попробуйте позже!", message: error.localizedDescription)
+            }
+        }
         
         router?.routeToSMSScene(data: signUpViewModel)
 

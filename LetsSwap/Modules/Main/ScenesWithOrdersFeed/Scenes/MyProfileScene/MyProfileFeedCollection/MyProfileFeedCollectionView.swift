@@ -34,6 +34,11 @@ class MyProfileFeedCollectionView: UICollectionView {
         
     }
     
+    public func updateData(feedViewModel: MyProfileViewModel.FeedModel) {
+        self.feedViewModel = feedViewModel
+        reloadData()
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

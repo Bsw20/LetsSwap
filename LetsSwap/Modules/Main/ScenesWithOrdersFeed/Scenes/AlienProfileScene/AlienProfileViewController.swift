@@ -105,7 +105,7 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
 
         setupConstraints()
         chatButton.addTarget(self, action: #selector(chatButtonTapped), for: .touchUpInside)
-        topView.setup(swapsCount: 25, raiting: 3.5, imageView: nil)
+//        topView.setup(swapsCount: 25, raiting: 3.5, imageView: nil)
         interactor?.makeRequest(request: .getProfile(userId: userId))
         feedCollectionView.feedDelegate = self
 

@@ -48,6 +48,7 @@ struct AuthService {
 
                 case .failure(let error):
                     print(error)
+                    completion(.failure(AuthError.serverError))
                     #warning("figure out with error types")
 
             }

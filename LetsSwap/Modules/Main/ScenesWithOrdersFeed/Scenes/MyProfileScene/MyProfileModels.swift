@@ -10,37 +10,38 @@ import UIKit
 
 enum MyProfile {
    
-  enum Model {
-    struct Request {
-      enum RequestType {
-        case some
-      }
+    enum Model {
+        struct Request {
+            enum RequestType {
+                case getWholeProfile
+            }
+        }
+        struct Response {
+            enum ResponseType {
+                case presentWholeProfile(result: Result<MyProfileViewModel, MyProfileError>)
+            }
+        }
+        struct ViewModel {
+            enum ViewModelData {
+                case displayWholeProfile(myProfileViewModel: MyProfileViewModel)
+                case displayError(error: Error)
+            }
+        }
     }
-    struct Response {
-      enum ResponseType {
-        case some
-      }
-    }
-    struct ViewModel {
-      enum ViewModelData {
-        case some
-      }
-    }
-  }
-  
 }
 
-struct MyProfileViewModel {
-    struct PersonInfo {
-        var profileImage: URL?
+struct MyProfileViewModel: Decodable {
+    struct PersonInfo: Decodable, ProfileTopViewModel {
+        var profileImage: String?
         var name: String
+        var lastname: String
         var cityName: String
         var swapsCount: Int
         var raiting: Double
     }
     
-    struct FeedModel {
-        struct Cell: Hashable, BaseFeedCellViewModel {
+    struct FeedModel: Decodable {
+        struct Cell: Hashable, BaseFeedCellViewModel, Decodable {
             
             var orderId: Int
             

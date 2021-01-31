@@ -20,8 +20,8 @@ class AppCoordinator {
     
     public func start() {
 //        startPresentation()
-        startSignIn()
-//        startSignUp()
+//        startSignIn()
+        startSignUp()
 //        startMain()
     }
     

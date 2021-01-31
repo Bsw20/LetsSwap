@@ -40,7 +40,7 @@ struct SignUpViewModel {
     
     var representation: [String: Any] {
         var rep = ["name": name]
-        rep["lastName"] = lastName
+        rep["lastname"] = lastName
         rep["city"] = city
         rep["login"] = login
         rep["smsCode"] = smsCode ?? ""

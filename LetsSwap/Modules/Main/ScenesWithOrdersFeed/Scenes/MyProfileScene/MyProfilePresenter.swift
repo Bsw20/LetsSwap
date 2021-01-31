@@ -13,10 +13,18 @@ protocol MyProfilePresentationLogic {
 }
 
 class MyProfilePresenter: MyProfilePresentationLogic {
-  weak var viewController: MyProfileDisplayLogic?
+    weak var viewController: MyProfileDisplayLogic?
   
-  func presentData(response: MyProfile.Model.Response.ResponseType) {
-  
-  }
-  
+    func presentData(response: MyProfile.Model.Response.ResponseType) {
+        switch response {
+        case .presentWholeProfile(result: let result):
+            switch result {
+            
+            case .success(let data):
+                viewController?.displayData(viewModel: .displayWholeProfile(myProfileViewModel: data))
+            case .failure(let error):
+                viewController?.displayData(viewModel: .displayError(error: error))
+            }
+        }
+    }
 }

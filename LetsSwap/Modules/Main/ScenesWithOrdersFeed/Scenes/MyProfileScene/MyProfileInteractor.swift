@@ -14,13 +14,22 @@ protocol MyProfileBusinessLogic {
 
 class MyProfileInteractor: MyProfileBusinessLogic {
 
-  var presenter: MyProfilePresentationLogic?
-  var service: MyProfileService?
+    var presenter: MyProfilePresentationLogic?
+    var service: MyProfileService?
+    private var fetcher: MyProfileFetcher = UserAPIService.shared
+    
   
-  func makeRequest(request: MyProfile.Model.Request.RequestType) {
-    if service == nil {
-      service = MyProfileService()
+    func makeRequest(request: MyProfile.Model.Request.RequestType) {
+        if service == nil {
+            service = MyProfileService()
+        }
+        
+        switch request {
+        
+        case .getWholeProfile:
+            fetcher.getMyProfile { [weak self] (result) in
+                self?.presenter?.presentData(response: .presentWholeProfile(result: result))
+            }
+        }
     }
-  }
-  
 }
