@@ -101,22 +101,22 @@ extension SMSConfirmViewController: OTPDelegate {
             
             case .signIn(data: var data):
                 print("sign in sent code")
-                let isCorrectCode = numbersView.getOTP() == "111111"
-                if isCorrectCode {
-                    numbersView.finishEnterAnimation(colorForAnimation: .green, isCorrectCode: isCorrectCode)
-                } else {
-                    numbersView.finishEnterAnimation(colorForAnimation: .red, isCorrectCode: isCorrectCode)
-                }
-//                 data.smsCode = numbersView.getOTP()
-//                authService.signIn(signInModel: data) { (result) in
-//                    switch result {
-//                    case .success():
-//                        print("Successfull register")
-//                        self.authDelegate?.authFinished()
-//                    case .failure(_):
-//                        print("UnSuccessfull register ")
-//                    }
+//                let isCorrectCode = numbersView.getOTP() == "111111"
+//                if isCorrectCode {
+//                    numbersView.finishEnterAnimation(colorForAnimation: .green, isCorrectCode: isCorrectCode)
+//                } else {
+//                    numbersView.finishEnterAnimation(colorForAnimation: .red, isCorrectCode: isCorrectCode)
 //                }
+                 data.smsCode = numbersView.getOTP()
+                authService.signIn(signInModel: data) { (result) in
+                    switch result {
+                    case .success():
+                        print("Successfull register")
+                        self.authDelegate?.authFinished()
+                    case .failure(_):
+                        print("UnSuccessfull register ")
+                    }
+                }
                 
             case .signUp(data: var data):
 //                ["token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTYxMjA5NjQ2NH0.sfXLi1rDR-uGqnUSvH6zVaVtLTwOm8EMs7S_glAWwaQ"]

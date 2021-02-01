@@ -8,8 +8,13 @@
 import Foundation
 import UIKit
 
+protocol MyProfileFeedCollectionViewDelegate: NSObjectProtocol {
+    func createOrderCellTapped()
+    func openOrderCellTapped(orderId: Int)
+}
+
 class MyProfileFeedCollectionView: UICollectionView {
-    
+    weak var myProfileDelegate: MyProfileFeedCollectionViewDelegate?
     private var feedViewModel = MyProfileViewModel.FeedModel.init(cells: [
                                                                     MyProfileViewModel.FeedModel.Cell.init(orderId: 123, title: "Научу писать продающие тексты для инстаграма", description: "Научу их писать", counterOffer: "В обмен хочу чтобы ты решил за меня линал", photo: nil, isFree: false, isHidden: false),
         
@@ -35,7 +40,7 @@ class MyProfileFeedCollectionView: UICollectionView {
     }
     
     public func updateData(feedViewModel: MyProfileViewModel.FeedModel) {
-        self.feedViewModel = feedViewModel
+//        self.feedViewModel = feedViewModel
         reloadData()
     }
     
@@ -52,7 +57,8 @@ extension MyProfileFeedCollectionView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.item == 0 {
-            let cell = self.dequeueReusableCell(withReuseIdentifier: CreateOrderCell.reuseId, for: indexPath)
+            let cell = self.dequeueReusableCell(withReuseIdentifier: CreateOrderCell.reuseId, for: indexPath) as! CreateOrderCell
+            cell.delegate = self
             return cell
         }
         let cellModel = feedViewModel.cells[indexPath.item - 1] //Тк на одну ячейку больше из-за CreateOrderCell
@@ -62,8 +68,22 @@ extension MyProfileFeedCollectionView: UICollectionViewDataSource {
     }
 }
 
+
+//MARK: - CreateOrderCellDelegate
+extension MyProfileFeedCollectionView: CreateOrderCellDelegate {
+    func createOrderButtonTapped() {
+        myProfileDelegate?.createOrderCellTapped()
+    }
+    
+    
+}
+
+//MARK: - UICollectionViewDelegate
 extension MyProfileFeedCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath)
+        if indexPath.item != 0 {
+            myProfileDelegate?.openOrderCellTapped(orderId: feedViewModel.cells[indexPath.item - 1].orderId)
+        }
     }
 }

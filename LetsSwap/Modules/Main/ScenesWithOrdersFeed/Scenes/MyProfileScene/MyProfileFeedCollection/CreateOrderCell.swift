@@ -8,8 +8,15 @@
 import Foundation
 import UIKit
 
+
+protocol CreateOrderCellDelegate: NSObjectProtocol {
+    func createOrderButtonTapped()
+}
+
 class CreateOrderCell: UICollectionViewCell {
     public static var reuseId = "CreateOrderCell"
+    
+    weak var delegate: CreateOrderCellDelegate?
     
     private let containerView: UIView = {
        let view = UIView()
@@ -55,7 +62,7 @@ class CreateOrderCell: UICollectionViewCell {
         
     }
     @objc private func addOrderButtonTapped() {
-        print("addOrderButtonTapped")
+        delegate?.createOrderButtonTapped()
     }
     
     required init?(coder: NSCoder) {

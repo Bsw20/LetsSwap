@@ -23,7 +23,7 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
     private lazy var confirmButton: UIButton = {
         let button = UIButton.getLittleRoundButton(text: "Подтвердить телефон")
         button.translatesAutoresizingMaskIntoConstraints = false
-//        button.isEnabled = true
+        button.isEnabled = false
         return button
     }()
     
@@ -36,6 +36,8 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
         button.titleLabel?.textAlignment = .center
         return button
     }()
+    
+    private var authService = AuthService()
     
     var router: (NSObjectProtocol & SignInRoutingLogic)?
 
@@ -81,7 +83,20 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
     @objc private func confirmButtonTapped() {
         print(#function)
         navigationController?.setupAsBaseScreen(self, animated: true)
-        router?.routeToSMSScene(data: collectData())
+        let signInViewModel = collectData()
+        print(signInViewModel.representation)
+        authService.sendSms(login: signInViewModel.login) { (result) in
+            switch(result) {
+
+            case .success():
+                print("sms sent")
+                self.router?.routeToSMSScene(data: signInViewModel)
+
+            case .failure(let error):
+                print("probs with sent sms")
+                self.showAlert(title: "Ошибка, попробуйте позже!", message: error.localizedDescription)
+            }
+        }
     }
     @objc private func signUpButtonTapped() {
         print(#function)

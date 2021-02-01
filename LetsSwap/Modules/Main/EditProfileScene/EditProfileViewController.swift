@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+
+
 class EditProfileViewController: UIViewController {
     
     private lazy var nameTextView: TextFieldView = TextFieldView(placeholder: "Имя")
@@ -20,7 +22,6 @@ class EditProfileViewController: UIViewController {
     }()
     
     private lazy var phoneTextView: TextFieldView = TextFieldView(placeholder: "Телефон")
-    private lazy var emailTextView: TextFieldView = TextFieldView(placeholder: "Почта")
     
     private lazy var addPhotoView: AddPhotoView = {
         let view = AddPhotoView(frame: .zero)
@@ -50,7 +51,6 @@ class EditProfileViewController: UIViewController {
         nameTextView.resignTextField()
         lastNameTextView.resignTextField()
         phoneTextView.resignTextField()
-        emailTextView.resignTextField()
     }
     
     @objc private func rightBarButtonTapped() {
@@ -82,7 +82,7 @@ extension EditProfileViewController {
             topStackView.heightAnchor.constraint(equalToConstant: EditProfileConstants.subviewsHeight * 3 + EditProfileConstants.stackViewSpace * 2)
         ])
         
-        let bottomStackView = UIStackView.init(arrangedSubviews: [phoneTextView, emailTextView], axis: .vertical, spacing: 8)
+        let bottomStackView = UIStackView.init(arrangedSubviews: [phoneTextView], axis: .vertical, spacing: 8)
         
         bottomStackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -92,7 +92,7 @@ extension EditProfileViewController {
             bottomStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: EditProfileConstants.leadingOffset),
             bottomStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: EditProfileConstants.trailingInset),
             bottomStackView.topAnchor.constraint(equalTo: topStackView.bottomAnchor, constant: 40),
-            bottomStackView.heightAnchor.constraint(equalToConstant: EditProfileConstants.subviewsHeight * 2  + EditProfileConstants.stackViewSpace)
+            bottomStackView.heightAnchor.constraint(equalToConstant: EditProfileConstants.subviewsHeight)
         ])
         
 

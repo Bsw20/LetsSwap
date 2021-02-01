@@ -117,8 +117,6 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
                 self.showAlert(title: "Ошибка, попробуйте позже!", message: error.localizedDescription)
             }
         }
-        
-        router?.routeToSMSScene(data: signUpViewModel)
 
     }
     

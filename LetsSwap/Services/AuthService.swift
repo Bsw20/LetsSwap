@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 
 struct AuthService {
+    public static var shared = AuthService()
     
     private static var sendSmsUrl = URL(string: "http://92.63.105.87:3000/smsSend")
     private static var signUpUrl = URL(string: "http://92.63.105.87:3000/register")

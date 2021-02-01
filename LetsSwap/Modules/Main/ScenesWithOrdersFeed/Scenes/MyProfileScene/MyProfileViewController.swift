@@ -95,6 +95,11 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
         setupConstraints()
 //        topView.setup(swapsCount: 23, raiting: 3.8, imageView: nil)
         cityNameLabel.setup(name: "Митя Матвеев", city: "г. Москва")
+        setupDelegates()
+    }
+    
+    private func setupDelegates() {
+        feedCollectionView.myProfileDelegate = self
     }
     
     private func setupNavigationController() {
@@ -121,6 +126,18 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
 
     }
   
+}
+
+extension MyProfileViewController: MyProfileFeedCollectionViewDelegate {
+    func createOrderCellTapped() {
+        print("create order cell tapped")
+    }
+    
+    func openOrderCellTapped(orderId: Int) {
+        print("open order cell tapped")
+    }
+    
+    
 }
 
 //Constraints
