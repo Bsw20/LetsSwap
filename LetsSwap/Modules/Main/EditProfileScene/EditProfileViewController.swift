@@ -15,8 +15,8 @@ class EditProfileViewController: UIViewController {
     private lazy var nameTextView: TextFieldView = TextFieldView(placeholder: "Имя")
     private lazy var lastNameTextView: TextFieldView = TextFieldView(placeholder: "Фамилия")
     
-    private lazy var cityView: CityView = {
-        let view = CityView()
+    private lazy var cityView: ChangePropertyView = {
+        let view = ChangePropertyView(propertyType: .city(data: City.getCities()[0]))
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

@@ -16,8 +16,24 @@ struct City: Codable, Equatable {
         return lhs.city == rhs.city && lhs.city == rhs.city
     }
     
-    static func getCities() -> [City]{
+    static func getCities() -> [String]{
         //    var countryCodes = CountryCodes()
+        
+        do {
+
+             let url = Bundle.main.url(forResource: "russia", withExtension: "json")!
+             let data = try Data(contentsOf: url)
+             let res = try JSONDecoder().decode([City].self, from: data)
+            let cities = res.map {$0.city}
+            return cities
+        }
+        catch {
+            print(error)
+        }
+        return []
+    }
+    
+    static func getCitiesModel() -> [City]{
         
         do {
 
@@ -31,6 +47,7 @@ struct City: Codable, Equatable {
         }
         return []
     }
+    
     
     func contains(filter: String?) -> Bool {
         guard let filter = filter else { return true }

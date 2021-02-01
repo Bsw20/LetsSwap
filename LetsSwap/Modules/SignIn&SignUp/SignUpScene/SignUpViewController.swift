@@ -40,8 +40,8 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
     private lazy var nameTextView: TextFieldView = TextFieldView(placeholder: "Имя")
     private lazy var lastNameTextView: TextFieldView = TextFieldView(placeholder: "Фамилия")
     
-    private lazy var cityView: CityView = {
-        let view = CityView()
+    private lazy var cityView: ChangePropertyView = {
+        let view = ChangePropertyView(propertyType: .city(data: City.getCities()[0]))
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -93,7 +93,7 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
 
         return SignUpViewModel(name: nameTextView.getText().trimmingCharacters(in: .whitespaces),
                                lastName: lastNameTextView.getText().trimmingCharacters(in: .whitespaces),
-                               city: cityView.getCity().city,
+                               city: cityView.getCurrentProperty(),
                                login: "8" + phoneNumber,
                                smsCode: nil)
     }
@@ -150,7 +150,7 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
     }
     
     private func confirmValidation() -> Bool{
-        return !(nameTextView.isEmpty() || lastNameTextView.isEmpty() || phoneNubmerView.isEmpty())
+        return !(nameTextView.isEmpty() || lastNameTextView.isEmpty() || phoneNubmerView.isEmpty() || cityView.isEmpty())
     }
     func displayData(viewModel: SignUp.Model.ViewModel.ViewModelData) {
 
@@ -181,17 +181,17 @@ extension SignUpViewController: TextFieldViewDelegate {
 }
 
 //MARK: - CityViewDelegate
-extension SignUpViewController: CityViewDelegate {
-    func editButtonTapped(currentCity: City) {
+extension SignUpViewController: ChangePropertyViewDelegate {
+    func editButtonTapped(currentProperty: String) {
         print("yes")
-        router?.routeToCityListController(selectedCity: currentCity)
+        router?.routeToCityListController(selectedCity: currentProperty)
     }
 }
 
 //MARK: - CitiesListDelegate
 extension SignUpViewController: CitiesListDelegate {
-    func citySelected(city: City) {
-        cityView.setCity(city: city)
+    func citySelected(city: String) {
+        cityView.setProperty(property: city)
     }
 }
 

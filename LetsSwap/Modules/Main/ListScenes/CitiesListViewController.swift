@@ -9,20 +9,20 @@ import Foundation
 import UIKit
 
 protocol CitiesListDelegate: NSObjectProtocol {
-    func citySelected(city: City)
+    func citySelected(city: String)
 }
 
 class CitiesListViewController: UIViewController {
     //MARK: - Variables
-    private var allCities = City.getCities()
-    private var selectedCity: City
-    private var filtredCities: [City]  = City.getCities()
+    private var allCities = City.getCitiesModel()
+    private var selectedCity: String
+    private var filtredCities = City.getCitiesModel()
     
     weak var delegate: CitiesListDelegate?
     //MARK: - Controls
     private var collectionView: UICollectionView!
     
-    init(selectedCity: City) {
+    init(selectedCity: String) {
         self.selectedCity = selectedCity
         super.init(nibName: nil, bundle: nil)
     }
@@ -102,13 +102,13 @@ extension CitiesListViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChoosePropertyCell.reuseId, for: indexPath) as! ChoosePropertyCell
-        let selected = selectedCity == filtredCities[indexPath.item]
+        let selected = selectedCity == filtredCities[indexPath.item].city
         cell.set(property: filtredCities[indexPath.item].city,selected: selected )
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedCity = filtredCities[indexPath.item]
+        selectedCity = filtredCities[indexPath.item].city
         (collectionView.cellForItem(at: indexPath) as! ChoosePropertyCell).setSelected()
         
         delegate?.citySelected(city: selectedCity)

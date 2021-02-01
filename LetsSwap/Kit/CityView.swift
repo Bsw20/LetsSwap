@@ -8,15 +8,28 @@
 import Foundation
 import UIKit
 
-protocol CityViewDelegate: NSObjectProtocol {
-    func editButtonTapped(currentCity: City)
+protocol ChangePropertyViewDelegate: NSObjectProtocol {
+    func editButtonTapped(currentProperty: String)
 }
 
-class CityView: UIView {
+class ChangePropertyView: UIView {
+    enum PropertyType {
+        case city(data: String)
+        case phoneNumber(data: String)
+        
+        func getPlaceholder() -> String {
+            switch self {
+            
+            case .city:
+                return "Город"
+            case .phoneNumber:
+                return "Телефон"
+            }
+        }
+    }
     //MARK: - Controls
-    private lazy var label1: UILabel = UILabel.getNormalLabel(fontSize: 17, text: "Город", textColor: .greyTextColor())
+    private lazy var propertyLabel: UILabel = UILabel.getNormalLabel(fontSize: 17, text: "")
     
-    private lazy var cityLabel: UILabel = UILabel.getNormalLabel(fontSize: 17, text: "Москва")
     
     private lazy var arrowImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "arrowIcon")?.withTintColor(.detailsYellow()))
@@ -36,31 +49,55 @@ class CityView: UIView {
         return button
     }()
     
-    //MARK: - Variables
-    weak var delegate: CityViewDelegate?
-    private var currentCity: City = City.getCities()[0]
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    //MARK: - Variables
+    weak var delegate: ChangePropertyViewDelegate?
+    private var currentProperty: String = ""
+    private var propertyType: PropertyType
+    
+    init(propertyType: PropertyType) {
+        self.propertyType = propertyType
+        super.init(frame: .zero)
+        
+        switch propertyType {
+        
+        case .city(data: let data):
+            self.setProperty(property: data)
+        case .phoneNumber(data: let data):
+            self.setProperty(property: data)
+        }
+        
         backgroundColor = .detailsGrey()
-        label1.backgroundColor = .clear
+        propertyLabel.backgroundColor = .clear
         setupConstraints()
         editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        
+        
     }
     
     //MARK: - funcs
-    public func setCity(city: City) {
-        currentCity = city
-        cityLabel.text = city.city
+    public func isEmpty() -> Bool {
+        return currentProperty.isEmpty
+    }
+    public func setProperty(property: String) {
+        currentProperty = property
+        if property == "" {
+            propertyLabel.text = propertyType.getPlaceholder()
+            propertyLabel.textColor = .greyTextColor()
+        } else {
+            propertyLabel.text = property
+            propertyLabel.textColor = .mainTextColor()
+        }
     }
     
-    public func getCity() -> City {
-        return currentCity
+    public func getCurrentProperty() -> String {
+        return currentProperty
     }
     //MARK: - Objc funcs
     @objc private func editButtonTapped() {
         print("edit button tapped")
-        delegate?.editButtonTapped(currentCity: currentCity)
+//        delegate?.editButtonTapped(currentCity: currentCity)
+        delegate?.editButtonTapped(currentProperty: currentProperty)
     }
     
     override func layoutSubviews() {
@@ -73,17 +110,11 @@ class CityView: UIView {
 }
 
 //MARK: - Constraints
-extension CityView {
+extension ChangePropertyView {
     private func setupConstraints() {
-        addSubview(label1)
-        
-        NSLayoutConstraint.activate([
-            label1.centerYAnchor.constraint(equalTo: centerYAnchor),
-            label1.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 19),
-            label1.widthAnchor.constraint(equalToConstant: "Город".sizeOfString(usingFont: .circeRegular(with: 17)).width)
-        ])
-        
+        addSubview(propertyLabel)
         addSubview(arrowImageView)
+        addSubview(editButton)
         
         NSLayoutConstraint.activate([
             arrowImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -93,10 +124,7 @@ extension CityView {
         ])
         
 
-        
-        addSubview(editButton)
         let editButtonSize = "Изменить".sizeOfString(usingFont: UIFont.circeRegular(with: 16))
-
         
         NSLayoutConstraint.activate([
             editButton.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -106,12 +134,10 @@ extension CityView {
             
         ])
         
-        addSubview(cityLabel)
-        
         NSLayoutConstraint.activate([
-            cityLabel.leadingAnchor.constraint(equalTo: label1.trailingAnchor, constant: 15),
-            cityLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            cityLabel.trailingAnchor.constraint(equalTo: editButton.leadingAnchor, constant: -5)
+            propertyLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            propertyLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 19),
+            propertyLabel.trailingAnchor.constraint(equalTo: editButton.leadingAnchor, constant: -10)
         ])
     }
 }
