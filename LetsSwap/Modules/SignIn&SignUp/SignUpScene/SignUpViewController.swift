@@ -182,7 +182,7 @@ extension SignUpViewController: TextFieldViewDelegate {
 
 //MARK: - CityViewDelegate
 extension SignUpViewController: ChangePropertyViewDelegate {
-    func editButtonTapped(currentProperty: String) {
+    func editButtonTapped(view: ChangePropertyView, currentProperty: String) {
         print("yes")
         router?.routeToCityListController(selectedCity: currentProperty)
     }

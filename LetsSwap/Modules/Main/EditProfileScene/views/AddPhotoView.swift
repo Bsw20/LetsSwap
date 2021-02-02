@@ -19,6 +19,7 @@ class AddPhotoView: UIView {
         imageView.layer.cornerRadius = EditProfileConstants.addPhotoViewSize.height / 2
         imageView.backgroundColor = .white
         imageView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -42,6 +43,13 @@ class AddPhotoView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    //MARK: - funcs
+    public func setPhoto(photoStringUrl: String?) {
+        imageView.set(imageURL: photoStringUrl)
+    }
+    
+    //MARK: - Objc funcs
     @objc private func photoButtonTapped() {
         print("add photo button tapped")
     }

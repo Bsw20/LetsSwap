@@ -23,6 +23,9 @@ extension UITextField {
         textField.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 19, height: textField.frame.height))
         textField.rightViewMode = .always
         
+        textField.textColor = .mainTextColor()
+        textField.font = UIFont.circeRegular(with: 17)
+        
         return textField
     }
 }

@@ -21,8 +21,8 @@ class AppCoordinator {
     public func start() {
 //        startPresentation()
 //        startSignIn()
-        startSignUp()
-//        startMain()
+//        startSignUp()
+        startMain()
     }
     
     private func startAuth() {

@@ -14,7 +14,13 @@ protocol MyProfileFetcher {
     func getMyProfile(completion: @escaping (Result<MyProfileViewModel, MyProfileError>) -> Void)
 }
 
-struct UserAPIService: MyProfileFetcher {
+protocol EditProfileFetcher {
+    func updateProfileInfo(model: EditProfileViewModel, completion: @escaping (Result<Void, MyProfileError>) -> Void)
+}
+
+struct UserAPIService: MyProfileFetcher, EditProfileFetcher {
+
+    
     public static let shared = UserAPIService()
     
     private enum RequestUrl {
@@ -71,8 +77,10 @@ struct UserAPIService: MyProfileFetcher {
 //                    #warning("figure out with error types")
 //                }
 //            }
-        
-        
-        
+    }
+    
+    func updateProfileInfo(model: EditProfileViewModel, completion: @escaping (Result<Void, MyProfileError>) -> Void) {
+        #warning("TODO")
+        completion(.success(Void()))
     }
 }

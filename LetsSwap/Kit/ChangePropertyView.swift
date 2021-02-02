@@ -1,5 +1,5 @@
 //
-//  CityView.swift
+//  ChangePropertyView.swift
 //  LetsSwap
 //
 //  Created by Ярослав Карпунькин on 31.12.2020.
@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol ChangePropertyViewDelegate: NSObjectProtocol {
-    func editButtonTapped(currentProperty: String)
+    func editButtonTapped(view: ChangePropertyView, currentProperty: String)
 }
 
 class ChangePropertyView: UIView {
@@ -66,7 +66,7 @@ class ChangePropertyView: UIView {
         case .phoneNumber(data: let data):
             self.setProperty(property: data)
         }
-        
+        self.translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .detailsGrey()
         propertyLabel.backgroundColor = .clear
         setupConstraints()
@@ -97,7 +97,7 @@ class ChangePropertyView: UIView {
     @objc private func editButtonTapped() {
         print("edit button tapped")
 //        delegate?.editButtonTapped(currentCity: currentCity)
-        delegate?.editButtonTapped(currentProperty: currentProperty)
+        delegate?.editButtonTapped(view: self, currentProperty: currentProperty)
     }
     
     override func layoutSubviews() {

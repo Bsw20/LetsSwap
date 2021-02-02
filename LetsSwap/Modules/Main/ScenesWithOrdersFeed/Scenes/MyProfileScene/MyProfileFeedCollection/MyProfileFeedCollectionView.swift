@@ -81,9 +81,10 @@ extension MyProfileFeedCollectionView: CreateOrderCellDelegate {
 //MARK: - UICollectionViewDelegate
 extension MyProfileFeedCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
+
         if indexPath.item != 0 {
             myProfileDelegate?.openOrderCellTapped(orderId: feedViewModel.cells[indexPath.item - 1].orderId)
+            print(indexPath)
         }
     }
 }

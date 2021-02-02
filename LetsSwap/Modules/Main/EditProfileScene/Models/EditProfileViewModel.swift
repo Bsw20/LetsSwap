@@ -13,5 +13,6 @@ struct EditProfileViewModel {
     var lastname: String
     var city: String
     var phoneNumber: String
+    var imageStringUrl: String?
 }
 

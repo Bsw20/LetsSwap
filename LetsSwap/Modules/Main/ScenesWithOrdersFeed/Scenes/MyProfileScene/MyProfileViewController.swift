@@ -89,6 +89,7 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("SVD")
         view.backgroundColor = .mainBackground()
         setupNavigationController()
          
@@ -128,6 +129,7 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
   
 }
 
+//MARK: - MyProfileFeedCollectionViewDelegate
 extension MyProfileViewController: MyProfileFeedCollectionViewDelegate {
     func createOrderCellTapped() {
         print("create order cell tapped")
