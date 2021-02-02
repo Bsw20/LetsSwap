@@ -87,7 +87,7 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
         setupDelegates()
     }
     
-    // MARK: Funcs
+    // MARK: - Funcs
     private func collectData() -> SignUpViewModel {
         let phoneNumber = phoneNubmerView.getData().1.trimmingCharacters(in: .whitespaces)
 
@@ -98,7 +98,7 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
                                smsCode: nil)
     }
     
-    // MARK: Objc funcs
+    // MARK: - Objc funcs
     @objc private func confirmButtonTapped() {
         print(#function)
         self.navigationController?.setupAsBaseScreen(self, animated: true)

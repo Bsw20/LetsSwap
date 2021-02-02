@@ -81,6 +81,8 @@
 		307304FA258BF4C80091D2F1 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307304F9258BF4C80091D2F1 /* TagCell.swift */; };
 		307529D225C97D1700D74939 /* UIBarButtonItem + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307529D125C97D1700D74939 /* UIBarButtonItem + Extension.swift */; };
 		307529D525C9883500D74939 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307529D425C9883500D74939 /* Globals.swift */; };
+		307529DD25C9B5FB00D74939 /* PlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307529DC25C9B5FB00D74939 /* PlaceholderTextView.swift */; };
+		307529E025C9FFD200D74939 /* PlusButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307529DF25C9FFD200D74939 /* PlusButtonCell.swift */; };
 		308365D32589E59500578AE2 /* MainTabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308365CC2589E59500578AE2 /* MainTabBarPresenter.swift */; };
 		308365D42589E59500578AE2 /* MainTabBarWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308365CD2589E59500578AE2 /* MainTabBarWorker.swift */; };
 		308365D52589E59500578AE2 /* MainTabBarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308365CE2589E59500578AE2 /* MainTabBarRouter.swift */; };
@@ -228,6 +230,8 @@
 		307304F9258BF4C80091D2F1 /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		307529D125C97D1700D74939 /* UIBarButtonItem + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem + Extension.swift"; sourceTree = "<group>"; };
 		307529D425C9883500D74939 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		307529DC25C9B5FB00D74939 /* PlaceholderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTextView.swift; sourceTree = "<group>"; };
+		307529DF25C9FFD200D74939 /* PlusButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusButtonCell.swift; sourceTree = "<group>"; };
 		308365CC2589E59500578AE2 /* MainTabBarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarPresenter.swift; sourceTree = "<group>"; };
 		308365CD2589E59500578AE2 /* MainTabBarWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarWorker.swift; sourceTree = "<group>"; };
 		308365CE2589E59500578AE2 /* MainTabBarRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarRouter.swift; sourceTree = "<group>"; };
@@ -675,6 +679,8 @@
 				3022F62025C19C97004C50B7 /* InputPhoneNumberView.swift */,
 				3022F63A25C1AAB4004C50B7 /* PhoneCountryButton.swift */,
 				307529D425C9883500D74939 /* Globals.swift */,
+				307529DC25C9B5FB00D74939 /* PlaceholderTextView.swift */,
+				307529DF25C9FFD200D74939 /* PlusButtonCell.swift */,
 			);
 			path = Kit;
 			sourceTree = "<group>";
@@ -968,6 +974,7 @@
 				30CB750525927A4700CB84D6 /* FontsCheck.swift in Sources */,
 				3060282D259BBE400046A2B0 /* FullOrderRouter.swift in Sources */,
 				30BC1101259AA0C500066D9B /* MyProfileRouter.swift in Sources */,
+				307529DD25C9B5FB00D74939 /* PlaceholderTextView.swift in Sources */,
 				30602837259BC4160046A2B0 /* FullOrderConstants.swift in Sources */,
 				308366022589F81D00578AE2 /* UIButton + Extension.swift in Sources */,
 				30BC10BF2599156A00066D9B /* AlienProfileInteractor.swift in Sources */,
@@ -1022,6 +1029,7 @@
 				308365E82589E65200578AE2 /* FeedViewController.swift in Sources */,
 				3022F5DF25BB0A3D004C50B7 /* TagsListViewController.swift in Sources */,
 				30602842259CFEBC0046A2B0 /* ChooseTagsView.swift in Sources */,
+				307529E025C9FFD200D74939 /* PlusButtonCell.swift in Sources */,
 				303A069E25947C8400C14BFD /* CommentConstants.swift in Sources */,
 				303AB78E2580FB3300F287C2 /* AppDelegate.swift in Sources */,
 				308365D82589E59500578AE2 /* MainTabBarInteractor.swift in Sources */,

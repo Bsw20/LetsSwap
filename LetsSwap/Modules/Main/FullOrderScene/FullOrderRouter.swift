@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FullOrderRoutingLogic {
-
+    func routeToTagsList(selectedTags: Set<FeedTag>)
 }
 
 class FullOrderRouter: NSObject, FullOrderRoutingLogic {
@@ -17,4 +17,10 @@ class FullOrderRouter: NSObject, FullOrderRoutingLogic {
     weak var viewController: FullOrderViewController?
   
     // MARK: Routing
+    func routeToTagsList(selectedTags: Set<FeedTag>) {
+        let vc = TagsListViewController(selectedTags: selectedTags)
+        vc.customDelegate = viewController
+        viewController?.navigationController?.push(vc)
+    }
+    
 }

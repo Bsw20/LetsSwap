@@ -28,10 +28,9 @@ class PhotoCell: UICollectionViewCell {
         imageView.image = nil
     }
     
-    public func set(imageURL: URL?) {
+    public func set(imageUrl: String?) {
         #warning("Placeholder")
-//        imageView.set(imageURL: imageURL?.absoluteString)
-        imageView.image = UIImage(named: "tatu")
+        imageView.set(imageURL: imageUrl)
     }
     
     override func layoutSubviews() {

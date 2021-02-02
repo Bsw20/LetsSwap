@@ -118,11 +118,6 @@ final class FeedCell: UICollectionViewCell {
         containerView.fillSuperview()
         favouriteButton.addTarget(self, action: #selector(favouriteButtonTapped), for: .touchUpInside)
         
-//        self.layer.shadowColor = #colorLiteral(red: 0.7411764706, green: 0.7411764706, blue: 0.7411764706, alpha: 1)
-//        self.layer.shadowRadius = 3
-//        self.layer.shadowOpacity = 0.5
-//        self.layer.shadowOffset = CGSize(width: 0, height: 4)
-        
     }
     override func layoutSubviews() {
         super.layoutSubviews()

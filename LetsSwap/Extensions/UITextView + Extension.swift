@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 extension UITextView {
-    static func getNormalTextView()  -> UITextView {
+    static func getNormalTextView(placeholder: String = "")  -> UITextView {
         let textView = UITextView(frame: .zero)
         textView.font = UIFont.circeRegular(with: 17)
         textView.textColor = #colorLiteral(red: 0.7843137255, green: 0.7843137255, blue: 0.7843137255, alpha: 1)
@@ -19,6 +19,17 @@ extension UITextView {
         textView.layer.borderWidth = 1
         textView.textContainerInset = UIEdgeInsets(top: 23, left: 24, bottom: 24, right: 23)
         textView.clipsToBounds = true
+//        textView.placeholder = placeholder
         return textView
+    }
+    
+//    open var placeholder = ""
+    
+    func isEmpty() -> Bool {
+        guard let text = text else {
+            return false
+        }
+        return text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).isEmpty
+
     }
 }

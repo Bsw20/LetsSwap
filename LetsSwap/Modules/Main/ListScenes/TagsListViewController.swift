@@ -8,11 +8,35 @@
 import Foundation
 import UIKit
 
+protocol TagsListDelegate: NSObjectProtocol {
+    func selectedTagsChanged(selectedTags: [FeedTag])
+}
 
 class TagsListViewController: UIViewController {
+    init(selectedTags: Set<FeedTag>) {
+        self.selectedTags = Set(selectedTags)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    //MARK: - Variables
+    private var selectedTags: Set<FeedTag> = [] {
+        didSet {
+            customDelegate?.selectedTagsChanged(selectedTags: Array(selectedTags))
+        }
+    }
+    weak var customDelegate: TagsListDelegate?
     //MARK: - Controls
-    private var selectedTags: Set<FeedTag>  = []
     private var collectionView: UICollectionView!
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.tabBarController?.tabBar.isHidden = false
+        extendedLayoutIncludesOpaqueBars = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .mainBackground()
@@ -24,6 +48,7 @@ class TagsListViewController: UIViewController {
         setupConstraints()
         setupNavigationController()
     }
+    //MARK: - funcs
     private func setupNavigationController() {
         navigationItem.title = "Выбери тэги"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
@@ -32,10 +57,6 @@ class TagsListViewController: UIViewController {
         navigationItem.hidesBackButton = true
     }
     
-    @objc private func leftBarButtonTapped() {
-        print("left bar button tapped")
-        navigationController?.popViewController(animated: true)
-    }
     private func setupCollectionView() {
         let flowLayout = UICollectionViewFlowLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
@@ -49,10 +70,11 @@ class TagsListViewController: UIViewController {
         collectionView.register(ChoosePropertyCell.self, forCellWithReuseIdentifier: ChoosePropertyCell.reuseId)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.tabBarController?.tabBar.isHidden = false
-        extendedLayoutIncludesOpaqueBars = false
+    
+    //MARK: - Objc funcs
+    @objc private func leftBarButtonTapped() {
+        print("left bar button tapped")
+        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -70,21 +92,13 @@ extension TagsListViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("select at \(indexPath)")
-        print("add \(FeedTag.allCases[indexPath.item])")
         selectedTags.insert(FeedTag.allCases[indexPath.item])
         (collectionView.cellForItem(at: indexPath) as! ChoosePropertyCell).setSelected()
-        
-        print(selectedTags)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        print("deselect at \(indexPath)")
-        print("remove \(FeedTag.allCases[indexPath.item])")
         selectedTags.remove(FeedTag.allCases[indexPath.item])
         (collectionView.cellForItem(at: indexPath) as! ChoosePropertyCell).setDeselected()
-        print(selectedTags)
-//        collectionView.reloadData()
     }
     
     

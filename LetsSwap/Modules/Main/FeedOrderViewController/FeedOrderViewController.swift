@@ -173,7 +173,8 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         super.loadView()
         tagsCollectionView = TagsCollectionView(displayedTags: orderViewModel.order.tags, showOnly: true)
         tagsCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        photosCollectionView = PhotosCollectionView(photoAttachments: orderViewModel.order.photoAttachments)
+        #warning("УБРАТЬ")
+//        photosCollectionView = PhotosCollectionView(photoAttachments: orderViewModel.order.photoAttachments)
         photosCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         setupConstraints()
@@ -208,6 +209,11 @@ extension FeedOrderViewController: PhotosCollectionViewDelegate {
         let width = UIScreen.main.bounds.width - FeedOrderConstants.photosCollectionViewInset.left + FeedOrderConstants.photosCollectionViewInset.right
         let height = FeedOrderConstants.photosCollectionViewHeight
         return CGSize(width: width, height: 281)
+    }
+    
+    func addPhotoButtonTapped() {
+        print(#function)
+        
     }
     
     

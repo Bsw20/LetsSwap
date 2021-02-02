@@ -133,6 +133,7 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
 extension MyProfileViewController: MyProfileFeedCollectionViewDelegate {
     func createOrderCellTapped() {
         print("create order cell tapped")
+        router?.routeToCreateOrder()
     }
     
     func openOrderCellTapped(orderId: Int) {

@@ -13,10 +13,19 @@ protocol FullOrderDisplayLogic: class {
 }
 
 class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
-
-    var interactor: FullOrderBusinessLogic?
-    var router: (NSObjectProtocol & FullOrderRoutingLogic)?
+    enum OperationType {
+        case edit(model: OrderViewModel)
+        case create
+    }
     
+    //MARK: - Variables
+    var interactor: FullOrderBusinessLogic?
+    var router: FullOrderRoutingLogic?
+    var operationType: OperationType
+    
+    private var service: FullOrderFetcher = UserAPIService.shared
+    
+    //MARK: - Controls
     private var photosCollectionView: PhotosCollectionView!
     
     private lazy var scrollView: UIScrollView = {
@@ -29,22 +38,19 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
         return scrollView
     }()
     
-    private lazy var titleTextView: UITextView = {
-        let tf = UITextView.getNormalTextView()
-        tf.text = "Добавь название"
+    private lazy var titleTextView: PlaceholderTextView = {
+        let tf = PlaceholderTextView(placeholder: "Добавь название")
         tf.textContainerInset = UIEdgeInsets(top: 12, left: 25, bottom: 0, right: 18)
         return tf
     }()
     
-    private lazy var descriptionTextView: UITextView = {
-        let tf = UITextView.getNormalTextView()
-        tf.text = "Добавь описание"
+    private lazy var descriptionTextView: PlaceholderTextView = {
+        let tf = PlaceholderTextView(placeholder: "Добавь описание")
         return tf
     }()
     
-    private lazy var counterOfferTextView: UITextView = {
-        let tf = UITextView.getNormalTextView()
-        tf.text = "Напиши, что хочешь взамен"
+    private lazy var counterOfferTextView: PlaceholderTextView = {
+        let tf = PlaceholderTextView(placeholder: "Напиши, что хочешь взамен")
         return tf
     }()
     
@@ -97,22 +103,19 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
         return label
     }()
     
-    private lazy var addPhotoButton: UIButton = UIButton.getPickerButton()
-    
-//    private lazy var addVideoButton: UIButton = UIButton.getPickerButton()
-    
     private lazy var addVideoButton: UIButton = UIButton.getPickerButton()
 
   // MARK: Object lifecycle
   
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    
+    init(type: OperationType) {
+        self.operationType = type
+        super.init(nibName: nil, bundle: nil)
         setup()
     }
   
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
+        fatalError("it isn't implemented")
     }
   
     // MARK: Setup
@@ -140,40 +143,113 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
         
         super.viewDidLoad()
         view.backgroundColor = .mainBackground()
-        photosCollectionView = PhotosCollectionView(photoAttachments: [URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,
-                                                                       URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!] )
+//        photosCollectionView = PhotosCollectionView(photoAttachments: [URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,
+//                                                                       URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!] )
+        
+        photosCollectionView = PhotosCollectionView(photoAttachments: [ "https://hsto.org/getpro/habr/post_images/6d4/e15/1a5/6d4e151a581298d9976496d8fbb7f74e.jpg","https://hsto.org/getpro/habr/post_images/6d4/e15/1a5/6d4e151a581298d9976496d8fbb7f74e.jpg",
+                                                                        "https://hsto.org/getpro/habr/post_images/6d4/e15/1a5/6d4e151a581298d9976496d8fbb7f74e.jpg","https://hsto.org/getpro/habr/post_images/6d4/e15/1a5/6d4e151a581298d9976496d8fbb7f74e.jpg"] )
         setupConstraints()
         setupNavigation()
+        setupActions()
+        setupDelegates()
+        customizeElements()
+        validateConfirmation()
+    }
+    
+    //MARK: - funcs
+    private func validateConfirmation() {
+        let validate =  !(titleTextView.isEmpty || descriptionTextView.isEmpty || counterOfferTextView.isEmpty || chooseTagsView.isEmpty)
+        yellowButton.isEnabled = validate
+    }
 
-        
+    private func setupActions() {
         chooseTagsView.coverButton.addTarget(self, action: #selector(chooseTagsButtonTapped), for: .touchUpInside)
-        addPhotoButton.addTarget(self, action: #selector(addPhotoButtonTapped), for: .touchUpInside)
         addVideoButton.addTarget(self, action: #selector(addVideoButtonTapped), for: .touchUpInside)
-        
-        titleTextView.delegate = self
-        descriptionTextView.delegate = self
-        counterOfferTextView.delegate = self
-        photosCollectionView.photosDelegate = self
         
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(tapOutsideTextView))
         self.view.addGestureRecognizer(recognizer)
-
-        photosCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         freeSwitch.addTarget(self, action: #selector(switchValueDidChange), for: .valueChanged)
         
-        //threeLinesIcon
+        yellowButton.addTarget(self, action: #selector(yellowButtonTapped), for: .touchUpInside)
+    }
+    
+    private func setupDelegates() {
+        titleTextView.customDelegate = self
+        descriptionTextView.customDelegate = self
+        counterOfferTextView.customDelegate = self
+        photosCollectionView.photosDelegate = self
+        
+    }
+    
+    private func customizeElements() {
+        switch operationType {
+        
+        case .edit(model: let model):
+            yellowButton.setTitle("Сохранить", for: .normal)
+            //TODO: setTags to tags view
+        case .create:
+            yellowButton.setTitle("Создать", for: .normal)
+        }
     }
     
     private func setupNavigation() {
-        navigationController?.navigationBar.topItem?.title = "Новое предложение"
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
+        switch operationType {
         
-        navigationController?.navigationBar.topItem?.setRightBarButton(UIBarButtonItem(image: UIImage(named: "threeLinesIcon"), style: .plain, target: self, action: #selector(rightBarButtonTapped)), animated: true)
+        case .edit(model: let model):
+            navigationItem.title = "Редактировать предложение"
+        case .create:
+            navigationItem.title = "Новое предложение"
+        }
+
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
+        navigationController?.navigationBar.tintColor = .mainTextColor()
+        
+    }
+    
+    private func collectData() -> FullOrderViewModel {
+        let model: FullOrderViewModel =
+            FullOrderViewModel(title: titleTextView.getText().trimmingCharacters(in: .whitespaces),
+                                       description: descriptionTextView.getText().trimmingCharacters(in: .whitespaces),
+                                       isFree: freeSwitch.isOn,
+                                       counterOffer: counterOfferTextView.getText().trimmingCharacters(in: .whitespaces),
+                                       tags: (Array(chooseTagsView.getTags())).map{$0.rawValue
+                                       })
+        return model
     }
     
     func displayData(viewModel: FullOrder.Model.ViewModel.ViewModelData) {
 
+    }
+    
+    
+    //MARK: - Objc func
+    @objc private func yellowButtonTapped() {
+        tapOutsideTextView()
+        switch operationType {
+        
+        case .edit(model: let model):
+            print(#function)
+            print(model)
+        case .create:
+            let data = collectData()
+            print(data)
+            service.createOrder(model: data) { (result) in
+                switch result {
+                    
+                case .success():
+                    onMainThread {
+                        self.showAlert(title: "Успешно", message: "Предложение создано") {
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    }
+                case .failure(let error):
+                    onMainThread {
+                        self.showAlert(title: "Ошибка!", message: error.localizedDescription)
+                    }
+                }
+            }
+        }
     }
     
     @objc private func switchValueDidChange() {
@@ -186,22 +262,18 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
             counterOfferTextView.backgroundColor = .white
         }
     }
-    @objc private func rightBarButtonTapped() {
-        print("right bar button tapped")
-    }
+
     
     @objc private func chooseTagsButtonTapped() {
         print("choose tags button tapped")
-        navigationController?.pushViewController(TagsListViewController(), animated: true)
+        router?.routeToTagsList(selectedTags: Set(chooseTagsView.getTags()))
     }
     
-    @objc private func addPhotoButtonTapped() {
-        print("add photo picker")
-    }
     
     @objc private func addVideoButtonTapped() {
         print("add video picker")
     }
+    
     
     @objc private func tapOutsideTextView() {
         titleTextView.resignFirstResponder()
@@ -210,14 +282,34 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     }
 }
 
+//MARK: - TagsListDelegate
+extension FullOrderViewController: TagsListDelegate {
+    func selectedTagsChanged(selectedTags: [FeedTag]) {
+        chooseTagsView.set(selectedTags: selectedTags)
+        validateConfirmation()
+    }
+    
+}
+
+//MARK: - PlaceholderTextViewDelegate
+extension FullOrderViewController: PlaceholderTextViewDelegate {
+    func textDidChange(view: PlaceholderTextView, newText: String) {
+        validateConfirmation()
+    }
+}
+
 //MARK: - PhotosCollectionViewDelegate
-extension FullOrderViewController: PhotosCollectionViewDelegate {
+extension FullOrderViewController: PhotosCollectionViewDelegate  {
+    func addPhotoButtonTapped() {
+        print("add photo picker")
+    }
+    
     func photosCollectionViewSize() -> CGSize {
         return FullOrderConstants.photosCollectionViewSize
     }
-    
-    
 }
+
+
 
 //MARK: - Constraints
 extension FullOrderViewController {
@@ -248,7 +340,6 @@ extension FullOrderViewController {
         contentView.addSubview(chooseTagsView)
         contentView.addSubview(bottomEmptyView)
         contentView.addSubview(photoLabel)
-        contentView.addSubview(addPhotoButton)
         contentView.addSubview(videoLabel)
         contentView.addSubview(addVideoButton)
         contentView.addSubview(photosCollectionView)
@@ -305,15 +396,17 @@ extension FullOrderViewController {
             photoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
         ])
         
+        
         NSLayoutConstraint.activate([
-            addPhotoButton.topAnchor.constraint(equalTo: photoLabel.bottomAnchor, constant: FullOrderConstants.labelPickerSpace),
-            addPhotoButton.heightAnchor.constraint(equalToConstant: 80),
-            addPhotoButton.widthAnchor.constraint(equalToConstant: 78),
-            addPhotoButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+            photosCollectionView.heightAnchor.constraint(equalToConstant: FullOrderConstants.photosCollectionViewSize.height),
+            photosCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            photosCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            photosCollectionView.topAnchor.constraint(equalTo: photoLabel.bottomAnchor)
+            
         ])
         
         NSLayoutConstraint.activate([
-            videoLabel.topAnchor.constraint(equalTo: addPhotoButton.bottomAnchor, constant: FullOrderConstants.space),
+            videoLabel.topAnchor.constraint(equalTo: photosCollectionView.bottomAnchor, constant: FullOrderConstants.space),
             videoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
         ])
         
@@ -340,49 +433,9 @@ extension FullOrderViewController {
             
         ])
         
-        NSLayoutConstraint.activate([
-            photosCollectionView.heightAnchor.constraint(equalToConstant: FullOrderConstants.photosCollectionViewSize.height),
-            photosCollectionView.leadingAnchor.constraint(equalTo: addPhotoButton.trailingAnchor, constant: 20),
-            photosCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            photosCollectionView.topAnchor.constraint(equalTo: addPhotoButton.topAnchor)
-            
-        ])
+
         
     }
-}
-
-
-// MARK: - TextViewDelegate
-extension FullOrderViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == CommentConstants.textViewTextColor {
-            textView.text = nil
-                textView.textColor = UIColor.black
-        }
-        print("did begin")
-        }
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            textView.textColor = CommentConstants.textViewTextColor
-            print("is empty")
-            if textView == titleTextView {
-                textView.text = "Добавь название"
-            } else if textView == descriptionTextView {
-                textView.text = "Добавь описание"
-            } else if textView == counterOfferTextView {
-                textView.text = "Напиши, что хочешь взамен"
-            }
-        }
-    }
-    #warning("TODO")
-//    func textViewDidChange(_ textView: UITextView) {
-//        if textView.text.isEmpty || textView.text == stringPlaceholder {
-//            swapButton.isEnabled = false
-//        } else {
-//            swapButton.isEnabled = true
-//        }
-//    }
-    
 }
 
 // MARK: - SwiftUI

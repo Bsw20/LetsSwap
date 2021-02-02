@@ -31,7 +31,20 @@ enum FullOrder {
     }
 }
 
-enum FullOrderViewType {
-    case create
-    case edit
+struct FullOrderViewModel {
+    var title: String
+    var description: String
+    var isFree: Bool
+    var counterOffer: String
+    var tags: [String]
+    
+    var representation: [String: Any] {
+        var rep: [String: Any]  = ["title": title]
+        rep["description"] = description
+        rep["isFree"] = isFree
+        rep["counterOffer"] = counterOffer
+        rep["tags"] = tags
+        
+        return rep
+    }
 }

@@ -8,8 +8,25 @@
 import Foundation
 import UIKit
 
+
 class ChooseTagsView: UIView {
+    //MARK: - Variables
     private let fontSize: CGFloat = 17
+    private var selectedTags: [FeedTag] = [] {
+        didSet {
+            let stringTags = selectedTags.map {$0.rawValue}.joined(separator: ",").trimmingCharacters(in: .whitespaces)
+            tagsLabel.text = stringTags
+            if selectedTags == [] {
+                tagsLabel.text = ""
+            }
+            if ((tagsLabel.text?.isEmpty) != nil) {
+                label1.text = "Выбери тэги"
+            } else {
+                label1.text = "Выбранные тэги:"
+            }
+        }
+    }
+    //MARK: - Contols
     private lazy var label1: UILabel = {
         let label = UILabel.getNormalLabel(fontSize: fontSize, text: "Выбери тэги")
         label.textAlignment = .left
@@ -38,12 +55,7 @@ class ChooseTagsView: UIView {
         return button
     }()
     
-    internal func set(tagsString: String) {
-        self.tagsLabel.text = tagsString
-//        if !tagsString.isEmpty {
-//            label1.text = "Выбранные тэги:"
-//        }
-    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
@@ -56,6 +68,21 @@ class ChooseTagsView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - func
+    internal func set(selectedTags: [FeedTag]) {
+
+        self.selectedTags = selectedTags
+ 
+    }
+    
+    func getTags() -> [FeedTag] {
+        return selectedTags
+    }
+    
+    open var isEmpty: Bool {
+        return selectedTags.count == 0
     }
 }
 
@@ -90,6 +117,7 @@ extension ChooseTagsView {
         ])
     }
 }
+
 
 // MARK: - SwiftUI
 import SwiftUI
