@@ -185,7 +185,16 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
 
     //MARK: - funcs
     func displayData(viewModel: FeedOrder.Model.ViewModel.ViewModelData) {
-
+        switch viewModel {
+        case .displaySwapping:
+            showAlert(title: "Успешно", message: "Можно обменяться")
+        case .displayDeleting:
+            showAlert(title: "Успешно", message: "Предложение можно удалить")
+        case .displayNewHidingState(newState: let newState):
+            showAlert(title: "Успешно", message: "Предложение теперь \(newState ? "cкрыто" : "раскрыто")")
+        case .displayError(error: let error):
+            showAlert(title: "Ошибка", message: error.localizedDescription)
+        }
     }
     private func setupDelegates() {
         photosCollectionView.customDelegate = self
@@ -229,15 +238,18 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         default:
             break
         }
-//        router?.routeToEditOrder(model: orderViewModel)
     }
     
     @objc private func hideOrderButtonTapped() {
         print(#function)
+        if let isHidden = type.isHidden() {
+            interactor?.makeRequest(request: .changeHidingState(currentState: isHidden))
+        }
+
     }
     
     @objc private func deleteOrderButtonTapped() {
-        print(#function)
+        interactor?.makeRequest(request: .tryToDelete(orderId: type.getOrderId()))
     }
     @objc private func swapButtonTapped() {
         print("Swap button tapped")

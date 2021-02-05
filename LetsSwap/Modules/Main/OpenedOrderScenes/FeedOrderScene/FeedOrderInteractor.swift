@@ -14,13 +14,26 @@ protocol FeedOrderBusinessLogic {
 
 class FeedOrderInteractor: FeedOrderBusinessLogic {
 
-  var presenter: FeedOrderPresentationLogic?
-  var service: FeedOrderService?
+    var presenter: FeedOrderPresentationLogic?
+    private var fetcher: FeedOrderFetcher = UserAPIService.shared
+
   
-  func makeRequest(request: FeedOrder.Model.Request.RequestType) {
-    if service == nil {
-      service = FeedOrderService()
+    func makeRequest(request: FeedOrder.Model.Request.RequestType) {
+        switch request {
+        
+        case .tryToDelete(orderId: let orderId):
+            fetcher.deleteOrder(orderId: orderId) { [weak self](result) in
+                self?.presenter?.presentData(response: .presentDeleting(result))
+            }
+        case .changeHidingState(currentState: let currentState):
+            fetcher.changeHidingState(previousState: currentState) { (result) in
+                self.presenter?.presentData(response: .presentNewHidingState(result))
+            }
+        case .makeSwap(orderId: let orderId):
+            fetcher.makeSwap(orderId: orderId) { (result) in
+                self.presenter?.presentData(response: .presentSwapping(result))
+            }
+        }
     }
-  }
   
 }

@@ -49,7 +49,6 @@
 		303AB7A92581715300F287C2 /* DataFetcherPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303AB7A82581715300F287C2 /* DataFetcherPlan.swift */; };
 		3060281F259B8DAA0046A2B0 /* MyProfileConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3060281E259B8DAA0046A2B0 /* MyProfileConstants.swift */; };
 		3060282B259BBE400046A2B0 /* FullOrderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30602824259BBE400046A2B0 /* FullOrderPresenter.swift */; };
-		3060282C259BBE400046A2B0 /* FullOrderWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30602825259BBE400046A2B0 /* FullOrderWorker.swift */; };
 		3060282D259BBE400046A2B0 /* FullOrderRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30602826259BBE400046A2B0 /* FullOrderRouter.swift */; };
 		3060282E259BBE400046A2B0 /* FullOrderModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30602827259BBE400046A2B0 /* FullOrderModels.swift */; };
 		3060282F259BBE400046A2B0 /* FullOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30602828259BBE400046A2B0 /* FullOrderViewController.swift */; };
@@ -82,6 +81,7 @@
 		3075142525CC199A006D95F2 /* PhotosCarouselCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075142425CC199A006D95F2 /* PhotosCarouselCollectionView.swift */; };
 		3075142925CC53C5006D95F2 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075142825CC53C5006D95F2 /* ImagePicker.swift */; };
 		3075148825CD8F46006D95F2 /* MyProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075148725CD8F46006D95F2 /* MyProfileHeaderView.swift */; };
+		3075148E25CDF441006D95F2 /* FeedOrderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075148D25CDF441006D95F2 /* FeedOrderError.swift */; };
 		307529D225C97D1700D74939 /* UIBarButtonItem + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307529D125C97D1700D74939 /* UIBarButtonItem + Extension.swift */; };
 		307529D525C9883500D74939 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307529D425C9883500D74939 /* Globals.swift */; };
 		307529DD25C9B5FB00D74939 /* PlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307529DC25C9B5FB00D74939 /* PlaceholderTextView.swift */; };
@@ -138,7 +138,6 @@
 		30BC1103259AA0C500066D9B /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10FC259AA0C500066D9B /* MyProfileViewController.swift */; };
 		30BC1104259AA0C500066D9B /* MyProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10FD259AA0C500066D9B /* MyProfileInteractor.swift */; };
 		30CB74DE259121C700CB84D6 /* FeedOrderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74D7259121C700CB84D6 /* FeedOrderPresenter.swift */; };
-		30CB74DF259121C700CB84D6 /* FeedOrderWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74D8259121C700CB84D6 /* FeedOrderWorker.swift */; };
 		30CB74E0259121C700CB84D6 /* FeedOrderRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74D9259121C700CB84D6 /* FeedOrderRouter.swift */; };
 		30CB74E1259121C700CB84D6 /* FeedOrderModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74DA259121C700CB84D6 /* FeedOrderModels.swift */; };
 		30CB74E2259121C700CB84D6 /* FeedOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74DB259121C700CB84D6 /* FeedOrderViewController.swift */; };
@@ -200,7 +199,6 @@
 		303AB7A82581715300F287C2 /* DataFetcherPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetcherPlan.swift; sourceTree = "<group>"; };
 		3060281E259B8DAA0046A2B0 /* MyProfileConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileConstants.swift; sourceTree = "<group>"; };
 		30602824259BBE400046A2B0 /* FullOrderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullOrderPresenter.swift; sourceTree = "<group>"; };
-		30602825259BBE400046A2B0 /* FullOrderWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullOrderWorker.swift; sourceTree = "<group>"; };
 		30602826259BBE400046A2B0 /* FullOrderRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullOrderRouter.swift; sourceTree = "<group>"; };
 		30602827259BBE400046A2B0 /* FullOrderModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullOrderModels.swift; sourceTree = "<group>"; };
 		30602828259BBE400046A2B0 /* FullOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullOrderViewController.swift; sourceTree = "<group>"; };
@@ -233,6 +231,7 @@
 		3075142425CC199A006D95F2 /* PhotosCarouselCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCarouselCollectionView.swift; sourceTree = "<group>"; };
 		3075142825CC53C5006D95F2 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		3075148725CD8F46006D95F2 /* MyProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileHeaderView.swift; sourceTree = "<group>"; };
+		3075148D25CDF441006D95F2 /* FeedOrderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOrderError.swift; sourceTree = "<group>"; };
 		307529D125C97D1700D74939 /* UIBarButtonItem + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem + Extension.swift"; sourceTree = "<group>"; };
 		307529D425C9883500D74939 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		307529DC25C9B5FB00D74939 /* PlaceholderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTextView.swift; sourceTree = "<group>"; };
@@ -289,7 +288,6 @@
 		30BC10FC259AA0C500066D9B /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		30BC10FD259AA0C500066D9B /* MyProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileInteractor.swift; sourceTree = "<group>"; };
 		30CB74D7259121C700CB84D6 /* FeedOrderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOrderPresenter.swift; sourceTree = "<group>"; };
-		30CB74D8259121C700CB84D6 /* FeedOrderWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOrderWorker.swift; sourceTree = "<group>"; };
 		30CB74D9259121C700CB84D6 /* FeedOrderRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOrderRouter.swift; sourceTree = "<group>"; };
 		30CB74DA259121C700CB84D6 /* FeedOrderModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOrderModels.swift; sourceTree = "<group>"; };
 		30CB74DB259121C700CB84D6 /* FeedOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOrderViewController.swift; sourceTree = "<group>"; };
@@ -503,7 +501,6 @@
 				30602840259CFE9B0046A2B0 /* views */,
 				30602828259BBE400046A2B0 /* FullOrderViewController.swift */,
 				30602829259BBE400046A2B0 /* FullOrderInteractor.swift */,
-				30602825259BBE400046A2B0 /* FullOrderWorker.swift */,
 				30602824259BBE400046A2B0 /* FullOrderPresenter.swift */,
 				30602826259BBE400046A2B0 /* FullOrderRouter.swift */,
 				30602827259BBE400046A2B0 /* FullOrderModels.swift */,
@@ -597,6 +594,7 @@
 				30CB74E7259123DB00CB84D6 /* OrderError.swift */,
 				30BC10AD2599042000066D9B /* ChooseOrderError.swift */,
 				3072F35325C6EDAE00CE7C65 /* MyProfileError.swift */,
+				3075148D25CDF441006D95F2 /* FeedOrderError.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -821,7 +819,6 @@
 				30CB74DB259121C700CB84D6 /* FeedOrderViewController.swift */,
 				30CB74DC259121C700CB84D6 /* FeedOrderInteractor.swift */,
 				30CB74D7259121C700CB84D6 /* FeedOrderPresenter.swift */,
-				30CB74D8259121C700CB84D6 /* FeedOrderWorker.swift */,
 				30CB74D9259121C700CB84D6 /* FeedOrderRouter.swift */,
 				30CB74DA259121C700CB84D6 /* FeedOrderModels.swift */,
 			);
@@ -1013,7 +1010,6 @@
 				3022F5E325BB0BCE004C50B7 /* ChoosePropertyCell.swift in Sources */,
 				307304F4258B86CC0091D2F1 /* FeedError.swift in Sources */,
 				302CDE93258D5E08000B4275 /* String + Extension.swift in Sources */,
-				30CB74DF259121C700CB84D6 /* FeedOrderWorker.swift in Sources */,
 				30BC10D4259A021F00066D9B /* GlobalModels.swift in Sources */,
 				3072F35425C6EDAE00CE7C65 /* MyProfileError.swift in Sources */,
 				30BC10CF2599479000066D9B /* NameCityLabel.swift in Sources */,
@@ -1042,7 +1038,6 @@
 				30895F7B2594AE820091FA31 /* RequestSentViewController.swift in Sources */,
 				30A4C9F125B8AF8200003DDE /* NotificationModels.swift in Sources */,
 				3022F5DC25BB0A2F004C50B7 /* CitiesListViewController.swift in Sources */,
-				3060282C259BBE400046A2B0 /* FullOrderWorker.swift in Sources */,
 				303A0695259477FF00C14BFD /* CommentModels.swift in Sources */,
 				3022F63725C1A273004C50B7 /* SignInConstants.swift in Sources */,
 				30BC10E3259A141400066D9B /* ProfileResponse.swift in Sources */,
@@ -1062,6 +1057,7 @@
 				30602842259CFEBC0046A2B0 /* ChooseTagsView.swift in Sources */,
 				307529E025C9FFD200D74939 /* PlusButtonCell.swift in Sources */,
 				303A069E25947C8400C14BFD /* CommentConstants.swift in Sources */,
+				3075148E25CDF441006D95F2 /* FeedOrderError.swift in Sources */,
 				303AB78E2580FB3300F287C2 /* AppDelegate.swift in Sources */,
 				308365D82589E59500578AE2 /* MainTabBarInteractor.swift in Sources */,
 				308D28CE258E4BA70088D340 /* TagsCollectionView.swift in Sources */,

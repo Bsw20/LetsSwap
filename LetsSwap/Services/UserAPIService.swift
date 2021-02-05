@@ -25,6 +25,13 @@ protocol FullOrderFetcher {
     func uploadImage(image: UIImage, completion: @escaping (Result<StringURL, MyProfileError>)-> Void)
 }
 
+protocol FeedOrderFetcher {
+    func deleteOrder(orderId: Int, completion: @escaping (Result<Void, FeedOrderError>) -> Void)
+    func changeHidingState(previousState: Bool, completion: @escaping (Result<Bool, FeedOrderError>) -> Void
+    )
+    func makeSwap(orderId: Int, completion: @escaping (Result<Void, FeedOrderError>) -> Void)
+}
+
 struct UserAPIService:  EditProfileFetcher {
     public static let shared = UserAPIService()
     
@@ -202,4 +209,25 @@ extension UserAPIService: FullOrderFetcher {
 //         })
     }
 
+}
+
+//MARK: - FeedOrderFetcher
+extension UserAPIService: FeedOrderFetcher {
+    func deleteOrder(orderId: Int, completion: @escaping (Result<Void, FeedOrderError>) -> Void) {
+        print(#function)
+        completion(.success(Void()))
+    }
+    
+    func changeHidingState(previousState: Bool, completion: @escaping (Result<Bool, FeedOrderError>) -> Void) {
+        print(#function)
+        completion(.success(true))
+        
+    }
+    
+    func makeSwap(orderId: Int, completion: @escaping (Result<Void, FeedOrderError>) -> Void) {
+        print(#function)
+        completion(.success(Void()))
+    }
+    
+    
 }

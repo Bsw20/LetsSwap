@@ -15,11 +15,8 @@ protocol FullOrderBusinessLogic {
 class FullOrderInteractor: FullOrderBusinessLogic {
 
     var presenter: FullOrderPresentationLogic?
-    var service: FullOrderService?
   
     func makeRequest(request: FullOrder.Model.Request.RequestType) {
-        if service == nil {
-          service = FullOrderService()
-        }
+
     }
 }

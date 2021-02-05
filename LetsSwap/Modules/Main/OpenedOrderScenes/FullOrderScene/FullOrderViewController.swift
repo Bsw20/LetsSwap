@@ -195,7 +195,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     private func customizeElements() {
         switch operationType {
         
-        case .edit(model: let model):
+        case .edit(model: _):
             yellowButton.setTitle("Сохранить", for: .normal)
             //TODO: setTags to tags view
         case .create:
@@ -206,7 +206,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     private func setupNavigation() {
         switch operationType {
         
-        case .edit(model: let model):
+        case .edit(model: _):
             navigationItem.title = "Редактировать предложение"
         case .create:
             navigationItem.title = "Новое предложение"
@@ -264,7 +264,6 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     }
     
     @objc private func switchValueDidChange() {
-        #warning("TODO:Поменять модель")
         if freeSwitch.isOn {
             print("on")
             counterOfferTextView.backgroundColor = .freeFeedCell()

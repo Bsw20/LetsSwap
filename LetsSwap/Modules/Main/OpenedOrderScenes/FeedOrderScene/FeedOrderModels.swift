@@ -7,27 +7,34 @@
 //
 
 import UIKit
-
 enum FeedOrder {
    
-  enum Model {
-    struct Request {
-      enum RequestType {
-        case some
-      }
+    enum Model {
+        struct Request {
+            enum RequestType {
+                case tryToDelete(orderId: Int)
+                case changeHidingState(currentState: Bool)
+                case makeSwap(orderId: Int)
+            }
+        }
+        
+        struct Response {
+            enum ResponseType {
+                case presentDeleting(Result<Void, FeedOrderError>)
+                case presentNewHidingState(Result<Bool, FeedOrderError>)
+                case presentSwapping(Result<Void, FeedOrderError>)
+            }
+        }
+        
+        struct ViewModel {
+            enum ViewModelData {
+                case displayDeleting
+                case displayNewHidingState(newState: Bool)
+                case displaySwapping
+                case displayError(error: Error)
+            }
+        }
     }
-    struct Response {
-      enum ResponseType {
-        case some
-      }
-    }
-    struct ViewModel {
-      enum ViewModelData {
-        case some
-      }
-    }
-  }
-  
 }
 
 struct FeedOrderModel: OrderRepresentableViewModel {
