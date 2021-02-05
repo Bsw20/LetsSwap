@@ -26,6 +26,9 @@ struct FeedOrderConstants {
     static let photosCollectionViewInset = UIEdgeInsets(top: 20, left: 20, bottom: 777, right: -20)
     static let photosCollectionViewHeight: CGFloat = 281
     
+    static let stackViewButtonHeight: CGFloat = 40
+    static let stackViewSpacing: CGFloat = 8
+    
     struct TopView {
         public static var imageLabelDistance: CGFloat  = 11
         public static var nameLabelTopOffset: CGFloat = 0

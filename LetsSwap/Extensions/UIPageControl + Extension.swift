@@ -18,6 +18,7 @@ extension UIPageControl {
         
         pageControl.pageIndicatorTintColor = .detailsGrey()
         pageControl.currentPageIndicatorTintColor = .mainDetailsYellow()
+        pageControl.hidesForSinglePage = true
         return pageControl
     }
 }

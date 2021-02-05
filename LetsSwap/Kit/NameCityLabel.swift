@@ -23,7 +23,7 @@ class NameCityLabel: UILabel {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = #colorLiteral(red: 0.7294117647, green: 0.7294117647, blue: 0.7294117647, alpha: 1)
-        label.font = UIFont.circeRegular(with: 15)
+        label.font = UIFont.circeRegular(with: 17)
         label.text = "г. Санкт-Петербург"
         label.backgroundColor = .clear
         return label
@@ -41,7 +41,7 @@ class NameCityLabel: UILabel {
     
     func setup(name: String, city: String) {
         nameLabel.text = name
-        cityLabel.text = city
+        cityLabel.text = "г. \(city)"
     }
     
     private func setupConstraints() {
@@ -56,7 +56,6 @@ class NameCityLabel: UILabel {
         NSLayoutConstraint.activate([
             cityLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
             cityLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            cityLabel.heightAnchor.constraint(equalToConstant: 70)
         ])
         
         NSLayoutConstraint.activate([

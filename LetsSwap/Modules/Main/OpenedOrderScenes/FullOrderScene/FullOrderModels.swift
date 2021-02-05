@@ -37,6 +37,7 @@ struct FullOrderViewModel {
     var isFree: Bool
     var counterOffer: String
     var tags: [String]
+    var id: Int?
     
     var representation: [String: Any] {
         var rep: [String: Any]  = ["title": title]

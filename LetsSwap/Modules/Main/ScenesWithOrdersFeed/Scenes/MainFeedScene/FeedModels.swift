@@ -37,8 +37,9 @@ enum Feed {
 }
 
 
-struct OrderViewModel {
-    struct Order: OrderRepresentableModel {
+struct OrderViewModel: FeedOrderRepresentableModel {
+    
+    struct Order: OrderRepresentableViewModel {
         var title: String
         var description: String
         var counterOffer: String
@@ -46,14 +47,14 @@ struct OrderViewModel {
         var tags: [FeedTag]
         var photoAttachments: [URL]
     }
-    struct User: UserRepresentableModel {
+    struct User: UserRepresentableViewModel {
         var userName: String
         var userLastName: String
         var userCity: String
         var userPhoto: URL?
     }
-    var order: OrderViewModel.Order
-    var user: OrderViewModel.User
+    var order: OrderRepresentableViewModel
+    var user: UserRepresentableViewModel
     
     var orderId: Int
     var userId: Int

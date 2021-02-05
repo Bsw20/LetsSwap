@@ -38,6 +38,7 @@ class TagsCollectionView: UICollectionView {
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
         contentInset = FeedConstants.tagsCollectionViewInset
+        self.translatesAutoresizingMaskIntoConstraints = false
     }
     private func getDisplayedTagString(index: Int) -> String {
         if index == displayedTags.count {

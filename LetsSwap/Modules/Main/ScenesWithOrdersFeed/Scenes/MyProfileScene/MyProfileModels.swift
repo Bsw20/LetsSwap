@@ -14,16 +14,19 @@ enum MyProfile {
         struct Request {
             enum RequestType {
                 case getWholeProfile
+                case getOrder(orderId: Int)
             }
         }
         struct Response {
             enum ResponseType {
                 case presentWholeProfile(result: Result<MyProfileViewModel, MyProfileError>)
+                case presentOrder(result: Result<MyProfileOrderResponse, MyProfileError>)
             }
         }
         struct ViewModel {
             enum ViewModelData {
                 case displayWholeProfile(myProfileViewModel: MyProfileViewModel)
+                case displayOrder(orderModel: FeedOrderModel)
                 case displayError(error: Error)
             }
         }
@@ -31,7 +34,7 @@ enum MyProfile {
 }
 
 struct MyProfileViewModel: Decodable {
-    struct PersonInfo: Decodable, ProfileTopViewModel {
+    struct PersonInfo: Decodable, ProfileTopViewModel, MyProfileHeaderViewModel {
         var profileImage: String?
         var name: String
         var lastname: String
@@ -66,5 +69,15 @@ struct MyProfileViewModel: Decodable {
     
     var personInfo: PersonInfo
     var feedInfo: FeedModel
-    
+}
+
+struct MyProfileOrderResponse {
+    var orderId: Int
+    var title: String
+    var description: String
+    var counterOffer: String
+    var isFree: Bool
+    var tags: [String]
+    var photoAttachments: [String]
+    var isHidden: Bool
 }

@@ -79,6 +79,9 @@
 		307304F4258B86CC0091D2F1 /* FeedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307304F3258B86CC0091D2F1 /* FeedError.swift */; };
 		307304F7258B913D0091D2F1 /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307304F6258B913D0091D2F1 /* UIViewController + Extension.swift */; };
 		307304FA258BF4C80091D2F1 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307304F9258BF4C80091D2F1 /* TagCell.swift */; };
+		3075142525CC199A006D95F2 /* PhotosCarouselCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075142425CC199A006D95F2 /* PhotosCarouselCollectionView.swift */; };
+		3075142925CC53C5006D95F2 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075142825CC53C5006D95F2 /* ImagePicker.swift */; };
+		3075148825CD8F46006D95F2 /* MyProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075148725CD8F46006D95F2 /* MyProfileHeaderView.swift */; };
 		307529D225C97D1700D74939 /* UIBarButtonItem + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307529D125C97D1700D74939 /* UIBarButtonItem + Extension.swift */; };
 		307529D525C9883500D74939 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307529D425C9883500D74939 /* Globals.swift */; };
 		307529DD25C9B5FB00D74939 /* PlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307529DC25C9B5FB00D74939 /* PlaceholderTextView.swift */; };
@@ -228,6 +231,9 @@
 		307304F3258B86CC0091D2F1 /* FeedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedError.swift; sourceTree = "<group>"; };
 		307304F6258B913D0091D2F1 /* UIViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extension.swift"; sourceTree = "<group>"; };
 		307304F9258BF4C80091D2F1 /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
+		3075142425CC199A006D95F2 /* PhotosCarouselCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCarouselCollectionView.swift; sourceTree = "<group>"; };
+		3075142825CC53C5006D95F2 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		3075148725CD8F46006D95F2 /* MyProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileHeaderView.swift; sourceTree = "<group>"; };
 		307529D125C97D1700D74939 /* UIBarButtonItem + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem + Extension.swift"; sourceTree = "<group>"; };
 		307529D425C9883500D74939 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		307529DC25C9B5FB00D74939 /* PlaceholderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTextView.swift; sourceTree = "<group>"; };
@@ -345,6 +351,7 @@
 			children = (
 				3022F5EE25BDFBFF004C50B7 /* MyProfileFeedCollectionView.swift */,
 				3022F5F225BDFDBF004C50B7 /* CreateOrderCell.swift */,
+				3075148725CD8F46006D95F2 /* MyProfileHeaderView.swift */,
 			);
 			path = MyProfileFeedCollection;
 			sourceTree = "<group>";
@@ -380,12 +387,11 @@
 		3022F60225C08982004C50B7 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				3075142025CABD0E006D95F2 /* OpenedOrderScenes */,
 				3022F5DA25BB0A0B004C50B7 /* ListScenes */,
 				30A4C9E625B8AF3200003DDE /* NotificationsScene */,
 				30602846259DE2870046A2B0 /* EditProfileScene */,
-				30602823259BBDD30046A2B0 /* FullOrderScene */,
 				3022F5F625BF42DA004C50B7 /* ScenesWithOrdersFeed */,
-				30CB74D02591218000CB84D6 /* FeedOrderViewController */,
 				30BC10B025990FEA00066D9B /* EndOfChosingOrder */,
 			);
 			path = Main;
@@ -427,7 +433,6 @@
 		303A06802593B8F200C14BFD /* PhotosCollectionView */ = {
 			isa = PBXGroup;
 			children = (
-				303A06812593B92200C14BFD /* PhotoCell.swift */,
 				303A06852593B93400C14BFD /* PhotosCollectionView.swift */,
 			);
 			path = PhotosCollectionView;
@@ -511,6 +516,7 @@
 		30602840259CFE9B0046A2B0 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				303A06802593B8F200C14BFD /* PhotosCollectionView */,
 				30602841259CFEBC0046A2B0 /* ChooseTagsView.swift */,
 			);
 			path = views;
@@ -597,6 +603,32 @@
 			path = Errors;
 			sourceTree = "<group>";
 		};
+		3075142025CABD0E006D95F2 /* OpenedOrderScenes */ = {
+			isa = PBXGroup;
+			children = (
+				3075142225CC1921006D95F2 /* Shared */,
+				30602823259BBDD30046A2B0 /* FullOrderScene */,
+				30CB74D02591218000CB84D6 /* FeedOrderScene */,
+			);
+			path = OpenedOrderScenes;
+			sourceTree = "<group>";
+		};
+		3075142225CC1921006D95F2 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				3075142325CC192C006D95F2 /* Views */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		3075142325CC192C006D95F2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				303A06812593B92200C14BFD /* PhotoCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		308365CA2589E4DA00578AE2 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
@@ -681,6 +713,7 @@
 				307529D425C9883500D74939 /* Globals.swift */,
 				307529DC25C9B5FB00D74939 /* PlaceholderTextView.swift */,
 				307529DF25C9FFD200D74939 /* PlusButtonCell.swift */,
+				3075142825CC53C5006D95F2 /* ImagePicker.swift */,
 			);
 			path = Kit;
 			sourceTree = "<group>";
@@ -777,18 +810,17 @@
 				30BC10FD259AA0C500066D9B /* MyProfileInteractor.swift */,
 				30BC10F8259AA0C500066D9B /* MyProfilePresenter.swift */,
 				30BC10F9259AA0C500066D9B /* MyProfileWorker.swift */,
-				30BC10FA259AA0C500066D9B /* MyProfileRouter.swift */,
 				30BC10FB259AA0C500066D9B /* MyProfileModels.swift */,
+				30BC10FA259AA0C500066D9B /* MyProfileRouter.swift */,
 			);
 			path = MyProfileScene;
 			sourceTree = "<group>";
 		};
-		30CB74D02591218000CB84D6 /* FeedOrderViewController */ = {
+		30CB74D02591218000CB84D6 /* FeedOrderScene */ = {
 			isa = PBXGroup;
 			children = (
 				30CB74FC259238EF00CB84D6 /* FeedOrderConstants.swift */,
 				30CB74F72592354000CB84D6 /* Views */,
-				303A06802593B8F200C14BFD /* PhotosCollectionView */,
 				30CB74DB259121C700CB84D6 /* FeedOrderViewController.swift */,
 				30CB74DC259121C700CB84D6 /* FeedOrderInteractor.swift */,
 				30CB74D7259121C700CB84D6 /* FeedOrderPresenter.swift */,
@@ -796,13 +828,14 @@
 				30CB74D9259121C700CB84D6 /* FeedOrderRouter.swift */,
 				30CB74DA259121C700CB84D6 /* FeedOrderModels.swift */,
 			);
-			path = FeedOrderViewController;
+			path = FeedOrderScene;
 			sourceTree = "<group>";
 		};
 		30CB74F72592354000CB84D6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				30CB74F32592344800CB84D6 /* OrderTitleView.swift */,
+				3075142425CC199A006D95F2 /* PhotosCarouselCollectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -998,6 +1031,7 @@
 				303AB7A92581715300F287C2 /* DataFetcherPlan.swift in Sources */,
 				303A067D2593843F00C14BFD /* LittleRoundButton.swift in Sources */,
 				307304FA258BF4C80091D2F1 /* TagCell.swift in Sources */,
+				3075148825CD8F46006D95F2 /* MyProfileHeaderView.swift in Sources */,
 				3072F33F25C57A3A00CE7C65 /* OTPTextField.swift in Sources */,
 				308366072589FDC000578AE2 /* Constraints.swift in Sources */,
 				3072F35125C6EC1E00CE7C65 /* UserAPIService.swift in Sources */,
@@ -1046,6 +1080,8 @@
 				30CB74E2259121C700CB84D6 /* FeedOrderViewController.swift in Sources */,
 				3022F65925C1E930004C50B7 /* SignUpPresentationViewController.swift in Sources */,
 				30BC10C8259920DA00066D9B /* AlienProfileConstants.swift in Sources */,
+				3075142525CC199A006D95F2 /* PhotosCarouselCollectionView.swift in Sources */,
+				3075142925CC53C5006D95F2 /* ImagePicker.swift in Sources */,
 				30602852259DEB2F0046A2B0 /* EditProfileConstants.swift in Sources */,
 				3022F5F325BDFDBF004C50B7 /* CreateOrderCell.swift in Sources */,
 				303AB7A6258163F400F287C2 /* ModelsPlan.swift in Sources */,

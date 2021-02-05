@@ -25,6 +25,30 @@ class MyProfilePresenter: MyProfilePresentationLogic {
             case .failure(let error):
                 viewController?.displayData(viewModel: .displayError(error: error))
             }
+        case .presentOrder(result: let result):
+            switch result {
+            case .success(let data):
+                let model = getFeedOrderModel(data: data)
+                viewController?.displayData(viewModel: .displayOrder(orderModel: model))
+            case .failure(let error):
+                viewController?.displayData(viewModel: .displayError(error: error))
+            }
         }
+    }
+}
+
+//MARK: - mapping
+extension MyProfilePresenter {
+    private func getFeedOrderModel(data: MyProfileOrderResponse) -> FeedOrderModel {
+        let tags = data.tags.compactMap{FeedTag.init(rawValue: $0)}
+        let urls = data.photoAttachments.compactMap{URL(string: $0)}
+        return FeedOrderModel(orderId: data.orderId,
+                              title: data.title,
+                              description: data.description,
+                              counterOffer: data.counterOffer,
+                              isFree: data.isFree,
+                              tags: tags,
+                              photoAttachments: urls,
+                              isHidden: data.isHidden)
     }
 }

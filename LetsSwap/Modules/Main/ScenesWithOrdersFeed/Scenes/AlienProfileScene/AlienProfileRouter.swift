@@ -19,7 +19,7 @@ class AlienProfileRouter: NSObject, AlienProfileRoutingLogic {
   // MARK: Routing
     func routeToFeedOrderController(orderViewModel: OrderViewModel) {
         print("routing to feed order")
-        let vc = FeedOrderViewController(orderViewModel: orderViewModel)
-        viewController?.navigationController?.pushViewController(vc, animated: true)
+//        let vc = FeedOrderViewController(orderViewModel: orderViewModel)
+//        viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }

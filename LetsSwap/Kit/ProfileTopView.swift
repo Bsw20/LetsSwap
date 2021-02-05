@@ -91,6 +91,7 @@ class ProfileTopView: UIView {
         super.init(frame: frame)
         setupConstraints()
         backgroundColor = .clear
+        self.translatesAutoresizingMaskIntoConstraints = false
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -103,7 +104,6 @@ class ProfileTopView: UIView {
     }
     
     private func setupConstraints() {
-//        addSubview(separator)
         addSubview(imageView)
         addSubview(centerView)
         centerView.addSubview(separator)

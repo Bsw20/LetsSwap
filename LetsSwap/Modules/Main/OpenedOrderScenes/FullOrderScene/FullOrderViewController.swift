@@ -298,10 +298,26 @@ extension FullOrderViewController: PlaceholderTextViewDelegate {
     }
 }
 
+extension FullOrderViewController: ImagePickerDelegate  {
+    func didSelect(image: UIImage?) {
+        if let image = image {
+            print("Image got")
+        } else {
+            print("image didnt get")
+        }
+
+    }
+    
+    
+}
 //MARK: - PhotosCollectionViewDelegate
 extension FullOrderViewController: PhotosCollectionViewDelegate  {
     func addPhotoButtonTapped() {
-        print("add photo picker")
+//        let picker = ImagePicker(presentationController: self, delegate: self)
+//        picker.present(from: UIView())
+        service.uploadImage(image: #imageLiteral(resourceName: "hand")) { (result) in
+            
+        }
     }
     
     func photosCollectionViewSize() -> CGSize {

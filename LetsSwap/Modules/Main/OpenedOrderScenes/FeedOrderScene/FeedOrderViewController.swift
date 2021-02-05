@@ -7,12 +7,18 @@
 //
 
 import UIKit
+import SnapKit
 
 protocol FeedOrderDisplayLogic: class {
     func displayData(viewModel: FeedOrder.Model.ViewModel.ViewModelData)
 }
 
-protocol OrderRepresentableModel {
+protocol FeedOrderRepresentableModel {
+    var order: OrderRepresentableViewModel { get }
+    var user: UserRepresentableViewModel { get }
+}
+
+protocol OrderRepresentableViewModel {
 
     var title: String { get }
     var description: String { get }
@@ -21,19 +27,23 @@ protocol OrderRepresentableModel {
     var tags: [FeedTag] { get }
     var photoAttachments: [URL]{ get }
 }
-protocol UserRepresentableModel {
+protocol UserRepresentableViewModel {
     var userName: String { get }
     var userLastName: String { get }
     var userCity: String { get}
     var userPhoto: URL? { get }
-    
 }
 
 class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
-    //variables
-    private var orderViewModel: OrderViewModel!
-    //controls
-    private var photosCollectionView: PhotosCollectionView!
+
+    //MARK: - variables
+    private var type: FeedOrderType
+    private var orderViewModel: OrderRepresentableViewModel
+    var interactor: FeedOrderBusinessLogic?
+    var router: (NSObjectProtocol & FeedOrderRoutingLogic)?
+    
+    //MARK: - controls
+    private var photosCollectionView: PhotosCarouselCollectionView!
     private var tagsCollectionView: TagsCollectionView!
     
     private var scrollView: UIScrollView = {
@@ -43,13 +53,6 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         scrollView.isUserInteractionEnabled = true
         return scrollView
     }()
-//    private lazy var containerView: UIView = {
-//        let view = UIView()
-//        view.backgroundColor = .mainBackground()
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.isUserInteractionEnabled = true
-//        return view
-//    }()
     
     private var topView: OrderTitleView = {
        let view = OrderTitleView()
@@ -107,25 +110,34 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         return label
     }()
     
-    private var swapButton: UIButton = {
+    private lazy var swapButton: UIButton = {
         let button = LittleRoundButton.newButton(backgroundColor: .mainYellow(), text: "Махнуться", image: nil, font: .circeRegular(with: 22), textColor: .white)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
+    private lazy var editOrderButton: UIButton = UIButton.getLittleRoundButton(backgroundColor: .detailsGrey(), text: "Редактировать предложение", image: nil, font: UIFont.circeRegular(with: 17), textColor: .mainTextColor())
     
+    private lazy var hideOrderButton: UIButton = UIButton.getLittleRoundButton(backgroundColor: .detailsGrey(), text: "Скрыть", image: nil, font: UIFont.circeRegular(with: 17), textColor: .mainTextColor())
     
+    private lazy var deleteOrderButton: UIButton =  UIButton.getLittleRoundButton(backgroundColor: .detailsGrey(), text: "Удалить", image: nil, font: UIFont.circeRegular(with: 17), textColor: .errorRed())
     
-    var interactor: FeedOrderBusinessLogic?
-    var router: (NSObjectProtocol & FeedOrderRoutingLogic)?
-
-  // MARK: Object lifecycle
-  
-
-    init(orderViewModel: OrderViewModel) {
-//        = OrderViewModel(order: OrderViewModel.Order.init(title: "123", description: "123", counterOffer: "123", isFree: true, tags: [], photoAttachments: [URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!]), user: OrderViewModel.User(userName: "123", userLastName: "123", userCity: "123", userPhoto: nil), orderId: 123, userId: 123)
-        self.orderViewModel = orderViewModel
+    private lazy var pageControl: UIPageControl = UIPageControl.getStandard(currentPageIndex: 0, numberOfPages: 0)
+    
+  // MARK: - Object lifecycle
+    init(type: FeedOrderType) {
+        self.type = type
+        switch type {
+        case .alienProfileOrder(model: let model):
+            self.orderViewModel = model.order
+        case .myProfileOrder(model: let model):
+            self.orderViewModel = model
+        case .mainFeedOrder(model: let model):
+            self.orderViewModel = model.order
+        }
+//        orderViewModel = OrderViewModel(order: OrderViewModel.Order.init(title: "123", description: "123", counterOffer: "123", isFree: true, tags: [], photoAttachments: [URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!]), user: OrderViewModel.User(userName: "123", userLastName: "123", userCity: "123", userPhoto: nil), orderId: 123, userId: 123)
         super.init(nibName: nil, bundle: nil)
+        photosCollectionView = PhotosCarouselCollectionView(contentInset: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20), pageControl: pageControl)
         setup()
     }
     
@@ -151,64 +163,105 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
   
   // MARK: Routing
   
-  // MARK: View lifecycle
+  // MARK: - View lifecycle
   
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .mainBackground()
-
-        swapButton.addTarget(self, action: #selector(swapButtonTapped), for: .touchUpInside)
-        titleLabel.text = orderViewModel.order.title
-        descriptionLabel.text = orderViewModel.order.description
-        counterOfferLabel.text = orderViewModel.order.counterOffer
-        
-        let gesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(topViewTapped))
-        gesture.numberOfTapsRequired = 1
-        topView.addGestureRecognizer(gesture)
-        photosCollectionView.photosDelegate = self
-        
-        
+        setupRecognizers()
+        setupNavigationController()
+        setupDelegates()
     }
+    
+    
     override func loadView() {
         super.loadView()
-        tagsCollectionView = TagsCollectionView(displayedTags: orderViewModel.order.tags, showOnly: true)
-        tagsCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        #warning("УБРАТЬ")
-//        photosCollectionView = PhotosCollectionView(photoAttachments: orderViewModel.order.photoAttachments)
-        photosCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        
+        tagsCollectionView = TagsCollectionView(displayedTags: orderViewModel.tags, showOnly: true)
+        setupElements()
         setupConstraints()
 
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: swapButton.frame.maxY + 40)
-        
 
-    }
-  
+    //MARK: - funcs
     func displayData(viewModel: FeedOrder.Model.ViewModel.ViewModelData) {
 
+    }
+    private func setupDelegates() {
+        photosCollectionView.customDelegate = self
+    }
+    private func setupRecognizers() {
+        swapButton.addTarget(self, action: #selector(swapButtonTapped), for: .touchUpInside)
+        
+        let gesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(topViewTapped))
+        gesture.numberOfTapsRequired = 1
+        topView.addGestureRecognizer(gesture)
+        
+        editOrderButton.addTarget(self, action: #selector(editOrderButtonTapped), for: .touchUpInside)
+        hideOrderButton.addTarget(self, action: #selector(hideOrderButtonTapped), for: .touchUpInside)
+        deleteOrderButton.addTarget(self, action: #selector(deleteOrderButtonTapped), for: .touchUpInside)
+    }
+    private func setupElements() {
+        titleLabel.text = orderViewModel.title
+        descriptionLabel.text = orderViewModel.description
+        counterOfferLabel.text = orderViewModel.counterOffer
+        photosCollectionView.set(photoAttachments: orderViewModel.photoAttachments.map{$0.absoluteString})
+        if let isHidden = type.isHidden() {
+            if isHidden {
+                hideOrderButton.setTitle("Раскрыть", for: .normal)
+            } else {
+                hideOrderButton.setTitle("Скрыть", for: .normal)
+            }
+        }
+    }
+    
+    private func setupNavigationController() {
+        navigationItem.title = type.getNavigationTitle()
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
+        navigationController?.navigationBar.tintColor = .mainTextColor()
+    }
+    
+    //MARK: - objc funcs
+    @objc private func editOrderButtonTapped() {
+        print(#function)
+    }
+    
+    @objc private func hideOrderButtonTapped() {
+        print(#function)
+    }
+    
+    @objc private func deleteOrderButtonTapped() {
+        print(#function)
     }
     @objc private func swapButtonTapped() {
         print("Swap button tapped")
         #warning("мб имеет смысл сделать проверку, можно ли обратиться к order(возможно его уже приняли)")
-        router?.routeToComments(commentsModel: CommentsOrderModel(orderId: orderViewModel.orderId))
+        switch type {
+        case .alienProfileOrder(model: let model):
+            router?.routeToComments(commentsModel: CommentsOrderModel(orderId: model.orderId))
+        case .mainFeedOrder(model: let model):
+            router?.routeToComments(commentsModel: CommentsOrderModel(orderId: model.orderId))
+        case .myProfileOrder(model: let model):
+            break
+        }
     }
     
+    #warning("Зачем в параметрах userid")
     @objc private func topViewTapped(userId: Int) {
         print("topviewtapped")
-        router?.routToAlienProfile(userId: orderViewModel.userId)
+        if let userId = type.getUserId() {
+            router?.routToAlienProfile(userId: userId)
+        }
     }
 }
 
-//MARK: PhotosCollectionViewDelegate
-extension FeedOrderViewController: PhotosCollectionViewDelegate {
+//MARK: - PhotosCollectionViewDelegate
+extension FeedOrderViewController: PhotosCarouselDelegate {
     func photosCollectionViewSize() -> CGSize {
         let width = UIScreen.main.bounds.width - FeedOrderConstants.photosCollectionViewInset.left + FeedOrderConstants.photosCollectionViewInset.right
         let height = FeedOrderConstants.photosCollectionViewHeight
-        return CGSize(width: width, height: 281)
+        print(width)
+        return CGSize(width: photosCollectionView.frame.width * 0.91, height: photosCollectionView.frame.height)
     }
     
     func addPhotoButtonTapped() {
@@ -234,21 +287,25 @@ extension FeedOrderViewController {
         ])
         
         
-        scrollView.addSubview(topView)
+
         scrollView.addSubview(titleLabel)
         scrollView.addSubview(descriptionLabel)
         scrollView.addSubview(wantSwapLabel)
         scrollView.addSubview(counterOfferLabel)
         
+        if !type.isTopViewHidden() {
+            scrollView.addSubview(topView)
+            NSLayoutConstraint.activate([
+                topView.heightAnchor.constraint(equalToConstant: FeedOrderConstants.userImageHeight),
+                topView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                topView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+                topView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: FeedOrderConstants.titleViewTopOffset)
+            ])
+            titleLabel.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: FeedOrderConstants.titleLabelInsets.top).isActive = true
+        } else {
+            titleLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: FeedOrderConstants.titleViewTopOffset).isActive = true
+        }
         NSLayoutConstraint.activate([
-            topView.heightAnchor.constraint(equalToConstant: FeedOrderConstants.userImageHeight),
-            topView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            topView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            topView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: FeedOrderConstants.titleViewTopOffset)
-        ])
-        
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: FeedOrderConstants.titleLabelInsets.top),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: FeedOrderConstants.titleLabelInsets.left),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: FeedOrderConstants.titleLabelInsets.right)
         ])
@@ -278,7 +335,7 @@ extension FeedOrderViewController {
         ])
         #warning("setup with real data")
 //        let isFree = true
-        let isFree = orderViewModel.order.isFree
+        let isFree = orderViewModel.isFree
         let interimView: UIView
         if isFree {
             scrollView.addSubview(freeSwapLabel)
@@ -292,16 +349,21 @@ extension FeedOrderViewController {
             interimView = counterOfferLabel
         }
         
-        scrollView.addSubview(swapButton)
         scrollView.addSubview(tagsCollectionView)
         scrollView.addSubview(photosCollectionView)
+        scrollView.addSubview(pageControl)
         
         NSLayoutConstraint.activate([
             photosCollectionView.topAnchor.constraint(equalTo: interimView.bottomAnchor, constant: FeedOrderConstants.photosCollectionViewInset.top),
-            photosCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: FeedOrderConstants.photosCollectionViewInset.left),
-            photosCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: FeedOrderConstants.photosCollectionViewInset.right),
+            photosCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            photosCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             photosCollectionView.heightAnchor.constraint(equalToConstant: FeedOrderConstants.photosCollectionViewHeight)
         ])
+        
+        pageControl.snp.makeConstraints { (make) in
+            make.centerX.equalTo(view)
+            make.bottom.equalTo(photosCollectionView.snp.bottom).inset(5)
+        }
         
         NSLayoutConstraint.activate([
             tagsCollectionView.topAnchor.constraint(equalTo: photosCollectionView.bottomAnchor, constant: 30),
@@ -310,13 +372,33 @@ extension FeedOrderViewController {
             tagsCollectionView.heightAnchor.constraint(equalToConstant: FeedOrderConstants.tagsCollectionViewHeight)
         ])
         
-        NSLayoutConstraint.activate([
-            swapButton.topAnchor.constraint(equalTo: tagsCollectionView.bottomAnchor, constant: FeedOrderConstants.swapButtonInsets.top),
-            swapButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: FeedOrderConstants.swapButtonInsets.left),
-            swapButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: FeedOrderConstants.swapButtonInsets.right),
-            swapButton.heightAnchor.constraint(equalToConstant: FeedOrderConstants.swapButtonHeight),
-            swapButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
-        ])
+        if type.isSwapButtonHidden() {
+            print("init stack view")
+            let stackView = UIStackView(arrangedSubviews: [editOrderButton, hideOrderButton, deleteOrderButton], axis: .vertical, spacing: 8)
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            scrollView.addSubview(stackView)
+            
+            stackView.snp.makeConstraints { (make) in
+//                make.left.right.equalTo(titleLabel)
+                make.left.equalTo(view.snp.left).offset(FeedOrderConstants.swapButtonInsets.left)
+                make.right.equalTo(view.snp.right).offset(FeedOrderConstants.swapButtonInsets.right)
+                make.top.equalTo(tagsCollectionView.snp.bottom).offset(FeedOrderConstants.swapButtonInsets.top)
+                make.height.equalTo(FeedOrderConstants.stackViewButtonHeight * 3 + FeedOrderConstants.stackViewSpacing * 2)
+                make.bottom.equalTo(scrollView.snp.bottom).offset(-UIScreen.main.bounds.height * 0.04)
+            }
+            
+        } else {
+            print("here")
+            scrollView.addSubview(swapButton)
+            NSLayoutConstraint.activate([
+                swapButton.topAnchor.constraint(equalTo: tagsCollectionView.bottomAnchor, constant: FeedOrderConstants.swapButtonInsets.top),
+                swapButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: FeedOrderConstants.swapButtonInsets.left),
+                swapButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: FeedOrderConstants.swapButtonInsets.right),
+                swapButton.heightAnchor.constraint(equalToConstant: FeedOrderConstants.swapButtonHeight),
+                swapButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -UIScreen.main.bounds.height * 0.036)
+            ])
+        }
+
     }
 }
 

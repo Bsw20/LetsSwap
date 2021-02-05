@@ -11,3 +11,8 @@ import UIKit
 func onMainThread(delay: TimeInterval = 0, _ block: @escaping () -> Void) {
     DispatchQueue.main.asyncAfter(deadline: .now() + delay) { block() }
 }
+
+typealias StringURL = String?
+public var screenSize: CGRect {
+    return UIScreen.main.bounds
+}
