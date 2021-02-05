@@ -57,6 +57,7 @@ class CitiesListViewController: UIViewController {
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
+        searchController.searchBar.tintColor = .mainTextColor()
     }
     private func setupNavigationController() {
         

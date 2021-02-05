@@ -15,14 +15,10 @@ protocol MyProfileBusinessLogic {
 class MyProfileInteractor: MyProfileBusinessLogic {
 
     var presenter: MyProfilePresentationLogic?
-    var service: MyProfileService?
     private var fetcher: MyProfileFetcher = UserAPIService.shared
     
   
     func makeRequest(request: MyProfile.Model.Request.RequestType) {
-        if service == nil {
-            service = MyProfileService()
-        }
         
         switch request {
         
@@ -33,6 +29,10 @@ class MyProfileInteractor: MyProfileBusinessLogic {
         case .getOrder(orderId: let id):
             fetcher.getOrder(orderId: id) {[weak self] (result) in
                 self?.presenter?.presentData(response: .presentOrder(result: result))
+            }
+        case .getFullProfileInfo:
+            fetcher.getFullProfileModel { [weak self](result) in
+                self?.presenter?.presentData(response: .presentFullProfileInfo(result: result))
             }
         }
     }

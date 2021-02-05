@@ -60,8 +60,8 @@ final class FeedCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var imageView: UIImageView = {
-       let imageView = UIImageView()
+    private lazy var imageView: WebImageView = {
+       let imageView = WebImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFill
@@ -159,7 +159,8 @@ final class FeedCell: UICollectionViewCell {
     private func setupCell(cellModel: BaseFeedCellViewModel) {
         if let userURL = cellModel.photo {
             //TODO: подгрузка фотографии
-            imageView.image = UIImage(named: "personImage")
+//            imageView.image = UIImage(named: "personImage")
+            imageView.set(imageURL: userURL.absoluteString)
             imageTypeConstraints()
         } else {
             descriptionTypeConstraints()

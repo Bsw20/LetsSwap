@@ -133,7 +133,6 @@
 		30BC10DF259A04C200066D9B /* AlienProfileError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10DE259A04C200066D9B /* AlienProfileError.swift */; };
 		30BC10E3259A141400066D9B /* ProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10E2259A141400066D9B /* ProfileResponse.swift */; };
 		30BC10FF259AA0C500066D9B /* MyProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10F8259AA0C500066D9B /* MyProfilePresenter.swift */; };
-		30BC1100259AA0C500066D9B /* MyProfileWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10F9259AA0C500066D9B /* MyProfileWorker.swift */; };
 		30BC1101259AA0C500066D9B /* MyProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10FA259AA0C500066D9B /* MyProfileRouter.swift */; };
 		30BC1102259AA0C500066D9B /* MyProfileModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10FB259AA0C500066D9B /* MyProfileModels.swift */; };
 		30BC1103259AA0C500066D9B /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10FC259AA0C500066D9B /* MyProfileViewController.swift */; };
@@ -285,7 +284,6 @@
 		30BC10DE259A04C200066D9B /* AlienProfileError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienProfileError.swift; sourceTree = "<group>"; };
 		30BC10E2259A141400066D9B /* ProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileResponse.swift; sourceTree = "<group>"; };
 		30BC10F8259AA0C500066D9B /* MyProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfilePresenter.swift; sourceTree = "<group>"; };
-		30BC10F9259AA0C500066D9B /* MyProfileWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileWorker.swift; sourceTree = "<group>"; };
 		30BC10FA259AA0C500066D9B /* MyProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileRouter.swift; sourceTree = "<group>"; };
 		30BC10FB259AA0C500066D9B /* MyProfileModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileModels.swift; sourceTree = "<group>"; };
 		30BC10FC259AA0C500066D9B /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
@@ -809,7 +807,6 @@
 				30BC10FC259AA0C500066D9B /* MyProfileViewController.swift */,
 				30BC10FD259AA0C500066D9B /* MyProfileInteractor.swift */,
 				30BC10F8259AA0C500066D9B /* MyProfilePresenter.swift */,
-				30BC10F9259AA0C500066D9B /* MyProfileWorker.swift */,
 				30BC10FB259AA0C500066D9B /* MyProfileModels.swift */,
 				30BC10FA259AA0C500066D9B /* MyProfileRouter.swift */,
 			);
@@ -1110,7 +1107,6 @@
 				30BC10BA2599156A00066D9B /* AlienProfilePresenter.swift in Sources */,
 				3022F65225C1B747004C50B7 /* SignUpConstants.swift in Sources */,
 				30BC10FF259AA0C500066D9B /* MyProfilePresenter.swift in Sources */,
-				30BC1100259AA0C500066D9B /* MyProfileWorker.swift in Sources */,
 				3060283E259BC94F0046A2B0 /* UILabel + Extension.swift in Sources */,
 				3022F63B25C1AAB4004C50B7 /* PhoneCountryButton.swift in Sources */,
 				3022F62D25C1A120004C50B7 /* SignInRouter.swift in Sources */,

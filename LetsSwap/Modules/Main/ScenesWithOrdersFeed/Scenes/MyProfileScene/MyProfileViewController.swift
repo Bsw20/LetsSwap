@@ -93,6 +93,8 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
             showAlert(title: "Ошибка", message: error.localizedDescription)
         case .displayOrder(orderModel: let model):
             router?.routeToOpenOrder(orderModel: model)
+        case .displayFullProfileInfo(profileInfo: let model):
+            router?.routeToEditScreen(model: model)
         }
 
     }
@@ -100,7 +102,7 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
     //MARK: - Objc funcs
     @objc private func settingsButtonTapped() {
         print("settings button tapped")
-        router?.routeToEditScreen()
+        interactor?.makeRequest(request: .getFullProfileInfo)
     }
   
   

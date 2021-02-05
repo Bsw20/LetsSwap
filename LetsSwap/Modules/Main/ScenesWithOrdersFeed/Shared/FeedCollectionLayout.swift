@@ -16,13 +16,6 @@ struct FeedCollectionLayout {
     private static var contentInset = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 15)
     private static var spacing = CGFloat(15)
     
-    public static func feedCollectionViewHeight(cellsCount: Int) {
-        let rowsCount = cellsCount / 2 + cellsCount % 2
-        let spacesCount = rowsCount - 1
-        let cellHeight = (screenSize.width - contentInset.leading - contentInset.trailing) * 0.6
-        print(#function)
-        print(cellHeight)
-    }
     
     public static func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
         let sectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),

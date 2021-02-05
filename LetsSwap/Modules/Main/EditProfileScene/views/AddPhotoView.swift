@@ -48,6 +48,9 @@ class AddPhotoView: UIView {
     public func setPhoto(photoStringUrl: String?) {
         imageView.set(imageURL: photoStringUrl)
     }
+    public func getPhotoUrl() -> StringURL {
+        return imageView.getCurrentUrl
+    }
     
     //MARK: - Objc funcs
     @objc private func photoButtonTapped() {

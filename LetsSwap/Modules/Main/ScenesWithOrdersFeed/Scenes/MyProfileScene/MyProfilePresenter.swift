@@ -33,6 +33,14 @@ class MyProfilePresenter: MyProfilePresentationLogic {
             case .failure(let error):
                 viewController?.displayData(viewModel: .displayError(error: error))
             }
+        case .presentFullProfileInfo(result: let result):
+            switch result {
+            
+            case .success(let model):
+                viewController?.displayData(viewModel: .displayFullProfileInfo(profileInfo: model))
+            case .failure(let error):
+                viewController?.displayData(viewModel: .displayError(error: error))
+            }
         }
     }
 }

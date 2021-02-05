@@ -15,12 +15,14 @@ enum MyProfile {
             enum RequestType {
                 case getWholeProfile
                 case getOrder(orderId: Int)
+                case getFullProfileInfo
             }
         }
         struct Response {
             enum ResponseType {
                 case presentWholeProfile(result: Result<MyProfileViewModel, MyProfileError>)
                 case presentOrder(result: Result<MyProfileOrderResponse, MyProfileError>)
+                case presentFullProfileInfo(result: Result<EditProfileViewModel, MyProfileError>)
             }
         }
         struct ViewModel {
@@ -28,6 +30,7 @@ enum MyProfile {
                 case displayWholeProfile(myProfileViewModel: MyProfileViewModel)
                 case displayOrder(orderModel: FeedOrderModel)
                 case displayError(error: Error)
+                case displayFullProfileInfo(profileInfo: EditProfileViewModel)
             }
         }
     }

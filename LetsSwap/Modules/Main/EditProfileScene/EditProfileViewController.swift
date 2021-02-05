@@ -92,7 +92,7 @@ class EditProfileViewController: UIViewController {
                                     lastname: lastNameTextView.getText(),
                                     city: cityView.getCurrentProperty(),
                                     phoneNumber: phoneView.getCurrentProperty(),
-                                    imageStringUrl: nil)
+                                    imageStringUrl: addPhotoView.getPhotoUrl())
     }
     
     private func setupNavigation() {

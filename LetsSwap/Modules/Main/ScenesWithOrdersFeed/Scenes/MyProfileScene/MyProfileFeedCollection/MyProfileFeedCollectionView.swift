@@ -75,16 +75,12 @@ extension MyProfileFeedCollectionView: UICollectionViewDataSource {
         let cellModel = feedViewModel.feedInfo.cells[indexPath.item - 1] //Тк на одну ячейку больше из-за CreateOrderCell
         let cell = self.dequeueReusableCell(withReuseIdentifier: FeedCell.reuseId, for: indexPath) as! FeedCell
         cell.set(cellType: FeedCell.FeedCellType.myProfileCell(cellViewModel: cellModel), indexPath: indexPath)
-        print(#function)
-        print(cell.bounds.height)
-        FeedCollectionLayout.feedCollectionViewHeight(cellsCount: 3)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
             guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MyProfileHeaderView.reuseId, for: indexPath) as? MyProfileHeaderView else { fatalError("Can not create new section header") }
-            print("supplementary")
             sectionHeader.configure(model: feedViewModel.personInfo)
             return sectionHeader
             #warning("ДОДЕЛАТЬ ФУТТЕР")

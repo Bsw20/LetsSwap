@@ -11,6 +11,9 @@ import UIKit
 class WebImageView: UIImageView {
     
     private var currentUrlSring: String?
+    public var getCurrentUrl: StringURL {
+        return currentUrlSring
+    }
     
     public func set(imageURL: String?) {
         currentUrlSring = imageURL
