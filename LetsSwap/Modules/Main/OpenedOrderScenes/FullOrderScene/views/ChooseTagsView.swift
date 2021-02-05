@@ -63,6 +63,7 @@ class ChooseTagsView: UIView {
         clipsToBounds = true
         layer.borderWidth = 1
         layer.borderColor = #colorLiteral(red: 0.8156862745, green: 0.8156862745, blue: 0.8, alpha: 1)
+        self.translatesAutoresizingMaskIntoConstraints = false
         setupConstraints()
     }
     

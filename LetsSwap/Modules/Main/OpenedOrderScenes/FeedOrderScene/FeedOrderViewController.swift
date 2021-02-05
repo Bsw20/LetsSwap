@@ -223,7 +223,13 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
     
     //MARK: - objc funcs
     @objc private func editOrderButtonTapped() {
-        print(#function)
+        switch type {
+        case .myProfileOrder(model: let model):
+            router?.routeToEditOrder(model: model)
+        default:
+            break
+        }
+//        router?.routeToEditOrder(model: orderViewModel)
     }
     
     @objc private func hideOrderButtonTapped() {

@@ -57,6 +57,22 @@ class PlaceholderTextView: UITextView {
     public func getText() -> String {
         return currentText
     }
+    public func setText(text: String) {
+        if text.isEmpty {
+            if isFirstResponder {
+                textColor = normalTextColor
+            } else {
+                textColor = placeholderColor
+            }
+            currentText = ""
+            self.text = ""
+            
+        } else {
+            textColor = normalTextColor
+            currentText = text
+            self.text = text
+        }
+    }
 }
 
 
@@ -73,7 +89,6 @@ extension PlaceholderTextView: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            print("EMPYYY")
             textColor = placeholderColor
             currentText = ""
             text = placeholder
@@ -87,33 +102,3 @@ extension PlaceholderTextView: UITextViewDelegate {
     }
 }
 
-//extension FullOrderViewController: UITextViewDelegate {
-//    func textViewDidBeginEditing(_ textView: UITextView) {
-//        if textView.textColor == CommentConstants.textViewTextColor {
-//            textView.text = nil
-//                textView.textColor = UIColor.black
-//        }
-//        print("did begin")
-//        }
-//    func textViewDidEndEditing(_ textView: UITextView) {
-//        if textView.text.isEmpty {
-//            yellowButton.isEnabled = false
-//            textView.textColor = CommentConstants.textViewTextColor
-//            print("is empty")
-//            if textView == titleTextView {
-//                textView.text = "Добавь название"
-//            } else if textView == descriptionTextView {
-//                textView.text = "Добавь описание"
-//            } else if textView == counterOfferTextView {
-//                textView.text = "Напиши, что хочешь взамен"
-//            }
-//        } else {
-//            yellowButton.isEnabled = true
-//        }
-//    }
-//    #warning("TODO")
-//    func textViewDidChange(_ textView: UITextView) {
-//        validateConfirmation()
-//        print("did change")
-//    }
-//

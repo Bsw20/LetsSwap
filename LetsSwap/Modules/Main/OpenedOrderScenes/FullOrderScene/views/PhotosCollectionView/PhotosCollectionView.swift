@@ -14,12 +14,11 @@ protocol PhotosCollectionViewDelegate: NSObjectProtocol {
 }
 
 class PhotosCollectionView: UICollectionView {
-    private var photoAttachments: [String?]
+    private var photoAttachments: [String] = []
     
     weak var photosDelegate: PhotosCollectionViewDelegate?
     
-    init(photoAttachments: [String?]) {
-        self.photoAttachments = photoAttachments
+    init() {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         super.init(frame: .zero, collectionViewLayout: flowLayout)
@@ -37,6 +36,13 @@ class PhotosCollectionView: UICollectionView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    public func set(photoAttachments:[String]) {
+        self.photoAttachments = photoAttachments
+        reloadData()
+    }
+    public func getPhotos() -> [String] {
+        return photoAttachments
+    }
 }
 
 extension PhotosCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -51,10 +57,10 @@ extension PhotosCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
             return cell
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId, for: indexPath) as! PhotoCell
-//        cell.set(imageURL: photoAttachments[indexPath.item])
         cell.set(imageUrl: photoAttachments[indexPath.item - 1])
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return photosDelegate?.photosCollectionViewSize() ?? CGSize(width: frame.height, height: frame.height)
     }

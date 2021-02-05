@@ -14,7 +14,7 @@ protocol FullOrderDisplayLogic: class {
 
 class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     enum OperationType {
-        case edit(model: OrderViewModel)
+        case edit(model: FullOrderViewModel)
         case create
     }
     
@@ -26,7 +26,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     private var service: FullOrderFetcher = UserAPIService.shared
     
     //MARK: - Controls
-    private var photosCollectionView: PhotosCollectionView!
+    private var photosCollectionView: PhotosCollectionView = PhotosCollectionView()
     
     private lazy var scrollView: UIScrollView = {
        let scrollView = UIScrollView()
@@ -139,24 +139,34 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     // MARK: View lifecycle
   
     override func viewDidLoad() {
-//        OrderViewModel(order: OrderViewModel.Order.init(title: "123", description: "123", counterOffer: "123", isFree: true, tags: [], photoAttachments: [URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!]), user: OrderViewModel.User(userName: "123", userLastName: "123", userCity: "123", userPhoto: nil), orderId: 123, userId: 123)
-        
         super.viewDidLoad()
         view.backgroundColor = .mainBackground()
-//        photosCollectionView = PhotosCollectionView(photoAttachments: [URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,
-//                                                                       URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!] )
         
-        photosCollectionView = PhotosCollectionView(photoAttachments: [ "https://hsto.org/getpro/habr/post_images/6d4/e15/1a5/6d4e151a581298d9976496d8fbb7f74e.jpg","https://hsto.org/getpro/habr/post_images/6d4/e15/1a5/6d4e151a581298d9976496d8fbb7f74e.jpg",
-                                                                        "https://hsto.org/getpro/habr/post_images/6d4/e15/1a5/6d4e151a581298d9976496d8fbb7f74e.jpg","https://hsto.org/getpro/habr/post_images/6d4/e15/1a5/6d4e151a581298d9976496d8fbb7f74e.jpg"] )
         setupConstraints()
         setupNavigation()
         setupActions()
         setupDelegates()
         customizeElements()
+        setupData()
         validateConfirmation()
     }
     
     //MARK: - funcs
+    private func setupData() {
+        switch operationType {
+        
+        case .edit(model: let model):
+            titleTextView.setText(text: model.title)
+            descriptionTextView.setText(text: model.description)
+            counterOfferTextView.setText(text: model.counterOffer)
+            freeSwitch.setOn(model.isFree, animated: false)
+            switchValueDidChange()
+            chooseTagsView.set(selectedTags: model.tags.compactMap{FeedTag.init(rawValue: $0)})
+            photosCollectionView.set(photoAttachments: model.photoAttachments)
+        case .create:
+            break
+        }
+    }
     private func validateConfirmation() {
         let validate =  !(titleTextView.isEmpty || descriptionTextView.isEmpty || counterOfferTextView.isEmpty || chooseTagsView.isEmpty)
         yellowButton.isEnabled = validate
@@ -214,7 +224,8 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
                                        isFree: freeSwitch.isOn,
                                        counterOffer: counterOfferTextView.getText().trimmingCharacters(in: .whitespaces),
                                        tags: (Array(chooseTagsView.getTags())).map{$0.rawValue
-                                       })
+                                       },
+                                       photoAttachments: photosCollectionView.getPhotos())
         return model
     }
     
@@ -253,7 +264,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     }
     
     @objc private func switchValueDidChange() {
-        #warning("Поменять модель")
+        #warning("TODO:Поменять модель")
         if freeSwitch.isOn {
             print("on")
             counterOfferTextView.backgroundColor = .freeFeedCell()
@@ -404,7 +415,6 @@ extension FullOrderViewController {
         ])
         
 
-        
 
         
         NSLayoutConstraint.activate([

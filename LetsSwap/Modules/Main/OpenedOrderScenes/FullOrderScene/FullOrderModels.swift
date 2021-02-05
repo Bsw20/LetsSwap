@@ -38,6 +38,7 @@ struct FullOrderViewModel {
     var counterOffer: String
     var tags: [String]
     var id: Int?
+    var photoAttachments: [String]
     
     var representation: [String: Any] {
         var rep: [String: Any]  = ["title": title]
