@@ -104,6 +104,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     }()
     
     private lazy var addVideoButton: UIButton = UIButton.getPickerButton()
+    private var picker: ImagePicker?
 
   // MARK: Object lifecycle
   
@@ -111,6 +112,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     init(type: OperationType) {
         self.operationType = type
         super.init(nibName: nil, bundle: nil)
+        picker =  ImagePicker(presentationController: self, delegate: self)
         setup()
     }
   
@@ -323,11 +325,11 @@ extension FullOrderViewController: ImagePickerDelegate  {
 //MARK: - PhotosCollectionViewDelegate
 extension FullOrderViewController: PhotosCollectionViewDelegate  {
     func addPhotoButtonTapped() {
-//        let picker = ImagePicker(presentationController: self, delegate: self)
-//        picker.present(from: UIView())
-        service.uploadImage(image: #imageLiteral(resourceName: "hand")) { (result) in
-            
-        }
+
+        picker?.present(from: view)
+//        service.uploadImage(image: #imageLiteral(resourceName: "hand")) { (result) in
+//
+//        }
     }
     
     func photosCollectionViewSize() -> CGSize {
