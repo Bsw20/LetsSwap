@@ -40,6 +40,17 @@ class PhotosCollectionView: UICollectionView {
         self.photoAttachments = photoAttachments
         reloadData()
     }
+    public func add(photoAttachment: String) {
+        photoAttachments.append(photoAttachment)
+    }
+    private func delete(photoAttachment: String) {
+
+        photoAttachments = photoAttachments.filter {$0 != photoAttachment}
+
+    }
+    private func remove(at: Int) {
+        photoAttachments.remove(at: at)
+    }
     public func getPhotos() -> [String] {
         return photoAttachments
     }
@@ -47,6 +58,7 @@ class PhotosCollectionView: UICollectionView {
 
 extension PhotosCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print(photoAttachments.count + 1)
         return photoAttachments.count + 1
     }
     
@@ -58,6 +70,8 @@ extension PhotosCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId, for: indexPath) as! PhotoCell
         cell.set(imageUrl: photoAttachments[indexPath.item - 1])
+        cell.delegate = self
+        cell.isInEditingMode = true
         return cell
     }
     
@@ -71,6 +85,17 @@ extension PhotosCollectionView: PlusButtonCellDelegate {
     func addButtonTapped() {
         photosDelegate?.addPhotoButtonTapped()
     }
-    
-    
+}
+
+//MARK: - PhotoCelDelegate
+extension PhotosCollectionView: PhotoCellDelegate {
+    func deleteButtonTapped(cell: PhotoCell) {
+        let ip = indexPath(for: cell)
+        if let ip = ip {
+            remove(at: ip.item - 1)
+            reloadData()
+            print("New photo attachments")
+            print(photoAttachments)
+        }
+    }
 }
