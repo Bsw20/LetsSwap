@@ -26,7 +26,6 @@ class PhotoCell: UICollectionViewCell {
     private lazy var imageView: WebImageView = {
        let imageView = WebImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "tatu")
         return imageView
     }()
     

@@ -164,7 +164,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
             freeSwitch.setOn(model.isFree, animated: false)
             switchValueDidChange()
             chooseTagsView.set(selectedTags: model.tags.compactMap{FeedTag.init(rawValue: $0)})
-            photosCollectionView.set(photoAttachments: model.photoAttachments)
+            photosCollectionView.set(photoAttachments: model.urls)
         case .create:
             break
         }
@@ -227,7 +227,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
                                        counterOffer: counterOfferTextView.getText().trimmingCharacters(in: .whitespaces),
                                        tags: (Array(chooseTagsView.getTags())).map{$0.rawValue
                                        },
-                                       photoAttachments: photosCollectionView.getPhotos())
+                                       urls: photosCollectionView.getPhotos())
         return model
     }
     
@@ -317,6 +317,16 @@ extension FullOrderViewController: ImagePickerDelegate  {
             print("Image got")
             service.uploadImage(image: image) { (result) in
                 print("back to vc uploading image")
+                switch result {
+                
+                case .success(let url):
+                    DispatchQueue.main.async {
+                        self.photosCollectionView.add(photoAttachment: url!)
+                    }
+
+                case .failure(let error):
+                    print(error)
+                }
             }
         } else {
             print("image didnt get")

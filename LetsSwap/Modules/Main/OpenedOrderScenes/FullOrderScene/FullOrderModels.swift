@@ -35,7 +35,7 @@ struct FullOrderViewModel {
     var counterOffer: String
     var tags: [String]
     var id: Int?
-    var photoAttachments: [String]
+    var urls: [String]
     
     var representation: [String: Any] {
         var rep: [String: Any]  = ["title": title]
@@ -43,6 +43,8 @@ struct FullOrderViewModel {
         rep["isFree"] = isFree
         rep["counterOffer"] = counterOffer
         rep["tags"] = tags
+        rep["urls"] = urls
+        print(rep)
         
         return rep
     }

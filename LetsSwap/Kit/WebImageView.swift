@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class WebImageView: UIImageView {
+    private var service = UserAPIService.shared
     
     private var currentUrlSring: String?
     public var getCurrentUrl: StringURL {
@@ -29,14 +30,28 @@ class WebImageView: UIImageView {
         }
         
         
-        let dataTask = URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
-            DispatchQueue.main.async {
-                if let data = data, let response = response  {
-                    self?.handleLoadedImage(data: data, response: response)
+//        let dataTask = URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
+//            DispatchQueue.main.async {
+//                if let data = data, let response = response  {
+//                    self?.handleLoadedImage(data: data, response: response)
+//                }
+//            }
+//        }
+//        dataTask.resume()
+        service.downloadImage(url: imageURL) { (result) in
+            switch result {
+            
+            case .success(let data):
+                DispatchQueue.main.async {
+//                    self.handleLoadedImage(data: data, response: <#T##URLResponse#>)
+                    self.image = UIImage(data: data)
                 }
+            case .failure(let error):
+                #warning("TODO")
+                print("ОШИБКА ПРИ ЗАГРУЗКЕ ФОТО")
+                print(error)
             }
         }
-        dataTask.resume()
     }
     
     private func handleLoadedImage(data: Data, response: URLResponse) {

@@ -14,7 +14,13 @@ protocol PhotosCollectionViewDelegate: NSObjectProtocol {
 }
 
 class PhotosCollectionView: UICollectionView {
-    private var photoAttachments: [String] = []
+    private var photoAttachments: [String] = [] {
+        didSet {
+            print("PHOTO ATTACHMENTS")
+            print(photoAttachments)
+            reloadData()
+        }
+    }
     
     weak var photosDelegate: PhotosCollectionViewDelegate?
     
@@ -44,13 +50,15 @@ class PhotosCollectionView: UICollectionView {
         photoAttachments.append(photoAttachment)
     }
     private func delete(photoAttachment: String) {
-
         photoAttachments = photoAttachments.filter {$0 != photoAttachment}
 
     }
+    
     private func remove(at: Int) {
         photoAttachments.remove(at: at)
+        reloadData()
     }
+    
     public func getPhotos() -> [String] {
         return photoAttachments
     }
@@ -93,7 +101,6 @@ extension PhotosCollectionView: PhotoCellDelegate {
         let ip = indexPath(for: cell)
         if let ip = ip {
             remove(at: ip.item - 1)
-            reloadData()
             print("New photo attachments")
             print(photoAttachments)
         }

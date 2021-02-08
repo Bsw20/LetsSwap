@@ -38,7 +38,7 @@ class FeedOrderRouter: NSObject, FeedOrderRoutingLogic {
                                                 counterOffer: model.counterOffer,
                                                 tags: model.tags.map{$0.rawValue},
                                                 id: model.orderId,
-                                                photoAttachments: model.photoAttachments.compactMap{$0.absoluteString})
+                                                urls: model.photoAttachments.compactMap{$0.absoluteString})
         let vc = FullOrderViewController(type: .edit(model: orderViewModel))
         viewController?.navigationController?.push(vc)
     }
