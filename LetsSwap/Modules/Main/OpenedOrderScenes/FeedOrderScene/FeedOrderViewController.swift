@@ -216,6 +216,8 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         counterOfferLabel.text = orderViewModel.counterOffer
         photosCollectionView.set(photoAttachments: orderViewModel.photoAttachments.map{$0.absoluteString})
         if let isHidden = type.isHidden() {
+            print("MARK")
+            print(isHidden)
             if isHidden {
                 hideOrderButton.setTitle("Раскрыть", for: .normal)
             } else {
@@ -242,9 +244,8 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
     
     @objc private func hideOrderButtonTapped() {
         print(#function)
-        if let isHidden = type.isHidden() {
-            interactor?.makeRequest(request: .changeHidingState(currentState: isHidden))
-        }
+
+        interactor?.makeRequest(request: .changeHidingState(orderId: type.getOrderId()))
 
     }
     

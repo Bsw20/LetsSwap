@@ -63,12 +63,16 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
         print("SVD")
         view.backgroundColor = .mainBackground()
         setupNavigationController()
-        interactor?.makeRequest(request: .getWholeProfile)
          
         setupConstraints()
 //        topView.setup(swapsCount: 23, raiting: 3.8, imageView: nil)
 //        cityNameLabel.setup(name: "Митя Матвеев", city: "г. Москва")
         setupDelegates()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        interactor?.makeRequest(request: .getWholeProfile)
     }
     
     //MARK: - funcs

@@ -13,7 +13,7 @@ enum FeedOrder {
         struct Request {
             enum RequestType {
                 case tryToDelete(orderId: Int)
-                case changeHidingState(currentState: Bool)
+                case changeHidingState(orderId: Int)
                 case makeSwap(orderId: Int)
             }
         }

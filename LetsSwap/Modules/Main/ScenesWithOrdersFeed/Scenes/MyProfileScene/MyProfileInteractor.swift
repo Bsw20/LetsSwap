@@ -24,7 +24,19 @@ class MyProfileInteractor: MyProfileBusinessLogic {
         
         case .getWholeProfile:
             fetcher.getMyProfile { [weak self] (result) in
-                self?.presenter?.presentData(response: .presentWholeProfile(result: result))
+                switch result {
+                
+                case .success(let model):
+                    print("interactor")
+                    let newModel = self?.getProfileModel(oldModel: model)
+                    if let newModel = newModel {
+                        self?.presenter?.presentData(response: .presentWholeProfile(result: .success(newModel)))
+                    } else {
+                        self?.presenter?.presentData(response: .presentWholeProfile(result: .failure(.incorrectDataModel)))
+                    }
+                case .failure(let error):
+                    self?.presenter?.presentData(response: .presentWholeProfile(result: .failure(error)))
+                }
             }
         case .getOrder(orderId: let id):
             fetcher.getOrder(orderId: id) {[weak self] (result) in
@@ -32,8 +44,29 @@ class MyProfileInteractor: MyProfileBusinessLogic {
             }
         case .getFullProfileInfo:
             fetcher.getFullProfileModel { [weak self](result) in
+                print("INTERACTOR")
                 self?.presenter?.presentData(response: .presentFullProfileInfo(result: result))
+                
             }
         }
+    }
+    
+    private func getProfileModel(oldModel: MyProfileResponseModel) -> MyProfileViewModel  {
+        return MyProfileViewModel(
+            personInfo: MyProfileViewModel.PersonInfo(profileImage: oldModel.personInfo.profileImage,
+                                                      name: oldModel.personInfo.name,
+                                                      lastname: oldModel.personInfo.lastname,
+                                                      cityName: oldModel.personInfo.cityName,
+                                                      swapsCount: oldModel.personInfo.swapsCount,
+                                                      raiting: oldModel.personInfo.raiting),
+            feedInfo: MyProfileViewModel.FeedModel.init(cells: oldModel.feedInfo.map{ MyProfileViewModel.FeedModel.Cell.init(orderId: $0.orderId , title: $0.title, description: $0.description, counterOffer: $0.counterOffer, photo: getUrl(str: $0.photo) , isFree: $0.isFree, isHidden: $0.isHidden)}))
+    }
+    
+    private func getUrl(str: String?) -> URL? {
+        var url: URL? = nil
+        if let string = str {
+            url = URL(string: string)
+        }
+        return url
     }
 }

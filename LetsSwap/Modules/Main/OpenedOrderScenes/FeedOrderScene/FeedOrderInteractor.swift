@@ -25,8 +25,8 @@ class FeedOrderInteractor: FeedOrderBusinessLogic {
             fetcher.deleteOrder(orderId: orderId) { [weak self](result) in
                 self?.presenter?.presentData(response: .presentDeleting(result))
             }
-        case .changeHidingState(currentState: let currentState):
-            fetcher.changeHidingState(previousState: currentState) { (result) in
+        case .changeHidingState(orderId: let orderId):
+            fetcher.changeHidingState(orderId: orderId) { (result) in
                 self.presenter?.presentData(response: .presentNewHidingState(result))
             }
         case .makeSwap(orderId: let orderId):

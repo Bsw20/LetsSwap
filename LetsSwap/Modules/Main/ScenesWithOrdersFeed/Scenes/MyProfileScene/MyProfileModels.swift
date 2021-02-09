@@ -36,6 +36,32 @@ enum MyProfile {
     }
 }
 
+struct MyProfileResponseModel: Decodable {
+    struct PersonInfo: Decodable {
+        var profileImage: String?
+        var name: String
+        var lastname: String
+        var cityName: String
+        var swapsCount: Int
+        var raiting: Double
+    }
+    
+    struct Cell: Decodable {
+        
+        var orderId: Int
+        
+        var title: String
+        var description: String
+        var counterOffer: String
+        var photo: String?
+        var isFree: Bool
+        var isHidden: Bool
+    }
+    
+    var personInfo: PersonInfo
+    var feedInfo: [Cell]
+}
+
 struct MyProfileViewModel: Decodable {
     struct PersonInfo: Decodable, ProfileTopViewModel, MyProfileHeaderViewModel {
         var profileImage: String?
@@ -74,7 +100,7 @@ struct MyProfileViewModel: Decodable {
     var feedInfo: FeedModel
 }
 
-struct MyProfileOrderResponse {
+struct MyProfileOrderResponse: Decodable {
     var orderId: Int
     var title: String
     var description: String

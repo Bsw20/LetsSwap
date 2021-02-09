@@ -83,16 +83,16 @@ class EditProfileViewController: UIViewController {
         nameTextView.setText(newText: viewModel.name)
         lastNameTextView.setText(newText: viewModel.lastname)
         cityView.setProperty(property: viewModel.city)
-        phoneView.setProperty(property: viewModel.phoneNumber)
-        addPhotoView.setPhoto(photoStringUrl: viewModel.imageStringUrl)
+        phoneView.setProperty(property: viewModel.login)
+        addPhotoView.setPhoto(photoStringUrl: viewModel.url)
     }
     
     private func collectData() -> EditProfileViewModel {
         return EditProfileViewModel(name: nameTextView.getText(),
                                     lastname: lastNameTextView.getText(),
                                     city: cityView.getCurrentProperty(),
-                                    phoneNumber: phoneView.getCurrentProperty(),
-                                    imageStringUrl: addPhotoView.getPhotoUrl())
+                                    login: phoneView.getCurrentProperty(),
+                                    url: addPhotoView.getPhotoUrl())
     }
     
     private func setupNavigation() {

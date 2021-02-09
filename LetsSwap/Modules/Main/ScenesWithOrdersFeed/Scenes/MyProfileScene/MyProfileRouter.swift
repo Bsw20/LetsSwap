@@ -28,6 +28,8 @@ class MyProfileRouter: NSObject, MyProfileRoutingLogic {
     }
     func routeToEditScreen(model: EditProfileViewModel) {
         let vc = EditProfileViewController(viewModel: model)
+        print("MODEL HERE")
+        print(model)
         viewController?.navigationController?.pushViewController(vc, animated: true)
     }
     

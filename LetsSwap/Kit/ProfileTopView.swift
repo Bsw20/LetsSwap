@@ -18,6 +18,7 @@ class ProfileTopView: UIView {
         let imageView = WebImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "profileImagePlaceholder")
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -92,6 +93,7 @@ class ProfileTopView: UIView {
         setupConstraints()
         backgroundColor = .clear
         self.translatesAutoresizingMaskIntoConstraints = false
+//        imageView.layer.cornerRadius = MyProfileConstants.topViewHeight / 2
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -100,9 +102,12 @@ class ProfileTopView: UIView {
     func setup(topViewModel: ProfileTopViewModel) {
         swapsCountLabel.text = "\(topViewModel.swapsCount)"
         raitingLabel.text = String(format: "%.1f", topViewModel.raiting)
-        #warning("IMAGE")
+//        imageView.set(imageURL: topViewModel.profileImage)
+
     }
     
+    
+
     private func setupConstraints() {
         addSubview(imageView)
         addSubview(centerView)

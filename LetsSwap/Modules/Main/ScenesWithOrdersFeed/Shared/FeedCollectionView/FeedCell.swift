@@ -148,9 +148,9 @@ final class FeedCell: UICollectionViewCell {
             
         case .myProfileCell(cellViewModel: let cellViewModel):
             if cellViewModel.isHidden {
-                hiddenView.isHidden = true
-            } else {
                 hiddenView.isHidden = false
+            } else {
+                hiddenView.isHidden = true
             }
             setupCell(cellModel: cellViewModel)
         }
