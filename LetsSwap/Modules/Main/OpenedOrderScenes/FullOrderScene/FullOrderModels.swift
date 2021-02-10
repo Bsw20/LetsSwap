@@ -9,21 +9,30 @@
 import UIKit
 
 enum FullOrder {
-   enum Model {
-     struct Request {
-       enum RequestType {
-         case some
-       }
-     }
-     struct Response {
-       enum ResponseType {
-         case some
-       }
-     }
-     struct ViewModel {
-       enum ViewModelData {
-         case some
-       }
+    enum Model {
+        struct Request {
+            enum RequestType {
+                case updateOrder(orderId: Int, model: FullOrderViewModel)
+                case createOrder(model: FullOrderViewModel)
+                case uploadImage(image: UIImage)
+            }
+        }
+        struct Response {
+            enum ResponseType {
+                case presentUpdatingOrder(result: Result<Void, MyProfileError>)
+                case presentCreatingOrder(result: Result<Void, MyProfileError>)
+                case presentUploadingPhoto(Result<StringURL, MyProfileError>)
+            }
+            
+        }
+        struct ViewModel {
+            enum ViewModelData {
+                case displayOrderCreated
+                case displayOrderUpdated
+                case displayUploadedPhoto(photoUrl: String)
+                case showErrorAlert(title: String, message: String)
+                
+            }
      }
    }
 }

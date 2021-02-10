@@ -59,7 +59,8 @@ class NameCityLabel: UILabel {
         ])
         
         NSLayoutConstraint.activate([
-            bottomAnchor.constraint(equalTo: cityLabel.bottomAnchor)
+//            bottomAnchor.constraint(equalTo: cityLabel.bottomAnchor)
+            cityLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         
     }

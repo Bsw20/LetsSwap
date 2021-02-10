@@ -40,6 +40,7 @@ class FeedOrderRouter: NSObject, FeedOrderRoutingLogic {
                                                 id: model.orderId,
                                                 urls: model.photoAttachments.compactMap{$0.absoluteString})
         let vc = FullOrderViewController(type: .edit(model: orderViewModel))
+        vc.customDelegate = viewController
         viewController?.navigationController?.push(vc)
     }
   

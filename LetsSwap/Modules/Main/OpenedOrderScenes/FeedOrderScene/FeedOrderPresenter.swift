@@ -38,7 +38,28 @@ class FeedOrderPresenter: FeedOrderPresentationLogic {
             case .failure(let error):
                 viewController?.displayData(viewModel: .displayError(error: error))
             }
+        case .presentUpdatedData(let result):
+            switch result {
+            
+            case .success(let model):
+                viewController?.displayData(viewModel: .displayUpdatedData(model: getFeedOrderModel(data: model)))
+            case .failure(_):
+                viewController?.displayData(viewModel: .displayUpdatingDataError)
+            }
         }
+    }
+    
+    private func getFeedOrderModel(data: MyProfileOrderResponse) -> FeedOrderModel {
+        let tags = data.tags.compactMap{FeedTag.init(rawValue: $0)}
+        let urls = data.photoAttachments.compactMap{URL(string: $0)}
+        return FeedOrderModel(orderId: data.orderId,
+                              title: data.title,
+                              description: data.description,
+                              counterOffer: data.counterOffer,
+                              isFree: data.isFree,
+                              tags: tags,
+                              photoAttachments: urls,
+                              isHidden: data.isHidden)
     }
   
 }

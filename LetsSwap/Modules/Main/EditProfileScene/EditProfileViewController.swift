@@ -11,7 +11,7 @@ import UIKit
 
 
 class EditProfileViewController: UIViewController {
-    
+    weak var trackerDelegate: StateTrackerDelegate?
     init(viewModel: EditProfileViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -145,6 +145,7 @@ class EditProfileViewController: UIViewController {
             case .success():
                 onMainThread {
                     self.showAlert(title: "Успешно", message: "Информация обновлена")
+                    self.trackerDelegate?.stateDidChange()
                 }
             case .failure(let error):
                 onMainThread {

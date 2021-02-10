@@ -16,3 +16,7 @@ typealias StringURL = String?
 public var screenSize: CGRect {
     return UIScreen.main.bounds
 }
+
+protocol StateTrackerDelegate: NSObjectProtocol {
+    func stateDidChange()
+}

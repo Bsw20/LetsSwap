@@ -15,6 +15,7 @@ enum FeedOrder {
                 case tryToDelete(orderId: Int)
                 case changeHidingState(orderId: Int)
                 case makeSwap(orderId: Int)
+                case reloadWholeData(orderId: Int)
             }
         }
         
@@ -23,11 +24,14 @@ enum FeedOrder {
                 case presentDeleting(Result<Void, FeedOrderError>)
                 case presentNewHidingState(Result<Bool, FeedOrderError>)
                 case presentSwapping(Result<Void, FeedOrderError>)
+                case presentUpdatedData(Result<MyProfileOrderResponse, MyProfileError>)
             }
         }
         
         struct ViewModel {
             enum ViewModelData {
+                case displayUpdatedData(model: FeedOrderModel)
+                case displayUpdatingDataError
                 case displayDeleting
                 case displayNewHidingState(newState: Bool)
                 case displaySwapping

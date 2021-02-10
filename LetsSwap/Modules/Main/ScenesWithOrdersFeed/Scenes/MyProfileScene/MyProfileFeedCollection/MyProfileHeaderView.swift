@@ -45,9 +45,14 @@ class MyProfileHeaderView: UICollectionReusableView {
         addSubview(cityNameLabel)
         cityNameLabel.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
-            make.top.equalTo(topView.snp.bottom).offset(20)
-            make.bottom.equalTo(snp.bottom)
+            make.bottom.equalToSuperview()
         }
+        let constraint = cityNameLabel.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 20)
+        constraint.isActive = true
+        constraint.priority = UILayoutPriority(999)
+        NSLayoutConstraint.activate([
+            bottomAnchor.constraint(equalTo: cityNameLabel.bottomAnchor)
+        ])
     }
     
     required init?(coder: NSCoder) {

@@ -25,6 +25,7 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
     //MARK: - Variables
     var interactor: MyProfileBusinessLogic?
     var router: (NSObjectProtocol & MyProfileRoutingLogic)?
+    private var needToBeUpdated: Bool = true
 
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -71,8 +72,11 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        interactor?.makeRequest(request: .getWholeProfile)
+        super.viewWillAppear(true)
+        if needToBeUpdated {
+            interactor?.makeRequest(request: .getWholeProfile)
+            needToBeUpdated = false
+        }
     }
     
     //MARK: - funcs
@@ -135,6 +139,15 @@ extension MyProfileViewController {
             make.right.left.top.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
+}
+
+//MARK: - StateTrackerDelegate
+extension MyProfileViewController: StateTrackerDelegate {
+    func stateDidChange() {
+        needToBeUpdated = true
+    }
+    
+    
 }
 
 // MARK: - SwiftUI

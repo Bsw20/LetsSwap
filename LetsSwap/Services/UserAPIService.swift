@@ -23,6 +23,7 @@ protocol EditProfileFetcher {
 protocol FullOrderFetcher {
     func createOrder(model: FullOrderViewModel, completion: @escaping (Result<Void, MyProfileError>)-> Void)
     func uploadImage(image: UIImage, completion: @escaping (Result<StringURL, MyProfileError>)-> Void)
+    func updateOrder(orderId: Int, model: FullOrderViewModel, completion: @escaping (Result<Void, MyProfileError>)-> Void)
 }
 
 protocol FeedOrderFetcher {
@@ -30,6 +31,7 @@ protocol FeedOrderFetcher {
     func changeHidingState(orderId: Int, completion: @escaping (Result<Bool, FeedOrderError>) -> Void
     )
     func makeSwap(orderId: Int, completion: @escaping (Result<Void, FeedOrderError>) -> Void)
+    func getOrder(orderId: Int, completion: @escaping (Result<MyProfileOrderResponse, MyProfileError>) -> Void)
 }
 
 struct UserAPIService:  EditProfileFetcher {
@@ -227,6 +229,43 @@ extension UserAPIService: MyProfileFetcher {
 
 //MARK: - FullOrderFetcher
 extension UserAPIService: FullOrderFetcher {
+    func updateOrder(orderId: Int, model: FullOrderViewModel, completion: @escaping (Result<Void, MyProfileError>) -> Void) {
+        guard let url = URL(string: "http://92.63.105.87:3000/order/update/\(orderId)") else {
+            completion(.failure(MyProfileError.APIUrlError))
+            return
+        }
+        let userData = model.representation
+        
+        let headers: HTTPHeaders = [
+                    "Content-Type":"application/json",
+            "Authorization" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEyMjg2MDA3fQ.wlfqicWguYFBA3UauWi-04_cCHHY_fhgG_SBVKAk6hk"
+                ]
+        
+        AF.request(url, method: .post,
+                   parameters: userData, encoding: JSONEncoding.default, headers: headers
+                   )
+            .validate(statusCode: 200..<300)
+            .responseData(completionHandler: { (response) in
+                print("switch next")
+                switch response.result {
+
+                case .success(let data):
+                    do {
+                        completion(.success(Void()))
+                    } catch(let error){
+                        print("cant decode")
+                        print(error)
+                        completion(.failure(MyProfileError.incorrectDataModel))
+                    }
+
+                case .failure(let error):
+                    print(error)
+                    completion(.failure(MyProfileError.serverError))
+                    #warning("figure out with error types")
+                }
+            })
+    }
+    
     func createOrder(model: FullOrderViewModel, completion: @escaping (Result<Void, MyProfileError>) -> Void) {
         print(#function)
         guard let url = RequestUrl.createOrder.getUrl() else {

@@ -34,11 +34,17 @@ protocol UserRepresentableViewModel {
     var userPhoto: URL? { get }
 }
 
+
 class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
 
     //MARK: - variables
     private var type: FeedOrderType
-    private var orderViewModel: OrderRepresentableViewModel
+    weak var trackerDelegate: StateTrackerDelegate?
+    private var orderViewModel: OrderRepresentableViewModel {
+        didSet {
+            setupElements()
+        }
+    }
     var interactor: FeedOrderBusinessLogic?
     var router: (NSObjectProtocol & FeedOrderRoutingLogic)?
     
@@ -135,7 +141,6 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         case .mainFeedOrder(model: let model):
             self.orderViewModel = model.order
         }
-//        orderViewModel = OrderViewModel(order: OrderViewModel.Order.init(title: "123", description: "123", counterOffer: "123", isFree: true, tags: [], photoAttachments: [URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!,URL(string: "https://developer.apple.com/documentation/uikit/uistackview/distribution")!]), user: OrderViewModel.User(userName: "123", userLastName: "123", userCity: "123", userPhoto: nil), orderId: 123, userId: 123)
         super.init(nibName: nil, bundle: nil)
         photosCollectionView = PhotosCarouselCollectionView(contentInset: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20), pageControl: pageControl)
         setup()
@@ -171,13 +176,13 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         setupRecognizers()
         setupNavigationController()
         setupDelegates()
+        setupElements()
     }
     
     
     override func loadView() {
         super.loadView()
         tagsCollectionView = TagsCollectionView(displayedTags: orderViewModel.tags, showOnly: true)
-        setupElements()
         setupConstraints()
 
     }
@@ -190,10 +195,18 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
             showAlert(title: "Успешно", message: "Можно обменяться")
         case .displayDeleting:
             showAlert(title: "Успешно", message: "Предложение можно удалить")
+            trackerDelegate?.stateDidChange()
+            self.navigationController?.popViewController(animated: true)
         case .displayNewHidingState(newState: let newState):
             showAlert(title: "Успешно", message: "Предложение теперь \(newState ? "cкрыто" : "раскрыто")")
+            trackerDelegate?.stateDidChange()
         case .displayError(error: let error):
             showAlert(title: "Ошибка", message: error.localizedDescription)
+        case .displayUpdatingDataError:
+            self.navigationController?.popViewController(animated: false)
+        case .displayUpdatedData(model: let model):
+            self.orderViewModel = model
+            trackerDelegate?.stateDidChange()
         }
     }
     private func setupDelegates() {
@@ -278,7 +291,6 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
 extension FeedOrderViewController: PhotosCarouselDelegate {
     func photosCollectionViewSize() -> CGSize {
         let width = UIScreen.main.bounds.width - FeedOrderConstants.photosCollectionViewInset.left + FeedOrderConstants.photosCollectionViewInset.right
-        let height = FeedOrderConstants.photosCollectionViewHeight
         print(width)
         return CGSize(width: photosCollectionView.frame.width * 0.91, height: photosCollectionView.frame.height)
     }
@@ -287,8 +299,13 @@ extension FeedOrderViewController: PhotosCarouselDelegate {
         print(#function)
         
     }
-    
-    
+}
+
+extension FeedOrderViewController: StateTrackerDelegate {
+    func stateDidChange() {
+        interactor?.makeRequest(request: .reloadWholeData(orderId: type.getOrderId()))
+        trackerDelegate?.stateDidChange()
+    }
 }
 
 //MARK:- constraints

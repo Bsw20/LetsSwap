@@ -85,15 +85,13 @@ class ProfileTopView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-//    init(topViewModel: ProfileTopViewModel) {
-//        super.init(frame: .zero)
-//    }
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupConstraints()
         backgroundColor = .clear
         self.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.layer.cornerRadius = MyProfileConstants.topViewHeight / 2
+        #warning("RECODE")
+//        imageView.layer.cornerRadius = 35
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -102,6 +100,7 @@ class ProfileTopView: UIView {
     func setup(topViewModel: ProfileTopViewModel) {
         swapsCountLabel.text = "\(topViewModel.swapsCount)"
         raitingLabel.text = String(format: "%.1f", topViewModel.raiting)
+        #warning("TODO")
 //        imageView.set(imageURL: topViewModel.profileImage)
 
     }

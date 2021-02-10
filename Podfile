@@ -8,4 +8,5 @@ target 'LetsSwap' do
   # Pods for LetsSwap
   pod 'Alamofire'
   pod ‘SnapKit’
+  pod 'Kingfisher'
 end

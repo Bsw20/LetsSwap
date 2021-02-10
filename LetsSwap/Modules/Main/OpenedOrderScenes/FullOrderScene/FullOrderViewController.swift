@@ -12,6 +12,7 @@ protocol FullOrderDisplayLogic: class {
     func displayData(viewModel: FullOrder.Model.ViewModel.ViewModelData)
 }
 
+
 class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     enum OperationType {
         case edit(model: FullOrderViewModel)
@@ -22,8 +23,9 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     var interactor: FullOrderBusinessLogic?
     var router: FullOrderRoutingLogic?
     var operationType: OperationType
+    weak var customDelegate: StateTrackerDelegate?
     
-    private var service: FullOrderFetcher = UserAPIService.shared
+
     
     //MARK: - Controls
     private var photosCollectionView: PhotosCollectionView = PhotosCollectionView()
@@ -232,7 +234,22 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     }
     
     func displayData(viewModel: FullOrder.Model.ViewModel.ViewModelData) {
-
+        onMainThread {
+            switch viewModel {
+            
+            case .displayOrderCreated:
+                self.showAlert(title: "Успешно!", message: "Предложение создано.")
+                self.customDelegate?.stateDidChange()
+                self.navigationController?.popViewController(animated: true)
+            case .displayOrderUpdated:
+                self.customDelegate?.stateDidChange()
+                self.showAlert(title: "Успешно!", message: "Предложение отредактировано.")
+            case .showErrorAlert(title: let title, message: let message):
+                self.showAlert(title: title, message: message)
+            case .displayUploadedPhoto(photoUrl: let photoUrl):
+                self.photosCollectionView.add(photoAttachment: photoUrl)
+            }
+        }
     }
     
     
@@ -242,26 +259,15 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
         switch operationType {
         
         case .edit(model: let model):
-            print(#function)
-            print(model)
+            if let orderId = model.id {
+                let data = collectData()
+                interactor?.makeRequest(request: .updateOrder(orderId: orderId, model: data))
+            }
+
         case .create:
             let data = collectData()
-            print(data)
-            service.createOrder(model: data) { (result) in
-                switch result {
-                    
-                case .success():
-                    onMainThread {
-                        self.showAlert(title: "Успешно", message: "Предложение создано") {
-                            self.navigationController?.popViewController(animated: true)
-                        }
-                    }
-                case .failure(let error):
-                    onMainThread {
-                        self.showAlert(title: "Ошибка!", message: error.localizedDescription)
-                    }
-                }
-            }
+            interactor?.makeRequest(request: .createOrder(model: data))
+            
         }
     }
     
@@ -314,22 +320,9 @@ extension FullOrderViewController: PlaceholderTextViewDelegate {
 extension FullOrderViewController: ImagePickerDelegate  {
     func didSelect(image: UIImage?) {
         if let image = image {
-            print("Image got")
-            service.uploadImage(image: image) { (result) in
-                print("back to vc uploading image")
-                switch result {
-                
-                case .success(let url):
-                    DispatchQueue.main.async {
-                        self.photosCollectionView.add(photoAttachment: url!)
-                    }
-
-                case .failure(let error):
-                    print(error)
-                }
-            }
+            interactor?.makeRequest(request: .uploadImage(image: image))
         } else {
-            print("image didnt get")
+            showAlert(title: "Ошибка!", message: "Не удалось загрузить фотографию.")
         }
     }
 }

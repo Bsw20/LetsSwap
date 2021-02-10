@@ -24,6 +24,8 @@ struct FeedItem: Decodable {
     let isFree: Bool
     let date: Double
     let photo: Photo?
+    //photo: String?
+    //isHidden: 
 }
 
 

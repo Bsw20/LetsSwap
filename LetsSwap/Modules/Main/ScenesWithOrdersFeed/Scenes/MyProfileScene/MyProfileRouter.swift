@@ -21,13 +21,15 @@ class MyProfileRouter: NSObject, MyProfileRoutingLogic {
     weak var viewController: MyProfileViewController?
     
   
-  // MARK: Routing
+  // MARK: Routing 
     func routeToOpenOrder(orderModel: FeedOrderModel) {
         let vc = FeedOrderViewController(type: .myProfileOrder(model: orderModel))
+        vc.trackerDelegate = viewController
         viewController?.navigationController?.push(vc)
     }
     func routeToEditScreen(model: EditProfileViewModel) {
         let vc = EditProfileViewController(viewModel: model)
+        vc.trackerDelegate = viewController
         print("MODEL HERE")
         print(model)
         viewController?.navigationController?.pushViewController(vc, animated: true)
@@ -35,6 +37,7 @@ class MyProfileRouter: NSObject, MyProfileRoutingLogic {
     
     func routeToCreateOrder() {
         let vc = FullOrderViewController(type: .create)
+        vc.customDelegate = viewController
         viewController?.navigationController?.push(vc)
     }
   
