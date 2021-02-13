@@ -11,6 +11,7 @@ import UIKit
 class TagsViewController: UIViewController {
 //    weak var k
     private var displayedTags = FeedTag.allCases
+//    private var selectedTags
     
     private var collectionView: UICollectionView!
     override func viewDidLoad() {
@@ -60,6 +61,7 @@ extension TagsViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
     }
 }
 

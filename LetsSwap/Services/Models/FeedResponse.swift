@@ -18,14 +18,9 @@ struct FeedItem: Decodable {
     let title: String
     let description: String
     let counterOffer: String
-    #warning("Если использовать в MyProfileVC, то сделать его опциональным")
-    #warning("IsHidden ")
-    let isFavourite: Bool
+    let isFavorite: Bool
     let isFree: Bool
-    let date: Double
-    let photo: Photo?
-    //photo: String?
-    //isHidden: 
+    let photo: String?
 }
 
 

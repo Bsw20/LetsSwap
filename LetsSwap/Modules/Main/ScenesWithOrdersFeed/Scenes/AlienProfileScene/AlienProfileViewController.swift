@@ -26,7 +26,7 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
     }()
     
     private lazy var feedCollectionView: FeedCollectionView = {
-       var collectionView = FeedCollectionView()
+        var collectionView = FeedCollectionView(type: .withoutHeader)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .clear
         collectionView.isScrollEnabled = false
@@ -107,7 +107,7 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
         chatButton.addTarget(self, action: #selector(chatButtonTapped), for: .touchUpInside)
 //        topView.setup(swapsCount: 25, raiting: 3.5, imageView: nil)
         interactor?.makeRequest(request: .getProfile(userId: userId))
-        feedCollectionView.feedDelegate = self
+        feedCollectionView.customDelegate = self
 
     }
     
@@ -137,10 +137,10 @@ extension AlienProfileViewController: FeedCollectionViewDelegate {
         print(orderId)
         interactor?.makeRequest(request: .getOrder(orderId: orderId))
     }
-    
-    func favouriteButtonTapped(newState: Bool) {
-        print("favourite button did select")
+    func showAlert(title: String, message: String) {
+        showAlert(title: title, message: message)
     }
+
     
     
 }
@@ -187,7 +187,8 @@ extension AlienProfileViewController {
         #warning("Уточнить нормально и точно высчитать высоту")
         //высота высчитывается на основе feedCollectionView размеров
         let first = (UIScreen.main.bounds.width * 0.6 - 40)
-        let second = CGFloat(NetworkDataFetcher.feedItems.count / 2 + 1)
+//        let second = CGFloat(NetworkDataFetcher.feedItems.count / 2 + 1)
+        let second = CGFloat(700)
         let height =  first * second
         NSLayoutConstraint.activate([
             feedCollectionView.topAnchor.constraint(equalTo: cityNameLabel.bottomAnchor, constant: 10),

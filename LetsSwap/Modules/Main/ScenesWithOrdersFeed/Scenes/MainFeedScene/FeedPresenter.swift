@@ -54,7 +54,7 @@ class FeedPresenter: FeedPresentationLogic {
     
     private static func cellViewModel(from feedItem: FeedItem) -> FeedViewModel.Cell {
         var url: URL? = nil
-        if let photo = feedItem.photo, let photoURL = URL(string: photo.url) {
+        if let photo = feedItem.photo, let photoURL = URL(string: photo) {
             url = photoURL
         }
         return FeedViewModel.Cell.init(orderId: feedItem.orderId,
@@ -62,7 +62,7 @@ class FeedPresenter: FeedPresentationLogic {
                                        description: feedItem.description,
                                        counterOffer: feedItem.counterOffer,
                                        photo: url,
-                                       isFavourite: feedItem.isFavourite,
+                                       isFavourite: feedItem.isFavorite,
                                        isFree: feedItem.isFree)
     }
     static public func orderViewModel(from orderResponse: OrderResponse) -> OrderViewModel {
@@ -70,11 +70,11 @@ class FeedPresenter: FeedPresentationLogic {
             FeedTag.init(rawValue: stringTag)
         }
         let attachments = orderResponse.order.photoAttachments.compactMap { photo in
-            URL(string: photo.url)
+            URL(string: photo)
         }
         
         var userPhoto: URL? = nil
-        if let photoStringUrl = orderResponse.user.photo?.url {
+        if let photoStringUrl = orderResponse.user.photo {
             userPhoto = URL(string: photoStringUrl)
         }
         

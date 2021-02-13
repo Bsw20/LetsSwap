@@ -180,11 +180,11 @@ final class FeedCell: UICollectionViewCell {
     }
     
     private func setUnfavourite() {
-        favouriteButton.setImage(UIImage(named: "tabIconFilled"), for: .normal)
+        favouriteButton.setImage(UIImage(named: "tabIcon"), for: .normal)
     }
     
     private func setFavourite() {
-        favouriteButton.setImage(UIImage(named: "tabIcon"), for: .normal)
+        favouriteButton.setImage(UIImage(named: "tabIconFilled"), for: .normal)
     }
 }
 

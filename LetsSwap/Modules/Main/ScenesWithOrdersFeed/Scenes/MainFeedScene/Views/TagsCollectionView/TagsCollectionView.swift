@@ -13,6 +13,7 @@ protocol TagCollectionViewDelegate: AnyObject {
     func moreTagsCellDidSelect()
 }
 
+
 class TagsCollectionView: UICollectionView {
     private static var defaultDisplayedTags = [FeedTag.IT, FeedTag.householdServices,FeedTag.art, FeedTag.beautyHealth,FeedTag.fashion, FeedTag.education, FeedTag.celebrations, FeedTag.cleaning, FeedTag.design]
     

@@ -9,25 +9,14 @@
 import UIKit
 
 protocol FeedDisplayLogic: class {
-  func displayData(viewModel: Feed.Model.ViewModel.ViewModelData)
+    func displayData(viewModel: Feed.Model.ViewModel.ViewModelData)
 }
 
 class FeedViewController: UIViewController, FeedDisplayLogic {
     //variables
     private var selectedTags = Set<FeedTag>()
     
-    //controls
-    private var tagsCollectionView: TagsCollectionView = {
-       var collectionView = TagsCollectionView()
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        return collectionView
-    }()
-    
-    private var feedCollectionView: FeedCollectionView = {
-       var collectionView = FeedCollectionView()
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        return collectionView
-    }()
+    private var feedCollectionView: FeedCollectionView
 
     private var titleView = TitleView()
     var interactor: FeedBusinessLogic?
@@ -36,7 +25,9 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
   // MARK: Object lifecycle
   
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        feedCollectionView = FeedCollectionView(type: .withHeader)
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        feedCollectionView.setTagsDelegate(delegate: self)
         setup()
     }
   
@@ -62,8 +53,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .mainBackground()
-        tagsCollectionView.tagDelegate = self
-        feedCollectionView.feedDelegate = self
+        feedCollectionView.customDelegate = self
         titleView.delegate = self
         
         setupSearchBar()
@@ -103,10 +93,9 @@ extension FeedViewController: FeedCollectionViewDelegate {
         interactor?.makeRequest(request: .getOrder(orderId: orderId))
     }
     
-    func favouriteButtonTapped(newState: Bool) {
-        print("favouriteButtonTapped")
+    func showAlert(title: String, message: String) {
+        showAlert(title: title, message: message)
     }
-    
     
 }
 
@@ -121,6 +110,7 @@ extension FeedViewController: UISearchBarDelegate {
 //MARK: - TagCollectionViewDelegate
 extension FeedViewController: TagCollectionViewDelegate {
     func tagDidSelect(tag: FeedTag) {
+        print("VC")
         if selectedTags.contains(tag) {
             selectedTags.remove(tag)
         } else {
@@ -131,6 +121,7 @@ extension FeedViewController: TagCollectionViewDelegate {
     }
     
     func moreTagsCellDidSelect() {
+        print("VC")
         print("more button selected")
         router?.routeToTagsController(currentTags: selectedTags)
     }
@@ -140,22 +131,11 @@ extension FeedViewController: TagCollectionViewDelegate {
 //MARK: - constraints
 extension FeedViewController {
     private func setupConstraints() {
-        view.addSubview(tagsCollectionView)
         view.addSubview(feedCollectionView)
 
-        NSLayoutConstraint.activate([
-            tagsCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            tagsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tagsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tagsCollectionView.heightAnchor.constraint(equalToConstant: FeedConstants.tagsCollectionViewHeight)
-        ])
-        
-        NSLayoutConstraint.activate([
-            feedCollectionView.topAnchor.constraint(equalTo: tagsCollectionView.bottomAnchor, constant: 20),
-            feedCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            feedCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            feedCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
+        feedCollectionView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
     }
 }
 

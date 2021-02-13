@@ -29,6 +29,6 @@ struct FeedViewModel {
         }
     }
     
-    let cells: [Cell]
+    var cells: [Cell]
 }
 

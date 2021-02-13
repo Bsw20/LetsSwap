@@ -10,25 +10,53 @@ import UIKit
 
 protocol FeedCollectionViewDelegate: AnyObject {
     func cellDidSelect(orderId: Int)
-    func favouriteButtonTapped(newState: Bool)
+    func showAlert(title: String, message: String)
+//    func favouriteButtonTapped(newState: Bool)
+//    func getSelectedTags(tags: [FeedTag])
+//    func setSelectedTags(tags: [FeedTag])
 }
 
 class FeedCollectionView: UICollectionView {
+    //MARK: - variables
+    enum ViewType{
+        case withHeader
+        case withoutHeader
+    }
+    private var favoriteManager = FavoriteOrderManager.shared
     
-    weak var feedDelegate: FeedCollectionViewDelegate?
-    
+    weak var customDelegate: FeedCollectionViewDelegate?
+    private weak var tagsDelegate: TagCollectionViewDelegate? {
+        didSet {
+            tagsCollectionView?.tagDelegate = tagsDelegate
+        }
+    }
     private var feedViewModel = FeedViewModel.init(cells: [])
     private var localDataSource: UICollectionViewDiffableDataSource<FeedCollectionLayout.Section, FeedViewModel.Cell>!
+    private var tagsCollectionView: TagsCollectionView? {
+        didSet {
+            tagsCollectionView?.tagDelegate = tagsDelegate
+        }
+    }
  
     
-    init() {
-
-        super.init(frame: .zero, collectionViewLayout: FeedCollectionLayout.createCompositionalLayout())
+    init(type:ViewType) {
+        var supplementaryViews: [NSCollectionLayoutBoundarySupplementaryItem]? = nil
+        switch type {
+        
+        case .withoutHeader:
+            supplementaryViews = nil
+        case .withHeader:
+            supplementaryViews = [FeedCollectionLayout.createSectionHeader()]
+        }
+        let layout = FeedCollectionLayout.createCompositionalLayout(supplementaryViews: supplementaryViews)
+        super.init(frame: .zero, collectionViewLayout:layout )
+        register(MainFeedHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainFeedHeader.reuseId)
         delegate = self
         createDataSource()
         backgroundColor = .mainBackground()
         register(FeedCell.self, forCellWithReuseIdentifier: FeedCell.reuseId)
         allowsMultipleSelection = false
+        translatesAutoresizingMaskIntoConstraints = false
     }
     
     required init?(coder: NSCoder) {
@@ -45,14 +73,18 @@ class FeedCollectionView: UICollectionView {
 
         reloadData()
     }
+    
+    func setTagsDelegate(delegate: TagCollectionViewDelegate) {
+        self.tagsDelegate = delegate
+    }
+    
 }
 
 extension FeedCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cellModel = feedViewModel.cells[indexPath.item]
         print(indexPath)
-        feedDelegate?.cellDidSelect(orderId: cellModel.orderId)
-        
+        customDelegate?.cellDidSelect(orderId: cellModel.orderId)
     }
 }
 
@@ -73,6 +105,18 @@ extension FeedCollectionView {
                 return cell
             }
         })
+        localDataSource?.supplementaryViewProvider = {
+            collectionView, kind, indexPath in
+            guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MainFeedHeader.reuseId, for: indexPath) as? MainFeedHeader else { fatalError("Can not create new section header") }
+            
+//            sectionHeader.configure(text: section.description(usersCount: items.count),
+//                                    font: .systemFont(ofSize: 36, weight: .light ),
+//                                    textColor: .label)
+            self.tagsCollectionView = sectionHeader.tagsCollectionView
+            
+            print("supplementary")
+            return sectionHeader
+        }
     }
 }
 
@@ -80,5 +124,22 @@ extension FeedCollectionView: FeedCellDelegate {
     #warning("Обсудить put запрос с бэком")
     func favouriteButtonDidTapped(indexPath: IndexPath) {
         print("favourite button tapped + \(indexPath)")
+        let currentOrder = feedViewModel.cells[indexPath.item]
+        print(currentOrder.isFavourite)
+        favoriteManager.changeState(orderID: currentOrder.orderId, isFavorite: currentOrder.isFavourite) {[weak self] (result) in
+            switch result {
+            
+            case .success(let newState):
+                self?.feedViewModel.cells[indexPath.item].isFavourite = newState
+//                self?.reloadItems(at: [indexPath])
+                print("RELOADING")
+                self?.reloadData()
+                print(self?.feedViewModel.cells[indexPath.item].isFavourite)
+            case .failure(let error):
+                self?.customDelegate?.showAlert(title: "Ошибка!", message: "Localized description")
+            }
+        }
+
+        
     }
 }

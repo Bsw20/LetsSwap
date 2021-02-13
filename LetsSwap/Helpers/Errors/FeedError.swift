@@ -12,6 +12,8 @@ enum FeedError {
     case emptyFeedError
     case serverError
     case unknownError
+    case incorrectUrlError
+    case incorrectDataModel
 }
 
 extension FeedError: LocalizedError {
@@ -23,6 +25,10 @@ extension FeedError: LocalizedError {
             return NSLocalizedString("Ошибка сервера", comment: "")
         case .unknownError:
             return NSLocalizedString("Неизвестная ошибка", comment: "")
+        case .incorrectUrlError:
+            return NSLocalizedString("Некорректный url запроса", comment: "")
+        case .incorrectDataModel:
+            return NSLocalizedString("Некорректная модель данных", comment: "")
         }
     }
 }

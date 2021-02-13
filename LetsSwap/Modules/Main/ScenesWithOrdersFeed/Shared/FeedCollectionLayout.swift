@@ -17,8 +17,8 @@ struct FeedCollectionLayout {
     private static var spacing = CGFloat(15)
     
     
-    public static func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
-        let sectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+    public static func createSectionHeader(widthDimenstion: NSCollectionLayoutDimension = .absolute(screenSize.width)) -> NSCollectionLayoutBoundarySupplementaryItem {
+        let sectionHeaderSize = NSCollectionLayoutSize(widthDimension: widthDimenstion,
                                                        heightDimension: .estimated(1))
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: sectionHeaderSize,
                                                                         elementKind: UICollectionView.elementKindSectionHeader,

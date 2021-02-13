@@ -13,6 +13,8 @@ enum OrderError {
     case orderDoesntExist
     case serverError
     case userDoesntExist
+    case incorrectDataModel
+    case incorrectUrlError
 }
 
 extension OrderError: LocalizedError {
@@ -24,6 +26,10 @@ extension OrderError: LocalizedError {
             return NSLocalizedString("Ошибка сервера", comment: "")
         case .userDoesntExist:
             return NSLocalizedString("Человек, который создал это предложение, сейчас недоступен", comment: "")
+        case .incorrectDataModel:
+            return NSLocalizedString("Некорректная модель данных", comment: "")
+        case .incorrectUrlError:
+            return NSLocalizedString("Некорректный url запроса", comment: "")
         }
     }
 }

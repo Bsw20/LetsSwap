@@ -15,7 +15,7 @@ struct OrderResponse: Decodable {
 
 struct PostedUser: Decodable {
     let userId: Int
-    let photo: Photo?
+    let photo: String?
     let name: String
     let lastName: String
     let city: String
@@ -29,5 +29,5 @@ struct Order: Decodable {
 
     var counterOffer: String
     var isFree: Bool
-    var photoAttachments: [Photo]
+    var photoAttachments: [String]
 }
