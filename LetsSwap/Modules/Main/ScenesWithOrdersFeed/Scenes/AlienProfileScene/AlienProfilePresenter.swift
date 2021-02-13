@@ -28,7 +28,7 @@ class AlienProfilePresenter: AlienProfilePresentationLogic {
             viewController?.displayData(viewModel: .displayFullProfile(profileViewModel: profileViewModel))
             
         case .failure(let error):
-            print("error")
+            break
         }
     case .presentOrder(result: let result):
         switch result {

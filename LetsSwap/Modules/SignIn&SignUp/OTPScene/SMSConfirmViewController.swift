@@ -90,31 +90,21 @@ class SMSConfirmViewController: UIViewController {
 //ma token ["token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwiaWF0IjoxNjEyMDEzNzIwfQ.xppDQuayBeLYIhH7oNkLiednNrqJkoDoM8Oz1ZUzcf0"]
 extension SMSConfirmViewController: OTPDelegate {
     func animationWithCorrectCodeFinished() {
-        print("animation with correct code finished")
         self.authDelegate?.authFinished()
     }
     
     func didChangeValidity(isValid: Bool) {
-        print(isValid)
         if isValid {
             switch authType {
             
             case .signIn(data: var data):
-                print("sign in sent code")
-//                let isCorrectCode = numbersView.getOTP() == "111111"
-//                if isCorrectCode {
-//                    numbersView.finishEnterAnimation(colorForAnimation: .green, isCorrectCode: isCorrectCode)
-//                } else {
-//                    numbersView.finishEnterAnimation(colorForAnimation: .red, isCorrectCode: isCorrectCode)
-//                }
-                 data.smsCode = numbersView.getOTP()
+                data.smsCode = numbersView.getOTP()
                 authService.signIn(signInModel: data) { (result) in
                     switch result {
                     case .success():
-                        print("Successfull register")
                         self.authDelegate?.authFinished()
                     case .failure(_):
-                        print("UnSuccessfull register ")
+                        break
                     }
                 }
                 
@@ -128,15 +118,12 @@ extension SMSConfirmViewController: OTPDelegate {
 //                }
                 data.smsCode = numbersView.getOTP()
                 authService.signUp(signUpModel: data) { (result) in
-                    print("RESULT FROM VC")
                     switch result {
 
                     case .success():
-                        print("NICE")
                         self.numbersView.finishEnterAnimation(colorForAnimation: .green, isCorrectCode: true)
                     case .failure(_):
                         self.numbersView.finishEnterAnimation(colorForAnimation: .green, isCorrectCode: false)
-                        print("ZVIZDEC")
                     }
                 }
             }

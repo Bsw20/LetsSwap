@@ -36,14 +36,12 @@ struct FavoriteOrderManager {
         AF.request(url, method: .get, headers: headers)
             .validate(statusCode: 200..<300)
             .responseJSON(completionHandler: { (response) in
-                print("switch next")
                 switch response.result {
 
                 case .success(let data):
                     completion(.success(!isFavorite))
 
                 case .failure(let error):
-                    print(error)
                     completion(.failure(NSError()))
                 }
             })

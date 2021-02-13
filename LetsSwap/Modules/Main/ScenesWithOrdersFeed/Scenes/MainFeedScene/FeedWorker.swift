@@ -24,6 +24,22 @@ class FeedService {
             
             case .success(let feed):
                 self.feedResponse = feed
+                self.newFromInProcess = feed.nextFrom
+                completion(result)
+            case .failure( _):
+                completion(result)
+            }
+        }
+    }
+    
+    func getFiltredFeed(model: FiltredFeedModel, completion: @escaping (Result<FeedResponse, FeedError>) -> Void) {
+        fetcher.getFiltredFeed(model: model, nextBatchFrom: nil) {[weak self](result) in
+            guard let self = self else { return }
+            switch result {
+            
+            case .success(let feed):
+                self.feedResponse = feed
+                self.newFromInProcess = feed.nextFrom
                 completion(result)
             case .failure( _):
                 completion(result)

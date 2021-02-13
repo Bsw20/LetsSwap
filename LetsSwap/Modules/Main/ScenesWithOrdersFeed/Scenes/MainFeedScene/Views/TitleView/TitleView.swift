@@ -10,10 +10,11 @@ import UIKit
 
 protocol TitleViewDelegate: AnyObject {
     func cityButtonTapped()
+    func textDidChange(newText: String)
 }
 
 class TitleView: UIView {
-    weak var delegate: TitleViewDelegate!
+    weak var customDelegate: TitleViewDelegate?
     
     private var myTextField = InsertableTextField()
     private var cityButton = UIButton.init(image: UIImage(named: "cityImage"), backgroundColor: .white, cornerRadius: 1, isShadow: true, borderColor: .lightGray, borderWidth: 0.5)
@@ -24,6 +25,7 @@ class TitleView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         cityButton.translatesAutoresizingMaskIntoConstraints = false
         cityButton.addTarget(self, action: #selector(cityButtonTapped), for: .touchUpInside)
+        myTextField.customDelegate = self
         
         addSubview(myTextField)
         addSubview(cityButton)
@@ -31,7 +33,7 @@ class TitleView: UIView {
     }
     
     @objc private func cityButtonTapped() {
-        delegate.cityButtonTapped()
+        customDelegate?.cityButtonTapped()
     }
     
     private func makeConstraints(){
@@ -66,4 +68,15 @@ class TitleView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func getTextFieldText() -> String {
+        return myTextField.text ?? ""
+    }
+}
+
+extension TitleView: InsertableTextFieldDelegate {
+    func didChange(newText: String) {
+        customDelegate?.textDidChange(newText: newText)
+    }
+    
 }

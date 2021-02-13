@@ -14,7 +14,7 @@ enum Feed {
     struct Request {
       enum RequestType {
         case getFeed
-        case getFilteredFeed(tags: Set<FeedTag>)
+        case getFilteredFeed(model: FiltredFeedModel)
         case getOrder(orderId: Int)
       }
     }
@@ -36,8 +36,19 @@ enum Feed {
   
 }
 
+struct FiltredFeedModel {
+    var selectedTags: Set<FeedTag>
+    var text: String
+    
+    var representation: [String: Any] {
+        var rep: [String: Any] = ["tags": Array(selectedTags).map{$0.rawValue}]
+        rep["searchString"] = text
+        return rep
+    }
+}
 
 struct OrderViewModel: FeedOrderRepresentableModel {
+    
     
     struct Order: OrderRepresentableViewModel {
         var title: String
@@ -47,7 +58,7 @@ struct OrderViewModel: FeedOrderRepresentableModel {
         var tags: [FeedTag]
         var photoAttachments: [URL]
     }
-    struct User: UserRepresentableViewModel {
+    struct User: UserRepresentableViewModel, OrderTitleViewModel {
         var userName: String
         var userLastName: String
         var userCity: String
@@ -58,6 +69,9 @@ struct OrderViewModel: FeedOrderRepresentableModel {
     
     var orderId: Int
     var userId: Int
+    func getOrderTitleViewModel() -> OrderTitleViewModel?{
+        return user as? OrderTitleViewModel
+    }
 }
 
 enum FeedTag: String, CaseIterable, Hashable {

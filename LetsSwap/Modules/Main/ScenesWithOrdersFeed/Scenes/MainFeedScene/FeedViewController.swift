@@ -14,20 +14,21 @@ protocol FeedDisplayLogic: class {
 
 class FeedViewController: UIViewController, FeedDisplayLogic {
     //variables
-    private var selectedTags = Set<FeedTag>()
     
     private var feedCollectionView: FeedCollectionView
 
     private var titleView = TitleView()
     var interactor: FeedBusinessLogic?
     var router: (NSObjectProtocol & FeedRoutingLogic)?
+    private var selectedTags: Set<FeedTag> {
+        return feedCollectionView.getSelectedTags()
+    }
 
   // MARK: Object lifecycle
   
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         feedCollectionView = FeedCollectionView(type: .withHeader)
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        feedCollectionView.setTagsDelegate(delegate: self)
         setup()
     }
   
@@ -54,20 +55,23 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         super.viewDidLoad()
         view.backgroundColor = .mainBackground()
         feedCollectionView.customDelegate = self
-        titleView.delegate = self
+        titleView.customDelegate = self
         
         setupSearchBar()
         setupConstraints()
-        interactor?.makeRequest(request: .getFeed)
 
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        interactor?.makeRequest(request: .getFeed)
     }
     
     func displayData(viewModel: Feed.Model.ViewModel.ViewModelData) {
         switch viewModel {
         
         case .displayFeed(feedViewModel: let feedViewModel):
-            print("reload data")
-            print(feedViewModel.cells.count)
             feedCollectionView.updateData(feedViewModel: feedViewModel)
         case .displayOrder(orderViewModel: let orderViewModel):
             router?.routeToFeedOrderController(orderViewModel: orderViewModel)
@@ -85,6 +89,15 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationItem.titleView = titleView
     }
+    private func applyFilterToFeed() {
+        let inputText = titleView.getTextFieldText()
+        let tags = selectedTags
+        interactor?.makeRequest(request: .getFilteredFeed(model:
+                                                            FiltredFeedModel(
+                                                                selectedTags: tags,
+                                                                text: inputText
+                                                            )))
+    }
 }
 
 //MARK: - FeedViewControllerDelegate
@@ -97,36 +110,15 @@ extension FeedViewController: FeedCollectionViewDelegate {
         showAlert(title: title, message: message)
     }
     
-}
-
-//MARK: - SearchBar
-extension FeedViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        //reloadData(with: searchText)
-        print(searchText)
+    func selectedTagsChanged() {
+        interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags,
+                                                           text: titleView.getTextFieldText())))
     }
-}
-
-//MARK: - TagCollectionViewDelegate
-extension FeedViewController: TagCollectionViewDelegate {
-    func tagDidSelect(tag: FeedTag) {
-        print("VC")
-        if selectedTags.contains(tag) {
-            selectedTags.remove(tag)
-        } else {
-            selectedTags.insert(tag)
-        }
-        print(selectedTags)
-        interactor?.makeRequest(request: .getFilteredFeed(tags: selectedTags))
-    }
-    
-    func moreTagsCellDidSelect() {
-        print("VC")
-        print("more button selected")
+    func moreTagsButtonTapped() {
         router?.routeToTagsController(currentTags: selectedTags)
     }
+    
 }
-
 
 //MARK: - constraints
 extension FeedViewController {
@@ -140,6 +132,10 @@ extension FeedViewController {
 }
 
 extension FeedViewController: TitleViewDelegate {
+    func textDidChange(newText: String) {
+        applyFilterToFeed()
+    }
+    
     func cityButtonTapped() {
         router?.routeToCitiesController()
     }

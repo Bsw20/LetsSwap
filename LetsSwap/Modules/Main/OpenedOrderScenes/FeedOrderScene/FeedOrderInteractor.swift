@@ -16,7 +16,7 @@ class FeedOrderInteractor: FeedOrderBusinessLogic {
 
     var presenter: FeedOrderPresentationLogic?
     private var fetcher: FeedOrderFetcher = UserAPIService.shared
-
+    private var swapsManager: SwapsFetcher = SwapsManager()
   
     func makeRequest(request: FeedOrder.Model.Request.RequestType) {
         switch request {
@@ -29,10 +29,13 @@ class FeedOrderInteractor: FeedOrderBusinessLogic {
             fetcher.changeHidingState(orderId: orderId) { (result) in
                 self.presenter?.presentData(response: .presentNewHidingState(result))
             }
-        case .makeSwap(orderId: let orderId):
-            fetcher.makeSwap(orderId: orderId) { (result) in
+        case .validateSwap(orderId: let orderId):
+            swapsManager.validateSwap(orderId: orderId) { (result) in
                 self.presenter?.presentData(response: .presentSwapping(result))
             }
+//            fetcher.makeSwap(orderId: orderId) { (result) in
+//                self.presenter?.presentData(response: .presentSwapping(result))
+//            }
         case .reloadWholeData(orderId: let orderId):
             fetcher.getOrder(orderId: orderId) { (result) in
                 self.presenter?.presentData(response: .presentUpdatedData(result))

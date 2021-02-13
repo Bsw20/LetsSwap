@@ -11,7 +11,7 @@ import UIKit
 
 class CommentViewController: UIViewController {
     private var commentsModel: CommentsViewModel
-    private var dataFetcher: NetworkDataFetcher = NetworkDataFetcher()
+    private var swapsManager: SwapsFetcher = SwapsManager.shared
     
     private lazy var commentLabel: UILabel = {
        let label = UILabel()
@@ -80,18 +80,15 @@ class CommentViewController: UIViewController {
     @objc private func swapButtonTapped() {
         #warning("validators или на сервере?")
         textView.resignFirstResponder()
-        dataFetcher.chooseOrder(chooseOrderModel: ChooseOrderModel(orderId: commentsModel.orderId, orderComment: textView.text)) { [weak self] (result) in
+        swapsManager.makeSwap(model: MakeSwapModel(orderId: commentsModel.orderId, comment: textView.text)) { [weak self](result) in
             switch result {
             
             case .success():
                 self?.router?.routeToRequestSentViewController()
-                print("router worked")
             case .failure(let error):
-                self?.showAlert(title: "Ошибка", message: error.localizedDescription)
+                self?.showAlert(title: "Ошибка!", message: "На данный момент нельзя совершить обмен.")
             }
         }
-
-
     }
     
     @objc private func tapOutsideTextView() {
@@ -107,24 +104,13 @@ extension CommentViewController: UITextViewDelegate {
             textView.text = nil
                 textView.textColor = UIColor.black
         }
-        print("did begin")
         }
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = stringPlaceholder
             textView.textColor = CommentConstants.textViewTextColor
-            print("is empty")
         }
     }
-    #warning("TODO")
-//    func textViewDidChange(_ textView: UITextView) {
-//        if textView.text.isEmpty || textView.text == stringPlaceholder {
-//            swapButton.isEnabled = false
-//        } else {
-//            swapButton.isEnabled = true
-//        }
-//    }
-    
 }
 
 // MARK: - Constraints

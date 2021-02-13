@@ -72,7 +72,6 @@ class CitiesListViewController: UIViewController {
     }
     
     @objc private func leftBarButtonTapped() {
-        print("left bar button tapped")
         navigationController?.popViewController(animated: true)
     }
     private func setupCollectionView() {

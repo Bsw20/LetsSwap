@@ -8,10 +8,12 @@
 import Foundation
 import UIKit
 
-protocol FeedCollectionViewDelegate: AnyObject {
+@objc protocol FeedCollectionViewDelegate: AnyObject {
     func cellDidSelect(orderId: Int)
     func showAlert(title: String, message: String)
-//    func favouriteButtonTapped(newState: Bool)
+    @objc optional func moreTagsButtonTapped()
+    @objc optional func selectedTagsChanged()
+    @objc optional func favouriteButtonTapped(newState: Bool)
 //    func getSelectedTags(tags: [FeedTag])
 //    func setSelectedTags(tags: [FeedTag])
 }
@@ -25,18 +27,10 @@ class FeedCollectionView: UICollectionView {
     private var favoriteManager = FavoriteOrderManager.shared
     
     weak var customDelegate: FeedCollectionViewDelegate?
-    private weak var tagsDelegate: TagCollectionViewDelegate? {
-        didSet {
-            tagsCollectionView?.tagDelegate = tagsDelegate
-        }
-    }
+    
     private var feedViewModel = FeedViewModel.init(cells: [])
     private var localDataSource: UICollectionViewDiffableDataSource<FeedCollectionLayout.Section, FeedViewModel.Cell>!
-    private var tagsCollectionView: TagsCollectionView? {
-        didSet {
-            tagsCollectionView?.tagDelegate = tagsDelegate
-        }
-    }
+    private var selectedTags: Set<FeedTag> = []
  
     
     init(type:ViewType) {
@@ -70,20 +64,15 @@ class FeedCollectionView: UICollectionView {
         snapshot.appendItems(self.feedViewModel.cells, toSection: .orders)
 
         localDataSource?.apply(snapshot, animatingDifferences: true)
-
-        reloadData()
+//        localDataSource.snapshot().reloadSections([.orders])
     }
     
-    func setTagsDelegate(delegate: TagCollectionViewDelegate) {
-        self.tagsDelegate = delegate
-    }
     
 }
 
 extension FeedCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cellModel = feedViewModel.cells[indexPath.item]
-        print(indexPath)
         customDelegate?.cellDidSelect(orderId: cellModel.orderId)
     }
 }
@@ -111,30 +100,45 @@ extension FeedCollectionView {
             
 //            sectionHeader.configure(text: section.description(usersCount: items.count),
 //                                    font: .systemFont(ofSize: 36, weight: .light ),
-//                                    textColor: .label)
-            self.tagsCollectionView = sectionHeader.tagsCollectionView
-            
-            print("supplementary")
+//                                    textColor: .label)            sectionHeader.setTagsDelegate(delegate: self)
+            sectionHeader.configure(selectedTags: self.selectedTags)
+            sectionHeader.setTagsDelegate(delegate: self)
             return sectionHeader
         }
     }
+    
+    func getSelectedTags() -> Set<FeedTag> {
+        return selectedTags
+    }
 }
 
+//MARK: - Comment
+
+extension FeedCollectionView: TagCollectionViewDelegate {
+    
+    func tagDidSelect(selectedTags: Set<FeedTag>) {
+        self.selectedTags = selectedTags
+        customDelegate?.selectedTagsChanged?()
+    }
+    
+    func moreTagsCellDidSelect() {
+        customDelegate?.moreTagsButtonTapped?()
+    }
+}
+
+//MARK: - FeedCellDelegate
 extension FeedCollectionView: FeedCellDelegate {
     #warning("Обсудить put запрос с бэком")
     func favouriteButtonDidTapped(indexPath: IndexPath) {
-        print("favourite button tapped + \(indexPath)")
         let currentOrder = feedViewModel.cells[indexPath.item]
-        print(currentOrder.isFavourite)
         favoriteManager.changeState(orderID: currentOrder.orderId, isFavorite: currentOrder.isFavourite) {[weak self] (result) in
             switch result {
             
             case .success(let newState):
                 self?.feedViewModel.cells[indexPath.item].isFavourite = newState
 //                self?.reloadItems(at: [indexPath])
-                print("RELOADING")
                 self?.reloadData()
-                print(self?.feedViewModel.cells[indexPath.item].isFavourite)
+                self?.customDelegate?.favouriteButtonTapped?(newState: newState)
             case .failure(let error):
                 self?.customDelegate?.showAlert(title: "Ошибка!", message: "Localized description")
             }

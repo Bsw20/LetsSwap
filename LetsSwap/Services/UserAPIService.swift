@@ -85,7 +85,6 @@ struct UserAPIService:  EditProfileFetcher {
                     completion(.success(Void()))
 
                 case .failure(let error):
-                    print(error)
                     completion(.failure(MyProfileError.serverError))
                     #warning("figure out with error types")
 
@@ -99,8 +98,6 @@ struct UserAPIService:  EditProfileFetcher {
         let headers: HTTPHeaders = [
             "Authorization" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEyMjg2MDA3fQ.wlfqicWguYFBA3UauWi-04_cCHHY_fhgG_SBVKAk6hk"
                 ]
-        print(#function)
-        print(url)
         AF.request(imageURL, method: .get, headers: headers)
             .validate(statusCode: 200..<300)
             .responseData { (response) in
@@ -112,7 +109,6 @@ struct UserAPIService:  EditProfileFetcher {
                     completion(.failure(error))
                 }
             }
-        
     }
 }
 
@@ -132,7 +128,6 @@ extension UserAPIService: MyProfileFetcher {
         AF.request(url, method: .get, headers: headers)
             .validate(statusCode: 200..<300)
             .responseData(completionHandler: { (response) in
-                print("switch next")
                 switch response.result {
 
                 case .success(let data):
@@ -140,13 +135,10 @@ extension UserAPIService: MyProfileFetcher {
                         let model = try JSONDecoder().decode(EditProfileViewModel.self, from: data)
                         completion(.success(model))
                     } catch(let error){
-                        print("cant decode")
-                        print(error)
                         completion(.failure(MyProfileError.incorrectDataModel))
                     }
 
                 case .failure(let error):
-                    print(error)
                     completion(.failure(MyProfileError.serverError))
                     #warning("figure out with error types")
                 }
@@ -168,7 +160,6 @@ extension UserAPIService: MyProfileFetcher {
         AF.request(url, method: .get, headers: headers)
             .validate(statusCode: 200..<300)
             .responseData(completionHandler: { (response) in
-                print("switch next")
                 switch response.result {
 
                 case .success(let data):
@@ -176,13 +167,10 @@ extension UserAPIService: MyProfileFetcher {
                         let model = try JSONDecoder().decode(MyProfileOrderResponse.self, from: data)
                         completion(.success(model))
                     } catch(let error){
-                        print("cant decode")
-                        print(error)
                         completion(.failure(MyProfileError.incorrectDataModel))
                     }
 
                 case .failure(let error):
-                    print(error)
                     completion(.failure(MyProfileError.serverError))
                     #warning("figure out with error types")
                 }
@@ -204,7 +192,6 @@ extension UserAPIService: MyProfileFetcher {
         AF.request(url, method: .get, headers: headers)
             .validate(statusCode: 200..<300)
             .responseData(completionHandler: { (response) in
-                print("switch next")
                 switch response.result {
 
                 case .success(let data):
@@ -212,14 +199,10 @@ extension UserAPIService: MyProfileFetcher {
 //                        let data = data as! [String: Any]
                         let model = try JSONDecoder().decode(MyProfileResponseModel.self, from: data)
                         completion(.success(model))
-                    } catch(let error){
-                        print("cant decode")
-                        print(error)
-                        completion(.failure(MyProfileError.incorrectDataModel))
+                    } catch(let error){                        completion(.failure(MyProfileError.incorrectDataModel))
                     }
 
                 case .failure(let error):
-                    print(error)
                     completion(.failure(MyProfileError.serverError))
                     #warning("figure out with error types")
                 }
@@ -246,20 +229,16 @@ extension UserAPIService: FullOrderFetcher {
                    )
             .validate(statusCode: 200..<300)
             .responseData(completionHandler: { (response) in
-                print("switch next")
                 switch response.result {
 
                 case .success(let data):
                     do {
                         completion(.success(Void()))
                     } catch(let error){
-                        print("cant decode")
-                        print(error)
                         completion(.failure(MyProfileError.incorrectDataModel))
                     }
 
                 case .failure(let error):
-                    print(error)
                     completion(.failure(MyProfileError.serverError))
                     #warning("figure out with error types")
                 }
@@ -267,7 +246,6 @@ extension UserAPIService: FullOrderFetcher {
     }
     
     func createOrder(model: FullOrderViewModel, completion: @escaping (Result<Void, MyProfileError>) -> Void) {
-        print(#function)
         guard let url = RequestUrl.createOrder.getUrl() else {
             completion(.failure(MyProfileError.APIUrlError))
             return
@@ -289,7 +267,6 @@ extension UserAPIService: FullOrderFetcher {
 
                 case .success(let data):
                     if let data = data as? [String:String] {
-                        print(data)
                         if data["message"] == "success" {
                             completion(.success(Void()))
                             return
@@ -298,7 +275,6 @@ extension UserAPIService: FullOrderFetcher {
                     completion(.failure(MyProfileError.serverError))
 
                 case .failure(let error):
-                    print(error)
                     completion(.failure(MyProfileError.serverError))
                     #warning("figure out with error types")
 
@@ -329,32 +305,16 @@ extension UserAPIService: FullOrderFetcher {
             switch result.result {
             
             case .success(let data):
-                print(url)
                 if let data = data as? [String:String], let dataURL = data["url"] {
-                    print(data)
                     completion(.success(dataURL))
                     return
                 }
                 completion(.failure(MyProfileError.APIUrlError))
             case .failure(let error):
-                print(error)
                 completion(.failure(MyProfileError.APIUrlError))
             }
 
         }
-
-//         AF.upload(multipartFormData: { (form) in
-//           form.append(data, withName: "file", fileName: "file.jpg", mimeType: "image/jpg")
-//         }, to: "https://yourawesomebackend.com", encodingCompletion: { result in
-//           switch result {
-//           case .success(let upload, _, _):
-//             upload.responseString { response in
-//               print(response.value)
-//             }
-//           case .failure(let encodingError):
-//             print(encodingError)
-//           }
-//         })
     }
 
 }
@@ -362,7 +322,6 @@ extension UserAPIService: FullOrderFetcher {
 //MARK: - FeedOrderFetcher
 extension UserAPIService: FeedOrderFetcher {
     func deleteOrder(orderId: Int, completion: @escaping (Result<Void, FeedOrderError>) -> Void) {
-        print(#function)
         guard let url = URL(string: "http://92.63.105.87:3000/order/delete/\(orderId)") else {
             completion(.failure(FeedOrderError.APIUrlError))
             return
@@ -376,14 +335,12 @@ extension UserAPIService: FeedOrderFetcher {
         AF.request(url, method: .get, headers: headers)
             .validate(statusCode: 200..<300)
             .responseData(completionHandler: { (response) in
-                print("switch next")
                 switch response.result {
 
                 case .success(let data):
                     completion(.success(Void()))
 
                 case .failure(let error):
-                    print(error)
                     completion(.failure(FeedOrderError.serverError))
                     #warning("figure out with error types")
                 }
@@ -391,8 +348,6 @@ extension UserAPIService: FeedOrderFetcher {
     }
     
     func changeHidingState(orderId: Int, completion: @escaping (Result<Bool, FeedOrderError>) -> Void) {
-        print(#function)
-        print(#function)
         guard let url = URL(string: "http://92.63.105.87:3000/order/changeHidden/\(orderId)") else {
             completion(.failure(FeedOrderError.APIUrlError))
             return
@@ -409,14 +364,12 @@ extension UserAPIService: FeedOrderFetcher {
                 switch response.result {
 
                 case .success(let data):
-                    print(data)
                     if let json = data as? [String : Any], let newState = json["newState"] as? Bool {
                         completion(.success(newState))
                     }
                     completion(.failure(FeedOrderError.serverError))
 
                 case .failure(let error):
-                    print(error)
                     completion(.failure(FeedOrderError.serverError))
                     #warning("figure out with error types")
                 }
@@ -425,7 +378,6 @@ extension UserAPIService: FeedOrderFetcher {
     }
     
     func makeSwap(orderId: Int, completion: @escaping (Result<Void, FeedOrderError>) -> Void) {
-        print(#function)
         completion(.success(Void()))
     }
     

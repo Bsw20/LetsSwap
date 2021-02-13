@@ -16,8 +16,6 @@ protocol PhotosCollectionViewDelegate: NSObjectProtocol {
 class PhotosCollectionView: UICollectionView {
     private var photoAttachments: [String] = [] {
         didSet {
-            print("PHOTO ATTACHMENTS")
-            print(photoAttachments)
             reloadData()
         }
     }
@@ -66,7 +64,6 @@ class PhotosCollectionView: UICollectionView {
 
 extension PhotosCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(photoAttachments.count + 1)
         return photoAttachments.count + 1
     }
     
@@ -101,8 +98,6 @@ extension PhotosCollectionView: PhotoCellDelegate {
         let ip = indexPath(for: cell)
         if let ip = ip {
             remove(at: ip.item - 1)
-            print("New photo attachments")
-            print(photoAttachments)
         }
     }
 }

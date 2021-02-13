@@ -53,7 +53,6 @@ struct FullOrderViewModel {
         rep["counterOffer"] = counterOffer
         rep["tags"] = tags
         rep["urls"] = urls
-        print(rep)
         
         return rep
     }

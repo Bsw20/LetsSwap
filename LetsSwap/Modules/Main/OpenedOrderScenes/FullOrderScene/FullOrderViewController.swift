@@ -273,23 +273,19 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     
     @objc private func switchValueDidChange() {
         if freeSwitch.isOn {
-            print("on")
             counterOfferTextView.backgroundColor = .freeFeedCell()
         } else {
-            print("off")
             counterOfferTextView.backgroundColor = .white
         }
     }
 
     
     @objc private func chooseTagsButtonTapped() {
-        print("choose tags button tapped")
         router?.routeToTagsList(selectedTags: Set(chooseTagsView.getTags()))
     }
     
     
     @objc private func addVideoButtonTapped() {
-        print("add video picker")
     }
     
     

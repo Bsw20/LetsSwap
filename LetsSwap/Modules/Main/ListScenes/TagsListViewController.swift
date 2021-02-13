@@ -73,7 +73,6 @@ class TagsListViewController: UIViewController {
     
     //MARK: - Objc funcs
     @objc private func leftBarButtonTapped() {
-        print("left bar button tapped")
         navigationController?.popViewController(animated: true)
     }
 }

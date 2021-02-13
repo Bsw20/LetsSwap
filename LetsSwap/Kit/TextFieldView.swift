@@ -74,8 +74,6 @@ class TextFieldView: UIView {
     
     @objc public func resignTextField() {
         textField.resignFirstResponder()
-//        self.endEditing(true)
-//        print("worked")
     }
     
 

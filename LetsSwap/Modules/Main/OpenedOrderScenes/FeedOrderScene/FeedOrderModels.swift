@@ -14,7 +14,7 @@ enum FeedOrder {
             enum RequestType {
                 case tryToDelete(orderId: Int)
                 case changeHidingState(orderId: Int)
-                case makeSwap(orderId: Int)
+                case validateSwap(orderId: Int)
                 case reloadWholeData(orderId: Int)
             }
         }
@@ -23,7 +23,7 @@ enum FeedOrder {
             enum ResponseType {
                 case presentDeleting(Result<Void, FeedOrderError>)
                 case presentNewHidingState(Result<Bool, FeedOrderError>)
-                case presentSwapping(Result<Void, FeedOrderError>)
+                case presentSwapping(Result<Void, Error>)
                 case presentUpdatedData(Result<MyProfileOrderResponse, MyProfileError>)
             }
         }
@@ -125,9 +125,9 @@ enum FeedOrderType {
         switch self {
         
         case .alienProfileOrder(model:  _):
-            return "Предложение ..."
+            return "Предложение"
         case .mainFeedOrder(model: _):
-            return "Предложение ..."
+            return "Предложение"
         case .myProfileOrder(model:  _):
             return "Мое предложение"
         }

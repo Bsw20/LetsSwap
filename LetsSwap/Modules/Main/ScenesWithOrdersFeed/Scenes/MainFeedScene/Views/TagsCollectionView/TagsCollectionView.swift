@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol TagCollectionViewDelegate: AnyObject {
-    func tagDidSelect(tag: FeedTag)
+    func tagDidSelect(selectedTags: Set<FeedTag>)
     func moreTagsCellDidSelect()
 }
 
@@ -18,7 +18,7 @@ class TagsCollectionView: UICollectionView {
     private static var defaultDisplayedTags = [FeedTag.IT, FeedTag.householdServices,FeedTag.art, FeedTag.beautyHealth,FeedTag.fashion, FeedTag.education, FeedTag.celebrations, FeedTag.cleaning, FeedTag.design]
     
     weak open var tagDelegate: TagCollectionViewDelegate?
-    private var selectedIndexes = Set<IndexPath>()
+    private var selectedTags = Set<FeedTag>()
     private var moreTagsString = "Еще"
     private var displayedTags: [FeedTag]
     private var showOnly: Bool
@@ -50,6 +50,12 @@ class TagsCollectionView: UICollectionView {
         fatalError("Индекс должен быть в пределах 0 до displayedTags.count")
     }
     
+    
+    func setSelectedTags(selectedTags: Set<FeedTag>) {
+        self.selectedTags = selectedTags
+        reloadData()
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -70,32 +76,36 @@ extension TagsCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.reuseId, for: indexPath) as! TagCell
         let stringTag = getDisplayedTagString(index: indexPath.item)
         
-        if showOnly {
+        if showOnly || stringTag == moreTagsString {
             cell.set(tagString: stringTag)
             return cell
         }
         
-        if selectedIndexes.contains(indexPath) {
+        if selectedTags.contains(displayedTags[indexPath.item]) {
             cell.selectedCellSet(tagString: stringTag)
         } else {
             cell.set(tagString: stringTag)
         }
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("selected")
         if indexPath.item == displayedTags.count {
             tagDelegate?.moreTagsCellDidSelect()
         } else if indexPath.item  >= 0 && indexPath.item  < displayedTags.count {
-            if selectedIndexes.contains(indexPath) {
-                selectedIndexes.remove(indexPath)
+            let selectedTag = displayedTags[indexPath.item]
+            if selectedTags.contains(selectedTag){
+                selectedTags.remove(selectedTag)
             } else {
-                selectedIndexes.insert(indexPath)
+                selectedTags.insert(selectedTag)
             }
-            reloadData()
-            tagDelegate?.tagDidSelect(tag: displayedTags[indexPath.item])
+//            reloadData()
+            reloadItems(at: [indexPath])
+            tagDelegate?.tagDidSelect(selectedTags: selectedTags)
         }
     }
+    
+    
 }
 
 //MARK: - CollectionView flow layout

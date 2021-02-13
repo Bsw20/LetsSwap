@@ -27,7 +27,6 @@ class MyProfileInteractor: MyProfileBusinessLogic {
                 switch result {
                 
                 case .success(let model):
-                    print("interactor")
                     let newModel = self?.getProfileModel(oldModel: model)
                     if let newModel = newModel {
                         self?.presenter?.presentData(response: .presentWholeProfile(result: .success(newModel)))
@@ -44,7 +43,6 @@ class MyProfileInteractor: MyProfileBusinessLogic {
             }
         case .getFullProfileInfo:
             fetcher.getFullProfileModel { [weak self](result) in
-                print("INTERACTOR")
                 self?.presenter?.presentData(response: .presentFullProfileInfo(result: result))
                 
             }

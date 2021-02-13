@@ -17,14 +17,12 @@ struct AuthService {
     private static var signInUrl = URL(string: "http://92.63.105.87:3000/login")
     
     func sendSms(login: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        print(#function)
         guard let url = AuthService.sendSmsUrl else {
             completion(.failure(AuthError.APIUrlError))
             return
         }
 
         let userData: [String: Any] = ["login": login]
-        print(login)
         let headers: HTTPHeaders = [
                     "Content-Type":"application/json"
                 ]
@@ -39,7 +37,6 @@ struct AuthService {
 
                 case .success(let data):
                     if let data = data as? [String:String] {
-                        print(data)
                         if data["message"] == "success" {
                             completion(.success(Void()))
                             return
@@ -48,7 +45,6 @@ struct AuthService {
                     completion(.failure(AuthError.serverError))
 
                 case .failure(let error):
-                    print(error)
                     completion(.failure(AuthError.serverError))
                     #warning("figure out with error types")
 
@@ -57,8 +53,6 @@ struct AuthService {
     }
     
     func signUp(signUpModel: SignUpViewModel, completion: @escaping (Result<Void, AuthError>) -> Void) {
-        print(#function)
-        print(signUpModel.representation)
         guard let url = AuthService.signUpUrl else {
             completion(.failure(AuthError.APIUrlError))
             return
@@ -82,7 +76,6 @@ struct AuthService {
                 
                 case .success(let data):
                     if let data = data as? [String:String] {
-                        print(data)
                         if let token = data["token"] {
                             completion(.success(Void()))
                             return
@@ -90,7 +83,6 @@ struct AuthService {
                     }
                     completion(.failure(AuthError.serverError))
                 case .failure(let error):
-                    print(error)
                     #warning("figure out with error types")
                     completion(.failure(AuthError.serverError))
             }
@@ -98,8 +90,6 @@ struct AuthService {
     }
     
     func signIn(signInModel: SignInViewModel, completion: @escaping (Result<Void, AuthError>) -> Void) {
-        print(#function)
-        print(signInModel.representation)
         guard let url = AuthService.signInUrl else {
             completion(.failure(AuthError.APIUrlError))
             return
@@ -123,7 +113,6 @@ struct AuthService {
                 
                 case .success(let data):
                     if let data = data as? [String:String] {
-                        print(data)
                         if let token = data["token"] {
                             completion(.success(Void()))
                             return
@@ -131,7 +120,6 @@ struct AuthService {
                     }
                     completion(.failure(AuthError.serverError))
                 case .failure(let error):
-                    print(error)
                     #warning("figure out with error types")
                     completion(.failure(AuthError.serverError))
             }

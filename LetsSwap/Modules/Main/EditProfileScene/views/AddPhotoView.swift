@@ -54,7 +54,6 @@ class AddPhotoView: UIView {
     
     //MARK: - Objc funcs
     @objc private func photoButtonTapped() {
-        print("add photo button tapped")
     }
 }
 

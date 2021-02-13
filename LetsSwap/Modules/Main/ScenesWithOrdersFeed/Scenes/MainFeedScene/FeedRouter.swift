@@ -16,7 +16,6 @@ protocol FeedRoutingLogic {
 
 class FeedRouter: NSObject, FeedRoutingLogic {
     func routeToCitiesController() {
-        print("route to cities contrller")
         #warning("TODO ")
         let vc = CitiesListViewController(selectedCity: City.getCities()[0])
         viewController?.navigationController?.pushViewController( vc, animated: true)
@@ -28,7 +27,6 @@ class FeedRouter: NSObject, FeedRoutingLogic {
     }
     
     func routeToFeedOrderController(orderViewModel: OrderViewModel) {
-        print("routing to feed order")
         let vc = FeedOrderViewController(type: .mainFeedOrder(model: orderViewModel))
         viewController?.navigationController?.pushViewController(vc, animated: true)
     }

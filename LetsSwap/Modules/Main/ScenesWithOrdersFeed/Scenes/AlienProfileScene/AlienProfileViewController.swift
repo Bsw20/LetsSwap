@@ -116,8 +116,6 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
     func displayData(viewModel: AlienProfile.Model.ViewModel.ViewModelData) {
         switch viewModel {
         case .displayFullProfile(profileViewModel: let profileViewModel):
-            print("reload data")
-            print(profileViewModel.feedViewModel.cells.count)
             feedCollectionView.updateData(feedViewModel: profileViewModel.feedViewModel)
         case .displayOrder(orderViewModel: let orderViewModel):
             router?.routeToFeedOrderController(orderViewModel: orderViewModel)
@@ -127,14 +125,13 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
     }
     
     @objc private func chatButtonTapped() {
-        print("chat button tapped")
+        print(#function)
     }
 }
 
 //MARK: - FeedCollectionViewDelegate
 extension AlienProfileViewController: FeedCollectionViewDelegate {
     func cellDidSelect(orderId: Int) {
-        print(orderId)
         interactor?.makeRequest(request: .getOrder(orderId: orderId))
     }
     func showAlert(title: String, message: String) {

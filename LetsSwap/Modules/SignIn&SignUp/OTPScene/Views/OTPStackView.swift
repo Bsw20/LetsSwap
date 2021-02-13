@@ -108,7 +108,6 @@ class OTPStackView: UIStackView {
     }
     
     final func finishEnterAnimation(colorForAnimation: UIColor, isCorrectCode: Bool) {
-        print("incorrect otp")
         textFieldsCollection[numberOfFields - 1].resignFirstResponder()
         self.isCorrectCode = isCorrectCode
         

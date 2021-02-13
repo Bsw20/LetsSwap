@@ -84,16 +84,13 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
         print(#function)
         navigationController?.setupAsBaseScreen(self, animated: true)
         let signInViewModel = collectData()
-        print(signInViewModel.representation)
         authService.sendSms(login: signInViewModel.login) { (result) in
             switch(result) {
 
             case .success():
-                print("sms sent")
                 self.router?.routeToSMSScene(data: signInViewModel)
 
             case .failure(let error):
-                print("probs with sent sms")
                 self.showAlert(title: "Ошибка, попробуйте позже!", message: error.localizedDescription)
             }
         }

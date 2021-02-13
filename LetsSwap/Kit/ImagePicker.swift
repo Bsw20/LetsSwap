@@ -38,9 +38,7 @@ open class ImagePicker: NSObject {
 
         return UIAlertAction(title: title, style: .default) { [ weak self] _ in
             self?.pickerController.sourceType = type
-            print("prepresent")
             guard let self = self else {return}
-            print("post")
             self.presentationController?.present(self.pickerController, animated: true)
         }
     }

@@ -119,6 +119,12 @@
 		30A4C9FE25B8BB7800003DDE /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4C9FD25B8BB7800003DDE /* NotificationCell.swift */; };
 		30A4CA0125B9E55500003DDE /* NotificationSceneConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4CA0025B9E55500003DDE /* NotificationSceneConstants.swift */; };
 		30AC736925D705F6006A4746 /* FavoriteOrderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AC736825D705F6006A4746 /* FavoriteOrderManager.swift */; };
+		30AC737325D83BE8006A4746 /* FavoriteOrdersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AC736C25D83BE8006A4746 /* FavoriteOrdersPresenter.swift */; };
+		30AC737525D83BE8006A4746 /* FavoriteOrdersRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AC736E25D83BE8006A4746 /* FavoriteOrdersRouter.swift */; };
+		30AC737625D83BE8006A4746 /* FavoriteOrdersModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AC736F25D83BE8006A4746 /* FavoriteOrdersModels.swift */; };
+		30AC737725D83BE8006A4746 /* FavoriteOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AC737025D83BE8006A4746 /* FavoriteOrdersViewController.swift */; };
+		30AC737825D83BE8006A4746 /* FavoriteOrdersInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AC737125D83BE8006A4746 /* FavoriteOrdersInteractor.swift */; };
+		30AC737F25D877E2006A4746 /* SwapsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AC737E25D877E2006A4746 /* SwapsManager.swift */; };
 		30BC10AE2599042000066D9B /* ChooseOrderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10AD2599042000066D9B /* ChooseOrderError.swift */; };
 		30BC10BA2599156A00066D9B /* AlienProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10B32599156A00066D9B /* AlienProfilePresenter.swift */; };
 		30BC10BB2599156A00066D9B /* AlienProfileWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10B42599156A00066D9B /* AlienProfileWorker.swift */; };
@@ -271,6 +277,12 @@
 		30A4C9FD25B8BB7800003DDE /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		30A4CA0025B9E55500003DDE /* NotificationSceneConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSceneConstants.swift; sourceTree = "<group>"; };
 		30AC736825D705F6006A4746 /* FavoriteOrderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteOrderManager.swift; sourceTree = "<group>"; };
+		30AC736C25D83BE8006A4746 /* FavoriteOrdersPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteOrdersPresenter.swift; sourceTree = "<group>"; };
+		30AC736E25D83BE8006A4746 /* FavoriteOrdersRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteOrdersRouter.swift; sourceTree = "<group>"; };
+		30AC736F25D83BE8006A4746 /* FavoriteOrdersModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteOrdersModels.swift; sourceTree = "<group>"; };
+		30AC737025D83BE8006A4746 /* FavoriteOrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteOrdersViewController.swift; sourceTree = "<group>"; };
+		30AC737125D83BE8006A4746 /* FavoriteOrdersInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteOrdersInteractor.swift; sourceTree = "<group>"; };
+		30AC737E25D877E2006A4746 /* SwapsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapsManager.swift; sourceTree = "<group>"; };
 		30BC10AD2599042000066D9B /* ChooseOrderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseOrderError.swift; sourceTree = "<group>"; };
 		30BC10B32599156A00066D9B /* AlienProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienProfilePresenter.swift; sourceTree = "<group>"; };
 		30BC10B42599156A00066D9B /* AlienProfileWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienProfileWorker.swift; sourceTree = "<group>"; };
@@ -377,6 +389,7 @@
 		3022F5FC25BF43E6004C50B7 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				30AC736B25D83B66006A4746 /* FavoriteOrdersScene */,
 				30BC10F7259AA0A900066D9B /* MyProfileScene */,
 				30BC10B22599150F00066D9B /* AlienProfileScene */,
 				308365DC2589E60D00578AE2 /* MainFeedScene */,
@@ -438,7 +451,7 @@
 			path = PhotosCollectionView;
 			sourceTree = "<group>";
 		};
-		303A068A259477E100C14BFD /* CommentViewController */ = {
+		303A068A259477E100C14BFD /* CommentScene */ = {
 			isa = PBXGroup;
 			children = (
 				303A069D25947C8400C14BFD /* CommentConstants.swift */,
@@ -446,7 +459,7 @@
 				303A068D259477FF00C14BFD /* CommentRouter.swift */,
 				303A068E259477FF00C14BFD /* CommentModels.swift */,
 			);
-			path = CommentViewController;
+			path = CommentScene;
 			sourceTree = "<group>";
 		};
 		303AB7812580FB3300F287C2 = {
@@ -575,6 +588,7 @@
 				3096301025C4335D0076090F /* AuthService.swift */,
 				3072F35025C6EC1D00CE7C65 /* UserAPIService.swift */,
 				30AC736825D705F6006A4746 /* FavoriteOrderManager.swift */,
+				30AC737E25D877E2006A4746 /* SwapsManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -779,11 +793,23 @@
 			path = NotificationCollection;
 			sourceTree = "<group>";
 		};
+		30AC736B25D83B66006A4746 /* FavoriteOrdersScene */ = {
+			isa = PBXGroup;
+			children = (
+				30AC737025D83BE8006A4746 /* FavoriteOrdersViewController.swift */,
+				30AC737125D83BE8006A4746 /* FavoriteOrdersInteractor.swift */,
+				30AC736C25D83BE8006A4746 /* FavoriteOrdersPresenter.swift */,
+				30AC736F25D83BE8006A4746 /* FavoriteOrdersModels.swift */,
+				30AC736E25D83BE8006A4746 /* FavoriteOrdersRouter.swift */,
+			);
+			path = FavoriteOrdersScene;
+			sourceTree = "<group>";
+		};
 		30BC10B025990FEA00066D9B /* EndOfChosingOrder */ = {
 			isa = PBXGroup;
 			children = (
 				30895F7A2594AE820091FA31 /* RequestSentViewController.swift */,
-				303A068A259477E100C14BFD /* CommentViewController */,
+				303A068A259477E100C14BFD /* CommentScene */,
 			);
 			path = EndOfChosingOrder;
 			sourceTree = "<group>";
@@ -1012,6 +1038,7 @@
 				30CB74EC2591257B00CB84D6 /* OrderResponse.swift in Sources */,
 				30BC10C525991AF500066D9B /* ProfileTopView.swift in Sources */,
 				3022F5E725BB32B0004C50B7 /* CityModel.swift in Sources */,
+				30AC737725D83BE8006A4746 /* FavoriteOrdersViewController.swift in Sources */,
 				30CB750525927A4700CB84D6 /* FontsCheck.swift in Sources */,
 				3060282D259BBE400046A2B0 /* FullOrderRouter.swift in Sources */,
 				30BC1101259AA0C500066D9B /* MyProfileRouter.swift in Sources */,
@@ -1048,6 +1075,7 @@
 				30602856259DEF0F0046A2B0 /* TextFieldView.swift in Sources */,
 				30602848259DE2F80046A2B0 /* EditProfileViewController.swift in Sources */,
 				308365E92589E65200578AE2 /* FeedInteractor.swift in Sources */,
+				30AC737625D83BE8006A4746 /* FavoriteOrdersModels.swift in Sources */,
 				30BC10BE2599156A00066D9B /* AlienProfileViewController.swift in Sources */,
 				30895F7B2594AE820091FA31 /* RequestSentViewController.swift in Sources */,
 				30A4C9F125B8AF8200003DDE /* NotificationModels.swift in Sources */,
@@ -1095,12 +1123,14 @@
 				30AC736925D705F6006A4746 /* FavoriteOrderManager.swift in Sources */,
 				303AB7A6258163F400F287C2 /* ModelsPlan.swift in Sources */,
 				303A06862593B93400C14BFD /* PhotosCollectionView.swift in Sources */,
+				30AC737325D83BE8006A4746 /* FavoriteOrdersPresenter.swift in Sources */,
 				3022F62F25C1A120004C50B7 /* SignInViewController.swift in Sources */,
 				30BC10BD2599156A00066D9B /* AlienProfileModels.swift in Sources */,
 				3022F64925C1B598004C50B7 /* SignUpViewController.swift in Sources */,
 				3022F62E25C1A120004C50B7 /* SignInModels.swift in Sources */,
 				30ED20C6258F8BF70039818A /* FeedCollectionView.swift in Sources */,
 				3060283B259BC58E0046A2B0 /* UITextView + Extension.swift in Sources */,
+				30AC737825D83BE8006A4746 /* FavoriteOrdersInteractor.swift in Sources */,
 				308365E62589E65200578AE2 /* FeedRouter.swift in Sources */,
 				30A4C9FE25B8BB7800003DDE /* NotificationCell.swift in Sources */,
 				30BC10DF259A04C200066D9B /* AlienProfileError.swift in Sources */,
@@ -1112,12 +1142,14 @@
 				30BC1103259AA0C500066D9B /* MyProfileViewController.swift in Sources */,
 				30CB74EF25912B3200CB84D6 /* GeneralModels.swift in Sources */,
 				30BC1104259AA0C500066D9B /* MyProfileInteractor.swift in Sources */,
+				30AC737F25D877E2006A4746 /* SwapsManager.swift in Sources */,
 				30A4CA0125B9E55500003DDE /* NotificationSceneConstants.swift in Sources */,
 				307529D225C97D1700D74939 /* UIBarButtonItem + Extension.swift in Sources */,
 				30BC10BC2599156A00066D9B /* AlienProfileRouter.swift in Sources */,
 				30CB74FA259237ED00CB84D6 /* WebImageView.swift in Sources */,
 				30BC10BA2599156A00066D9B /* AlienProfilePresenter.swift in Sources */,
 				3022F65225C1B747004C50B7 /* SignUpConstants.swift in Sources */,
+				30AC737525D83BE8006A4746 /* FavoriteOrdersRouter.swift in Sources */,
 				30BC10FF259AA0C500066D9B /* MyProfilePresenter.swift in Sources */,
 				3060283E259BC94F0046A2B0 /* UILabel + Extension.swift in Sources */,
 				3022F63B25C1AAB4004C50B7 /* PhoneCountryButton.swift in Sources */,

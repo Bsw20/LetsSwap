@@ -192,7 +192,7 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
     func displayData(viewModel: FeedOrder.Model.ViewModel.ViewModelData) {
         switch viewModel {
         case .displaySwapping:
-            showAlert(title: "Успешно", message: "Можно обменяться")
+            router?.routeToComments(commentsModel: CommentsOrderModel(orderId: type.getOrderId()))
         case .displayDeleting:
             showAlert(title: "Успешно", message: "Предложение можно удалить")
             trackerDelegate?.stateDidChange()
@@ -229,13 +229,19 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         counterOfferLabel.text = orderViewModel.counterOffer
         photosCollectionView.set(photoAttachments: orderViewModel.photoAttachments.map{$0.absoluteString})
         if let isHidden = type.isHidden() {
-            print("MARK")
-            print(isHidden)
             if isHidden {
                 hideOrderButton.setTitle("Раскрыть", for: .normal)
             } else {
                 hideOrderButton.setTitle("Скрыть", for: .normal)
             }
+        }
+        switch type {
+        case .mainFeedOrder(model: let model):
+            if let model = model.getOrderTitleViewModel() {
+                topView.configure(model: model)
+            }
+        default:
+            break
         }
     }
     
@@ -266,13 +272,12 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         interactor?.makeRequest(request: .tryToDelete(orderId: type.getOrderId()))
     }
     @objc private func swapButtonTapped() {
-        print("Swap button tapped")
         #warning("мб имеет смысл сделать проверку, можно ли обратиться к order(возможно его уже приняли)")
         switch type {
         case .alienProfileOrder(model: let model):
-            router?.routeToComments(commentsModel: CommentsOrderModel(orderId: model.orderId))
+            interactor?.makeRequest(request: .validateSwap(orderId: type.getOrderId()))
         case .mainFeedOrder(model: let model):
-            router?.routeToComments(commentsModel: CommentsOrderModel(orderId: model.orderId))
+            interactor?.makeRequest(request: .validateSwap(orderId: type.getOrderId()))
         case .myProfileOrder(model: let model):
             break
         }
@@ -280,7 +285,6 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
     
     #warning("Зачем в параметрах userid")
     @objc private func topViewTapped(userId: Int) {
-        print("topviewtapped")
         if let userId = type.getUserId() {
             router?.routToAlienProfile(userId: userId)
         }
@@ -291,7 +295,6 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
 extension FeedOrderViewController: PhotosCarouselDelegate {
     func photosCollectionViewSize() -> CGSize {
         let width = UIScreen.main.bounds.width - FeedOrderConstants.photosCollectionViewInset.left + FeedOrderConstants.photosCollectionViewInset.right
-        print(width)
         return CGSize(width: photosCollectionView.frame.width * 0.91, height: photosCollectionView.frame.height)
     }
     
@@ -409,7 +412,6 @@ extension FeedOrderViewController {
         ])
         
         if type.isSwapButtonHidden() {
-            print("init stack view")
             let stackView = UIStackView(arrangedSubviews: [editOrderButton, hideOrderButton, deleteOrderButton], axis: .vertical, spacing: 8)
             stackView.translatesAutoresizingMaskIntoConstraints = false
             scrollView.addSubview(stackView)
@@ -424,7 +426,6 @@ extension FeedOrderViewController {
             }
             
         } else {
-            print("here")
             scrollView.addSubview(swapButton)
             NSLayoutConstraint.activate([
                 swapButton.topAnchor.constraint(equalTo: tagsCollectionView.bottomAnchor, constant: FeedOrderConstants.swapButtonInsets.top),

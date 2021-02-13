@@ -122,7 +122,6 @@ class EditProfileViewController: UIViewController {
             return
         }
         applyBarButton.isEnabled = false
-        print("why here")
     }
     
     
@@ -135,10 +134,8 @@ class EditProfileViewController: UIViewController {
     }
     
     @objc private func rightBarButtonTapped() {
-        print("right bar button tapped")
         resignTextFields()
         let model =  collectData()
-        print(model)
         networkService.updateProfileInfo(model: model) { (result) in
             switch result {
             
@@ -176,11 +173,9 @@ extension EditProfileViewController: CitiesListDelegate {
 extension EditProfileViewController: ChangePropertyViewDelegate {
     func editButtonTapped(view: ChangePropertyView, currentProperty: String) {
         if view == cityView {
-            print("cityView")
             router?.routeToCityListController(selectedCity: currentProperty)
         }
         if view == phoneView {
-            print("PhoneView")
         }
     }
 }

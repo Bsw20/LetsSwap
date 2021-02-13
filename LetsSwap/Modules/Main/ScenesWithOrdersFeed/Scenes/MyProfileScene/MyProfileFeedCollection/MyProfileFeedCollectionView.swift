@@ -21,7 +21,7 @@ class MyProfileFeedCollectionView: UICollectionView {
     
     init() {
         let layout = FeedCollectionLayout.createCompositionalLayout(supplementaryViews: [
-            FeedCollectionLayout.createSectionHeader()
+            FeedCollectionLayout.createSectionHeader(widthDimenstion: .fractionalWidth(1))
 //            FeedCollectionLayout.createSectionFooter()
         ])
         super.init(frame: .zero, collectionViewLayout:layout )
@@ -108,7 +108,6 @@ extension MyProfileFeedCollectionView: UICollectionViewDelegate {
 
         if indexPath.item != 0 {
             myProfileDelegate?.openOrderCellTapped(orderId: feedViewModel.feedInfo.cells[indexPath.item - 1].orderId)
-            print(indexPath)
         }
     }
 }

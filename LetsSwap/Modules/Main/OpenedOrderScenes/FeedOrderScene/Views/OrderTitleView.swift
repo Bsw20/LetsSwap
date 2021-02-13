@@ -8,6 +8,13 @@
 import Foundation
 import UIKit
 
+protocol OrderTitleViewModel {
+    var userName: String { get }
+    var userLastName: String { get }
+    var userPhoto: URL? { get }
+    var userCity: String { get }
+}
+
 class OrderTitleView: UIView {
     private var imageView: WebImageView = {
        let view = WebImageView()
@@ -43,6 +50,11 @@ class OrderTitleView: UIView {
     override func layoutSubviews() {
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = FeedOrderConstants.userImageHeight / 2
+    }
+    func configure(model: OrderTitleViewModel) {
+        nameLabel.text = "\(model.userName) \(model.userLastName)"
+        cityLabel.text = model.userCity
+        imageView.set(imageURL: model.userPhoto?.absoluteString)
     }
 }
 

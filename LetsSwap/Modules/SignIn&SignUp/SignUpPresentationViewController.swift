@@ -105,7 +105,6 @@ class SignUpPresentationViewController: UIViewController {
     {
         switch gesture.direction {
         case UISwipeGestureRecognizer.Direction.right:
-            print("right swipe")
 
             switch presentationSlide {
             
@@ -118,7 +117,6 @@ class SignUpPresentationViewController: UIViewController {
             }
 
         case UISwipeGestureRecognizer.Direction.left:
-            print("left swipe")
             switch presentationSlide {
             
             case .firstSlide:

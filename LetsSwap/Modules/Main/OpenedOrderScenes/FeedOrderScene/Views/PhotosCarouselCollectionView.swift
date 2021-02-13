@@ -76,7 +76,6 @@ extension PhotosCarouselCollectionView: UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        print("here")
         return customDelegate?.photosCollectionViewSize() ?? collectionView.bounds.size
     }
     
