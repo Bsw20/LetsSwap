@@ -77,7 +77,7 @@ class ChangePropertyView: UIView {
     
     //MARK: - funcs
     public func isEmpty() -> Bool {
-        return currentProperty.isEmpty
+        return currentProperty == ""
     }
     public func setProperty(property: String) {
         currentProperty = property

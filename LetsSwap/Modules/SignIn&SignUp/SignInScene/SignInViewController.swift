@@ -91,7 +91,7 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
                 self.router?.routeToSMSScene(data: signInViewModel)
 
             case .failure(let error):
-                self.showAlert(title: "Ошибка, попробуйте позже!", message: error.localizedDescription)
+                SignInViewController.showAlert(title: "Ошибка, попробуйте позже!", message: error.localizedDescription)
             }
         }
     }

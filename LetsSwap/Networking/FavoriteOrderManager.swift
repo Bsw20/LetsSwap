@@ -8,10 +8,10 @@
 import Foundation
 import UIKit
 import Alamofire
-
+import SwiftyBeaver
 
 struct FavoriteOrderManager {
-    private var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEyMjg2MDA3fQ.wlfqicWguYFBA3UauWi-04_cCHHY_fhgG_SBVKAk6hk"
+    private var token = APIManager.getToken()
     public static var shared = FavoriteOrderManager()
     
     func changeState(orderID: Int, isFavorite: Bool, completion: @escaping(Result<Bool, Error>) -> Void) {
@@ -24,6 +24,7 @@ struct FavoriteOrderManager {
     
     private func request(isFavorite: Bool, stringUrl: String, completion: @escaping(Result<Bool, Error>) -> Void) {
         guard let url = URL(string: stringUrl) else {
+            SwiftyBeaver.error(String.incorrectUrl(url: stringUrl))
             completion(.failure(NSError()))
             return
         }
@@ -42,6 +43,7 @@ struct FavoriteOrderManager {
                     completion(.success(!isFavorite))
 
                 case .failure(let error):
+                    SwiftyBeaver.error(error.localizedDescription)
                     completion(.failure(NSError()))
                 }
             })

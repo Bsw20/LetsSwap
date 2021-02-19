@@ -17,8 +17,8 @@ class AlienProfileService {
         self.fetcher = NetworkDataFetcher()
     }
     
-    func getProfile(completion: @escaping (Result<ProfileResponse, AlienProfileError>) -> Void) {
-        fetcher.getAlienProfile { [weak self](result) in
+    func getProfile(userId: Int, completion: @escaping (Result<ProfileResponse, AlienProfileError>) -> Void) {
+        fetcher.getAlienProfile(userId: userId) { [weak self](result) in
             guard let self = self else { return }
             switch result {
             

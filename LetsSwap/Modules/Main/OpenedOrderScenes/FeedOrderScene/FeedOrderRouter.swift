@@ -11,7 +11,7 @@ import UIKit
 
 protocol FeedOrderRoutingLogic {
     func routeToComments(commentsModel: CommentsViewModel)
-    func routToAlienProfile(userId: Int)
+    func routeToAlienProfile(userId: Int)
     func routeToEditOrder(model: FeedOrderModel)
 }
 
@@ -20,7 +20,7 @@ class FeedOrderRouter: NSObject, FeedOrderRoutingLogic {
     weak var viewController: FeedOrderViewController?
   
   // MARK: Routing
-    func routToAlienProfile(userId: Int) {
+    func routeToAlienProfile(userId: Int) {
         let vc = AlienProfileViewController(userId: userId)
         viewController?.navigationController?.pushViewController(vc, animated: true)
     }

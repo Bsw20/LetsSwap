@@ -97,7 +97,7 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
         case .displayWholeProfile(myProfileViewModel: let myProfileViewModel):
             feedCollectionView.updateData(feedViewModel: myProfileViewModel)
         case .displayError(error: let error):
-            showAlert(title: "Ошибка", message: error.localizedDescription)
+            MyProfileViewController.showAlert(title: "Ошибка", message: error.localizedDescription)
         case .displayOrder(orderModel: let model):
             router?.routeToOpenOrder(orderModel: model)
         case .displayFullProfileInfo(profileInfo: let model):

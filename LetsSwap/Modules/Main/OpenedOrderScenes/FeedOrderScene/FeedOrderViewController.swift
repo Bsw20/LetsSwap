@@ -194,14 +194,14 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         case .displaySwapping:
             router?.routeToComments(commentsModel: CommentsOrderModel(orderId: type.getOrderId()))
         case .displayDeleting:
-            showAlert(title: "Успешно", message: "Предложение можно удалить")
+            FeedOrderViewController.showAlert(title: "Успешно", message: "Предложение можно удалить")
             trackerDelegate?.stateDidChange()
             self.navigationController?.popViewController(animated: true)
         case .displayNewHidingState(newState: let newState):
-            showAlert(title: "Успешно", message: "Предложение теперь \(newState ? "cкрыто" : "раскрыто")")
+            FeedOrderViewController.showAlert(title: "Успешно", message: "Предложение теперь \(newState ? "cкрыто" : "раскрыто")")
             trackerDelegate?.stateDidChange()
         case .displayError(error: let error):
-            showAlert(title: "Ошибка", message: error.localizedDescription)
+            FeedOrderViewController.showAlert(title: "Ошибка", message: error.localizedDescription)
         case .displayUpdatingDataError:
             self.navigationController?.popViewController(animated: false)
         case .displayUpdatedData(model: let model):
@@ -286,7 +286,7 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
     #warning("Зачем в параметрах userid")
     @objc private func topViewTapped(userId: Int) {
         if let userId = type.getUserId() {
-            router?.routToAlienProfile(userId: userId)
+            router?.routeToAlienProfile(userId: userId)
         }
     }
 }

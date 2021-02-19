@@ -9,4 +9,6 @@ target 'LetsSwap' do
   pod 'Alamofire'
   pod ‘SnapKit’
   pod 'Kingfisher'
+  pod 'Socket.IO-Client-Swift'
+  pod 'SwiftyBeaver'
 end

@@ -91,7 +91,7 @@ extension FavoriteOrdersViewController: FeedCollectionViewDelegate {
     }
     
     func showAlert(title: String, message: String) {
-        showAlert(title: title, message: message)
+        UIViewController.showAlert(title: title, message: message)
     }
     
     func favouriteButtonTapped(newState: Bool) {

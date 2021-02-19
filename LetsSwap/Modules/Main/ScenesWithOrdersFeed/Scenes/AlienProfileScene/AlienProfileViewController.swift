@@ -65,10 +65,8 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
     var router: (NSObjectProtocol & AlienProfileRoutingLogic)?
 
     // MARK: Object lifecycle
-  
-    
-    #warning("Убрать =0")
-    init(userId: Int = 0) {
+    init(userId: Int) {
+        print(userId)
         self.userId = userId
         super.init(nibName: nil, bundle: nil)
         setup()
@@ -101,6 +99,7 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("alien profile")
         view.backgroundColor = .mainBackground()
 
         setupConstraints()
@@ -137,9 +136,6 @@ extension AlienProfileViewController: FeedCollectionViewDelegate {
     func showAlert(title: String, message: String) {
         showAlert(title: title, message: message)
     }
-
-    
-    
 }
 
 //MARK: - Constraints
@@ -194,15 +190,6 @@ extension AlienProfileViewController {
             feedCollectionView.heightAnchor.constraint(equalToConstant: height),
             feedCollectionView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
         ])
-        
-//        NSLayoutConstraint.activate([
-//            bottomView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-//            bottomView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-//            bottomView.topAnchor.constraint(equalTo: feedCollectionView.bottomAnchor),
-//            bottomView.heightAnchor.constraint(equalToConstant: 40),
-//            bottomView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
-//        ])
-        
     }
 }
 

@@ -24,7 +24,7 @@ class AlienProfileInteractor: AlienProfileBusinessLogic {
     
     switch request {
     case .getProfile(userId: let userId):
-        service?.getProfile(completion: { [weak self] (result) in
+        service?.getProfile(userId: userId, completion: { [weak self] (result) in
             self?.presenter?.presentData(response: .presentFullProfile(result: result))
         })
     case .getOrder(orderId: let orderId):

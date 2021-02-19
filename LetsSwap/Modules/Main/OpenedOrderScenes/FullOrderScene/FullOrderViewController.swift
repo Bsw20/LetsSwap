@@ -238,14 +238,15 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
             switch viewModel {
             
             case .displayOrderCreated:
-                self.showAlert(title: "Успешно!", message: "Предложение создано.")
-                self.customDelegate?.stateDidChange()
-                self.navigationController?.popViewController(animated: true)
+                FullOrderViewController.showAlert(title: "Успешно!", message: "Предложение создано.") {
+                    self.customDelegate?.stateDidChange()
+                    self.navigationController?.popViewController(animated: true)
+                }
             case .displayOrderUpdated:
                 self.customDelegate?.stateDidChange()
-                self.showAlert(title: "Успешно!", message: "Предложение отредактировано.")
+                FullOrderViewController.showAlert(title: "Успешно!", message: "Предложение отредактировано.")
             case .showErrorAlert(title: let title, message: let message):
-                self.showAlert(title: title, message: message)
+                FullOrderViewController.showAlert(title: title, message: message)
             case .displayUploadedPhoto(photoUrl: let photoUrl):
                 self.photosCollectionView.add(photoAttachment: photoUrl)
             }
@@ -318,7 +319,7 @@ extension FullOrderViewController: ImagePickerDelegate  {
         if let image = image {
             interactor?.makeRequest(request: .uploadImage(image: image))
         } else {
-            showAlert(title: "Ошибка!", message: "Не удалось загрузить фотографию.")
+            FullOrderViewController.showAlert(title: "Ошибка!", message: "Не удалось загрузить фотографию.")
         }
     }
 }

@@ -7,10 +7,15 @@
 
 import Foundation
 import UIKit
+import SwiftyBeaver
+
 protocol AuthFinishedDelegate: AnyObject {
     func authFinished()
 }
 
+private let platform = SBPlatformDestination(appID: "B1QVk8",
+                                     appSecret: "7pyCbJmsnj5bjPAvwksvhdogKRoq3Kvq",
+                                     encryptionKey: "2dhrdUKksb4a23f3vwPtPstsx9yD6rzr")
 class AppCoordinator {
     private let contentWindow: UIWindow
     
@@ -18,12 +23,23 @@ class AppCoordinator {
         self.contentWindow = contentWindow
     }
     
+    
+    
     public func start() {
+        SwiftyBeaver.addDestination(platform)
+        SwiftyBeaver.addDestination(ConsoleDestination())
+        SwiftyBeaver.info("App Coordinator")
+
 //        startPresentation()
-//        startSignIn()
+        if APIManager.isAuthorized() {
+            startMain()
+        } else {
+            startSignIn()
+        }
 //        startSignUp()
-        startMain()
+//        startMain()
     }
+    
     
     private func startAuth() {
     }
@@ -34,7 +50,7 @@ class AppCoordinator {
         let navigationVC = UINavigationController(rootViewController: presentationVC)
         contentWindow.rootViewController = navigationVC
     }
-    private func startSignIn() {
+    func startSignIn() {
         let signInVC = SignInViewController()
         contentWindow.rootViewController = UINavigationController(rootViewController: signInVC)
     }
@@ -53,12 +69,15 @@ class AppCoordinator {
             // maybe do something on completion here
         })
         contentWindow.rootViewController = MainTabBarController()
+
     }
     
 }
 
+//MARK: - AuthFinishedDelegate
 extension AppCoordinator: AuthFinishedDelegate {
     func authFinished() {
         startMain()
     }
 }
+

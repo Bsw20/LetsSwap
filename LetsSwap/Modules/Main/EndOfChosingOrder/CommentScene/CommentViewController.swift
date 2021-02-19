@@ -86,7 +86,9 @@ class CommentViewController: UIViewController {
             case .success():
                 self?.router?.routeToRequestSentViewController()
             case .failure(let error):
-                self?.showAlert(title: "Ошибка!", message: "На данный момент нельзя совершить обмен.")
+                print(#function)
+                print(error)
+                CommentViewController.showAlert(title: "Ошибка!", message: "На данный момент нельзя совершить обмен.")
             }
         }
     }

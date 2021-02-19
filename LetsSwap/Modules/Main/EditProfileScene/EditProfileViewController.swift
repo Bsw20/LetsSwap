@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-
+import SnapKit
 
 
 class EditProfileViewController: UIViewController {
@@ -41,6 +41,11 @@ class EditProfileViewController: UIViewController {
     }()
     
     private var applyBarButton: UIBarButtonItem!
+    private var logOutButton: UIButton = {
+        let button = UIButton.getLittleRoundButton(backgroundColor: #colorLiteral(red: 0.7843137255, green: 0.7843137255, blue: 0.7843137255, alpha: 1), text: "Выйти", image: nil, font: .circeRegular(with: 17), textColor: .errorRed())
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
     //MARK: - Variables
     private var viewModel: EditProfileViewModel
@@ -59,6 +64,7 @@ class EditProfileViewController: UIViewController {
         setupDelegates()
         
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(resignTextFields))
+        logOutButton.addTarget(self, action: #selector(logOutButtonTapped), for: .touchUpInside)
         self.view.addGestureRecognizer(recognizer)
     }
     
@@ -128,6 +134,9 @@ class EditProfileViewController: UIViewController {
     
     
     //MARK: - Objc funcs
+    @objc private func logOutButtonTapped() {
+        APIManager.logOut()
+    }
     @objc private func resignTextFields() {
         nameTextView.resignTextField()
         lastNameTextView.resignTextField()
@@ -141,12 +150,12 @@ class EditProfileViewController: UIViewController {
             
             case .success():
                 onMainThread {
-                    self.showAlert(title: "Успешно", message: "Информация обновлена")
+                    EditProfileViewController.showAlert(title: "Успешно", message: "Информация обновлена")
                     self.trackerDelegate?.stateDidChange()
                 }
             case .failure(let error):
                 onMainThread {
-                    self.showAlert(title: "Ошибка", message: error.localizedDescription)
+                    EditProfileViewController.showAlert(title: "Ошибка", message: error.localizedDescription)
                 }
             }
         }
@@ -215,6 +224,16 @@ extension EditProfileViewController {
             bottomStackView.topAnchor.constraint(equalTo: topStackView.bottomAnchor, constant: 40),
             bottomStackView.heightAnchor.constraint(equalToConstant: EditProfileConstants.subviewsHeight)
         ])
+        
+        view.addSubview(logOutButton)
+        
+        logOutButton.snp.makeConstraints { (make) in
+            make.width.equalTo(bottomStackView.snp.width).multipliedBy(0.3353)
+            make.height.equalTo(40)
+            make.top.equalTo(bottomStackView.snp.bottom).offset(40)
+            make.centerX.equalToSuperview()
+        }
+        
         
 
     }

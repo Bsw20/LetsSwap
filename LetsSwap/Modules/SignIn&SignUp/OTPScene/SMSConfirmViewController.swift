@@ -102,6 +102,8 @@ extension SMSConfirmViewController: OTPDelegate {
                 authService.signIn(signInModel: data) { (result) in
                     switch result {
                     case .success():
+                        print("----------------")
+                        print(result)
                         self.authDelegate?.authFinished()
                     case .failure(_):
                         break

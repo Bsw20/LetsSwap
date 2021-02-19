@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Alamofire
+import SwiftyBeaver
 
 //MARK: - Protocols
 protocol MyProfileFetcher {
@@ -30,7 +31,6 @@ protocol FeedOrderFetcher {
     func deleteOrder(orderId: Int, completion: @escaping (Result<Void, FeedOrderError>) -> Void)
     func changeHidingState(orderId: Int, completion: @escaping (Result<Bool, FeedOrderError>) -> Void
     )
-    func makeSwap(orderId: Int, completion: @escaping (Result<Void, FeedOrderError>) -> Void)
     func getOrder(orderId: Int, completion: @escaping (Result<MyProfileOrderResponse, MyProfileError>) -> Void)
 }
 
@@ -63,6 +63,7 @@ struct UserAPIService:  EditProfileFetcher {
     
     func updateProfileInfo(model: EditProfileViewModel, completion: @escaping (Result<Void, MyProfileError>) -> Void) {
         guard let url = RequestUrl.updateUserInfo.getUrl() else {
+            SwiftyBeaver.error(String.incorrectUrl(url: RequestUrl.updateUserInfo.getUrl()))
             completion(.failure(MyProfileError.incorrectDataModel))
             return
         }
@@ -70,7 +71,7 @@ struct UserAPIService:  EditProfileFetcher {
         let userData: [String: Any] = model.representation
         let headers: HTTPHeaders = [
                     "Content-Type":"application/json",
-            "Authorization" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEyMjg2MDA3fQ.wlfqicWguYFBA3UauWi-04_cCHHY_fhgG_SBVKAk6hk"
+            "Authorization" : APIManager.getToken()
                 ]
         
         AF.request(url, method: .post,
@@ -85,6 +86,7 @@ struct UserAPIService:  EditProfileFetcher {
                     completion(.success(Void()))
 
                 case .failure(let error):
+                    SwiftyBeaver.error(error.localizedDescription)
                     completion(.failure(MyProfileError.serverError))
                     #warning("figure out with error types")
 
@@ -96,7 +98,7 @@ struct UserAPIService:  EditProfileFetcher {
     func downloadImage(url: String, completion:@escaping (Result<Data, Error>) -> Void) {
         let imageURL = url
         let headers: HTTPHeaders = [
-            "Authorization" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEyMjg2MDA3fQ.wlfqicWguYFBA3UauWi-04_cCHHY_fhgG_SBVKAk6hk"
+            "Authorization" : APIManager.getToken()
                 ]
         AF.request(imageURL, method: .get, headers: headers)
             .validate(statusCode: 200..<300)
@@ -106,7 +108,9 @@ struct UserAPIService:  EditProfileFetcher {
                 case .success(let data):
                     completion(.success(data))
                 case .failure(let error):
+                    SwiftyBeaver.error(error.localizedDescription)
                     completion(.failure(error))
+
                 }
             }
     }
@@ -122,7 +126,7 @@ extension UserAPIService: MyProfileFetcher {
         
         let headers: HTTPHeaders = [
                     "Content-Type":"application/json",
-            "Authorization" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEyMjg2MDA3fQ.wlfqicWguYFBA3UauWi-04_cCHHY_fhgG_SBVKAk6hk"
+            "Authorization" : APIManager.getToken()
                 ]
         
         AF.request(url, method: .get, headers: headers)
@@ -135,10 +139,13 @@ extension UserAPIService: MyProfileFetcher {
                         let model = try JSONDecoder().decode(EditProfileViewModel.self, from: data)
                         completion(.success(model))
                     } catch(let error){
+                        SwiftyBeaver.error(String.cantDecodeDataString(error: error))
+                        SwiftyBeaver.error("Can't decode data: \(error.localizedDescription)")
                         completion(.failure(MyProfileError.incorrectDataModel))
                     }
 
                 case .failure(let error):
+                    SwiftyBeaver.error(error.localizedDescription)
                     completion(.failure(MyProfileError.serverError))
                     #warning("figure out with error types")
                 }
@@ -154,7 +161,7 @@ extension UserAPIService: MyProfileFetcher {
         
         let headers: HTTPHeaders = [
                     "Content-Type":"application/json",
-            "Authorization" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEyMjg2MDA3fQ.wlfqicWguYFBA3UauWi-04_cCHHY_fhgG_SBVKAk6hk"
+            "Authorization" : APIManager.getToken()
                 ]
         
         AF.request(url, method: .get, headers: headers)
@@ -167,10 +174,12 @@ extension UserAPIService: MyProfileFetcher {
                         let model = try JSONDecoder().decode(MyProfileOrderResponse.self, from: data)
                         completion(.success(model))
                     } catch(let error){
+                        SwiftyBeaver.error(String.cantDecodeDataString(error: error))
                         completion(.failure(MyProfileError.incorrectDataModel))
                     }
 
                 case .failure(let error):
+                    SwiftyBeaver.error(error.localizedDescription)
                     completion(.failure(MyProfileError.serverError))
                     #warning("figure out with error types")
                 }
@@ -186,7 +195,7 @@ extension UserAPIService: MyProfileFetcher {
         }
         let headers: HTTPHeaders = [
                     "Content-Type":"application/json",
-            "Authorization" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEyMjg2MDA3fQ.wlfqicWguYFBA3UauWi-04_cCHHY_fhgG_SBVKAk6hk"
+            "Authorization" : APIManager.getToken()
                 ]
 
         AF.request(url, method: .get, headers: headers)
@@ -197,12 +206,16 @@ extension UserAPIService: MyProfileFetcher {
                 case .success(let data):
                     do {
 //                        let data = data as! [String: Any]
+//                        print(data)
                         let model = try JSONDecoder().decode(MyProfileResponseModel.self, from: data)
                         completion(.success(model))
-                    } catch(let error){                        completion(.failure(MyProfileError.incorrectDataModel))
+                    } catch(let error){
+                        SwiftyBeaver.error(String.cantDecodeDataString(error: error))
+                        completion(.failure(MyProfileError.incorrectDataModel))
                     }
 
                 case .failure(let error):
+                    SwiftyBeaver.error(error.localizedDescription)
                     completion(.failure(MyProfileError.serverError))
                     #warning("figure out with error types")
                 }
@@ -221,7 +234,7 @@ extension UserAPIService: FullOrderFetcher {
         
         let headers: HTTPHeaders = [
                     "Content-Type":"application/json",
-            "Authorization" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEyMjg2MDA3fQ.wlfqicWguYFBA3UauWi-04_cCHHY_fhgG_SBVKAk6hk"
+            "Authorization" : APIManager.getToken()
                 ]
         
         AF.request(url, method: .post,
@@ -235,10 +248,12 @@ extension UserAPIService: FullOrderFetcher {
                     do {
                         completion(.success(Void()))
                     } catch(let error){
+                        SwiftyBeaver.error(String.cantDecodeDataString(error: error))
                         completion(.failure(MyProfileError.incorrectDataModel))
                     }
 
                 case .failure(let error):
+                    SwiftyBeaver.error(error.localizedDescription)
                     completion(.failure(MyProfileError.serverError))
                     #warning("figure out with error types")
                 }
@@ -254,7 +269,7 @@ extension UserAPIService: FullOrderFetcher {
         let userData: [String: Any] = model.representation
         let headers: HTTPHeaders = [
                     "Content-Type":"application/json",
-            "Authorization" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEyMjg2MDA3fQ.wlfqicWguYFBA3UauWi-04_cCHHY_fhgG_SBVKAk6hk"
+            "Authorization" : APIManager.getToken()
                 ]
         
         AF.request(url, method: .post,
@@ -272,9 +287,11 @@ extension UserAPIService: FullOrderFetcher {
                             return
                         }
                     }
+                    SwiftyBeaver.error(String.cantDecodeDataString(error: "Incorrect json"))
                     completion(.failure(MyProfileError.serverError))
 
                 case .failure(let error):
+                    SwiftyBeaver.error(error.localizedDescription)
                     completion(.failure(MyProfileError.serverError))
                     #warning("figure out with error types")
 
@@ -293,7 +310,7 @@ extension UserAPIService: FullOrderFetcher {
         
         let headers: HTTPHeaders = [
             "Content-type": "multipart/form-data",
-            "Authorization" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEyMjg2MDA3fQ.wlfqicWguYFBA3UauWi-04_cCHHY_fhgG_SBVKAk6hk"
+            "Authorization" : APIManager.getToken()
                 ]
         AF.upload(multipartFormData: { (multiPart) in
 //            multiPart.append(data, withName: "file", fileName: "file.png", mimeType: "image/png")
@@ -309,8 +326,10 @@ extension UserAPIService: FullOrderFetcher {
                     completion(.success(dataURL))
                     return
                 }
+                SwiftyBeaver.error(String.incorrectJSON(data))
                 completion(.failure(MyProfileError.APIUrlError))
             case .failure(let error):
+                SwiftyBeaver.error(error.localizedDescription)
                 completion(.failure(MyProfileError.APIUrlError))
             }
 
@@ -329,7 +348,7 @@ extension UserAPIService: FeedOrderFetcher {
         
         let headers: HTTPHeaders = [
                     "Content-Type":"application/json",
-            "Authorization" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEyMjg2MDA3fQ.wlfqicWguYFBA3UauWi-04_cCHHY_fhgG_SBVKAk6hk"
+            "Authorization" : APIManager.getToken()
                 ]
         
         AF.request(url, method: .get, headers: headers)
@@ -341,6 +360,7 @@ extension UserAPIService: FeedOrderFetcher {
                     completion(.success(Void()))
 
                 case .failure(let error):
+                    SwiftyBeaver.error(error.localizedDescription)
                     completion(.failure(FeedOrderError.serverError))
                     #warning("figure out with error types")
                 }
@@ -355,7 +375,7 @@ extension UserAPIService: FeedOrderFetcher {
         
         let headers: HTTPHeaders = [
                     "Content-Type":"application/json",
-            "Authorization" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEyMjg2MDA3fQ.wlfqicWguYFBA3UauWi-04_cCHHY_fhgG_SBVKAk6hk"
+            "Authorization" : APIManager.getToken()
                 ]
         
         AF.request(url, method: .get, headers: headers)
@@ -367,9 +387,11 @@ extension UserAPIService: FeedOrderFetcher {
                     if let json = data as? [String : Any], let newState = json["newState"] as? Bool {
                         completion(.success(newState))
                     }
+                    SwiftyBeaver.error(String.incorrectJSON(data))
                     completion(.failure(FeedOrderError.serverError))
 
                 case .failure(let error):
+                    SwiftyBeaver.error(error.localizedDescription)
                     completion(.failure(FeedOrderError.serverError))
                     #warning("figure out with error types")
                 }
@@ -377,9 +399,6 @@ extension UserAPIService: FeedOrderFetcher {
         
     }
     
-    func makeSwap(orderId: Int, completion: @escaping (Result<Void, FeedOrderError>) -> Void) {
-        completion(.success(Void()))
-    }
     
     
 }

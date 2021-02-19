@@ -34,3 +34,27 @@ extension String {
         return pureNumber
     }
 }
+
+//MARK: - Error descriptions
+extension String {
+    static func cantDecodeDataString(error: Error) -> String {
+        return  "Can't decode data: \(error.localizedDescription)"
+    }
+    
+    static func cantDecodeDataString(error: String?) -> String {
+        return  "Can't decode data: \(String(describing: error))"
+    }
+    
+    static func incorrectUrl(url: URL?) -> String {
+        return "Incorrect URL: \(String(describing: url?.absoluteString))"
+    }
+    
+    static func incorrectUrl(url: String?) -> String {
+        return "Incorrect URL: \(String(describing: url))"
+    }
+    
+    static func incorrectJSON(_ data: Any?) -> String {
+        return "Incorrect JSON \(String(describing: data))"
+    }
+    
+}

@@ -16,6 +16,8 @@ class MainTabBarController: UITabBarController, MainTabBarDisplayLogic {
 
     var interactor: MainTabBarBusinessLogic?
     var router: (NSObjectProtocol & MainTabBarRoutingLogic)?
+    private var socket: Socket?
+
 
     // MARK: Object lifecycle
   
@@ -51,6 +53,8 @@ class MainTabBarController: UITabBarController, MainTabBarDisplayLogic {
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("TOKEN" + APIManager.getToken())
+        socket = Socket.init()
         tabBar.isTranslucent = false
         tabBar.tintColor = .mainBackground()
         viewControllers = [
@@ -68,7 +72,7 @@ class MainTabBarController: UITabBarController, MainTabBarDisplayLogic {
             
             generateNavigationController(rootViewController: FeedViewController(), unselectedImage: UIImage(named: "feedIconOff")!, selectedImage: UIImage(named: "feedIconOn")!),
             generateNavigationController(rootViewController: FavoriteOrdersViewController(), unselectedImage: UIImage(named: "tabBarIconOff")!, selectedImage: UIImage(named: "tabBarIconOn")!),
-//            generateNavigationController(rootViewController: NotificationViewController(), unselectedImage: UIImage(named: "notificationIconOff")!, selectedImage: UIImage(named: "notificationIconOn")!),
+            generateNavigationController(rootViewController: NotificationViewController(), unselectedImage: UIImage(named: "notificationIconOff")!, selectedImage: UIImage(named: "notificationIconOn")!),
                         generateNavigationController(rootViewController: MyProfileViewController(), unselectedImage: UIImage(named: "personIconOff")!, selectedImage: UIImage(named: "personIconOn")!)
             
             

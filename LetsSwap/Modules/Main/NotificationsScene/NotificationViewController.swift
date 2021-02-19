@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 protocol NotificationDisplayLogic: class {
   func displayData(viewModel: Notification.Model.ViewModel.ViewModelData)
@@ -60,6 +61,47 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
         view.backgroundColor = .mainBackground()
         setupNavigation()
         setupConstraints()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getNotifications { (result) in
+            print(#function)
+        }
+        
+        
+    }
+    func getNotifications(completion: @escaping (Result<FeedResponse, FeedError>) -> Void) {
+        guard let url = URL(string: "http://92.63.105.87:3000/change/getNotifications") else {
+            completion(.failure(FeedError.serverError))
+            return
+        }
+        
+        let headers: HTTPHeaders = [
+                    "Content-Type":"application/json",
+            "Authorization" : APIManager.getToken()
+                ]
+        
+        AF.request(url, method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseJSON(completionHandler: { (response) in
+                switch response.result {
+
+                case .success(let data):
+                    do {
+//                        let model = try JSONDecoder().decode(FeedResponse.self, from: data)
+                        let model = data as? [String: Any]
+                        print(model)
+//                        completion(.success(model))
+                    } catch(let error){
+                        completion(.failure(FeedError.incorrectDataModel))
+                    }
+
+                case .failure(let error):
+                    completion(.failure(FeedError.serverError))
+                    #warning("figure out with error types")
+                }
+            })
     }
   
     func displayData(viewModel: Notification.Model.ViewModel.ViewModelData) {
