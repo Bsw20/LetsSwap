@@ -23,11 +23,18 @@ class WebImageView: UIImageView {
         return currentUrlSring
     }
     
+    public func resetUrl() {
+        self.image = nil
+        self.currentUrlSring = nil
+    }
+    
     public func set(imageURL: String?, completion: ( (Result<RetrieveImageResult, KingfisherError>)->())? = nil) {
+        
         guard let imageURL = imageURL, let url = URL(string: imageURL) else {
-            self.image = nil
+            resetUrl()
             return
         }
+        kf.indicatorType = .activity
         self.currentUrlSring = imageURL
         kf.setImage(with: url, options: [.requestModifier(modifier)]) { (result) in
             completion?(result)

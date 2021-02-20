@@ -49,6 +49,13 @@
 		303AB79A2580FB3600F287C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 303AB7982580FB3600F287C2 /* LaunchScreen.storyboard */; };
 		303AB7A6258163F400F287C2 /* ModelsPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303AB7A5258163F400F287C2 /* ModelsPlan.swift */; };
 		303AB7A92581715300F287C2 /* DataFetcherPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303AB7A82581715300F287C2 /* DataFetcherPlan.swift */; };
+		3048ED9125E162A60021AD4D /* ConversationsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048ED8A25E162A60021AD4D /* ConversationsPresenter.swift */; };
+		3048ED9225E162A60021AD4D /* ConversationsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048ED8B25E162A60021AD4D /* ConversationsWorker.swift */; };
+		3048ED9325E162A60021AD4D /* ConversationsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048ED8C25E162A60021AD4D /* ConversationsRouter.swift */; };
+		3048ED9425E162A60021AD4D /* ConversationsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048ED8D25E162A60021AD4D /* ConversationsModels.swift */; };
+		3048ED9525E162A60021AD4D /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048ED8E25E162A60021AD4D /* ConversationsViewController.swift */; };
+		3048ED9625E162A60021AD4D /* ConversationsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048ED8F25E162A60021AD4D /* ConversationsInteractor.swift */; };
+		3048ED9D25E1667F0021AD4D /* ConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048ED9C25E1667F0021AD4D /* ConversationCell.swift */; };
 		3060281F259B8DAA0046A2B0 /* MyProfileConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3060281E259B8DAA0046A2B0 /* MyProfileConstants.swift */; };
 		3060282B259BBE400046A2B0 /* FullOrderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30602824259BBE400046A2B0 /* FullOrderPresenter.swift */; };
 		3060282D259BBE400046A2B0 /* FullOrderRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30602826259BBE400046A2B0 /* FullOrderRouter.swift */; };
@@ -210,6 +217,13 @@
 		303AB79B2580FB3600F287C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		303AB7A5258163F400F287C2 /* ModelsPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsPlan.swift; sourceTree = "<group>"; };
 		303AB7A82581715300F287C2 /* DataFetcherPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetcherPlan.swift; sourceTree = "<group>"; };
+		3048ED8A25E162A60021AD4D /* ConversationsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsPresenter.swift; sourceTree = "<group>"; };
+		3048ED8B25E162A60021AD4D /* ConversationsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsWorker.swift; sourceTree = "<group>"; };
+		3048ED8C25E162A60021AD4D /* ConversationsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsRouter.swift; sourceTree = "<group>"; };
+		3048ED8D25E162A60021AD4D /* ConversationsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsModels.swift; sourceTree = "<group>"; };
+		3048ED8E25E162A60021AD4D /* ConversationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewController.swift; sourceTree = "<group>"; };
+		3048ED8F25E162A60021AD4D /* ConversationsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsInteractor.swift; sourceTree = "<group>"; };
+		3048ED9C25E1667F0021AD4D /* ConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCell.swift; sourceTree = "<group>"; };
 		3060281E259B8DAA0046A2B0 /* MyProfileConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileConstants.swift; sourceTree = "<group>"; };
 		30602824259BBE400046A2B0 /* FullOrderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullOrderPresenter.swift; sourceTree = "<group>"; };
 		30602826259BBE400046A2B0 /* FullOrderRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullOrderRouter.swift; sourceTree = "<group>"; };
@@ -517,6 +531,36 @@
 			path = Plan;
 			sourceTree = "<group>";
 		};
+		3048ED8725E160160021AD4D /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				3048ED8825E160400021AD4D /* Conversations */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		3048ED8825E160400021AD4D /* Conversations */ = {
+			isa = PBXGroup;
+			children = (
+				3048ED9B25E1666E0021AD4D /* Views */,
+				3048ED8E25E162A60021AD4D /* ConversationsViewController.swift */,
+				3048ED8F25E162A60021AD4D /* ConversationsInteractor.swift */,
+				3048ED8A25E162A60021AD4D /* ConversationsPresenter.swift */,
+				3048ED8C25E162A60021AD4D /* ConversationsRouter.swift */,
+				3048ED8D25E162A60021AD4D /* ConversationsModels.swift */,
+				3048ED8B25E162A60021AD4D /* ConversationsWorker.swift */,
+			);
+			path = Conversations;
+			sourceTree = "<group>";
+		};
+		3048ED9B25E1666E0021AD4D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3048ED9C25E1667F0021AD4D /* ConversationCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		30602823259BBDD30046A2B0 /* FullOrderScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -668,6 +712,7 @@
 				308365CB2589E53000578AE2 /* MainTabBarController */,
 				3022F60325C08991004C50B7 /* SignIn&SignUp */,
 				3022F60225C08982004C50B7 /* Main */,
+				3048ED8725E160160021AD4D /* Chat */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1035,7 +1080,10 @@
 				3060285B259E1E5A0046A2B0 /* ChangePropertyView.swift in Sources */,
 				308D28D3258E6C530088D340 /* TagsViewController.swift in Sources */,
 				3022F64725C1B598004C50B7 /* SignUpRouter.swift in Sources */,
+				3048ED9D25E1667F0021AD4D /* ConversationCell.swift in Sources */,
+				3048ED9625E162A60021AD4D /* ConversationsInteractor.swift in Sources */,
 				302AAAAC25DAD2E400482B08 /* NotificationsManager.swift in Sources */,
+				3048ED9525E162A60021AD4D /* ConversationsViewController.swift in Sources */,
 				307529D525C9883500D74939 /* Globals.swift in Sources */,
 				30CB74E1259121C700CB84D6 /* FeedOrderModels.swift in Sources */,
 				308365FF2589F61700578AE2 /* UIColor + Extension.swift in Sources */,
@@ -1076,8 +1124,10 @@
 				303A067D2593843F00C14BFD /* LittleRoundButton.swift in Sources */,
 				307304FA258BF4C80091D2F1 /* TagCell.swift in Sources */,
 				3075148825CD8F46006D95F2 /* MyProfileHeaderView.swift in Sources */,
+				3048ED9425E162A60021AD4D /* ConversationsModels.swift in Sources */,
 				3072F33F25C57A3A00CE7C65 /* OTPTextField.swift in Sources */,
 				308366072589FDC000578AE2 /* Constraints.swift in Sources */,
+				3048ED9325E162A60021AD4D /* ConversationsRouter.swift in Sources */,
 				3072F35125C6EC1E00CE7C65 /* UserAPIService.swift in Sources */,
 				30BC10CC2599342D00066D9B /* UIView + Extension.swift in Sources */,
 				308365D42589E59500578AE2 /* MainTabBarWorker.swift in Sources */,
@@ -1131,6 +1181,7 @@
 				3075142925CC53C5006D95F2 /* ImagePicker.swift in Sources */,
 				30602852259DEB2F0046A2B0 /* EditProfileConstants.swift in Sources */,
 				3022F5F325BDFDBF004C50B7 /* CreateOrderCell.swift in Sources */,
+				3048ED9225E162A60021AD4D /* ConversationsWorker.swift in Sources */,
 				30AC736925D705F6006A4746 /* FavoriteOrderManager.swift in Sources */,
 				303AB7A6258163F400F287C2 /* ModelsPlan.swift in Sources */,
 				303A06862593B93400C14BFD /* PhotosCollectionView.swift in Sources */,
@@ -1156,6 +1207,7 @@
 				30BC1104259AA0C500066D9B /* MyProfileInteractor.swift in Sources */,
 				30AC737F25D877E2006A4746 /* SwapsManager.swift in Sources */,
 				30A4CA0125B9E55500003DDE /* NotificationSceneConstants.swift in Sources */,
+				3048ED9125E162A60021AD4D /* ConversationsPresenter.swift in Sources */,
 				307529D225C97D1700D74939 /* UIBarButtonItem + Extension.swift in Sources */,
 				30BC10BC2599156A00066D9B /* AlienProfileRouter.swift in Sources */,
 				30CB74FA259237ED00CB84D6 /* WebImageView.swift in Sources */,

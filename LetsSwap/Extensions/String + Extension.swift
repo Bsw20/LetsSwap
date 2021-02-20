@@ -57,4 +57,9 @@ extension String {
         return "Incorrect JSON \(String(describing: data))"
     }
     
+    static func username(name: String, lastname: String) -> String {
+        
+        return "\(name) \(lastname)"
+    }
+    
 }
