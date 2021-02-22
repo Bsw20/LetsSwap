@@ -7,8 +7,18 @@
 
 import Foundation
 import UIKit
+import SnapKit
+
+
+protocol NotificationCellDelegate: NSObjectProtocol {
+    func refuseButtonTapped(cell: NotificationCell)
+    func swapButtonTapped(cell: NotificationCell)
+}
 
 class NotificationCell: UICollectionViewCell {
+    typealias NotificationType = Notification.NotificationType
+    //MARK: - Variables
+    weak var customDelegate: NotificationCellDelegate?
     //MARK: - Controls
     private let containerView: UIView = {
        let view = UIView()
@@ -54,8 +64,15 @@ class NotificationCell: UICollectionViewCell {
         return label
     }()
     
+    private var refuseButton: UIButton = {
+        let button = LittleRoundButton.newButton(backgroundColor: .mainYellow(), text: "Отклонить", image: nil, font: .circeRegular(with: 13), textColor: .white)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = #colorLiteral(red: 0.7843137255, green: 0.7843137255, blue: 0.7843137255, alpha: 1)
+        return button
+    }()
+    
     private var yellowButton: UIButton = {
-        let button = LittleRoundButton.newButton(backgroundColor: .mainYellow(), text: "Посмотреть предложение Максима", image: nil, font: .circeRegular(with: 13), textColor: .white)
+        let button = LittleRoundButton.newButton(backgroundColor: .mainYellow(), text: "Махнуться", image: nil, font: .circeRegular(with: 13), textColor: .white)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -69,7 +86,19 @@ class NotificationCell: UICollectionViewCell {
     }()
     
     //MARK: - variables
-    private var notificationType: NotificationType!
+    private var notificationType: NotificationType! {
+        didSet {
+            switch notificationType {
+            case .mvpVersion(model: let model):
+                nameLabel.text = String.username(name: model.name, lastname: model.lastname)
+                commentLabel.text = model.comment
+                descriptionLabel.text = model.description
+                imageView.set(imageURL: model.image)
+            default:
+                break
+            }
+        }
+    }
     static let reuseId = "NotificationCell"
 
     
@@ -83,17 +112,37 @@ class NotificationCell: UICollectionViewCell {
         containerView.fillSuperview()
         
         yellowButton.addTarget(self, action: #selector(yellowButtonTapped), for: .touchUpInside)
+        refuseButton.addTarget(self, action: #selector(refuseButtonTapped), for: .touchUpInside)
     }
     
     @objc private func yellowButtonTapped() {
-        switch notificationType {
-        case .unmatched:
-            print("unmatched")
-        case .matched:
-            print("matched")
-        case .none:
-            print("none")
-        }
+//        switch notificationType {
+//        case .unmatched:
+//            print("unmatched")
+//        case .matched:
+//            print("matched")
+//        case .mvpVersion:
+//            print("mvp version")
+//        case .none:
+//            print("none")
+//        }
+        
+        customDelegate?.swapButtonTapped(cell: self)
+    }
+    
+    @objc private func refuseButtonTapped() {
+//        switch notificationType {
+//        case .unmatched:
+//            print("unmatched")
+//        case .matched:
+//            print("matched")
+//        case .mvpVersion:
+//            print("mvp version")
+//        case .none:
+//            print("none")
+//        }
+        
+        customDelegate?.refuseButtonTapped(cell: self)
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -142,11 +191,11 @@ extension NotificationCell {
             commentLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20)
         ])
         
-        NSLayoutConstraint.activate([
-            yellowButton.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: NotificationSceneConstants.labelsLeadingOffset),
-                                        yellowButton.heightAnchor.constraint(equalToConstant: 40),
-            yellowButton.topAnchor.constraint(equalTo: commentLabel.bottomAnchor,constant: NotificationSceneConstants.thirdGapHeight)
-        ])
+//        NSLayoutConstraint.activate([
+//            yellowButton.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: NotificationSceneConstants.labelsLeadingOffset),
+//                                        yellowButton.heightAnchor.constraint(equalToConstant: 40),
+//            yellowButton.topAnchor.constraint(equalTo: commentLabel.bottomAnchor,constant: NotificationSceneConstants.thirdGapHeight)
+//        ])
         
         
         switch notificationType {
@@ -164,6 +213,19 @@ extension NotificationCell {
         case .unmatched:
             yellowButton.setTitle("Посмотреть предложения Максима", for: .normal)
             yellowButton.widthAnchor.constraint(equalToConstant: ("Посмотреть предложения Максима".sizeOfString(usingFont: UIFont.circeRegular(with: 13))).width + 14 * 2).isActive = true
+        case .mvpVersion:
+            let stackView = UIStackView(arrangedSubviews: [refuseButton, yellowButton], axis: .horizontal, spacing: 14)
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            containerView.addSubview(stackView)
+            
+            stackView.snp.makeConstraints { (make) in
+                make.left.right.equalTo(commentLabel)
+                make.height.equalTo(40)
+            }
+            stackView.topAnchor.constraint(equalTo: commentLabel.bottomAnchor,constant: NotificationSceneConstants.thirdGapHeight).isActive = true
+            
+            
+            break
         case .none:
             break
         }

@@ -8,6 +8,8 @@
 
 import UIKit
 import SnapKit
+import Alamofire
+import SwiftyBeaver
 
 protocol ConversationsDisplayLogic: class {
   func displayData(viewModel: Conversations.Model.ViewModel.ViewModelData)
@@ -15,6 +17,7 @@ protocol ConversationsDisplayLogic: class {
 
 class ConversationsViewController: UIViewController, ConversationsDisplayLogic {
     typealias ConversationModel = Conversations.Conversation
+    typealias ConversationViewModel = Conversations.AllConversations.ViewModel
     //MARK: - Controls
     private var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -26,11 +29,11 @@ class ConversationsViewController: UIViewController, ConversationsDisplayLogic {
     
     //MARK: - Variables
     private var conversations: [ConversationModel] = [
-        ConversationModel(profileImage: "https://img4.goodfon.ru/original/2000x1335/c/9e/iozhik-priroda-osen-1.jpg", name: "Ирина", lastname: "Варламова", missedMessagesCount: 3, lastMessage: "Ну что, мы идем?", data: 25),
-        ConversationModel(profileImage: "https://cdn.photosight.ru/img/8/595/3876926_large.jpg", name: "Андрей", lastname: "Иванов", missedMessagesCount: 0, lastMessage: "Чел что за дичь, остался только чат", data: 1),
-        ConversationModel(profileImage: "https://s1.1zoom.ru/big3/686/Switzerland_Winter_Houses_Mountains_Evening_Goms_540915_3000x2000.jpg", name: "Иван", lastname: "Андреев", missedMessagesCount: 0, lastMessage: "Как же я за***лся, осталось совсем чуть чуть", data: 10),
-        ConversationModel(profileImage: "https://skitours.com.ua/sites/default/files/images/articles/2019/residence-les-chalets-de-wengen-442637.jpg", name: "Макс", lastname: "Соболев", missedMessagesCount: 10, lastMessage: "Мне кажется норм", data: 40),
-        ConversationModel(profileImage: "https://img2.goodfon.ru/original/5804x3500/6/70/peyzazh-priroda-panorama-gory.jpg", name: "Аня", lastname: "Петрова", missedMessagesCount: 100, lastMessage: "Ок", data: 55)
+//        ConversationModel(profileImage: "https://img4.goodfon.ru/original/2000x1335/c/9e/iozhik-priroda-osen-1.jpg", name: "Ирина", lastname: "Варламова", missedMessagesCount: 3, lastMessage: "Ну что, мы идем?", data: 25),
+//        ConversationModel(profileImage: "https://cdn.photosight.ru/img/8/595/3876926_large.jpg", name: "Андрей", lastname: "Иванов", missedMessagesCount: 0, lastMessage: "Чел что за дичь, остался только чат", data: 1),
+//        ConversationModel(profileImage: "https://s1.1zoom.ru/big3/686/Switzerland_Winter_Houses_Mountains_Evening_Goms_540915_3000x2000.jpg", name: "Иван", lastname: "Андреев", missedMessagesCount: 0, lastMessage: "Как же я за***лся, осталось совсем чуть чуть", data: 10),
+//        ConversationModel(profileImage: "https://skitours.com.ua/sites/default/files/images/articles/2019/residence-les-chalets-de-wengen-442637.jpg", name: "Макс", lastname: "Соболев", missedMessagesCount: 10, lastMessage: "Мне кажется норм", data: 40),
+//        ConversationModel(profileImage: "https://img2.goodfon.ru/original/5804x3500/6/70/peyzazh-priroda-panorama-gory.jpg", name: "Аня", lastname: "Петрова", missedMessagesCount: 100, lastMessage: "Ок", data: 55)
     ]
     var interactor: ConversationsBusinessLogic?
     var router: (NSObjectProtocol & ConversationsRoutingLogic)?
@@ -73,6 +76,21 @@ class ConversationsViewController: UIViewController, ConversationsDisplayLogic {
         view.backgroundColor = .mainBackground()
         setupUI()
         setupConstraints()
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getAllConversations {[weak self] (result) in
+            switch result {
+            
+            case .success(let model):
+                self?.conversations = model.chats
+                self?.tableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
   
     func displayData(viewModel: Conversations.Model.ViewModel.ViewModelData) {
@@ -100,6 +118,47 @@ class ConversationsViewController: UIViewController, ConversationsDisplayLogic {
     }
 }
 
+//MARK: - TODO DELETE
+extension ConversationsViewController {
+    private func getAllConversations(completion: @escaping (Result<ConversationViewModel, Error>) -> Void) {
+        guard let url = URL(string: "http://92.63.105.87:3000/chat/getAllChats") else {
+            completion(.failure(NSError()))
+            return
+        }
+        
+        let headers: HTTPHeaders = [
+                    "Content-Type":"application/json",
+            "Authorization" : APIManager.getToken()
+                ]
+        
+        AF.request(url, method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseData(completionHandler: { (response) in
+                switch response.result {
+
+                case .success(let data):
+                    do {
+                        let model = try JSONDecoder().decode(ConversationViewModel.self, from: data)
+                        completion(.success(model))
+//                        let chats = data as? [String: Any]
+//                        print(chats)
+//                        let model = ConversationViewModel(chats: <#T##[Conversations.Conversation]#>)
+
+                    } catch(let error){
+                        print(error.localizedDescription)
+                        SwiftyBeaver.error(error.localizedDescription)
+                        completion(.failure(FeedError.incorrectDataModel))
+                    }
+
+                case .failure(let error):
+                    SwiftyBeaver.error(error.localizedDescription)
+                    completion(.failure(FeedError.serverError))
+                    #warning("figure out with error types")
+                }
+            })
+    }
+}
+
 //MARK: - UITableViewDelegate&UITableViewDataSource
 extension ConversationsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -118,7 +177,8 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let conversation = conversations[indexPath.row]
-        print(String.username(name: conversation.name, lastname: conversation.lastname))
+        print(String.username(name: conversation.name, lastname: conversation.lastName))
+        router?.routeToChat()
     }
     
     

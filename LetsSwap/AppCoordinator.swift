@@ -28,8 +28,6 @@ class AppCoordinator {
     public func start() {
         SwiftyBeaver.addDestination(platform)
         SwiftyBeaver.addDestination(ConsoleDestination())
-        SwiftyBeaver.info("App Coordinator")
-
 //        startPresentation()
         if APIManager.isAuthorized() {
             startMain()

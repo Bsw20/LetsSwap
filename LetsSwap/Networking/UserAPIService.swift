@@ -140,7 +140,6 @@ extension UserAPIService: MyProfileFetcher {
                         completion(.success(model))
                     } catch(let error){
                         SwiftyBeaver.error(String.cantDecodeDataString(error: error))
-                        SwiftyBeaver.error("Can't decode data: \(error.localizedDescription)")
                         completion(.failure(MyProfileError.incorrectDataModel))
                     }
 

@@ -25,6 +25,7 @@ final class Socket: ObservableObject {
         }
         
         socket.on("serverNotifications") {(data, ack) in
+            print("NOTIFICATION")
             print(data)
         }
         

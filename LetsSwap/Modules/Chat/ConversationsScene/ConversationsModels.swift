@@ -9,16 +9,30 @@
 import UIKit
 
 enum Conversations {
-    struct Conversation: ConversationCellViewModel {
+    struct Conversation: ConversationCellViewModel, Decodable {
         
-        var profileImage: String?
+        var friendAvatarStringURL: String?
+        var friendId: Int
         var name: String
-        var lastname: String
+        var lastName: String
         var missedMessagesCount: Int
-        var lastMessage: String
-        var data: Int
+        var lastMessageContent: String
+        var date: String
         
         
+    }
+    
+    enum AllConversations {
+        struct Request {
+        }
+        
+        struct Response: Decodable {
+            var chats: [Conversation]
+        }
+        
+        struct ViewModel: Decodable {
+            var chats: [Conversation]
+        }
     }
    
   enum Model {

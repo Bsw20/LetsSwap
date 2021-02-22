@@ -8,12 +8,14 @@
 
 import UIKit
 import Alamofire
+import SwiftyBeaver
 
 protocol NotificationDisplayLogic: class {
   func displayData(viewModel: Notification.Model.ViewModel.ViewModelData)
 }
 
 class NotificationViewController: UIViewController, NotificationDisplayLogic{
+    typealias NotificationModel = Notification.AllNotifications.ViewModel
     //MARK: - Controls
     private let collectionView: NotificationCollectionView = {
         var collectionView = NotificationCollectionView()
@@ -60,18 +62,27 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
         super.viewDidLoad()
         view.backgroundColor = .mainBackground()
         setupNavigation()
+        collectionView.customDelegate = self
         setupConstraints()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getNotifications { (result) in
+        getNotifications {[weak self] (result) in
             print(#function)
+            switch result {
+            
+            case .success(let notifications):
+                self?.collectionView.updateData(notifications: notifications)
+            case .failure(let error):
+                SwiftyBeaver.error(error.localizedDescription)
+                UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
+            }
         }
         
         
     }
-    func getNotifications(completion: @escaping (Result<FeedResponse, FeedError>) -> Void) {
+    func getNotifications(completion: @escaping (Result<NotificationModel, Error>) -> Void) {
         guard let url = URL(string: "http://92.63.105.87:3000/change/getNotifications") else {
             completion(.failure(FeedError.serverError))
             return
@@ -84,15 +95,15 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
         
         AF.request(url, method: .get, headers: headers)
             .validate(statusCode: 200..<300)
-            .responseJSON(completionHandler: { (response) in
+            .responseData(completionHandler: { (response) in
                 switch response.result {
 
                 case .success(let data):
                     do {
-//                        let model = try JSONDecoder().decode(FeedResponse.self, from: data)
-                        let model = data as? [String: Any]
-                        print(model)
-//                        completion(.success(model))
+                        let model = try JSONDecoder().decode(NotificationModel.self, from: data)
+//                        let model = data as? [String: Any]
+//                        print(model)
+                        completion(.success(model))
                     } catch(let error){
                         completion(.failure(FeedError.incorrectDataModel))
                     }
@@ -114,6 +125,20 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
         
     }
   
+}
+
+//MARK: - NotificationCollectionViewDelegate
+extension NotificationViewController: NotificationCollectionViewDelegate {
+    func routeToChat() {
+        print("ROUTING TO CHAT NOT VC")
+        UIApplication.showAlert(title: "Успешно!", message: "Чат создан!")
+    }
+    
+    func showAlert(title: String, message: String) {
+        UIApplication.showAlert(title: title, message: message)
+    }
+    
+    
 }
 
 //MARK: - Constraints

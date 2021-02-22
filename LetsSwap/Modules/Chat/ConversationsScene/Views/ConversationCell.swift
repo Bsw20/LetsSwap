@@ -9,12 +9,12 @@ import Foundation
 import UIKit
 
 protocol ConversationCellViewModel {
-    var profileImage: String? { get }
+    var friendAvatarStringURL: String? { get }
     var name: String { get }
-    var lastname: String { get }
+    var lastName: String { get }
     var missedMessagesCount: Int { get }
-    var lastMessage: String { get }
-    var data: Int { get }
+    var lastMessageContent: String { get }
+    var date: String { get }
 }
 class ConversationCell: UITableViewCell {
     //MARK: - Variables
@@ -78,11 +78,11 @@ class ConversationCell: UITableViewCell {
     }
     
     public func configure(model: ConversationCellViewModel) {
-        usernameLabel.text = "\(model.name) \(model.lastname)"
-        profileImageView.set(imageURL: model.profileImage)
-        lastMessageLabel.text = model.lastMessage
+        usernameLabel.text = "\(model.name) \(model.lastName)"
+        profileImageView.set(imageURL: model.friendAvatarStringURL)
+        lastMessageLabel.text = model.lastMessageContent
         #warning("Make convert to days/minutes/sec..")
-        messageDateLabel.text = "\(model.data)м"
+        messageDateLabel.text = "\(model.date)м"
         if model.missedMessagesCount == 0 {
             missedMessagesLabel.isHidden = true
         } else {

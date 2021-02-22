@@ -9,7 +9,38 @@
 import UIKit
 
 enum Notification {
-   
+    enum NotificationType {
+        case unmatched
+        case matched
+        case mvpVersion(model: AllNotifications.Notification)
+    }
+    
+
+    enum AllNotifications {
+        struct Notification: Decodable {
+            var comment: String
+            var description: String
+            var image: String?
+            var name: String
+            var lastname: String
+            var orderId: Int
+            var status: String
+            var userId: Int
+            var swapId: Int
+        }
+        struct Request {
+        }
+        
+        struct Response: Decodable {
+            var offers: [Notification]
+        }
+        
+        struct ViewModel: Decodable {
+            var offers: [Notification]
+        }
+    }
+    
+        
   enum Model {
     struct Request {
       enum RequestType {
@@ -28,9 +59,4 @@ enum Notification {
     }
   }
   
-}
-
-enum NotificationType: CaseIterable {
-    case unmatched
-    case matched
 }

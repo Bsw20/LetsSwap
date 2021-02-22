@@ -11,4 +11,5 @@ target 'LetsSwap' do
   pod 'Kingfisher'
   pod 'Socket.IO-Client-Swift'
   pod 'SwiftyBeaver'
+  pod 'MessageKit'
 end

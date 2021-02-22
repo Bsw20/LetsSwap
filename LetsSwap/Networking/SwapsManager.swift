@@ -13,6 +13,11 @@ import SwiftyBeaver
 protocol SwapsFetcher {
     func validateSwap(orderId: Int, completion: @escaping (Result<Void, Error>) -> Void)
     func makeSwap(model: MakeSwapModel, completion: @escaping (Result<Void, Error>) -> Void)
+    
+    func confirmSwap(swapId: Int, completion: @escaping (Result<Void, Error>) -> Void)
+    func refuseSwap(orderId: Int, completion: @escaping (Result<Void, Error>) -> Void)
+    
+    func createChat(userId: Int, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 struct MakeSwapModel {
@@ -30,7 +35,80 @@ struct SwapsManager: SwapsFetcher{
     //MARK: - Variables
     static var shared = SwapsManager()
     
+
+    func createChat(userId: Int, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let url = URL(string: "http://92.63.105.87:3000/chat/create") else {
+            SwiftyBeaver.error(String.incorrectUrl(url: "http://92.63.105.87:3000/chat/create"))
+            completion(.failure(NSError()))
+            return
+        }
+        let userData: [String: Any] = ["userId" : userId]
+        let headers: HTTPHeaders = [
+                    "Content-Type":"application/json",
+            "Authorization" : APIManager.getToken()
+                ]
+        
+        AF.request(url, method: .post,
+                   parameters: userData,
+                   encoding: JSONEncoding.default,
+                   headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseJSON { (response) in
+                switch response.result {
+
+                case .success(_):
+                    print("Chat created")
+                    completion(.success(Void()))
+
+                case .failure(let error):
+                    SwiftyBeaver.error(error.localizedDescription)
+                    completion(.failure(error))
+                    #warning("figure out with error types")
+
+            }
+        }
+    }
+    
     //MARK: - Funcs
+    
+    func confirmSwap(swapId: Int, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let url = URL(string: "http://92.63.105.87:3000/change/confirm") else {
+            SwiftyBeaver.error(String.incorrectUrl(url: "http://92.63.105.87:3000/change/confirm"))
+            completion(.failure(NSError()))
+            return
+        }
+        print(swapId)
+        let userData: [String: Any] = ["changeId" : swapId]
+        let headers: HTTPHeaders = [
+                    "Content-Type":"application/json",
+            "Authorization" : APIManager.getToken()
+                ]
+        
+        AF.request(url, method: .post,
+                   parameters: userData,
+                   encoding: JSONEncoding.default,
+                   headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseJSON { (response) in
+                switch response.result {
+
+                case .success(_):
+                    print("Confirm swap success")
+                    completion(.success(Void()))
+
+                case .failure(let error):
+                    SwiftyBeaver.error(error.localizedDescription)
+                    completion(.failure(error))
+                    #warning("figure out with error types")
+
+            }
+        }
+    }
+    
+    func refuseSwap(orderId: Int, completion: @escaping (Result<Void, Error>) -> Void) {
+        print(#function)
+    }
+    
     func validateSwap(orderId: Int, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let url = URL(string: "http://92.63.105.87:3000/change/canMakeChange/\(orderId)") else {
             SwiftyBeaver.error(String.incorrectUrl(url: "http://92.63.105.87:3000/change/canMakeChange/\(orderId)"))

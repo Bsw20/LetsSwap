@@ -9,13 +9,18 @@
 import UIKit
 
 protocol ConversationsRoutingLogic {
-
+    func routeToChat()
 }
 
 class ConversationsRouter: NSObject, ConversationsRoutingLogic {
+    
 
-  weak var viewController: ConversationsViewController?
+    weak var viewController: ConversationsViewController?
   
-  // MARK: Routing
+    // MARK: Routing
+    func routeToChat() {
+        let vc = ChatViewController()
+        viewController?.navigationController?.push(vc)
+    }
   
 }
