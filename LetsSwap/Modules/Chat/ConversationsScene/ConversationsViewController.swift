@@ -178,7 +178,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let conversation = conversations[indexPath.row]
         print(String.username(name: conversation.name, lastname: conversation.lastName))
-        router?.routeToChat()
+        router?.routeToChat(chatId: conversation.chatId)
     }
     
     

@@ -175,6 +175,7 @@
 		30CB75022592795200CB84D6 /* Circe-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30CB75012592795200CB84D6 /* Circe-Regular.ttf */; };
 		30CB750525927A4700CB84D6 /* FontsCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB750425927A4700CB84D6 /* FontsCheck.swift */; };
 		30ED20C6258F8BF70039818A /* FeedCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30ED20C5258F8BF70039818A /* FeedCollectionView.swift */; };
+		30FA0D3E25E81B2B00292651 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FA0D3D25E81B2B00292651 /* ChatManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -349,6 +350,7 @@
 		30CB75012592795200CB84D6 /* Circe-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Circe-Regular.ttf"; sourceTree = "<group>"; };
 		30CB750425927A4700CB84D6 /* FontsCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontsCheck.swift; sourceTree = "<group>"; };
 		30ED20C5258F8BF70039818A /* FeedCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionView.swift; sourceTree = "<group>"; };
+		30FA0D3D25E81B2B00292651 /* ChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatManager.swift; sourceTree = "<group>"; };
 		F22BB14CA9FFFBF0B5D58E92 /* Pods-LetsSwap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsSwap.release.xcconfig"; path = "Target Support Files/Pods-LetsSwap/Pods-LetsSwap.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -667,6 +669,7 @@
 				30AC737E25D877E2006A4746 /* SwapsManager.swift */,
 				302AAAAB25DAD2E400482B08 /* NotificationsManager.swift */,
 				302B049A25DC44F1009F1EC3 /* APIManager.swift */,
+				30FA0D3D25E81B2B00292651 /* ChatManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -1175,6 +1178,7 @@
 				3060282F259BBE400046A2B0 /* FullOrderViewController.swift in Sources */,
 				3048EDAD25E18E810021AD4D /* ChatPresenter.swift in Sources */,
 				30A4C9FB25B8B83F00003DDE /* NotificationCollectionView.swift in Sources */,
+				30FA0D3E25E81B2B00292651 /* ChatManager.swift in Sources */,
 				308365F12589F2A200578AE2 /* TitleView.swift in Sources */,
 				308365D52589E59500578AE2 /* MainTabBarRouter.swift in Sources */,
 				3048EDAE25E18E810021AD4D /* ChatWorker.swift in Sources */,

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftyBeaver
 
 protocol BaseFeedCellViewModel {
     var title: String { get }
@@ -157,6 +158,9 @@ final class FeedCell: UICollectionViewCell {
     }
     
     private func setupCell(cellModel: BaseFeedCellViewModel) {
+        print(#function)
+        titleLabel.text = cellModel.title
+        descriptionLabel.text = cellModel.counterOffer
         if let userURL = cellModel.photo {
             //TODO: подгрузка фотографии
 //            imageView.image = UIImage(named: "personImage")
@@ -165,8 +169,8 @@ final class FeedCell: UICollectionViewCell {
         } else {
             descriptionTypeConstraints()
         }
-        titleLabel.text = cellModel.title
-        descriptionLabel.text = cellModel.counterOffer
+
+
         if cellModel.isFree {
             containerView.backgroundColor = .freeFeedCell()
         }
@@ -174,6 +178,7 @@ final class FeedCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         imageView.image = nil
+        titleLabel.text = ""
         containerView.backgroundColor = .white
         setUnfavourite()
         hiddenView.isHidden = true
@@ -190,24 +195,41 @@ final class FeedCell: UICollectionViewCell {
 
 //MARK: - Constraints
 extension FeedCell {
+    private func calculateTitleLabelHeight() -> CGFloat{
+        guard let titleLabelText = titleLabel.text else {
+        SwiftyBeaver.error("Text must allways be in here")
+        fatalError("Text must allways be in here")
+    }
+        let textHeight = titleLabelText.height(width: bounds.width - FeedConstants.titleFeedCellInset.left - FeedConstants.titleFeedCellInset.right , font: titleLabel.font)
+        let lineHeight = titleLabel.font.lineHeight
+        let numberOfLines = (textHeight / lineHeight) >= CGFloat(titleLabel.numberOfLines) ? titleLabel.numberOfLines : Int(textHeight / lineHeight)
+        
+        let titleLabelHeight = CGFloat(numberOfLines) * lineHeight
+        return titleLabelHeight
+    }
     private func imageTypeConstraints() {
+
         containerView.addSubview(titleLabel)
         containerView.addSubview(imageView)
 
         imageView.addSubview(favouriteButton)
-
+        let titleLabelHeight = calculateTitleLabelHeight()
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: FeedConstants.titleFeedCellInset.top),
             titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: FeedConstants.titleFeedCellInset.left),
             titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -FeedConstants.titleFeedCellInset.right)
         ])
+        var titleHeightCons = titleLabel.heightAnchor.constraint(equalToConstant: titleLabelHeight)
+        titleHeightCons.priority = UILayoutPriority(999)
+        titleHeightCons.isActive = true
+        
 
         NSLayoutConstraint.activate([
             imageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             imageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             imageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: FeedConstants.titleFeedCellInset.bottom)
-//            imageView.heightAnchor.constraint(equalToConstant: 50)
+            
         ])
         NSLayoutConstraint.activate([
             favouriteButton.heightAnchor.constraint(equalToConstant: FeedConstants.favouriteButtonSize.height),
@@ -223,6 +245,7 @@ extension FeedCell {
     }
     
     private func descriptionTypeConstraints() {
+        let titleLabelHeight = calculateTitleLabelHeight()
         containerView.addSubview(titleLabel)
         containerView.addSubview(descriptionLabel)
         containerView.addSubview(favouriteButton)
@@ -230,6 +253,7 @@ extension FeedCell {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: FeedConstants.titleFeedCellInset.top),
             titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: FeedConstants.titleFeedCellInset.left),
+            titleLabel.heightAnchor.constraint(equalToConstant: titleLabelHeight),
             titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -FeedConstants.titleFeedCellInset.right)
         ])
         

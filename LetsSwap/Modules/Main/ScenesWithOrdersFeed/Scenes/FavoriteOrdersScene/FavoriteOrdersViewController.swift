@@ -21,7 +21,7 @@ class FavoriteOrdersViewController: UIViewController, FavoriteOrdersDisplayLogic
     // MARK: Object lifecycle
   
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        feedCollectionView = FeedCollectionView(type: .withHeader)
+        feedCollectionView = FeedCollectionView(type: .withoutHeader)
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
     }

@@ -22,6 +22,17 @@ extension String {
         return CGSize(width: size.width, height: ceil(size.height))
     }
     
+    func height(width: CGFloat, font: UIFont) -> CGFloat {
+        let textSize = CGSize(width: width, height: .greatestFiniteMagnitude)
+        
+        let size = self.boundingRect(with: textSize,
+                                     options: .usesLineFragmentOrigin,
+                                     attributes: [NSAttributedString.Key.font : font],
+                                     context: nil)
+        
+        return ceil(size.height)
+    }
+    
     func applyPatternOnNumbers(pattern: String, replacmentCharacter: Character) -> String {
         var pureNumber = self.replacingOccurrences( of: "[^0-9]", with: "", options: .regularExpression)
         for index in 0 ..< pattern.count {

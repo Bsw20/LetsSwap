@@ -16,25 +16,27 @@ protocol ChatDisplayLogic: class {
 
 class ChatViewController: MessagesViewController, ChatDisplayLogic {
     //MARK: - Typealiases
-    typealias Message = Chat.Message
+    typealias Message = Chat.CMessage
     //MARK: - Controls
     //MARK: - Variables
     private var messages: [Message] = [
-        Message(content: "First message")
+//        Message(content: "First message")
     ]
+    
+    private var chatId: Int
     var interactor: ChatBusinessLogic?
     var router: (NSObjectProtocol & ChatRoutingLogic)?
 
     // MARK: Object lifecycle
   
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    init(chatId: Int) {
+        self.chatId = chatId
+        super.init(nibName: nil, bundle: nil)
         setup()
     }
   
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
+        fatalError("ERROR")
     }
   
   // MARK: Setup
@@ -272,22 +274,22 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
 }
 
-import SwiftUI
-
-struct ChatVCProvider: PreviewProvider {
-    static var previews: some View {
-        ContainerView().edgesIgnoringSafeArea(.all)
-    }
-
-    struct ContainerView: UIViewControllerRepresentable {
-        let chatVC = ChatViewController()
-
-        func makeUIViewController(context: Context) -> some ChatViewController {
-            return chatVC
-        }
-
-        func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-
-        }
-    }
-}
+//import SwiftUI
+//
+//struct ChatVCProvider: PreviewProvider {
+//    static var previews: some View {
+//        ContainerView().edgesIgnoringSafeArea(.all)
+//    }
+//
+//    struct ContainerView: UIViewControllerRepresentable {
+//        let chatVC = ChatViewController()
+//
+//        func makeUIViewController(context: Context) -> some ChatViewController {
+//            return chatVC
+//        }
+//
+//        func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+//
+//        }
+//    }
+//}

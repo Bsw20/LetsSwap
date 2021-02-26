@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ConversationsRoutingLogic {
-    func routeToChat()
+    func routeToChat(chatId: Int)
 }
 
 class ConversationsRouter: NSObject, ConversationsRoutingLogic {
@@ -18,8 +18,8 @@ class ConversationsRouter: NSObject, ConversationsRoutingLogic {
     weak var viewController: ConversationsViewController?
   
     // MARK: Routing
-    func routeToChat() {
-        let vc = ChatViewController()
+    func routeToChat(chatId: Int) {
+        let vc = ChatViewController(chatId: chatId)
         viewController?.navigationController?.push(vc)
     }
   
