@@ -19,7 +19,7 @@ class OrderTitleView: UIView {
     private var imageView: WebImageView = {
        let view = WebImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.image = UIImage(named: "personImage")
+        view.setPlaceholder(placeholder: #imageLiteral(resourceName: "personIconOn"))
         return view
     }()
     private var nameLabel: UILabel = {

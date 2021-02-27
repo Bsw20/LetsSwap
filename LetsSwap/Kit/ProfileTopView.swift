@@ -17,8 +17,8 @@ class ProfileTopView: UIView {
     private lazy var imageView: WebImageView  = {
         let imageView = WebImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "profileImagePlaceholder")
         imageView.clipsToBounds = true
+        imageView.setPlaceholder(placeholder: #imageLiteral(resourceName: "profileImagePlaceholder"))
         return imageView
     }()
     
@@ -91,7 +91,7 @@ class ProfileTopView: UIView {
         backgroundColor = .clear
         self.translatesAutoresizingMaskIntoConstraints = false
         #warning("RECODE")
-//        imageView.layer.cornerRadius = 35
+        imageView.layer.cornerRadius = 25
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -103,6 +103,12 @@ class ProfileTopView: UIView {
         #warning("TODO")
 //        imageView.set(imageURL: topViewModel.profileImage)
 
+    }
+    
+    func setup(swapsCount: Int, raiting: Double, image: String?) {
+        swapsCountLabel.text = "\(swapsCount)"
+        raitingLabel.text = String(format: "%.1f", raiting)
+//        imageView.set(imageURL: image)
     }
     
     
@@ -119,6 +125,9 @@ class ProfileTopView: UIView {
         leftBackView.addSubview(swapsCountLabel)
         rightBackView.addSubview(raitingLabel)
         
+        heightAnchor.constraint(equalToConstant: 50).isActive = true
+//        imageView.image.pla
+        
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageView.heightAnchor.constraint(equalTo: heightAnchor),
@@ -131,7 +140,7 @@ class ProfileTopView: UIView {
             centerView.trailingAnchor.constraint(equalTo: trailingAnchor),
             centerView.topAnchor.constraint(equalTo: topAnchor),
             centerView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            centerView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 35)
+            centerView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 25)
         ])
         
         NSLayoutConstraint.activate([

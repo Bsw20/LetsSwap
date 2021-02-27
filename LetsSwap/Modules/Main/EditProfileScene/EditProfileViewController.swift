@@ -16,6 +16,7 @@ class EditProfileViewController: UIViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         setup()
+        picker = ImagePicker(presentationController: self, delegate: self)
     }
     
     required init?(coder: NSCoder) {
@@ -50,6 +51,7 @@ class EditProfileViewController: UIViewController {
     //MARK: - Variables
     private var viewModel: EditProfileViewModel
     private var networkService: EditProfileFetcher = UserAPIService.shared
+    private var picker: ImagePicker?
     
     var router: (NSObjectProtocol & EditProfileRoutingLogic)?
     
@@ -83,6 +85,7 @@ class EditProfileViewController: UIViewController {
         cityView.delegate = self
         nameTextView.delegate = self
         lastNameTextView.delegate = self
+        addPhotoView.customDelegate = self
     }
     
     private func setData() {
@@ -160,6 +163,23 @@ class EditProfileViewController: UIViewController {
             }
         }
         
+    }
+    
+}
+
+//MARK: - ImagePickerDelegate
+extension EditProfileViewController: ImagePickerDelegate {
+    func didSelect(image: UIImage?) {
+        addPhotoView.setPhoto(image: image)
+    }
+    
+    
+}
+
+//MARK: - AddPhotoViewDelegate
+extension EditProfileViewController: AddPhotoViewDelegate {
+    func addPhotoViewTapped(){
+        picker?.present(from: view)
     }
     
 }

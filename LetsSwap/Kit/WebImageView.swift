@@ -8,9 +8,21 @@
 import Foundation
 import UIKit
 import Kingfisher
+import SwiftyBeaver
 
 class WebImageView: UIImageView {
     private var service = UserAPIService.shared
+    private var imagePlaceholder: UIImage? {
+        didSet {
+            if self.image == nil {
+                self.image = imagePlaceholder
+            }
+        }
+    }
+    
+    public func setPlaceholder(placeholder: UIImage?) {
+        self.imagePlaceholder = placeholder
+    }
     
     private var currentUrlSring: String?
     private let modifier = AnyModifier { request in
@@ -28,15 +40,23 @@ class WebImageView: UIImageView {
         self.currentUrlSring = nil
     }
     
-    public func set(imageURL: String?, completion: ( (Result<RetrieveImageResult, KingfisherError>)->())? = nil) {
-        
+    public func set(imageURL: String?, placeholder: UIImage? = nil, completion: ( (Result<RetrieveImageResult, KingfisherError>)->())? = nil) {
+        self.imagePlaceholder = placeholder
         guard let imageURL = imageURL, let url = URL(string: imageURL) else {
             resetUrl()
             return
         }
+        
         kf.indicatorType = .activity
         self.currentUrlSring = imageURL
-        kf.setImage(with: url, options: [.requestModifier(modifier)]) { (result) in
+        kf.setImage(with: url, placeholder: self.imagePlaceholder , options: [.requestModifier(modifier)]) { [weak self] (result) in
+            switch result {
+            
+            case .success(let data):
+                break
+            case .failure(let error):
+                self?.image = self?.imagePlaceholder
+            }
             completion?(result)
         }
     }

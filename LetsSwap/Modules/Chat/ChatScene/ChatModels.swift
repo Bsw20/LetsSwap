@@ -9,24 +9,17 @@
 import UIKit
 import MessageKit
 enum Chat {
-  enum Model {
-    struct Request {
-      enum RequestType {
-        case some
-      }
-    }
-    struct Response {
-      enum ResponseType {
-        case some
-      }
-    }
-    struct ViewModel {
-      enum ViewModelData {
-        case some
-      }
-    }
-  }
     
+    struct CChat {
+        var friendAvatarStringURL: String?
+        var friendId: Int
+        var name: String
+        var lastName: String
+        var missedMessagesCount: Int
+        var lastMessageContent: String
+        var date: String
+        var chatId: Int
+    }
     enum AllMessages {
         struct Request {
             
@@ -38,6 +31,12 @@ enum Chat {
         }
     }
     
+    struct CUser {
+        var username: String
+        var avatarStringURL: String
+        var id: String
+    }
+    
     struct CMessage: Hashable, MessageType {
         var messageId: String
         
@@ -47,7 +46,15 @@ enum Chat {
         var sender: SenderType
         let content: String
         let sentDate: Date
-        let chatId: String?
+        let chatId: Int
+        
+        init(user: CUser, chat: CChat, content: String) {
+            self.content = content
+            sender = Sender(senderId: user.id, displayName: user.username)
+            sentDate = Date()
+            messageId = UUID().uuidString
+            chatId = chat.chatId
+        }
         
         
         static func == (lhs: Chat.CMessage, rhs: Chat.CMessage) -> Bool {

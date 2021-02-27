@@ -158,7 +158,6 @@ final class FeedCell: UICollectionViewCell {
     }
     
     private func setupCell(cellModel: BaseFeedCellViewModel) {
-        print(#function)
         titleLabel.text = cellModel.title
         descriptionLabel.text = cellModel.counterOffer
         if let userURL = cellModel.photo {

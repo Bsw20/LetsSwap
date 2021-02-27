@@ -10,26 +10,23 @@ import UIKit
 
 protocol AlienProfileDisplayLogic: class {
   func displayData(viewModel: AlienProfile.Model.ViewModel.ViewModelData)
+    func displayFullModel(viewModel: AlienProfile.FullModel.ViewModel)
 }
 
 class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
+
+    
     //variables
     private var userId: Int
     
     //Controls
-    private var scrollView: UIScrollView = {
-       let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.backgroundColor = .clear
-        scrollView.isUserInteractionEnabled = true
-        return scrollView
-    }()
     
     private lazy var feedCollectionView: FeedCollectionView = {
         var collectionView = FeedCollectionView(type: .withoutHeader)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .clear
-        collectionView.isScrollEnabled = false
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
     
@@ -105,7 +102,7 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
         setupConstraints()
         chatButton.addTarget(self, action: #selector(chatButtonTapped), for: .touchUpInside)
 //        topView.setup(swapsCount: 25, raiting: 3.5, imageView: nil)
-        interactor?.makeRequest(request: .getProfile(userId: userId))
+        interactor?.getFullModel(request: .init(userId: userId))
         feedCollectionView.customDelegate = self
 
     }
@@ -123,6 +120,25 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
         }
     }
     
+    func displayFullModel(viewModel: AlienProfile.FullModel.ViewModel) {
+        print("----------\\\"")
+        print(#function)
+        let feedViewModel = FeedViewModel.init(cells: viewModel.model.feedInfo.map{
+            return FeedViewModel.Cell.init(orderId: $0.orderId,
+                                           title: $0.title,
+                                           description: $0.description,
+                                           counterOffer: $0.counterOffer,
+                                           photo: $0.photo == nil ? nil : URL(string: $0.photo!),
+                                           isFavourite: $0.isHidden,
+                                           isFree: $0.isFree)
+        })
+        feedCollectionView.updateData(feedViewModel: feedViewModel)
+        let personInfo = viewModel.model.personInfo
+        cityNameLabel.setup(name: String.username(name: personInfo.name, lastname: personInfo.lastname), city: personInfo.cityName)
+        topView.setup(swapsCount: personInfo.swapsCount, raiting: personInfo.raiting, image: viewModel.model.personInfo.profileImage)
+    }
+    
+    
     @objc private func chatButtonTapped() {
         print(#function)
     }
@@ -134,42 +150,31 @@ extension AlienProfileViewController: FeedCollectionViewDelegate {
         interactor?.makeRequest(request: .getOrder(orderId: orderId))
     }
     func showAlert(title: String, message: String) {
-        showAlert(title: title, message: message)
+        UIApplication.showAlert(title: title, message: message)
     }
 }
 
 //MARK: - Constraints
 extension AlienProfileViewController {
     private func setupConstraints() {
-        view.addSubview(scrollView)
         
-        NSLayoutConstraint.activate([
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-                                        scrollView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
-//            scrollView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor)
-        ])
         
-        scrollView.addSubview(chatButton)
-        scrollView.addSubview(topView)
-        scrollView.addSubview(cityNameLabel)
-        scrollView.addSubview(feedCollectionView)
-//        scrollView.addSubview(bottomView)
+        view.addSubview(chatButton)
+        view.addSubview(topView)
+        view.addSubview(cityNameLabel)
+        view.addSubview(feedCollectionView)
         
         NSLayoutConstraint.activate([
             chatButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -AlienProfileConstants.topViewInset.right),
             chatButton.heightAnchor.constraint(equalToConstant: AlienProfileConstants.chatButtonHeight),
             chatButton.widthAnchor.constraint(equalToConstant: AlienProfileConstants.chatButtonHeight),
-            chatButton.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: AlienProfileConstants.topViewInset.top)
+            chatButton.topAnchor.constraint(equalTo: view.topAnchor, constant: AlienProfileConstants.topViewInset.top)
         ])
         
         NSLayoutConstraint.activate([
-            topView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: AlienProfileConstants.topViewInset.left),
-            topView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: AlienProfileConstants.topViewInset.top),
-            topView.trailingAnchor.constraint(equalTo: chatButton.leadingAnchor, constant: -AlienProfileConstants.chatButtonLeadingOffset),
-            topView.heightAnchor.constraint(equalToConstant: AlienProfileConstants.chatButtonHeight)
+            topView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: AlienProfileConstants.topViewInset.left),
+            topView.topAnchor.constraint(equalTo: view.topAnchor, constant: AlienProfileConstants.topViewInset.top),
+            topView.trailingAnchor.constraint(equalTo: chatButton.leadingAnchor, constant: -AlienProfileConstants.chatButtonLeadingOffset)
         ])
 
         NSLayoutConstraint.activate([
@@ -177,18 +182,11 @@ extension AlienProfileViewController {
             cityNameLabel.leadingAnchor.constraint(equalTo: topView.leadingAnchor)
         ])
         
-        #warning("Уточнить нормально и точно высчитать высоту")
-        //высота высчитывается на основе feedCollectionView размеров
-        let first = (UIScreen.main.bounds.width * 0.6 - 40)
-//        let second = CGFloat(NetworkDataFetcher.feedItems.count / 2 + 1)
-        let second = CGFloat(700)
-        let height =  first * second
         NSLayoutConstraint.activate([
             feedCollectionView.topAnchor.constraint(equalTo: cityNameLabel.bottomAnchor, constant: 10),
-            feedCollectionView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            feedCollectionView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            feedCollectionView.heightAnchor.constraint(equalToConstant: height),
-            feedCollectionView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+            feedCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            feedCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            feedCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }

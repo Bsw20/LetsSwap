@@ -19,8 +19,9 @@ class ConversationsRouter: NSObject, ConversationsRoutingLogic {
   
     // MARK: Routing
     func routeToChat(chatId: Int) {
-        let vc = ChatViewController(chatId: chatId)
-        viewController?.navigationController?.push(vc)
+
+//        let vc = ChatViewController(chatId: chatId)
+//        viewController?.navigationController?.push(vc)
     }
   
 }

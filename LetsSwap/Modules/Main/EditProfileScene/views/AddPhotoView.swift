@@ -7,8 +7,15 @@
 
 import Foundation
 import UIKit
+import SwiftyBeaver
+
+protocol AddPhotoViewDelegate: NSObjectProtocol {
+    func addPhotoViewTapped()
+}
 
 class AddPhotoView: UIView {
+    weak var customDelegate: AddPhotoViewDelegate?
+    
     private lazy var imageView: WebImageView = {
        let imageView = WebImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -45,8 +52,24 @@ class AddPhotoView: UIView {
     }
     
     //MARK: - funcs
+    public func setPhoto(image: UIImage?) {
+        
+        if let image = image {
+            let service = UserAPIService.shared
+            service.uploadImage(image: image) { (result) in
+                switch result {
+                case .success(let stringURL):
+                    self.imageView.set(imageURL: stringURL)
+                case .failure(let error):
+                    UIApplication.showAlert(title: "Ошибка!", message: "Не получилось загрузить фотографию.")
+                    SwiftyBeaver.error(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
     public func setPhoto(photoStringUrl: String?) {
-        imageView.set(imageURL: photoStringUrl)
+        self.imageView.set(imageURL: photoStringUrl)
     }
     public func getPhotoUrl() -> StringURL {
         return imageView.getCurrentUrl
@@ -54,6 +77,9 @@ class AddPhotoView: UIView {
     
     //MARK: - Objc funcs
     @objc private func photoButtonTapped() {
+        customDelegate?.addPhotoViewTapped()
+
+
     }
 }
 

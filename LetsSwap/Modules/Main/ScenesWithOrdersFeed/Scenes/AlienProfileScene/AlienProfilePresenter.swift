@@ -10,26 +10,25 @@ import UIKit
 
 protocol AlienProfilePresentationLogic {
   func presentData(response: AlienProfile.Model.Response.ResponseType)
+    func presentFullModel(result: AlienProfile.FullModel.Response)
 }
 
 class AlienProfilePresenter: AlienProfilePresentationLogic {
+    func presentFullModel(result: AlienProfile.FullModel.Response) {
+        switch result.model {
+        
+        case .success(let model):
+            let viewModel = AlienProfile.FullModel.ViewModel(model: model)
+            viewController?.displayFullModel(viewModel: viewModel)
+        case .failure(let error):
+            viewController?.displayData(viewModel: .displayError(error: error))
+        }
+    }
+    
   weak var viewController: AlienProfileDisplayLogic?
   
   func presentData(response: AlienProfile.Model.Response.ResponseType) {
     switch response {
-    
-    case .presentFullProfile(result: let result):
-        switch result {
-        
-        case .success(let profile):
-            let feedViewModel = FeedPresenter.getFeedViewModel(feed: profile.feedResponse)
-            let profileDescrViewModel = AlienProfilePresenter.getProfileDescriptionViewModel(profileDescription: profile.userDescription)
-            let profileViewModel = ProfileViewModel(userId: profile.userId, feedViewModel: feedViewModel, profileDescription: profileDescrViewModel)
-            viewController?.displayData(viewModel: .displayFullProfile(profileViewModel: profileViewModel))
-            
-        case .failure(let error):
-            break
-        }
     case .presentOrder(result: let result):
         switch result {
         

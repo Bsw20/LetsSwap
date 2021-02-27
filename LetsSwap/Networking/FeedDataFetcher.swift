@@ -13,13 +13,14 @@ import SwiftyBeaver
 protocol FeedDataFetcher {
     func getFeed(nextBatchFrom: String?,  completion: @escaping(Result<FeedResponse, FeedError>) -> Void)
     func getOrder(orderId: Int, completion: @escaping (Result<OrderResponse, OrderError>) -> Void)
-    func getAlienProfile(userId: Int, completion: @escaping (Result<ProfileResponse, AlienProfileError>) -> Void)
+    func getAlienProfile(userId: Int, completion: @escaping (Result<AlienProfile.FullModel.Response, AlienProfileError>) -> Void)
     func getFiltredFeed(model:FiltredFeedModel, nextBatchFrom: String?,  completion: @escaping(Result<FeedResponse, FeedError>) -> Void)
     func getFavoriteOrdersFeed(nextBatchFrom: String?,  completion: @escaping(Result<FeedResponse, FeedError>) -> Void)
 }
 
 
 struct NetworkDataFetcher: FeedDataFetcher {
+    
     public static var shared = NetworkDataFetcher()
     private var getFeedUrl = URL(string: "http://92.63.105.87:3000/order/feed/getFeed")
     private var getFiltredFeedUrl = URL(string: "http://92.63.105.87:3000/order/search")
@@ -168,14 +169,9 @@ struct NetworkDataFetcher: FeedDataFetcher {
 //        completion(.failure(ChooseOrderError.orderAlreadyChoose))
     }
     
-    func getAlienProfile(userId: Int, completion: @escaping (Result<ProfileResponse, AlienProfileError>) -> Void) {
+    typealias FullProfileResponse = AlienProfile.FullModel.Response
+    func getAlienProfile(userId: Int, completion: @escaping (Result<FullProfileResponse, AlienProfileError>) -> Void) {
         print(#function)
-//        completion(.success(FeedResponse(items: feedItems, nextFrom: "nextBatch")))
-//        completion(.success(ProfileResponse.init(userId: 12345,
-//                                                 userDescription: ProfileDescription.init(userPhoto: Photo(url: "https://sun1-88.userapi.com/impf/KZGdkJtVB-AQ9imSxU9RbqU-OgWveyknsm7K6g/qTHsmOrwUNo.jpg?size=483x604&quality=96&sign=e86bd8569b831bd154e0d3fb80bd0504&c_uniq_tag=5crVQs-fadyrOqggKl_yhOI1kWZuCLlhm290z_IMgIY&type=album"), swapsCount: 67, raiting: 4.8, name: "Ярослав", lastName: "Карпунькин", cityName: "г.Москва"),
-////                                                 feedResponse: FeedResponse(items: NetworkDataFetcher.feedItems, nextFrom: "nextBatchFrom")
-//                                                 feedResponse: FeedResponse(items: [], nextFrom: "nextBatchFrom")
-//        )))
         
         guard let url = URL(string: "http://92.63.105.87:3000/user/getProfile") else {
             completion(.failure(AlienProfileError.unknownError))
@@ -191,14 +187,13 @@ struct NetworkDataFetcher: FeedDataFetcher {
         let data = ["id" : userId]
         AF.request(url, method: .get, parameters: data, headers: headers)
             .validate(statusCode: 200..<300)
-            .responseJSON(completionHandler: { (response) in
+            .responseData(completionHandler: { (response) in
                 switch response.result {
 
                 case .success(let data):
                     do {
-//                        let model = try JSONDecoder().decode(OrderResponse.self, from: data)
-//                        completion(.success(model))
-                        print(data as? [String: Any])
+                        let model = try JSONDecoder().decode(AlienProfile.FullModel.Wrapper.self, from: data)
+                        completion(.success(.init(model: .success(model))))
                     } catch(let error){
                         SwiftyBeaver.error(error.localizedDescription)
                         completion(.failure(AlienProfileError.serverError))
@@ -214,3 +209,4 @@ struct NetworkDataFetcher: FeedDataFetcher {
     }
     
 }
+

@@ -7,15 +7,33 @@
 //
 
 import UIKit
-
+import SwiftyBeaver
 protocol AlienProfileBusinessLogic {
   func makeRequest(request: AlienProfile.Model.Request.RequestType)
+    func getFullModel(request: AlienProfile.FullModel.Request)
 }
 
 class AlienProfileInteractor: AlienProfileBusinessLogic {
 
+    
+
   var presenter: AlienProfilePresentationLogic?
   var service: AlienProfileService?
+    
+    func getFullModel(request: AlienProfile.FullModel.Request) {
+        if service == nil {
+          service = AlienProfileService()
+        }
+        service?.getFullModel(requestModel: request, completion: { [weak self](result) in
+            switch result {
+            
+            case .success(let model):
+                self?.presenter?.presentFullModel(result: model)
+            case .failure(let error):
+                self?.presenter?.presentFullModel(result: .init(model: .failure(error as NSError)))
+            }
+        })
+    }
   
   func makeRequest(request: AlienProfile.Model.Request.RequestType) {
     if service == nil {
@@ -23,10 +41,6 @@ class AlienProfileInteractor: AlienProfileBusinessLogic {
     }
     
     switch request {
-    case .getProfile(userId: let userId):
-        service?.getProfile(userId: userId, completion: { [weak self] (result) in
-            self?.presenter?.presentData(response: .presentFullProfile(result: result))
-        })
     case .getOrder(orderId: let orderId):
         service?.getOrder(orderId: orderId, completion: {[weak self] (result) in
             self?.presenter?.presentData(response: .presentOrder(result: result))
