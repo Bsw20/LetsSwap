@@ -11,9 +11,10 @@ import Alamofire
 import SwiftyBeaver
 
 struct ChatManager {
-    func getAllMessages(chatId: Int) {
-        guard let url = URL(string: APIManager.serverAddress + "/chat/getChatMessages") else {
-//            completion(.failure(FeedError.serverError))
+    public static var shared = ChatManager()
+    func getAllMessages(chatId: Int, completion: @escaping (Result<[String: Any], Error>) -> Void) {
+        guard let url = URL(string: APIManager.serverAddress + "/chat/getChatMessages/\(chatId)") else {
+            completion(.failure(NSError()))
             return
         }
         
@@ -21,27 +22,23 @@ struct ChatManager {
                     "Content-Type":"application/json",
             "Authorization" : APIManager.getToken()
                 ]
-        let data = ["chatId" : chatId]
+
         AF.request(url, method: .get, headers: headers)
             .validate(statusCode: 200..<300)
             .responseJSON(completionHandler: { (response) in
                 switch response.result {
 
                 case .success(let data):
-                    do {
-//                        let model = try JSONDecoder().decode(FeedResponse.self, from: data)
-                        print(data as? [String: Any])
-//                        let model = data as? [String: Any]
-//                        completion(.success(model))
-                    } catch(let error){
-                        SwiftyBeaver.error(error.localizedDescription)
-//                        completion(.failure(FeedError.incorrectDataModel))
+                    if let model = data as? [String: Any] {
+                        SwiftyBeaver.info(#function)
+                        completion(.success(model))
+                        return
                     }
-
+                    SwiftyBeaver.error("Can't parse data Error")
+                    completion(.failure(FeedError.incorrectDataModel))
                 case .failure(let error):
                     SwiftyBeaver.error(error.localizedDescription)
-//                    completion(.failure(FeedError.serverError))
-                    #warning("figure out with error types")
+                    completion(.failure(FeedError.serverError))
                 }
             })
     }

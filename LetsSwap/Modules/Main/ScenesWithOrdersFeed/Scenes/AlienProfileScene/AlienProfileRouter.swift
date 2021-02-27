@@ -19,6 +19,9 @@ class AlienProfileRouter: NSObject, AlienProfileRoutingLogic {
   // MARK: Routing
     func routeToFeedOrderController(orderViewModel: OrderViewModel) {
         print(#function)
+        let vc = FeedOrderViewController(type: .alienProfileOrder(model: orderViewModel))
+        vc.trackerDelegate = viewController
+        viewController?.navigationController?.push(vc)
 //        let vc = FeedOrderViewController(orderViewModel: orderViewModel)
 //        viewController?.navigationController?.pushViewController(vc, animated: true)
     }

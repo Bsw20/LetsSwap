@@ -22,6 +22,11 @@ enum Conversations {
         
         
     }
+    struct MyProfileInfo {
+        var myId: Int
+        var myProfileImage: String?
+        var myUserName: String
+    }
     
     enum AllConversations {
         struct Request {
@@ -29,10 +34,16 @@ enum Conversations {
         
         struct Response: Decodable {
             var chats: [Conversation]
+            var myId: Int
+            var myProfileImage: String?
+            var myUserName: String
         }
         
         struct ViewModel: Decodable {
             var chats: [Conversation]
+            var myId: Int
+            var myProfileImage: String?
+            var myUserName: String
         }
     }
    

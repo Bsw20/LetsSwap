@@ -101,14 +101,14 @@ class ProfileTopView: UIView {
         swapsCountLabel.text = "\(topViewModel.swapsCount)"
         raitingLabel.text = String(format: "%.1f", topViewModel.raiting)
         #warning("TODO")
-//        imageView.set(imageURL: topViewModel.profileImage)
+        imageView.set(imageURL: topViewModel.profileImage)
 
     }
     
     func setup(swapsCount: Int, raiting: Double, image: String?) {
         swapsCountLabel.text = "\(swapsCount)"
         raitingLabel.text = String(format: "%.1f", raiting)
-//        imageView.set(imageURL: image)
+        imageView.set(imageURL: image)
     }
     
     

@@ -13,31 +13,28 @@ enum Chat {
     struct CChat {
         var friendAvatarStringURL: String?
         var friendId: Int
-        var name: String
-        var lastName: String
-        var missedMessagesCount: Int
-        var lastMessageContent: String
-        var date: String
+        var friendUsername: String
         var chatId: Int
     }
     enum AllMessages {
         struct Request {
-            
+            var chatId: Int
         }
         struct Response {
+            var messages: [CMessage]
         }
         struct ViewModel {
-            
+            var messages: [CMessage]
         }
     }
     
     struct CUser {
         var username: String
-        var avatarStringURL: String
+        var avatarStringURL: String?
         var id: String
     }
     
-    struct CMessage: Hashable, MessageType {
+    struct CMessage: Hashable, Comparable, MessageType {
         var messageId: String
         
         var kind: MessageKind {
@@ -47,6 +44,7 @@ enum Chat {
         let content: String
         let sentDate: Date
         let chatId: Int
+        var contentType: String = "text"
         
         init(user: CUser, chat: CChat, content: String) {
             self.content = content
@@ -54,6 +52,18 @@ enum Chat {
             sentDate = Date()
             messageId = UUID().uuidString
             chatId = chat.chatId
+        }
+        
+//        init(content: String, messageId: String, chatId: String, friendUsername: String, friend) {
+//
+//        }
+        init(messageId: String, senderId: String, displayName: String, content: String, sendDate: Date, chatId: Int) {
+            self.messageId = messageId
+            sender = Sender(senderId: senderId, displayName: displayName)
+            self.sentDate = sendDate
+            self.content = content
+            self.chatId = chatId
+            
         }
         
         

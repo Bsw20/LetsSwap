@@ -18,6 +18,7 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
     
     //variables
     private var userId: Int
+    private var needToBeUpdated: Bool = true
     
     //Controls
     
@@ -102,9 +103,17 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
         setupConstraints()
         chatButton.addTarget(self, action: #selector(chatButtonTapped), for: .touchUpInside)
 //        topView.setup(swapsCount: 25, raiting: 3.5, imageView: nil)
-        interactor?.getFullModel(request: .init(userId: userId))
+
         feedCollectionView.customDelegate = self
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        if needToBeUpdated {
+            interactor?.getFullModel(request: .init(userId: userId))
+            needToBeUpdated = false
+        }
     }
     
 
@@ -191,6 +200,14 @@ extension AlienProfileViewController {
     }
 }
 
+//MARK: - StateTrackerDelegate
+extension AlienProfileViewController: StateTrackerDelegate {
+    func stateDidChange() {
+        needToBeUpdated = true
+    }
+    
+    
+}
 // MARK: - SwiftUI
 import SwiftUI
 

@@ -14,6 +14,7 @@ protocol AddPhotoViewDelegate: NSObjectProtocol {
 }
 
 class AddPhotoView: UIView {
+    let service = UserAPIService.shared
     weak var customDelegate: AddPhotoViewDelegate?
     
     private lazy var imageView: WebImageView = {
@@ -55,7 +56,7 @@ class AddPhotoView: UIView {
     public func setPhoto(image: UIImage?) {
         
         if let image = image {
-            let service = UserAPIService.shared
+
             service.uploadImage(image: image) { (result) in
                 switch result {
                 case .success(let stringURL):

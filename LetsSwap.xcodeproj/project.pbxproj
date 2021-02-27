@@ -30,7 +30,7 @@
 		3022F65C25C1F1F8004C50B7 /* UIPageControl + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F65B25C1F1F8004C50B7 /* UIPageControl + Extension.swift */; };
 		3022F65F25C2DA94004C50B7 /* NavigationController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F65E25C2DA94004C50B7 /* NavigationController + Extension.swift */; };
 		3022F66225C2E443004C50B7 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3022F66125C2E443004C50B7 /* AppCoordinator.swift */; };
-		302AAAAC25DAD2E400482B08 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302AAAAB25DAD2E400482B08 /* NotificationsManager.swift */; };
+		302AAAAC25DAD2E400482B08 /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302AAAAB25DAD2E400482B08 /* SocketManager.swift */; };
 		302B049B25DC44F1009F1EC3 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302B049A25DC44F1009F1EC3 /* APIManager.swift */; };
 		302CDE93258D5E08000B4275 /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302CDE92258D5E08000B4275 /* String + Extension.swift */; };
 		302CDE96258D6049000B4275 /* UIFont + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302CDE95258D6049000B4275 /* UIFont + Extension.swift */; };
@@ -57,11 +57,11 @@
 		3048ED9625E162A60021AD4D /* ConversationsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048ED8F25E162A60021AD4D /* ConversationsInteractor.swift */; };
 		3048ED9D25E1667F0021AD4D /* ConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048ED9C25E1667F0021AD4D /* ConversationCell.swift */; };
 		3048EDAD25E18E810021AD4D /* ChatPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048EDA625E18E810021AD4D /* ChatPresenter.swift */; };
-		3048EDAE25E18E810021AD4D /* ChatWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048EDA725E18E810021AD4D /* ChatWorker.swift */; };
 		3048EDAF25E18E810021AD4D /* ChatRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048EDA825E18E810021AD4D /* ChatRouter.swift */; };
 		3048EDB025E18E810021AD4D /* ChatModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048EDA925E18E810021AD4D /* ChatModels.swift */; };
 		3048EDB125E18E810021AD4D /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048EDAA25E18E810021AD4D /* ChatViewController.swift */; };
 		3048EDB225E18E810021AD4D /* ChatInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048EDAB25E18E810021AD4D /* ChatInteractor.swift */; };
+		3051A62A25EA6FD900EC3C17 /* UIScrollView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051A62925EA6FD900EC3C17 /* UIScrollView + Extension.swift */; };
 		3060281F259B8DAA0046A2B0 /* MyProfileConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3060281E259B8DAA0046A2B0 /* MyProfileConstants.swift */; };
 		3060282B259BBE400046A2B0 /* FullOrderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30602824259BBE400046A2B0 /* FullOrderPresenter.swift */; };
 		3060282D259BBE400046A2B0 /* FullOrderRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30602826259BBE400046A2B0 /* FullOrderRouter.swift */; };
@@ -203,7 +203,7 @@
 		3022F65B25C1F1F8004C50B7 /* UIPageControl + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIPageControl + Extension.swift"; sourceTree = "<group>"; };
 		3022F65E25C2DA94004C50B7 /* NavigationController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationController + Extension.swift"; sourceTree = "<group>"; };
 		3022F66125C2E443004C50B7 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		302AAAAB25DAD2E400482B08 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
+		302AAAAB25DAD2E400482B08 /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
 		302B049A25DC44F1009F1EC3 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		302CDE92258D5E08000B4275 /* String + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extension.swift"; sourceTree = "<group>"; };
 		302CDE95258D6049000B4275 /* UIFont + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont + Extension.swift"; sourceTree = "<group>"; };
@@ -232,11 +232,11 @@
 		3048ED8F25E162A60021AD4D /* ConversationsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsInteractor.swift; sourceTree = "<group>"; };
 		3048ED9C25E1667F0021AD4D /* ConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCell.swift; sourceTree = "<group>"; };
 		3048EDA625E18E810021AD4D /* ChatPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPresenter.swift; sourceTree = "<group>"; };
-		3048EDA725E18E810021AD4D /* ChatWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatWorker.swift; sourceTree = "<group>"; };
 		3048EDA825E18E810021AD4D /* ChatRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRouter.swift; sourceTree = "<group>"; };
 		3048EDA925E18E810021AD4D /* ChatModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModels.swift; sourceTree = "<group>"; };
 		3048EDAA25E18E810021AD4D /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		3048EDAB25E18E810021AD4D /* ChatInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInteractor.swift; sourceTree = "<group>"; };
+		3051A62925EA6FD900EC3C17 /* UIScrollView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView + Extension.swift"; sourceTree = "<group>"; };
 		3060281E259B8DAA0046A2B0 /* MyProfileConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileConstants.swift; sourceTree = "<group>"; };
 		30602824259BBE400046A2B0 /* FullOrderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullOrderPresenter.swift; sourceTree = "<group>"; };
 		30602826259BBE400046A2B0 /* FullOrderRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullOrderRouter.swift; sourceTree = "<group>"; };
@@ -584,7 +584,6 @@
 				3048EDA625E18E810021AD4D /* ChatPresenter.swift */,
 				3048EDA825E18E810021AD4D /* ChatRouter.swift */,
 				3048EDA925E18E810021AD4D /* ChatModels.swift */,
-				3048EDA725E18E810021AD4D /* ChatWorker.swift */,
 			);
 			path = ChatScene;
 			sourceTree = "<group>";
@@ -667,7 +666,7 @@
 				3072F35025C6EC1D00CE7C65 /* UserAPIService.swift */,
 				30AC736825D705F6006A4746 /* FavoriteOrderManager.swift */,
 				30AC737E25D877E2006A4746 /* SwapsManager.swift */,
-				302AAAAB25DAD2E400482B08 /* NotificationsManager.swift */,
+				302AAAAB25DAD2E400482B08 /* SocketManager.swift */,
 				302B049A25DC44F1009F1EC3 /* APIManager.swift */,
 				30FA0D3D25E81B2B00292651 /* ChatManager.swift */,
 			);
@@ -802,6 +801,7 @@
 				3022F65E25C2DA94004C50B7 /* NavigationController + Extension.swift */,
 				307529D125C97D1700D74939 /* UIBarButtonItem + Extension.swift */,
 				3095F04325DD8EFB00508B1B /* UIApplication + Extension.swift */,
+				3051A62925EA6FD900EC3C17 /* UIScrollView + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1112,7 +1112,7 @@
 				3022F64725C1B598004C50B7 /* SignUpRouter.swift in Sources */,
 				3048ED9D25E1667F0021AD4D /* ConversationCell.swift in Sources */,
 				3048ED9625E162A60021AD4D /* ConversationsInteractor.swift in Sources */,
-				302AAAAC25DAD2E400482B08 /* NotificationsManager.swift in Sources */,
+				302AAAAC25DAD2E400482B08 /* SocketManager.swift in Sources */,
 				3048ED9525E162A60021AD4D /* ConversationsViewController.swift in Sources */,
 				307529D525C9883500D74939 /* Globals.swift in Sources */,
 				30CB74E1259121C700CB84D6 /* FeedOrderModels.swift in Sources */,
@@ -1181,7 +1181,6 @@
 				30FA0D3E25E81B2B00292651 /* ChatManager.swift in Sources */,
 				308365F12589F2A200578AE2 /* TitleView.swift in Sources */,
 				308365D52589E59500578AE2 /* MainTabBarRouter.swift in Sources */,
-				3048EDAE25E18E810021AD4D /* ChatWorker.swift in Sources */,
 				3060284C259DE52C0046A2B0 /* UITextField + Extension.swift in Sources */,
 				30BC10AE2599042000066D9B /* ChooseOrderError.swift in Sources */,
 				308365D72589E59500578AE2 /* MainTabBarController.swift in Sources */,
@@ -1198,6 +1197,7 @@
 				303AB78E2580FB3300F287C2 /* AppDelegate.swift in Sources */,
 				308365D82589E59500578AE2 /* MainTabBarInteractor.swift in Sources */,
 				308D28CE258E4BA70088D340 /* TagsCollectionView.swift in Sources */,
+				3051A62A25EA6FD900EC3C17 /* UIScrollView + Extension.swift in Sources */,
 				3083660B258A019A00578AE2 /* InsertableTextField.swift in Sources */,
 				303AB7902580FB3300F287C2 /* SceneDelegate.swift in Sources */,
 				30BC10BB2599156A00066D9B /* AlienProfileWorker.swift in Sources */,

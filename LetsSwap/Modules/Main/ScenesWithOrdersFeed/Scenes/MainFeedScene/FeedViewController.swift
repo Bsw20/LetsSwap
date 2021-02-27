@@ -66,7 +66,14 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         interactor?.makeRequest(request: .getFeed)
-    }
+        navigationController?.hidesBarsOnSwipe = true
+      }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.hidesBarsOnSwipe = false
+      }
+    
     
     func displayData(viewModel: Feed.Model.ViewModel.ViewModelData) {
         switch viewModel {

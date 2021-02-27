@@ -54,7 +54,7 @@ class MainTabBarController: UITabBarController, MainTabBarDisplayLogic {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        print("TOKEN" + APIManager.getToken())
-        socket = Socket.init()
+        socket = Socket.shared
         tabBar.isTranslucent = false
         tabBar.tintColor = .mainBackground()
         viewControllers = [
