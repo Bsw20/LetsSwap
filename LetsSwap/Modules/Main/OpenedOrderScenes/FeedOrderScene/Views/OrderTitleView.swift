@@ -20,6 +20,7 @@ class OrderTitleView: UIView {
        let view = WebImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setPlaceholder(placeholder: #imageLiteral(resourceName: "personIconOn"))
+        view.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
         return view
     }()
     private var nameLabel: UILabel = {

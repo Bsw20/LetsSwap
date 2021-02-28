@@ -3,7 +3,7 @@
 //  LetsSwap
 //
 //  Created by Ярослав Карпунькин on 20.02.2021.
-//  Copyright (c) 2021 ___ORGANIZATIONNAME___. All rights reserved.
+//  Copyright (c) 2020. All rights reserved.
 //
 
 import UIKit
@@ -135,7 +135,9 @@ extension ConversationsViewController {
 
                 case .success(let data):
                     do {
-                        let model = try JSONDecoder().decode(ConversationViewModel.self, from: data)
+                        let decoder = JSONDecoder()
+                        decoder.dateDecodingStrategy = .formatted(DateFormatter.timestampWithTimeZone)
+                        let model = try decoder.decode(ConversationViewModel.self, from: data)
                         completion(.success(model))
 
                     } catch(let error){

@@ -14,6 +14,7 @@ class WebImageView: UIImageView {
     private var service = UserAPIService.shared
     private var imagePlaceholder: UIImage? {
         didSet {
+//            print(self.image)
             if self.image == nil {
                 self.image = imagePlaceholder
             }
@@ -21,7 +22,8 @@ class WebImageView: UIImageView {
     }
     
     public func setPlaceholder(placeholder: UIImage?) {
-        self.imagePlaceholder = placeholder
+//        self.imagePlaceholder = placeholder
+//        self.image = #imageLiteral(resourceName: "profileImagePlaceholder")
     }
     
     private var currentUrlSring: String?
@@ -32,6 +34,8 @@ class WebImageView: UIImageView {
         return r
     }
     public var getCurrentUrl: StringURL {
+        print(#function)
+        print(currentUrlSring)
         return currentUrlSring
     }
     

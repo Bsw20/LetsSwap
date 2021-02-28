@@ -18,7 +18,7 @@ protocol BaseFeedCellViewModel {
 
 
 protocol FeedCellDelegate: AnyObject {
-    func favouriteButtonDidTapped(indexPath: IndexPath)
+    func favouriteButtonDidTapped(cell: FeedCell)
 }
 
 final class FeedCell: UICollectionViewCell {
@@ -29,7 +29,6 @@ final class FeedCell: UICollectionViewCell {
     
     static let reuseId = "FeedCell"
 //    private let cellModel: FeedCellViewModel
-    private var indexPath: IndexPath!
     weak var delegate: FeedCellDelegate?
     
     private let containerView: UIView = {
@@ -108,7 +107,7 @@ final class FeedCell: UICollectionViewCell {
     
     
     @objc private func favouriteButtonTapped() {
-        delegate?.favouriteButtonDidTapped(indexPath: self.indexPath)
+        delegate?.favouriteButtonDidTapped(cell: self)
     }
     
     override init(frame: CGRect) {
@@ -135,8 +134,7 @@ final class FeedCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(cellType: FeedCellType, indexPath: IndexPath) {
-        self.indexPath = indexPath
+    func set(cellType: FeedCellType) {
         switch cellType {
         
         case .mainFeedCell(cellViewModel: let cellViewModel):

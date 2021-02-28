@@ -15,7 +15,7 @@ protocol SwapsFetcher {
     func makeSwap(model: MakeSwapModel, completion: @escaping (Result<Void, Error>) -> Void)
     
     func confirmSwap(swapId: Int, completion: @escaping (Result<Void, Error>) -> Void)
-    func refuseSwap(orderId: Int, completion: @escaping (Result<Void, Error>) -> Void)
+    func refuseSwap(swapId: Int, completion: @escaping (Result<Void, Error>) -> Void)
     
     func createChat(userId: Int, completion: @escaping (Result<Void, Error>) -> Void)
 }
@@ -105,8 +105,39 @@ struct SwapsManager: SwapsFetcher{
         }
     }
     
-    func refuseSwap(orderId: Int, completion: @escaping (Result<Void, Error>) -> Void) {
-        print(#function)
+    func refuseSwap(swapId: Int, completion: @escaping (Result<Void, Error>) -> Void) {
+        SwiftyBeaver.info(#function)
+        guard let url = URL(string: "http://92.63.105.87:3000/change/confirm") else {
+            SwiftyBeaver.error(String.incorrectUrl(url: "http://92.63.105.87:3000/change/confirm"))
+            completion(.failure(NSError()))
+            return
+        }
+        print(swapId)
+        let userData: [String: Any] = ["changeId" : swapId]
+        let headers: HTTPHeaders = [
+                    "Content-Type":"application/json",
+            "Authorization" : APIManager.getToken()
+                ]
+        
+        AF.request(url, method: .post,
+                   parameters: userData,
+                   encoding: JSONEncoding.default,
+                   headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseJSON { (response) in
+                switch response.result {
+
+                case .success(_):
+                    print("Confirm swap success")
+                    completion(.success(Void()))
+
+                case .failure(let error):
+                    SwiftyBeaver.error(error.localizedDescription)
+                    completion(.failure(error))
+                    #warning("figure out with error types")
+
+            }
+        }
     }
     
     func validateSwap(orderId: Int, completion: @escaping (Result<Void, Error>) -> Void) {

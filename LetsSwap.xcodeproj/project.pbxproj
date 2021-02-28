@@ -161,6 +161,8 @@
 		30BC1102259AA0C500066D9B /* MyProfileModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10FB259AA0C500066D9B /* MyProfileModels.swift */; };
 		30BC1103259AA0C500066D9B /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10FC259AA0C500066D9B /* MyProfileViewController.swift */; };
 		30BC1104259AA0C500066D9B /* MyProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10FD259AA0C500066D9B /* MyProfileInteractor.swift */; };
+		30C15ACD25EBA711008D1493 /* Date + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C15ACC25EBA711008D1493 /* Date + Extension.swift */; };
+		30C15AD025EBA866008D1493 /* DateFormatter + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C15ACF25EBA866008D1493 /* DateFormatter + Extension.swift */; };
 		30CB74DE259121C700CB84D6 /* FeedOrderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74D7259121C700CB84D6 /* FeedOrderPresenter.swift */; };
 		30CB74E0259121C700CB84D6 /* FeedOrderRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74D9259121C700CB84D6 /* FeedOrderRouter.swift */; };
 		30CB74E1259121C700CB84D6 /* FeedOrderModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74DA259121C700CB84D6 /* FeedOrderModels.swift */; };
@@ -336,6 +338,8 @@
 		30BC10FB259AA0C500066D9B /* MyProfileModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileModels.swift; sourceTree = "<group>"; };
 		30BC10FC259AA0C500066D9B /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		30BC10FD259AA0C500066D9B /* MyProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileInteractor.swift; sourceTree = "<group>"; };
+		30C15ACC25EBA711008D1493 /* Date + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extension.swift"; sourceTree = "<group>"; };
+		30C15ACF25EBA866008D1493 /* DateFormatter + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter + Extension.swift"; sourceTree = "<group>"; };
 		30CB74D7259121C700CB84D6 /* FeedOrderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOrderPresenter.swift; sourceTree = "<group>"; };
 		30CB74D9259121C700CB84D6 /* FeedOrderRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOrderRouter.swift; sourceTree = "<group>"; };
 		30CB74DA259121C700CB84D6 /* FeedOrderModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOrderModels.swift; sourceTree = "<group>"; };
@@ -802,6 +806,8 @@
 				307529D125C97D1700D74939 /* UIBarButtonItem + Extension.swift */,
 				3095F04325DD8EFB00508B1B /* UIApplication + Extension.swift */,
 				3051A62925EA6FD900EC3C17 /* UIScrollView + Extension.swift */,
+				30C15ACC25EBA711008D1493 /* Date + Extension.swift */,
+				30C15ACF25EBA866008D1493 /* DateFormatter + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1111,6 +1117,7 @@
 				308D28D3258E6C530088D340 /* TagsViewController.swift in Sources */,
 				3022F64725C1B598004C50B7 /* SignUpRouter.swift in Sources */,
 				3048ED9D25E1667F0021AD4D /* ConversationCell.swift in Sources */,
+				30C15AD025EBA866008D1493 /* DateFormatter + Extension.swift in Sources */,
 				3048ED9625E162A60021AD4D /* ConversationsInteractor.swift in Sources */,
 				302AAAAC25DAD2E400482B08 /* SocketManager.swift in Sources */,
 				3048ED9525E162A60021AD4D /* ConversationsViewController.swift in Sources */,
@@ -1152,6 +1159,7 @@
 				30A4C9F025B8AF8200003DDE /* NotificationRouter.swift in Sources */,
 				3048EDAF25E18E810021AD4D /* ChatRouter.swift in Sources */,
 				303AB7A92581715300F287C2 /* DataFetcherPlan.swift in Sources */,
+				30C15ACD25EBA711008D1493 /* Date + Extension.swift in Sources */,
 				303A067D2593843F00C14BFD /* LittleRoundButton.swift in Sources */,
 				307304FA258BF4C80091D2F1 /* TagCell.swift in Sources */,
 				3075148825CD8F46006D95F2 /* MyProfileHeaderView.swift in Sources */,

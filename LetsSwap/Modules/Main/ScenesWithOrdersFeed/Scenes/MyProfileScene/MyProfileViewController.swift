@@ -76,6 +76,7 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
             interactor?.makeRequest(request: .getWholeProfile)
             needToBeUpdated = false
         }
+
     }
     
     //MARK: - funcs
@@ -96,6 +97,8 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
         
         case .displayWholeProfile(myProfileViewModel: let myProfileViewModel):
             feedCollectionView.updateData(feedViewModel: myProfileViewModel)
+            print("My profile image")
+            print(myProfileViewModel.personInfo.profileImage)
         case .displayError(error: let error):
             MyProfileViewController.showAlert(title: "Ошибка", message: error.localizedDescription)
         case .displayOrder(orderModel: let model):

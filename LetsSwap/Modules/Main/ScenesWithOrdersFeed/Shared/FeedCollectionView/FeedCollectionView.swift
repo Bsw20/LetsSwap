@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftyBeaver
 
 @objc protocol FeedCollectionViewDelegate: AnyObject {
     func cellDidSelect(orderId: Int)
@@ -89,7 +90,7 @@ extension FeedCollectionView {
                 let cell = self?.dequeueReusableCell(withReuseIdentifier: FeedCell.reuseId, for: indexPath) as! FeedCell
                 let cellModel = self?.feedViewModel.cells[indexPath.item]
                 #warning("Если cell model не корректный(мб allert)")
-                cell.set(cellType: FeedCell.FeedCellType.mainFeedCell(cellViewModel: cellModel!), indexPath: indexPath)
+                cell.set(cellType: FeedCell.FeedCellType.mainFeedCell(cellViewModel: cellModel!))
                 cell.delegate = self
                 return cell
             }
@@ -129,13 +130,17 @@ extension FeedCollectionView: TagCollectionViewDelegate {
 //MARK: - FeedCellDelegate
 extension FeedCollectionView: FeedCellDelegate {
     #warning("Обсудить put запрос с бэком")
-    func favouriteButtonDidTapped(indexPath: IndexPath) {
-        let currentOrder = feedViewModel.cells[indexPath.item]
+    func favouriteButtonDidTapped(cell: FeedCell) {
+        guard let item = indexPath(for: cell)?.item else {
+            SwiftyBeaver.error("Cell didn't found")
+            fatalError("Cell didn't found")
+        }
+        let currentOrder = feedViewModel.cells[item]
         favoriteManager.changeState(orderID: currentOrder.orderId, isFavorite: currentOrder.isFavourite) {[weak self] (result) in
             switch result {
             
             case .success(let newState):
-                self?.feedViewModel.cells[indexPath.item].isFavourite = newState
+                self?.feedViewModel.cells[item].isFavourite = newState
 //                self?.reloadItems(at: [indexPath])
                 self?.reloadData()
                 self?.customDelegate?.favouriteButtonTapped?(newState: newState)

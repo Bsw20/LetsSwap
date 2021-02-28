@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftyBeaver
 
 protocol NotificationCollectionViewDelegate {
     func routeToChat()
@@ -84,7 +85,20 @@ extension NotificationCollectionView: UICollectionViewDelegateFlowLayout {
 extension NotificationCollectionView: NotificationCellDelegate {
     func refuseButtonTapped(cell: NotificationCell) {
         print("refuse")
-        let ip = indexPath(for: cell)
+        guard let ip = indexPath(for: cell) else {
+            SwiftyBeaver.error("Can't find cell")
+            fatalError("Can't find cell")
+        }
+        service.refuseSwap(swapId: notifications.offers[ip.item].swapId) { (result) in
+            switch result {
+            
+            case .success():
+                self.notifications.offers.remove(at: ip.item)
+                self.customDelegate?.routeToChat()
+            case .failure(let error):
+                self.customDelegate?.showAlert(title: "Ошибка!", message: error.localizedDescription)
+            }
+        }
 //        service.confirmSwap(orderId: <#T##Int#>, completion: <#T##(Result<Void, Error>) -> Void#>)
     }
     
@@ -101,7 +115,6 @@ extension NotificationCollectionView: NotificationCellDelegate {
                         
                         case .success():
                             self.notifications.offers.remove(at: ip.item)
-                            self.customDelegate?.routeToChat()
                         case .failure(let error):
                             self.customDelegate?.showAlert(title: "Ошибка!", message: error.localizedDescription)
                         }

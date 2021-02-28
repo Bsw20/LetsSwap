@@ -19,6 +19,7 @@ class ProfileTopView: UIView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
         imageView.setPlaceholder(placeholder: #imageLiteral(resourceName: "profileImagePlaceholder"))
+        imageView.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
         return imageView
     }()
     

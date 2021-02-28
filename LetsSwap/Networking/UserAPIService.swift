@@ -385,6 +385,7 @@ extension UserAPIService: FeedOrderFetcher {
                 case .success(let data):
                     if let json = data as? [String : Any], let newState = json["newState"] as? Bool {
                         completion(.success(newState))
+                        return
                     }
                     SwiftyBeaver.error(String.incorrectJSON(data))
                     completion(.failure(FeedOrderError.serverError))

@@ -74,7 +74,7 @@ extension MyProfileFeedCollectionView: UICollectionViewDataSource {
         }
         let cellModel = feedViewModel.feedInfo.cells[indexPath.item - 1] //Тк на одну ячейку больше из-за CreateOrderCell
         let cell = self.dequeueReusableCell(withReuseIdentifier: FeedCell.reuseId, for: indexPath) as! FeedCell
-        cell.set(cellType: FeedCell.FeedCellType.myProfileCell(cellViewModel: cellModel), indexPath: indexPath)
+        cell.set(cellType: FeedCell.FeedCellType.myProfileCell(cellViewModel: cellModel))
         return cell
     }
     

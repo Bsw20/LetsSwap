@@ -194,12 +194,16 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         case .displaySwapping:
             router?.routeToComments(commentsModel: CommentsOrderModel(orderId: type.getOrderId()))
         case .displayDeleting:
-            FeedOrderViewController.showAlert(title: "Успешно", message: "Предложение можно удалить")
-            trackerDelegate?.stateDidChange()
-            self.navigationController?.popViewController(animated: true)
+            FeedOrderViewController.showAlert(title: "Успешно!", message: "Предложение удалено.") {
+                self.trackerDelegate?.stateDidChange()
+                self.navigationController?.popViewController(animated: true)
+            }
+
         case .displayNewHidingState(newState: let newState):
-            FeedOrderViewController.showAlert(title: "Успешно", message: "Предложение теперь \(newState ? "cкрыто" : "раскрыто")")
-            trackerDelegate?.stateDidChange()
+            FeedOrderViewController.showAlert(title: "Успешно", message: "Предложение теперь \(newState ? "cкрыто" : "раскрыто")") {
+                self.trackerDelegate?.stateDidChange()
+            }
+
         case .displayError(error: let error):
             FeedOrderViewController.showAlert(title: "Ошибка", message: error.localizedDescription)
         case .displayUpdatingDataError:

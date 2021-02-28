@@ -243,8 +243,10 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
                     self.navigationController?.popViewController(animated: true)
                 }
             case .displayOrderUpdated:
-                self.customDelegate?.stateDidChange()
-                FullOrderViewController.showAlert(title: "Успешно!", message: "Предложение отредактировано.")
+                FullOrderViewController.showAlert(title: "Успешно!", message: "Предложение отредактировано.") {
+                    self.customDelegate?.stateDidChange()
+                    self.navigationController?.popViewController(animated: true)
+                }
             case .showErrorAlert(title: let title, message: let message):
                 FullOrderViewController.showAlert(title: title, message: message)
             case .displayUploadedPhoto(photoUrl: let photoUrl):
