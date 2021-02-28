@@ -64,6 +64,35 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
         setupNavigation()
         collectionView.customDelegate = self
         setupConstraints()
+        Socket.shared.listenForMessages { (result) in
+            switch result {
+            
+            case .success(_):
+                self.getNotifications {[weak self] (result) in
+                    print(#function)
+                    switch result {
+                    
+                    case .success(let notifications):
+                        self?.collectionView.updateData(notifications: notifications)
+                    case .failure(let error):
+                        SwiftyBeaver.error(error.localizedDescription)
+                        UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
+                    }
+                }
+            case .failure(_):
+                self.getNotifications {[weak self] (result) in
+                    print(#function)
+                    switch result {
+                    
+                    case .success(let notifications):
+                        self?.collectionView.updateData(notifications: notifications)
+                    case .failure(let error):
+                        SwiftyBeaver.error(error.localizedDescription)
+                        UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
+                    }
+                }
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -132,10 +161,32 @@ extension NotificationViewController: NotificationCollectionViewDelegate {
     func routeToChat() {
         print("ROUTING TO CHAT NOT VC")
         UIApplication.showAlert(title: "Успешно!", message: "Чат создан!")
+        getNotifications {[weak self] (result) in
+            print(#function)
+            switch result {
+            
+            case .success(let notifications):
+                self?.collectionView.updateData(notifications: notifications)
+            case .failure(let error):
+                SwiftyBeaver.error(error.localizedDescription)
+                UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
+            }
+        }
     }
     
     func showAlert(title: String, message: String) {
         UIApplication.showAlert(title: title, message: message)
+        getNotifications {[weak self] (result) in
+            print(#function)
+            switch result {
+            
+            case .success(let notifications):
+                self?.collectionView.updateData(notifications: notifications)
+            case .failure(let error):
+                SwiftyBeaver.error(error.localizedDescription)
+//                UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
+            }
+        }
     }
     
     

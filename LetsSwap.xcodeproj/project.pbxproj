@@ -163,6 +163,7 @@
 		30BC1104259AA0C500066D9B /* MyProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BC10FD259AA0C500066D9B /* MyProfileInteractor.swift */; };
 		30C15ACD25EBA711008D1493 /* Date + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C15ACC25EBA711008D1493 /* Date + Extension.swift */; };
 		30C15AD025EBA866008D1493 /* DateFormatter + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C15ACF25EBA866008D1493 /* DateFormatter + Extension.swift */; };
+		30C15AD325EBC2D8008D1493 /* StateTrackerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C15AD225EBC2D8008D1493 /* StateTrackerManager.swift */; };
 		30CB74DE259121C700CB84D6 /* FeedOrderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74D7259121C700CB84D6 /* FeedOrderPresenter.swift */; };
 		30CB74E0259121C700CB84D6 /* FeedOrderRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74D9259121C700CB84D6 /* FeedOrderRouter.swift */; };
 		30CB74E1259121C700CB84D6 /* FeedOrderModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB74DA259121C700CB84D6 /* FeedOrderModels.swift */; };
@@ -340,6 +341,7 @@
 		30BC10FD259AA0C500066D9B /* MyProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileInteractor.swift; sourceTree = "<group>"; };
 		30C15ACC25EBA711008D1493 /* Date + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extension.swift"; sourceTree = "<group>"; };
 		30C15ACF25EBA866008D1493 /* DateFormatter + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter + Extension.swift"; sourceTree = "<group>"; };
+		30C15AD225EBC2D8008D1493 /* StateTrackerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateTrackerManager.swift; sourceTree = "<group>"; };
 		30CB74D7259121C700CB84D6 /* FeedOrderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOrderPresenter.swift; sourceTree = "<group>"; };
 		30CB74D9259121C700CB84D6 /* FeedOrderRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOrderRouter.swift; sourceTree = "<group>"; };
 		30CB74DA259121C700CB84D6 /* FeedOrderModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedOrderModels.swift; sourceTree = "<group>"; };
@@ -673,6 +675,7 @@
 				302AAAAB25DAD2E400482B08 /* SocketManager.swift */,
 				302B049A25DC44F1009F1EC3 /* APIManager.swift */,
 				30FA0D3D25E81B2B00292651 /* ChatManager.swift */,
+				30C15AD225EBC2D8008D1493 /* StateTrackerManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -1145,6 +1148,7 @@
 				3022F62125C19C97004C50B7 /* InputPhoneNumberView.swift in Sources */,
 				3022F5E325BB0BCE004C50B7 /* ChoosePropertyCell.swift in Sources */,
 				307304F4258B86CC0091D2F1 /* FeedError.swift in Sources */,
+				30C15AD325EBC2D8008D1493 /* StateTrackerManager.swift in Sources */,
 				302CDE93258D5E08000B4275 /* String + Extension.swift in Sources */,
 				30BC10D4259A021F00066D9B /* GlobalModels.swift in Sources */,
 				3072F35425C6EDAE00CE7C65 /* MyProfileError.swift in Sources */,

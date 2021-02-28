@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import Alamofire
 import SwiftyBeaver
+import SwiftyJSON
 
 protocol ConversationsDisplayLogic: class {
   func displayData(viewModel: Conversations.Model.ViewModel.ViewModelData)
@@ -117,6 +118,58 @@ class ConversationsViewController: UIViewController, ConversationsDisplayLogic {
 
 //MARK: - TODO DELETE
 extension ConversationsViewController {
+    static func parseToAllConversations(anyData: Any) -> ConversationViewModel?{
+        guard let massData = anyData as? [String: Any] else {
+            SwiftyBeaver.error("Incorrect model")
+            return nil
+        }
+        let format = DateFormatter()
+
+        format.timeZone = .current
+        format.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        print(format.string(from: Date()))
+        let data = JSON(massData)
+        debugPrint(data)
+        guard let myProfileImage = data["myProfileImage"].string,
+              let myUserName = data["myUserName"].string,
+              let myId = data["myId"].int else {
+            SwiftyBeaver.error("Incorrect model")
+            return nil
+        }
+
+        let conversations:[Conversations.Conversation] = JSON(data)["chats"].arrayValue.compactMap{
+            guard
+                
+                let chatId =  $0["chatId"].int,
+                let friendAvatarStringURL =  $0["friendAvatarStringURL"].string,
+                let friendId =  $0["friendId"].int,
+                let name = $0["name"].string,
+                let lastName = $0["lastName"].string,
+                let missedMessagesCount = $0["missedMessagesCount"].int,
+                let lastMessageContent = $0["lastMessageContent"].string,
+                let stringSendDate = $0["date"].string
+                  else {
+                    SwiftyBeaver.error("Incorrect model")
+                    return nil
+            }
+            return Conversations.Conversation.init(friendAvatarStringURL: friendAvatarStringURL,
+                                                   friendId: friendId,
+                                                   name: name,
+                                                   lastName: lastName,
+                                                   missedMessagesCount: missedMessagesCount,
+                                                   lastMessageContent: lastMessageContent,
+                                                   date: format.date(from: stringSendDate),
+                                                   chatId: chatId)
+            
+        }
+        
+        return ConversationViewModel(chats: conversations,
+                                     myId: myId,
+                                     myProfileImage: myProfileImage,
+                                     myUserName: myUserName)
+        
+
+    }
     private func getAllConversations(completion: @escaping (Result<ConversationViewModel, Error>) -> Void) {
         guard let url = URL(string: "http://92.63.105.87:3000/chat/getAllChats") else {
             completion(.failure(NSError()))
@@ -130,21 +183,16 @@ extension ConversationsViewController {
         
         AF.request(url, method: .get, headers: headers)
             .validate(statusCode: 200..<300)
-            .responseData(completionHandler: { (response) in
+            .responseJSON(completionHandler: { (response) in
                 switch response.result {
 
                 case .success(let data):
-                    do {
-                        let decoder = JSONDecoder()
-                        decoder.dateDecodingStrategy = .formatted(DateFormatter.timestampWithTimeZone)
-                        let model = try decoder.decode(ConversationViewModel.self, from: data)
+//                    print(data as? [String: Any])
+                    if let model = ConversationsViewController.parseToAllConversations(anyData: data) {
                         completion(.success(model))
-
-                    } catch(let error){
-                        print(error.localizedDescription)
-                        SwiftyBeaver.error(error.localizedDescription)
-                        completion(.failure(FeedError.incorrectDataModel))
+                        return
                     }
+                    completion(.failure(NSError()))
 
                 case .failure(let error):
                     SwiftyBeaver.error(error.localizedDescription)

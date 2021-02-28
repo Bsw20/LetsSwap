@@ -17,7 +17,7 @@ enum Conversations {
         var lastName: String
         var missedMessagesCount: Int
         var lastMessageContent: String
-        var date: Date
+        var date: Date?
         var chatId: Int
         
         

@@ -14,7 +14,7 @@ protocol ConversationCellViewModel {
     var lastName: String { get }
     var missedMessagesCount: Int { get }
     var lastMessageContent: String { get }
-    var date: Date { get }
+    var date: Date? { get }
 }
 class ConversationCell: UITableViewCell {
     //MARK: - Variables
@@ -82,7 +82,12 @@ class ConversationCell: UITableViewCell {
         profileImageView.set(imageURL: model.friendAvatarStringURL)
         lastMessageLabel.text = model.lastMessageContent
         #warning("Make convert to days/minutes/sec..")
-        messageDateLabel.text = "\(model.date.timeAgo())"
+        if let date = model.date {
+            messageDateLabel.text = "\(date.timeAgo() )"
+        } else {
+            messageDateLabel.text = ""
+        }
+
         if model.missedMessagesCount == 0 {
             missedMessagesLabel.isHidden = true
         } else {

@@ -82,7 +82,7 @@ class MainTabBarController: UITabBarController, MainTabBarDisplayLogic {
     }
     
     private func generateNavigationController(rootViewController: UIViewController, unselectedImage: UIImage, selectedImage: UIImage) -> UIViewController {
-        let navigationVC = UINavigationController(rootViewController: rootViewController)
+        let navigationVC = StateTrackerManager.shared.generateNavigationController(viewController: rootViewController)
         navigationVC.tabBarItem.image = unselectedImage
         navigationVC.tabBarItem.selectedImage = selectedImage
         navigationVC.navigationBar.barTintColor = .mainBackground()
