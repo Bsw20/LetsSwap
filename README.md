@@ -26,7 +26,7 @@
 <br/> 
  <img src="./Images/AllScreens.png"/>
 
-## Команда разработчиков:
+## Команда разработчиков
 <!-- <td> 
     <b style="font-size:20px">
     Дизайнеры
