@@ -46,5 +46,5 @@
 ### IOS developer
 * Карпунькин Ярослав (*Swift, UIKit*)
 
-<img src="./Images/articles.jpg"/>
-<img src="./Images/letsSwap.jpg"/>
+<img src="./articles.jpg"/>
+<img src="./letsSwap.jpg"/>
