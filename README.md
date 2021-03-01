@@ -16,7 +16,7 @@
       &nbsp;&nbsp;&nbsp;&nbsp;  ◦ Restful API<br/>
         &nbsp;&nbsp;&nbsp;&nbsp;  ◦ Clean swift(VIP)<br/>
          &nbsp;&nbsp;&nbsp;&nbsp;  ◦ Core animation <br/>
-         &nbsp;&nbsp;&nbsp;&nbsp;  ◦ MessageKit<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;  ◦ MessageKit(real-time chat)<br/>
          &nbsp;&nbsp;&nbsp;&nbsp;  ◦ Kingfisher<br/>
           &nbsp;&nbsp;&nbsp;&nbsp;   ◦ SwiftyBeaver(logging)<br/>
            &nbsp;&nbsp;&nbsp;&nbsp;  ◦ SwiftyJSON, Decodable<br/>
