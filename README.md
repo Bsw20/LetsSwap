@@ -1,12 +1,8 @@
 # LetsSwap
 # Описание
 
-### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Приложение позволяет обмениваться знаниями и умениями с другими людьми бесплатно. Вы предлагаете свои услуги и выбираете чужие, которые на ваш взгляд будут равноценны друг другу. Все основано на взаимодоверии, деньги в обмене не участвуют. [Полное описание проекта](https://portfolio.hse.ru/Project/87823#)<br />
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Приложение позволяет обмениваться знаниями и умениями с другими людьми бесплатно. Вы предлагаете свои услуги и выбираете чужие, которые на ваш взгляд будут равноценны друг другу. Все основано на взаимодоверии, деньги в обмене не участвуют. [Полное описание проекта](https://portfolio.hse.ru/Project/87823#)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-
-<!-- * ![](./Images/titleImage.jpeg)   -->
-<!-- ![](./Images/screens.png) -->
 <img src="./Images/screens.png" alt="Kitten"
 	title="A cute kitten" />
 
