@@ -43,6 +43,7 @@ struct FavoriteOrderManager {
                     completion(.success(!isFavorite))
 
                 case .failure(let error):
+                    print(error.localizedDescription)
                     SwiftyBeaver.error(error.localizedDescription)
                     completion(.failure(NSError()))
                 }

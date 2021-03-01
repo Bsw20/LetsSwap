@@ -25,7 +25,7 @@ struct FeedViewModel {
         }
         
         static func == (lhs: FeedViewModel.Cell, rhs: FeedViewModel.Cell) -> Bool {
-            return lhs.orderId == rhs.orderId
+            return lhs.orderId == rhs.orderId && lhs.isFavourite == rhs.isFavourite
         }
     }
     

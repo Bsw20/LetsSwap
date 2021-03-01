@@ -97,6 +97,9 @@ extension FavoriteOrdersViewController: FeedCollectionViewDelegate {
     func favouriteButtonTapped(newState: Bool) {
         interactor?.makeRequest(request: .getFeed)
     }
+    func refresh() {
+        interactor?.makeRequest(request: .getFeed)
+    }
     
     
 }

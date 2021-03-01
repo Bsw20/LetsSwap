@@ -25,6 +25,8 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
 
     var interactor: NotificationBusinessLogic?
     var router: (NSObjectProtocol & NotificationRoutingLogic)?
+    
+    var service: Socket = Socket.shared
 
   // MARK: Object lifecycle
   
@@ -64,7 +66,8 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
         setupNavigation()
         collectionView.customDelegate = self
         setupConstraints()
-        Socket.shared.listenForMessages { (result) in
+        
+        service.listenForNotifications { (result) in
             switch result {
             
             case .success(_):

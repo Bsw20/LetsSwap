@@ -89,7 +89,7 @@ struct MyProfileViewModel: Decodable {
             }
             
             static func == (lhs: FeedModel.Cell, rhs: FeedModel.Cell) -> Bool {
-                return lhs.orderId == rhs.orderId
+                return lhs.orderId == rhs.orderId && lhs.isFree == rhs.isFree
             }
         }
         

@@ -15,7 +15,7 @@ import SwiftyBeaver
 final class Socket: ObservableObject {
     private var manager = SocketManager(socketURL: URL(string: "ws://92.63.105.87:3000")!, config: [.log(true), .compress, .connectParams(["token": APIManager.getToken()])])
     
-//    @Published var messages = [String]()
+
     var socket: SocketIOClient!
     
     private static var instance: Socket? = nil
@@ -41,6 +41,7 @@ final class Socket: ObservableObject {
     
     public func listenForNotifications(completion: @escaping (Result<Void, Error>) -> Void ) {
         socket.on("serverNotifications") {(data, ack) in
+            print(#function)
             print("NOTIFICATION")
             print(data)
             completion(.success(Void()))

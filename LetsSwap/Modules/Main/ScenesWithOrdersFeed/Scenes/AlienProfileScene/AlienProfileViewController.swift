@@ -110,10 +110,8 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        if needToBeUpdated {
-            interactor?.getFullModel(request: .init(userId: userId))
-            needToBeUpdated = false
-        }
+        interactor?.getFullModel(request: .init(userId: userId))
+//        needToBeUpdated = false
     }
     
 
@@ -161,6 +159,13 @@ extension AlienProfileViewController: FeedCollectionViewDelegate {
     func showAlert(title: String, message: String) {
         UIApplication.showAlert(title: title, message: message)
     }
+    
+    func refresh() {
+//        interactor?.makeRequest(request: .getOrder(orderId: orderId))
+        interactor?.getFullModel(request: .init(userId: userId))
+    }
+    
+    
 }
 
 //MARK: - Constraints

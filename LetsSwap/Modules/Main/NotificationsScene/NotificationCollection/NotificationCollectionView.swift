@@ -94,12 +94,10 @@ extension NotificationCollectionView: NotificationCellDelegate {
             
             case .success():
                 self.notifications.offers.remove(at: ip.item)
-                self.customDelegate?.routeToChat()
             case .failure(let error):
                 self.customDelegate?.showAlert(title: "Ошибка!", message: error.localizedDescription)
             }
         }
-//        service.confirmSwap(orderId: <#T##Int#>, completion: <#T##(Result<Void, Error>) -> Void#>)
     }
     
     func swapButtonTapped(cell: NotificationCell) {

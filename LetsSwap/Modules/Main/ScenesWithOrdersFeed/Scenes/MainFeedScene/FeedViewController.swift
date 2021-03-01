@@ -65,7 +65,8 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        interactor?.makeRequest(request: .getFeed)
+        interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags,
+                                                           text: titleView.getTextFieldText())))
         navigationController?.hidesBarsOnSwipe = true
       }
     override func viewWillDisappear(_ animated: Bool) {
@@ -124,6 +125,12 @@ extension FeedViewController: FeedCollectionViewDelegate {
     func moreTagsButtonTapped() {
         router?.routeToTagsController(currentTags: selectedTags)
     }
+    
+    func refresh() {
+        interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags,
+                                                           text: titleView.getTextFieldText())))
+    }
+    
     
 }
 

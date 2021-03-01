@@ -15,11 +15,14 @@ import SwiftyBeaver
     @objc optional func moreTagsButtonTapped()
     @objc optional func selectedTagsChanged()
     @objc optional func favouriteButtonTapped(newState: Bool)
+    @objc optional func refresh()
 //    func getSelectedTags(tags: [FeedTag])
 //    func setSelectedTags(tags: [FeedTag])
 }
 
 class FeedCollectionView: UICollectionView {
+    //MARK: - Controls
+
     //MARK: - variables
     enum ViewType{
         case withHeader
@@ -52,6 +55,19 @@ class FeedCollectionView: UICollectionView {
         register(FeedCell.self, forCellWithReuseIdentifier: FeedCell.reuseId)
         allowsMultipleSelection = false
         translatesAutoresizingMaskIntoConstraints = false
+        
+        refreshControl =  {
+            let refreshControl = UIRefreshControl()
+
+            refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+            return refreshControl
+        }()
+    }
+    
+    @objc private func refresh() {
+        print(#function)
+        customDelegate?.refresh?()
+
     }
     
     required init?(coder: NSCoder) {
@@ -64,8 +80,10 @@ class FeedCollectionView: UICollectionView {
         snapshot.appendSections([.orders])
         snapshot.appendItems(self.feedViewModel.cells, toSection: .orders)
 
-        localDataSource?.apply(snapshot, animatingDifferences: true)
-//        localDataSource.snapshot().reloadSections([.orders])
+        localDataSource?.apply(snapshot, animatingDifferences: true, completion: {
+            self.localDataSource?.apply(snapshot, animatingDifferences: false)
+        })
+        refreshControl?.endRefreshing()
     }
     
     
@@ -140,6 +158,7 @@ extension FeedCollectionView: FeedCellDelegate {
             switch result {
             
             case .success(let newState):
+                SwiftyBeaver.info("New value \(newState)")
                 self?.feedViewModel.cells[item].isFavourite = newState
 //                self?.reloadItems(at: [indexPath])
                 self?.reloadData()
