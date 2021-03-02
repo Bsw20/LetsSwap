@@ -27,15 +27,16 @@ final class FeedCell: UICollectionViewCell {
         case myProfileCell(cellViewModel: MyProfileViewModel.FeedModel.Cell)
     }
     
+    private var titleLabelHeightAnchor: NSLayoutConstraint!
     static let reuseId = "FeedCell"
-//    private let cellModel: FeedCellViewModel
+    private var cellModel: BaseFeedCellViewModel?
     weak var delegate: FeedCellDelegate?
     
     private let containerView: UIView = {
        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
-        view.clipsToBounds = true
+        view.clipsToBounds = false
         
 
         return view
@@ -120,14 +121,44 @@ final class FeedCell: UICollectionViewCell {
         
     }
     override func layoutSubviews() {
-        super.layoutSubviews()
+
         self.containerView.layer.cornerRadius = 21
-        self.containerView.clipsToBounds = true
+//        self.containerView.clipsToBounds = true
+        self.containerView.layer.masksToBounds = true
         
         containerView.layer.shadowColor = #colorLiteral(red: 0.7411764706, green: 0.7411764706, blue: 0.7411764706, alpha: 1)
         containerView.layer.shadowRadius = 3
         containerView.layer.shadowOpacity = 0.5
         containerView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        
+        titleLabel.text = cellModel?.title
+        descriptionLabel.text = cellModel?.counterOffer
+        if let userURL = cellModel?.photo {
+            //TODO: подгрузка фотографии
+//            imageView.image = UIImage(named: "personImage")
+            imageView.set(imageURL: userURL.absoluteString)
+            imageTypeConstraints()
+        } else {
+            descriptionTypeConstraints()
+        }
+
+        
+        
+        if let cellModel = cellModel {
+            if (cellModel.isFree) {
+                containerView.backgroundColor = .freeFeedCell()
+            }
+        }
+        
+        
+        titleLabelHeightAnchor = titleLabel.heightAnchor.constraint(equalToConstant: calculateTitleLabelHeight())
+        titleLabelHeightAnchor.priority = UILayoutPriority(750)
+        titleLabelHeightAnchor.isActive = true
+        print(titleLabel.text)
+        print(calculateTitleLabelHeight())
+        super.layoutSubviews()
+        
+        
     }
     
     required init?(coder: NSCoder) {
@@ -156,25 +187,12 @@ final class FeedCell: UICollectionViewCell {
     }
     
     private func setupCell(cellModel: BaseFeedCellViewModel) {
-        titleLabel.text = cellModel.title
-        descriptionLabel.text = cellModel.counterOffer
-        if let userURL = cellModel.photo {
-            //TODO: подгрузка фотографии
-//            imageView.image = UIImage(named: "personImage")
-            imageView.set(imageURL: userURL.absoluteString)
-            imageTypeConstraints()
-        } else {
-            descriptionTypeConstraints()
-        }
+        self.cellModel = cellModel
 
-
-        if cellModel.isFree {
-            containerView.backgroundColor = .freeFeedCell()
-        }
     }
     
     override func prepareForReuse() {
-        imageView.image = nil
+        imageView.resetUrl()
         titleLabel.text = ""
         containerView.backgroundColor = .white
         setUnfavourite()
@@ -210,15 +228,18 @@ extension FeedCell {
         containerView.addSubview(imageView)
 
         imageView.addSubview(favouriteButton)
-        let titleLabelHeight = calculateTitleLabelHeight()
+//        let titleLabelHeight = calculateTitleLabelHeight()
+//        print(titleLabel.text)
+//        print(titleLabelHeight)
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: FeedConstants.titleFeedCellInset.top),
             titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: FeedConstants.titleFeedCellInset.left),
             titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -FeedConstants.titleFeedCellInset.right)
         ])
-        var titleHeightCons = titleLabel.heightAnchor.constraint(equalToConstant: titleLabelHeight)
-        titleHeightCons.priority = UILayoutPriority(999)
-        titleHeightCons.isActive = true
+
+//        let titleHeightCons = titleLabel.heightAnchor.constraint(equalToConstant: titleLabelHeight)
+//        titleHeightCons.priority = UILayoutPriority(750)
+//        titleHeightCons.isActive = true
         
 
         NSLayoutConstraint.activate([
@@ -243,6 +264,8 @@ extension FeedCell {
     
     private func descriptionTypeConstraints() {
         let titleLabelHeight = calculateTitleLabelHeight()
+//        print(titleLabel.text)
+//        print(titleLabelHeight)
         containerView.addSubview(titleLabel)
         containerView.addSubview(descriptionLabel)
         containerView.addSubview(favouriteButton)
@@ -250,9 +273,12 @@ extension FeedCell {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: FeedConstants.titleFeedCellInset.top),
             titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: FeedConstants.titleFeedCellInset.left),
-            titleLabel.heightAnchor.constraint(equalToConstant: titleLabelHeight),
+//            titleLabel.heightAnchor.constraint(equalToConstant: titleLabelHeight),
             titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -FeedConstants.titleFeedCellInset.right)
         ])
+//        let titleHeightCons = titleLabel.heightAnchor.constraint(equalToConstant: titleLabelHeight)
+//        titleHeightCons.priority = UILayoutPriority(750)
+//        titleHeightCons.isActive = true
         
         NSLayoutConstraint.activate([
             descriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor, constant: -FeedConstants.descriptionFeedCellInset.bottom),

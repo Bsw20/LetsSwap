@@ -119,6 +119,7 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
     func displayData(viewModel: AlienProfile.Model.ViewModel.ViewModelData) {
         switch viewModel {
         case .displayFullProfile(profileViewModel: let profileViewModel):
+            debugPrint(profileViewModel)
             feedCollectionView.updateData(feedViewModel: profileViewModel.feedViewModel)
         case .displayOrder(orderViewModel: let orderViewModel):
             router?.routeToFeedOrderController(orderViewModel: orderViewModel)
@@ -130,13 +131,14 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
     func displayFullModel(viewModel: AlienProfile.FullModel.ViewModel) {
         print("----------\\\"")
         print(#function)
+        debugPrint(viewModel)
         let feedViewModel = FeedViewModel.init(cells: viewModel.model.feedInfo.map{
             return FeedViewModel.Cell.init(orderId: $0.orderId,
                                            title: $0.title,
                                            description: $0.description,
                                            counterOffer: $0.counterOffer,
                                            photo: $0.photo == nil ? nil : URL(string: $0.photo!),
-                                           isFavourite: $0.isHidden,
+                                           isFavourite: $0.isFavorite,
                                            isFree: $0.isFree)
         })
         feedCollectionView.updateData(feedViewModel: feedViewModel)

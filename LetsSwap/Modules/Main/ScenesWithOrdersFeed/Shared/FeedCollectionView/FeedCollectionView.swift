@@ -84,6 +84,7 @@ class FeedCollectionView: UICollectionView {
             self.localDataSource?.apply(snapshot, animatingDifferences: false)
         })
         refreshControl?.endRefreshing()
+
     }
     
     

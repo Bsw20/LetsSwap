@@ -48,6 +48,7 @@ enum AlienProfile {
                 var orderId: Int
                 var photo: String?
                 var title: String
+                var isFavorite: Bool
             }
             var personInfo: PersonInfo
             var feedInfo: [Order]

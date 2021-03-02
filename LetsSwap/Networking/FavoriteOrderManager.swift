@@ -41,7 +41,7 @@ struct FavoriteOrderManager {
 
                 case .success(let data):
                     completion(.success(!isFavorite))
-
+ 
                 case .failure(let error):
                     print(error.localizedDescription)
                     SwiftyBeaver.error(error.localizedDescription)

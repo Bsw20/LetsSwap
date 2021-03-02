@@ -57,16 +57,26 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         feedCollectionView.customDelegate = self
         titleView.customDelegate = self
         
+
+        
         setupSearchBar()
         setupConstraints()
+        interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags,
+                                                           text: titleView.getTextFieldText())))
+        view.layoutIfNeeded()
 
+
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags,
-                                                           text: titleView.getTextFieldText())))
+//        interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags,
+//                                                           text: titleView.getTextFieldText())))
         navigationController?.hidesBarsOnSwipe = true
       }
     override func viewWillDisappear(_ animated: Bool) {
