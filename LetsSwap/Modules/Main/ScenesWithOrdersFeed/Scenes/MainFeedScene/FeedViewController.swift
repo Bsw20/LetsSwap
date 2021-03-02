@@ -96,7 +96,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         case .displayError(error: let error):
             showAlert(title: "Ошибка", message: error.localizedDescription)
         case .displayEmptyFeed:
-            #warning("TODO: ждать дизайнеров")
+            #warning("TODO: ждать дизайнеров  ")
             showAlert(title: "Ошибка", message: "")
         }
     }
