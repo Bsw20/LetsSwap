@@ -34,7 +34,7 @@ class AppCoordinator {
         } else {
             startSignIn()
         }
-//        startSignUp()
+//        startSignUp()  
 //        startMain()
     }
     
