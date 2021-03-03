@@ -27,7 +27,7 @@ final class FeedCell: UICollectionViewCell {
         case myProfileCell(cellViewModel: MyProfileViewModel.FeedModel.Cell)
     }
     
-    private var titleLabelHeightAnchor: NSLayoutConstraint!
+//    private var titleLabelHeightAnchor: NSLayoutConstraint!
     static let reuseId = "FeedCell"
     private var cellModel: BaseFeedCellViewModel?
     weak var delegate: FeedCellDelegate?
@@ -114,9 +114,8 @@ final class FeedCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .mainBackground()
+
         
-        addSubview(containerView)
-        containerView.fillSuperview()
         favouriteButton.addTarget(self, action: #selector(favouriteButtonTapped), for: .touchUpInside)
         
     }
@@ -130,32 +129,6 @@ final class FeedCell: UICollectionViewCell {
         containerView.layer.shadowRadius = 3
         containerView.layer.shadowOpacity = 0.5
         containerView.layer.shadowOffset = CGSize(width: 0, height: 4)
-        
-        titleLabel.text = cellModel?.title
-        descriptionLabel.text = cellModel?.counterOffer
-        if let userURL = cellModel?.photo {
-            //TODO: подгрузка фотографии
-//            imageView.image = UIImage(named: "personImage")
-            imageView.set(imageURL: userURL.absoluteString)
-            imageTypeConstraints()
-        } else {
-            descriptionTypeConstraints()
-        }
-
-        
-        
-        if let cellModel = cellModel {
-            if (cellModel.isFree) {
-                containerView.backgroundColor = .freeFeedCell()
-            }
-        }
-        
-        
-        titleLabelHeightAnchor = titleLabel.heightAnchor.constraint(equalToConstant: calculateTitleLabelHeight())
-        titleLabelHeightAnchor.priority = UILayoutPriority(750)
-        titleLabelHeightAnchor.isActive = true
-        print(titleLabel.text)
-        print(calculateTitleLabelHeight())
         super.layoutSubviews()
         
         
@@ -187,7 +160,37 @@ final class FeedCell: UICollectionViewCell {
     }
     
     private func setupCell(cellModel: BaseFeedCellViewModel) {
+        SwiftyBeaver.info(#function)
+        addSubview(containerView)
+        containerView.fillSuperview()
+        containerView.addSubview(titleLabel)
+
         self.cellModel = cellModel
+        
+        for v in titleLabel.constraints {
+            titleLabel.removeConstraint(v)
+        }
+        titleLabel.text = cellModel.title
+        descriptionLabel.text = cellModel.counterOffer
+        var anchor = titleLabel.heightAnchor.constraint(equalToConstant: calculateTitleLabelHeight())
+        anchor.priority = UILayoutPriority(1000)
+        anchor.isActive = true
+        
+
+        if let userURL = cellModel.photo {
+            imageView.set(imageURL: userURL.absoluteString)
+            imageTypeConstraints()
+        } else {
+            descriptionTypeConstraints()
+        }
+
+        
+        
+        if (cellModel.isFree) {
+            containerView.backgroundColor = .freeFeedCell()
+        }
+        
+
 
     }
     
@@ -197,6 +200,12 @@ final class FeedCell: UICollectionViewCell {
         containerView.backgroundColor = .white
         setUnfavourite()
         hiddenView.isHidden = true
+        for view in subviews {
+            view.removeFromSuperview()
+        }
+        for view in containerView.subviews {
+            view.removeFromSuperview()
+        }
     }
     
     private func setUnfavourite() {
@@ -224,24 +233,14 @@ extension FeedCell {
     }
     private func imageTypeConstraints() {
 
-        containerView.addSubview(titleLabel)
         containerView.addSubview(imageView)
 
         imageView.addSubview(favouriteButton)
-//        let titleLabelHeight = calculateTitleLabelHeight()
-//        print(titleLabel.text)
-//        print(titleLabelHeight)
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: FeedConstants.titleFeedCellInset.top),
             titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: FeedConstants.titleFeedCellInset.left),
             titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -FeedConstants.titleFeedCellInset.right)
         ])
-
-//        let titleHeightCons = titleLabel.heightAnchor.constraint(equalToConstant: titleLabelHeight)
-//        titleHeightCons.priority = UILayoutPriority(750)
-//        titleHeightCons.isActive = true
-        
-
         NSLayoutConstraint.activate([
             imageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             imageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
@@ -264,9 +263,7 @@ extension FeedCell {
     
     private func descriptionTypeConstraints() {
         let titleLabelHeight = calculateTitleLabelHeight()
-//        print(titleLabel.text)
-//        print(titleLabelHeight)
-        containerView.addSubview(titleLabel)
+
         containerView.addSubview(descriptionLabel)
         containerView.addSubview(favouriteButton)
         
@@ -276,9 +273,6 @@ extension FeedCell {
 //            titleLabel.heightAnchor.constraint(equalToConstant: titleLabelHeight),
             titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -FeedConstants.titleFeedCellInset.right)
         ])
-//        let titleHeightCons = titleLabel.heightAnchor.constraint(equalToConstant: titleLabelHeight)
-//        titleHeightCons.priority = UILayoutPriority(750)
-//        titleHeightCons.isActive = true
         
         NSLayoutConstraint.activate([
             descriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor, constant: -FeedConstants.descriptionFeedCellInset.bottom),

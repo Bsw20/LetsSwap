@@ -114,6 +114,8 @@ extension NotificationCollectionView: NotificationCellDelegate {
                         case .success():
                             self.notifications.offers.remove(at: ip.item)
                         case .failure(let error):
+                            #warning("В будущем showAlert")
+                            self.notifications.offers.remove(at: ip.item)
 //                            self.customDelegate?.showAlert(title: "Ошибка!", message: error.localizedDescription)
                             break
                         }
