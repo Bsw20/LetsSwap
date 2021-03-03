@@ -160,7 +160,6 @@ final class FeedCell: UICollectionViewCell {
     }
     
     private func setupCell(cellModel: BaseFeedCellViewModel) {
-        SwiftyBeaver.info(#function)
         addSubview(containerView)
         containerView.fillSuperview()
         containerView.addSubview(titleLabel)
@@ -172,7 +171,7 @@ final class FeedCell: UICollectionViewCell {
         }
         titleLabel.text = cellModel.title
         descriptionLabel.text = cellModel.counterOffer
-        var anchor = titleLabel.heightAnchor.constraint(equalToConstant: calculateTitleLabelHeight())
+        let anchor = titleLabel.heightAnchor.constraint(equalToConstant: calculateTitleLabelHeight())
         anchor.priority = UILayoutPriority(1000)
         anchor.isActive = true
         
@@ -262,7 +261,6 @@ extension FeedCell {
     }
     
     private func descriptionTypeConstraints() {
-        let titleLabelHeight = calculateTitleLabelHeight()
 
         containerView.addSubview(descriptionLabel)
         containerView.addSubview(favouriteButton)

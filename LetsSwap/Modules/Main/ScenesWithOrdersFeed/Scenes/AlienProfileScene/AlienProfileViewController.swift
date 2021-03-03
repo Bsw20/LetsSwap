@@ -64,7 +64,6 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
 
     // MARK: Object lifecycle
     init(userId: Int) {
-        print(userId)
         self.userId = userId
         super.init(nibName: nil, bundle: nil)
         setup()
@@ -97,7 +96,6 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
   
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("alien profile")
         view.backgroundColor = .mainBackground()
 
         setupConstraints()
@@ -119,7 +117,6 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
     func displayData(viewModel: AlienProfile.Model.ViewModel.ViewModelData) {
         switch viewModel {
         case .displayFullProfile(profileViewModel: let profileViewModel):
-            debugPrint(profileViewModel)
             feedCollectionView.updateData(feedViewModel: profileViewModel.feedViewModel)
         case .displayOrder(orderViewModel: let orderViewModel):
             router?.routeToFeedOrderController(orderViewModel: orderViewModel)
@@ -129,9 +126,7 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
     }
     
     func displayFullModel(viewModel: AlienProfile.FullModel.ViewModel) {
-        print("----------\\\"")
         print(#function)
-        debugPrint(viewModel)
         let feedViewModel = FeedViewModel.init(cells: viewModel.model.feedInfo.map{
             return FeedViewModel.Cell.init(orderId: $0.orderId,
                                            title: $0.title,

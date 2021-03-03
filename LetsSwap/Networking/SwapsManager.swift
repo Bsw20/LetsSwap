@@ -57,7 +57,6 @@ struct SwapsManager: SwapsFetcher{
                 switch response.result {
 
                 case .success(_):
-                    print("Chat created")
                     completion(.success(Void()))
 
                 case .failure(let error):

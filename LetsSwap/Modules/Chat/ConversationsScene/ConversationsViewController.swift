@@ -127,9 +127,7 @@ extension ConversationsViewController {
 
         format.timeZone = .current
         format.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        print(format.string(from: Date()))
         let data = JSON(massData)
-        debugPrint(data)
         guard let myProfileImage = data["myProfileImage"].string,
               let myUserName = data["myUserName"].string,
               let myId = data["myId"].int else {
@@ -221,7 +219,6 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let conversation = conversations[indexPath.row]
-        print(String.username(name: conversation.name, lastname: conversation.lastName))
         router?.routeToChat(conversation: conversation, userInfo: myProfileInfo)
     }
     

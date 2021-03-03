@@ -96,6 +96,10 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
         
     }
     
+    deinit {
+        listener.stopListenForMessages()
+    }
+    
     //MARK: - Funcs
     private func setupBusinessLogic() {
         listener.listenForMessages { (result) in
@@ -103,12 +107,15 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
             
             case .success(let model):
                 if self.chat.chatId == model.chatId {
-                    self.insertNewMessage(message: Message(messageId: model.messageId,
-                                                           senderId: model.senderId,
-                                                           displayName: model.displayName,
-                                                           content: model.content,
-                                                           sendDate: model.sendDate,
-                                                           chatId: model.chatId))
+                    print("GET MESSAGE")
+                    let message = Message(messageId: model.messageId,
+                                          senderId: model.senderId,
+                                          displayName: model.displayName,
+                                          content: model.content,
+                                          sendDate: model.sendDate,
+                                          chatId: model.chatId)
+                    debugPrint(message)
+                    self.insertNewMessage(message: message)
                 }
 
             case .failure(let error):
@@ -150,6 +157,15 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        onMainThread {
+            self.messagesCollectionView.scrollToBottom(animated: false)
+        }
+
         
     }
   
@@ -281,13 +297,16 @@ extension ChatViewController: MessagesDisplayDelegate {
 extension ChatViewController: InputBarAccessoryViewDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         let message = Message(user: user, chat: chat, content: text)
-
+        print("Sending message")
+        print(message)
+        #warning("В будущем сервер должен отсылать это сообщение двум клиентам")
+        self.insertNewMessage(message: message)
         listener.sendMessage(model: .init(messageId: message.messageId, chatId: chat.chatId, contentType: message.contentType, content: message.content, displayName: user.username, senderId: message.sender.senderId, sendDate: message.sentDate)) {[weak self] (result) in
             switch result {
                 case .success():
-                    #warning("В будущем сервер должен отсылать это сообщение двум клиентам")
-                    self?.insertNewMessage(message: message)
-                    self?.messagesCollectionView.scrollToBottom()
+                    onMainThread {
+                        self?.messagesCollectionView.scrollToBottom()
+                    }
             case .failure(let error):
                 UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
             }
