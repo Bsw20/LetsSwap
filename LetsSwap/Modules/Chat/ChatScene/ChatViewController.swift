@@ -124,6 +124,7 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
         }
     }
     private func insertNewMessage(message: Message) {
+        print(message.sentDate)
         guard !messages.contains(message) else { return }
         messages.append(message)
         messages.sort()
@@ -245,7 +246,24 @@ extension ChatViewController: MessagesDataSource  {
     }
     
     func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+        
         if indexPath.item % 4 == 0 {
+//            let formatter = DateFormatter()
+//            let date = message.sentDate
+//            formatter.timeZone = TimeZone(identifier: "Europe/Moscow")
+//            switch true {
+//            case Calendar.current.isDateInToday(date) || Calendar.current.isDateInYesterday(date):
+//                formatter.doesRelativeDateFormatting = true
+//                formatter.dateStyle = .short
+//                formatter.timeStyle = .short
+//            case Calendar.current.isDate(date, equalTo: Date(), toGranularity: .weekOfYear):
+//                formatter.dateFormat = "EEEE h:mm a"
+//            case Calendar.current.isDate(date, equalTo: Date(), toGranularity: .year):
+//                formatter.dateFormat = "E, d MMM, h:mm a"
+//            default:
+//                formatter.dateFormat = "MMM d, yyyy, h:mm a"
+//            }
+            
             return NSAttributedString(string: MessageKitDateFormatter.shared.string(from: message.sentDate),
                                       attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10),
                                                    NSAttributedString.Key.foregroundColor: UIColor.darkGray
@@ -300,7 +318,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         print("Sending message")
         print(message)
         #warning("В будущем сервер должен отсылать это сообщение двум клиентам")
-        self.insertNewMessage(message: message)
+//        self.insertNewMessage(message: message)
         listener.sendMessage(model: .init(messageId: message.messageId, chatId: chat.chatId, contentType: message.contentType, content: message.content, displayName: user.username, senderId: message.sender.senderId, sendDate: message.sentDate)) {[weak self] (result) in
             switch result {
                 case .success():

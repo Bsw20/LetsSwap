@@ -10,7 +10,11 @@ import UIKit
 import Alamofire
 import SwiftyBeaver
 
-struct ChatManager {
+protocol ConversationsManager {
+    func getAllConversations(completion: @escaping (Result<Any, Error>) -> Void)
+}
+
+struct ChatManager: ConversationsManager {
     public static var shared = ChatManager()
     func getAllMessages(chatId: Int, completion: @escaping (Result<[String: Any], Error>) -> Void) {
         guard let url = URL(string: APIManager.serverAddress + "/chat/getChatMessages/\(chatId)") else {
@@ -39,6 +43,38 @@ struct ChatManager {
                 case .failure(let error):
                     SwiftyBeaver.error(error.localizedDescription)
                     completion(.failure(FeedError.serverError))
+                }
+            })
+    }
+    
+    func getAllConversations(completion: @escaping (Result<Any, Error>) -> Void) {
+        guard let url = URL(string: "http://92.63.105.87:3000/chat/getAllChats") else {
+            completion(.failure(NSError()))
+            return
+        }
+        
+        let headers: HTTPHeaders = [
+                    "Content-Type":"application/json",
+            "Authorization" : APIManager.getToken()
+                ]
+        
+        AF.request(url, method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseJSON(completionHandler: { (response) in
+                switch response.result {
+
+                case .success(let data):
+                    completion(.success(data))
+//                    if let model = ConversationsViewController.parseToAllConversations(anyData: data) {
+//                        completion(.success(model))
+//                        return
+//                    }
+//                    completion(.failure(NSError()))
+
+                case .failure(let error):
+                    SwiftyBeaver.error(error.localizedDescription)
+                    completion(.failure(FeedError.serverError))
+                    #warning("figure out with error types")
                 }
             })
     }

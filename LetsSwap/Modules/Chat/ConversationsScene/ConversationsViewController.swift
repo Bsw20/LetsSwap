@@ -14,6 +14,8 @@ import SwiftyJSON
 
 protocol ConversationsDisplayLogic: class {
   func displayData(viewModel: Conversations.Model.ViewModel.ViewModelData)
+    func displayAllConversations(viewModel: Conversations.AllConversations.ViewModel)
+    func displayError(error: Error)
 }
 
 class ConversationsViewController: UIViewController, ConversationsDisplayLogic {
@@ -78,23 +80,22 @@ class ConversationsViewController: UIViewController, ConversationsDisplayLogic {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getAllConversations {[weak self] (result) in
-            switch result {
-            
-            case .success(let model):
-                self?.conversations = model.chats
-                self?.myProfileInfo = Conversations.MyProfileInfo(myId: model.myId, myProfileImage: model.myProfileImage, myUserName: model.myUserName)
-                self?.tableView.reloadData()
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+        interactor?.getAllConversations(requst: .init())
     }
   
     func displayData(viewModel: Conversations.Model.ViewModel.ViewModelData) {
-
+        
     }
     
+    func displayAllConversations(viewModel: Conversations.AllConversations.ViewModel) {
+        self.conversations = viewModel.chats
+        self.myProfileInfo = Conversations.MyProfileInfo(myId: viewModel.myId, myProfileImage: viewModel.myProfileImage, myUserName: viewModel.myUserName)
+        self.tableView.reloadData()
+    }
+    
+    func displayError(error: Error) {
+        UIApplication.showAlert(title: "Ошибка", message: "")
+    }
     //MARK: - Funcs
     private func setupUI() {
         setupTableView()
@@ -118,87 +119,8 @@ class ConversationsViewController: UIViewController, ConversationsDisplayLogic {
 
 //MARK: - TODO DELETE
 extension ConversationsViewController {
-    static func parseToAllConversations(anyData: Any) -> ConversationViewModel?{
-        guard let massData = anyData as? [String: Any] else {
-            SwiftyBeaver.error("Incorrect model")
-            return nil
-        }
-        let format = DateFormatter()
 
-        format.timeZone = .current
-        format.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        let data = JSON(massData)
-        guard let myProfileImage = data["myProfileImage"].string,
-              let myUserName = data["myUserName"].string,
-              let myId = data["myId"].int else {
-            SwiftyBeaver.error("Incorrect model")
-            return nil
-        }
 
-        let conversations:[Conversations.Conversation] = JSON(data)["chats"].arrayValue.compactMap{
-            guard
-                
-                let chatId =  $0["chatId"].int,
-                let friendAvatarStringURL =  $0["friendAvatarStringURL"].string,
-                let friendId =  $0["friendId"].int,
-                let name = $0["name"].string,
-                let lastName = $0["lastName"].string,
-                let missedMessagesCount = $0["missedMessagesCount"].int,
-                let lastMessageContent = $0["lastMessageContent"].string,
-                let stringSendDate = $0["date"].string
-                  else {
-                    SwiftyBeaver.error("Incorrect model")
-                    return nil
-            }
-            return Conversations.Conversation.init(friendAvatarStringURL: friendAvatarStringURL,
-                                                   friendId: friendId,
-                                                   name: name,
-                                                   lastName: lastName,
-                                                   missedMessagesCount: missedMessagesCount,
-                                                   lastMessageContent: lastMessageContent,
-                                                   date: format.date(from: stringSendDate),
-                                                   chatId: chatId)
-            
-        }
-        
-        return ConversationViewModel(chats: conversations,
-                                     myId: myId,
-                                     myProfileImage: myProfileImage,
-                                     myUserName: myUserName)
-        
-
-    }
-    private func getAllConversations(completion: @escaping (Result<ConversationViewModel, Error>) -> Void) {
-        guard let url = URL(string: "http://92.63.105.87:3000/chat/getAllChats") else {
-            completion(.failure(NSError()))
-            return
-        }
-        
-        let headers: HTTPHeaders = [
-                    "Content-Type":"application/json",
-            "Authorization" : APIManager.getToken()
-                ]
-        
-        AF.request(url, method: .get, headers: headers)
-            .validate(statusCode: 200..<300)
-            .responseJSON(completionHandler: { (response) in
-                switch response.result {
-
-                case .success(let data):
-//                    print(data as? [String: Any])
-                    if let model = ConversationsViewController.parseToAllConversations(anyData: data) {
-                        completion(.success(model))
-                        return
-                    }
-                    completion(.failure(NSError()))
-
-                case .failure(let error):
-                    SwiftyBeaver.error(error.localizedDescription)
-                    completion(.failure(FeedError.serverError))
-                    #warning("figure out with error types")
-                }
-            })
-    }
 }
 
 //MARK: - UITableViewDelegate&UITableViewDataSource

@@ -46,6 +46,8 @@ enum Conversations {
             var myUserName: String
         }
     }
+    
+    
    
   enum Model {
     struct Request {
