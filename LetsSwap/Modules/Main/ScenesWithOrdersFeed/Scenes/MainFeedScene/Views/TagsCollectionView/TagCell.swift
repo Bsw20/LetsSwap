@@ -15,6 +15,7 @@ class TagCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.backgroundColor = .clear
+        label.textColor = .mainTextColor()
 
         return label
     }()
