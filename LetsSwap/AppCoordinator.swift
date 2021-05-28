@@ -46,16 +46,24 @@ class AppCoordinator {
 
         let presentationVC = SignUpPresentationViewController(presentationSlide: .firstSlide)
         let navigationVC = UINavigationController(rootViewController: presentationVC)
+        navigationVC.navigationBar.barTintColor = .mainBackground()
+        navigationVC.navigationBar.isTranslucent = false
         contentWindow.rootViewController = navigationVC
     }
     func startSignIn() {
         let signInVC = SignInViewController()
-        contentWindow.rootViewController = UINavigationController(rootViewController: signInVC)
+        let navigationVC = UINavigationController(rootViewController: signInVC)
+        navigationVC.navigationBar.barTintColor = .mainBackground()
+        navigationVC.navigationBar.isTranslucent = false
+        contentWindow.rootViewController = navigationVC
     }
     
     private func startSignUp() {
         let signUpVC = SignUpViewController()
-        contentWindow.rootViewController = UINavigationController(rootViewController: signUpVC)
+        let navigationVC = UINavigationController(rootViewController: signUpVC)
+        navigationVC.navigationBar.barTintColor = .mainBackground()
+        navigationVC.navigationBar.isTranslucent = false
+        contentWindow.rootViewController = navigationVC
     }
     
     private func startMain() {
