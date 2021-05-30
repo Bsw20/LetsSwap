@@ -65,11 +65,6 @@ struct ChatManager: ConversationsManager {
 
                 case .success(let data):
                     completion(.success(data))
-//                    if let model = ConversationsViewController.parseToAllConversations(anyData: data) {
-//                        completion(.success(model))
-//                        return
-//                    }
-//                    completion(.failure(NSError()))
 
                 case .failure(let error):
                     SwiftyBeaver.error(error.localizedDescription)

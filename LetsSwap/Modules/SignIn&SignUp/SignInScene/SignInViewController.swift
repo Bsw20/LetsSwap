@@ -76,6 +76,7 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
 
         setupDelegates()
         setupActions()
+        hideKeyboardWhenTappedAround()
         
     }
     
@@ -162,7 +163,7 @@ extension SignInViewController {
         NSLayoutConstraint.activate([
             signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: SignInConstants.leadingTrailingOffset),
             signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -SignInConstants.leadingTrailingOffset),
-            signUpButton.topAnchor.constraint(equalTo: phoneNubmerView.bottomAnchor, constant: 100),
+            signUpButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
             signUpButton.heightAnchor.constraint(equalToConstant: 48)
         ])
         

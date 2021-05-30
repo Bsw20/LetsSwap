@@ -129,7 +129,7 @@ extension ChangePropertyView {
             editButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             editButton.trailingAnchor.constraint(equalTo: arrowImageView.leadingAnchor, constant: -5),
             editButton.heightAnchor.constraint(equalToConstant: editButtonSize.height),
-            editButton.widthAnchor.constraint(equalToConstant: editButtonSize.width)
+            editButton.widthAnchor.constraint(equalToConstant: editButtonSize.width + 5)
             
         ])
         

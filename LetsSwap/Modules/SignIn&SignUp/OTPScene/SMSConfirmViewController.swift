@@ -53,7 +53,7 @@ class SMSConfirmViewController: UIViewController {
         view.backgroundColor = .mainBackground()
         setupConstraints()
         confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
-        
+        navigationController?.navigationBar.tintColor = .mainTextColor()
         numbersView.delegate = self
     }
     

@@ -56,7 +56,9 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         view.backgroundColor = .mainBackground()
         feedCollectionView.customDelegate = self
         titleView.customDelegate = self
-        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardFromTopView))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
 
         
         setupSearchBar()
@@ -78,6 +80,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
 //        interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags,
 //                                                           text: titleView.getTextFieldText())))
         navigationController?.hidesBarsOnSwipe = true
+        print("VIEW WILL DISAPPEAR")
       }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -102,7 +105,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     }
     
     private func setupSearchBar() {
-        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.barTintColor = .mainBackground()
         self.navigationController?.hidesBarsOnSwipe = false
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationItem.titleView = titleView
@@ -116,6 +119,12 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
                                                                 text: inputText
                                                             )))
     }
+    
+    
+    @objc private func hideKeyboardFromTopView() {
+        titleView.endEditing(true)
+    }
+    
 }
 
 //MARK: - FeedViewControllerDelegate
@@ -133,7 +142,8 @@ extension FeedViewController: FeedCollectionViewDelegate {
                                                            text: titleView.getTextFieldText())))
     }
     func moreTagsButtonTapped() {
-        router?.routeToTagsController(currentTags: selectedTags)
+//        router?.routeToTagsController(currentTags: selectedTags)
+        UIViewController.showAlert(title: "Уведомление!", message: "Данный функционал будет реализован позже")
     }
     
     func refresh() {

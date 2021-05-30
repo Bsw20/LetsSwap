@@ -28,9 +28,14 @@ class MyProfileRouter: NSObject, MyProfileRoutingLogic {
         viewController?.navigationController?.push(vc)
     }
     func routeToEditScreen(model: EditProfileViewModel) {
-        let vc = EditProfileViewController(viewModel: model)
-        vc.trackerDelegate = viewController
-        viewController?.navigationController?.pushViewController(vc, animated: true)
+        onMainThread {
+            self.viewController?.startSpinner()
+            let vc = EditProfileViewController(viewModel: model)
+            vc.trackerDelegate = self.viewController
+            onMainThread {
+                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
     
     func routeToCreateOrder() {

@@ -56,7 +56,8 @@ class MainTabBarController: UITabBarController, MainTabBarDisplayLogic {
 //        print("TOKEN" + APIManager.getToken())
         socket = Socket.shared
         tabBar.isTranslucent = false
-        tabBar.tintColor = .mainBackground()
+        UITabBar.appearance().backgroundColor = .mainBackground()
+        UITabBar.appearance().barTintColor = .mainBackground()
         viewControllers = [
 //            generateNavigationController(rootViewController: FeedViewController(), image: UIImage(named: "feedIcon")!)
 //            generateNavigationController(rootViewController: FeedOrderViewController(), image: UIImage(named: "feedIcon")!)

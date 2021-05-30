@@ -163,6 +163,8 @@ final class FeedCell: UICollectionViewCell {
         addSubview(containerView)
         containerView.fillSuperview()
         containerView.addSubview(titleLabel)
+        print(containerView.frame.width)
+        print(frame.width)
 
         self.cellModel = cellModel
         
@@ -223,11 +225,12 @@ extension FeedCell {
         SwiftyBeaver.error("Text must allways be in here")
         fatalError("Text must allways be in here")
     }
+        print(titleLabel.text)
         let textHeight = titleLabelText.height(width: bounds.width - FeedConstants.titleFeedCellInset.left - FeedConstants.titleFeedCellInset.right , font: titleLabel.font)
         let lineHeight = titleLabel.font.lineHeight
         let numberOfLines = (textHeight / lineHeight) >= CGFloat(titleLabel.numberOfLines) ? titleLabel.numberOfLines : Int(textHeight / lineHeight)
-        
-        let titleLabelHeight = CGFloat(numberOfLines) * lineHeight
+        // + spacing between lines(CGFloat(5 * (numberOfLines - 1))
+        let titleLabelHeight: CGFloat = CGFloat(numberOfLines) * lineHeight + CGFloat(3 * (numberOfLines - 1))
         return titleLabelHeight
     }
     private func imageTypeConstraints() {

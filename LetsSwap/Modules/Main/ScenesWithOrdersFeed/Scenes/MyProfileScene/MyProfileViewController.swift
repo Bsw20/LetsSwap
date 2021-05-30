@@ -21,6 +21,14 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
         return collectionView
     }()
     
+    private var spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView(style: .large)
+        spinner.tintColor = .green
+        spinner.hidesWhenStopped = true
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        return spinner
+    }()
+    
     
     //MARK: - Variables
     var interactor: MyProfileBusinessLogic?
@@ -79,7 +87,20 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
 
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        stopSpinner()
+    }
+    
     //MARK: - funcs
+    public func startSpinner() {
+        spinner.startAnimating()
+    }
+   
+    public func stopSpinner() {
+        spinner.stopAnimating()
+    }
+    
     private func setupDelegates() {
         feedCollectionView.myProfileDelegate = self
     }
@@ -136,6 +157,10 @@ extension MyProfileViewController {
         view.addSubview(feedCollectionView)
         feedCollectionView.snp.makeConstraints { (make) in
             make.right.left.top.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        view.addSubview(spinner)
+        spinner.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
         }
     }
 }
