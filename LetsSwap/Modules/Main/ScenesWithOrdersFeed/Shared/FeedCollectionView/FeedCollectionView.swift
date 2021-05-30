@@ -81,7 +81,7 @@ class FeedCollectionView: UICollectionView {
         snapshot.appendItems(self.feedViewModel.cells, toSection: .orders)
 
         localDataSource?.apply(snapshot, animatingDifferences: true, completion: {
-            self.localDataSource?.apply(snapshot, animatingDifferences: false)
+             self.localDataSource?.apply(snapshot, animatingDifferences: false)
         })
         refreshControl?.endRefreshing()
 
@@ -101,15 +101,17 @@ extension FeedCollectionView: UICollectionViewDelegate {
 extension FeedCollectionView {
     private func createDataSource() {
         localDataSource = UICollectionViewDiffableDataSource<FeedCollectionLayout.Section, FeedViewModel.Cell> (collectionView: self, cellProvider: {[weak self] (collectionView, indexPath, user) -> UICollectionViewCell? in
+            guard let self = self else { return nil}
             guard let section = FeedCollectionLayout.Section(rawValue: indexPath.section) else { fatalError("Unknown section kind") }
     
             switch section {
             
             case .orders:
-                let cell = self?.dequeueReusableCell(withReuseIdentifier: FeedCell.reuseId, for: indexPath) as! FeedCell
-                let cellModel = self?.feedViewModel.cells[indexPath.item]
+                let cell = self.dequeueReusableCell(withReuseIdentifier: FeedCell.reuseId, for: indexPath) as! FeedCell
+                guard indexPath.item < self.feedViewModel.cells.count else { return cell}
+                let cellModel = self.feedViewModel.cells[indexPath.item]
                 #warning("Если cell model не корректный(мб allert)")
-                cell.set(cellType: FeedCell.FeedCellType.mainFeedCell(cellViewModel: cellModel!))
+                cell.set(cellType: FeedCell.FeedCellType.mainFeedCell(cellViewModel: cellModel))
                 cell.delegate = self
                 return cell
             }

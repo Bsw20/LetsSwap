@@ -24,7 +24,9 @@ class InsertableTextField: UITextField {
         backgroundColor = .white
         layer.borderWidth = 0.5
         layer.borderColor = UIColor.lightGray.cgColor
-        placeholder =  "Найди на что хочешь махнуться"
+        attributedPlaceholder = NSAttributedString(string: "Найди на что хочешь махнуться",
+                                                   attributes: [NSAttributedString.Key.foregroundColor: UIColor.greyTextColor()])
+        textColor = .mainTextColor()
         font = UIFont.systemFont(ofSize: 14)
         clearButtonMode = .whileEditing
         layer.cornerRadius = 20
@@ -34,7 +36,6 @@ class InsertableTextField: UITextField {
         leftView = UIImageView(image: image)
         leftView?.frame = CGRect(x: 0, y: 0, width: 14, height: 14)
         addTarget(self, action: #selector(textDidChange), for: UIControl.Event.editingChanged)
-        
         leftViewMode = .always
     }
     
@@ -47,6 +48,7 @@ class InsertableTextField: UITextField {
             customDelegate?.didChange(newText: text)
         }
     }
+    
     
     override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
         var rect = super.leftViewRect(forBounds: bounds)

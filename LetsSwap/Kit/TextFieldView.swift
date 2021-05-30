@@ -19,7 +19,7 @@ class TextFieldView: UIView {
     weak var delegate: TextFieldViewDelegate?
     
     
-    init(placeholder: String) {
+    init(placeholder: String, keyboardType: UIKeyboardType = .default) {
         textField = UITextField.getNormalTextField(placeholder: placeholder)
         super.init(frame: .zero)
 
@@ -30,6 +30,7 @@ class TextFieldView: UIView {
         
         setupTextfield()
         textField.addTarget(self, action: #selector(textFieldDidChange), for: UIControl.Event.editingChanged)
+        textField.keyboardType = keyboardType
 
     }
     

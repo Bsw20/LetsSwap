@@ -85,6 +85,7 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
         setupNavigationController()
         setupActions()
         setupDelegates()
+        hideKeyboardWhenTappedAround()
     }
     
     // MARK: - Funcs

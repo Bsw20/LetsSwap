@@ -22,6 +22,7 @@ class TitleView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        backgroundColor = .mainBackground()
         translatesAutoresizingMaskIntoConstraints = false
         cityButton.translatesAutoresizingMaskIntoConstraints = false
         cityButton.addTarget(self, action: #selector(cityButtonTapped), for: .touchUpInside)
@@ -30,6 +31,20 @@ class TitleView: UIView {
         addSubview(myTextField)
         addSubview(cityButton)
         makeConstraints()
+        
+        self.hideKeyboardWhenTappedAround() 
+        
+        
+    }
+    
+    func hideKeyboardWhenTappedAround() {
+        let tapGesture = UITapGestureRecognizer(target: self,
+                         action: #selector(hideKeyboard))
+        addGestureRecognizer(tapGesture)
+    }
+
+    @objc func hideKeyboard() {
+        endEditing(true)
     }
     
     @objc private func cityButtonTapped() {
@@ -47,12 +62,21 @@ class TitleView: UIView {
         cityButton.widthAnchor.constraint(equalTo: myTextField.heightAnchor, multiplier: 1).isActive = true
         
         // myTextField constraints
-        myTextField.anchor(top: topAnchor,
-                           leading: leadingAnchor,
-                           bottom: bottomAnchor,
-                           trailing: cityButton.leadingAnchor,
-                           padding: UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 12))
+//        myTextField.anchor(top: topAnchor,
+//                           leading: leadingAnchor,
+//                           bottom: bottomAnchor,
+//                           trailing: cityButton.leadingAnchor,
+//                           padding: UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 12))
+        myTextField.snp.makeConstraints { make in
+            make.left.top.equalToSuperview().offset(2)
+            make.height.equalTo(48)
+//            make.top.equalToSuperview().offset(2)
+        }
         
+        myTextField.trailingAnchor.constraint(equalTo: cityButton.leadingAnchor, constant: -12).isActive = true
+        NSLayoutConstraint.activate([
+            heightAnchor.constraint(equalToConstant: 55)
+        ])
     }
     
     override var intrinsicContentSize: CGSize {

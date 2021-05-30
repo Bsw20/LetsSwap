@@ -23,7 +23,7 @@ class InputPhoneNumberView: UIView {
     }()
     
     private lazy var phoneNumberView: TextFieldView = {
-       let view = TextFieldView(placeholder: "Телефон")
+        let view = TextFieldView(placeholder: "Телефон", keyboardType: .numberPad)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
