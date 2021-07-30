@@ -115,7 +115,7 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
         
     }
     func getNotifications(completion: @escaping (Result<NotificationModel, Error>) -> Void) {
-        guard let url = URL(string: "http://92.63.105.87:3000/change/getNotifications") else {
+        guard let url = URL(string: "http://178.154.210.140:3000/change/getNotifications") else {
             completion(.failure(FeedError.serverError))
             return
         }

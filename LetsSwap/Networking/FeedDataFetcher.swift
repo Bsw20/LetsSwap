@@ -22,9 +22,9 @@ protocol FeedDataFetcher {
 struct NetworkDataFetcher: FeedDataFetcher {
     
     public static var shared = NetworkDataFetcher()
-    private var getFeedUrl = URL(string: "http://92.63.105.87:3000/order/feed/getFeed")
-    private var getFiltredFeedUrl = URL(string: "http://92.63.105.87:3000/order/search")
-    private var getFavoriteOrdersFeedUrl = URL(string: "http://92.63.105.87:3000/order/favorite/getFavorite")
+    private var getFeedUrl = URL(string: "http://178.154.210.140:3000/order/feed/getFeed")
+    private var getFiltredFeedUrl = URL(string: "http://178.154.210.140:3000/order/search")
+    private var getFavoriteOrdersFeedUrl = URL(string: "http://178.154.210.140:3000/order/favorite/getFavorite")
     func getFavoriteOrdersFeed(nextBatchFrom: String?, completion: @escaping (Result<FeedResponse, FeedError>) -> Void) {
         guard let url = getFavoriteOrdersFeedUrl else {
             completion(.failure(FeedError.serverError))
@@ -132,7 +132,7 @@ struct NetworkDataFetcher: FeedDataFetcher {
     }
     
     func getOrder(orderId: Int, completion: @escaping (Result<OrderResponse, OrderError>) -> Void) {
-        guard let url = URL(string: "http://92.63.105.87:3000/order/feed/getOrderFeed/\(orderId)")  else {
+        guard let url = URL(string: "http://178.154.210.140:3000/order/feed/getOrderFeed/\(orderId)")  else {
             completion(.failure(OrderError.serverError))
             return
         }
@@ -173,7 +173,7 @@ struct NetworkDataFetcher: FeedDataFetcher {
     func getAlienProfile(userId: Int, completion: @escaping (Result<FullProfileResponse, AlienProfileError>) -> Void) {
         print(#function)
         
-        guard let url = URL(string: "http://92.63.105.87:3000/user/getProfile") else {
+        guard let url = URL(string: "http://178.154.210.140:3000/user/getProfile") else {
             completion(.failure(AlienProfileError.unknownError))
             return
         }

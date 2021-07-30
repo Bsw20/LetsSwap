@@ -48,7 +48,7 @@ struct ChatManager: ConversationsManager {
     }
     
     func getAllConversations(completion: @escaping (Result<Any, Error>) -> Void) {
-        guard let url = URL(string: "http://92.63.105.87:3000/chat/getAllChats") else {
+        guard let url = URL(string: "http://178.154.210.140:3000/chat/getAllChats") else {
             completion(.failure(NSError()))
             return
         }

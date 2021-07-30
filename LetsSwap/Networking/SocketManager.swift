@@ -13,7 +13,7 @@ import SwiftyJSON
 import SwiftyBeaver
 
 final class Socket: ObservableObject {
-    private var manager = SocketManager(socketURL: URL(string: "ws://92.63.105.87:3000")!, config: [.log(true), .compress, .connectParams(["token": APIManager.getToken()])])
+    private var manager = SocketManager(socketURL: URL(string: "ws://178.154.210.140:3000")!, config: [.log(true), .compress, .connectParams(["token": APIManager.getToken()])])
     
 
     var socket: SocketIOClient!
@@ -50,6 +50,20 @@ final class Socket: ObservableObject {
     
     public func sendMessage(model: MessageModel, completion: @escaping (Result<Void, Error>) -> Void ) {
         print(model.representation())
+//        "messageId": messageId,
+//                "chatId": chatId,
+//                "contentType": contentType,
+//                 "content": content
+        let newRepresentation: [String: Any]  = [
+            "chatId": model.chatId,
+            "contentType": model.contentType,
+            "content": model.content,
+            "forward": "",
+            "dataInfo": "",
+            "id": model.messageId
+        ]
+        print(model.representation())
+        print(model.socketRepresentation())
         socket.emit("SendMessage", model.representation()) {
             completion(.success(Void()))
         }
@@ -84,11 +98,13 @@ final class Socket: ObservableObject {
         
 
        func representation() -> SocketData {
-           return ["messageId": messageId,
-                   "chatId": chatId,
-                   "contentType": contentType,
-                    "content": content
-           ]
+            return ["chatId": chatId,
+                "contentType": contentType,
+                "content": content,
+                "forward": "",
+                "dataInfo": "",
+                "id": messageId
+            ]
        }
     }
 }
@@ -131,4 +147,5 @@ extension Socket {
                               sendDate: sendDate))
     }
 }
+
 

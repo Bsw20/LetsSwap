@@ -16,10 +16,10 @@ struct FavoriteOrderManager {
     
     func changeState(orderID: Int, isFavorite: Bool, completion: @escaping(Result<Bool, Error>) -> Void) {
         if isFavorite {
-            request(isFavorite: isFavorite, stringUrl: "http://92.63.105.87:3000/order/favorite/deleteFavorite/\(orderID)", completion: completion)
+            request(isFavorite: isFavorite, stringUrl: "http://178.154.210.140:3000/order/favorite/deleteFavorite/\(orderID)", completion: completion)
             return
         }
-        request(isFavorite: isFavorite, stringUrl: "http://92.63.105.87:3000/order/favorite/addFavorite/\(orderID)", completion: completion)
+        request(isFavorite: isFavorite, stringUrl: "http://178.154.210.140:3000/order/favorite/addFavorite/\(orderID)", completion: completion)
     }
     
     private func request(isFavorite: Bool, stringUrl: String, completion: @escaping(Result<Bool, Error>) -> Void) {
@@ -53,7 +53,7 @@ struct FavoriteOrderManager {
     }
     
     private func makeUnfavorite(orderID: Int, completion: @escaping(Result<Bool, Error>) -> Void) {
-        guard let url = URL(string: "http://92.63.105.87:3000/order/favorite/deleteFavorite/\(orderID)") else {
+        guard let url = URL(string: "http://178.154.210.140:3000/order/favorite/deleteFavorite/\(orderID)") else {
             completion(.failure(NSError()))
             return
         }
