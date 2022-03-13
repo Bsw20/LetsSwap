@@ -24,6 +24,4 @@ class ChatPresenter: ChatPresentationLogic {
     }
     
   weak var viewController: ChatDisplayLogic?
-  
-  
 }

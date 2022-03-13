@@ -30,6 +30,6 @@ struct APIManager {
         SwiftyBeaver.info("User log out")
     }
     static var serverAddress: String {
-        return "http://178.154.210.140:3000"
+        return "http://178.154.210.140:3030"
     }
 }

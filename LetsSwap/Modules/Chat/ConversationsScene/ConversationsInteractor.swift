@@ -64,24 +64,30 @@ extension ConversationsInteractor {
         format.timeZone = .current
         format.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         let data = JSON(massData)
-        guard let myProfileImage = data["myProfileImage"].string,
-              let myUserName = data["myUserName"].string,
+        let myProfileImage = data["myProfileImage"].string
+        guard let myUserName = data["myUserName"].string,
               let myId = data["myId"].int else {
             SwiftyBeaver.error("Incorrect model")
             return nil
         }
 
         let conversations:[Conversations.Conversation] = JSON(data)["chats"].arrayValue.compactMap{
-            guard
-                
-                let chatId =  $0["chatId"].int,
-                let friendAvatarStringURL =  $0["friendAvatarStringURL"].string,
+            let friendAvatarStringURL =  $0["friendAvatarStringURL"].string
+            let lastMessageContent = $0["lastMessageContent"].string
+            var sendDate = Date()
+            if let stringSendDate = $0["date"].string {
+                if let parsedDate = format.date(from: stringSendDate) {
+                    sendDate = parsedDate
+                }
+            }
+            
+            guard let chatId =  $0["chatId"].int,
                 let friendId =  $0["friendId"].int,
                 let name = $0["name"].string,
                 let lastName = $0["lastName"].string,
-                let missedMessagesCount = $0["missedMessagesCount"].int,
-                let lastMessageContent = $0["lastMessageContent"].string,
-                let stringSendDate = $0["date"].string
+                let missedMessagesCount = $0["missedMessagesCount"].int
+//                let lastMessageContent = $0["lastMessageContent"].string
+//                let stringSendDate = $0["date"].string TODO
                   else {
                     SwiftyBeaver.error("Incorrect model")
                     return nil
@@ -91,8 +97,8 @@ extension ConversationsInteractor {
                                                    name: name,
                                                    lastName: lastName,
                                                    missedMessagesCount: missedMessagesCount,
-                                                   lastMessageContent: lastMessageContent,
-                                                   date: format.date(from: stringSendDate),
+                                                   lastMessageContent: lastMessageContent ?? "",
+                                                   date: sendDate,
                                                    chatId: chatId)
             
         }
