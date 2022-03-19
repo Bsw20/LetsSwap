@@ -172,7 +172,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
         }
     }
     private func validateConfirmation() {
-        let validate =  !(titleTextView.isEmpty || descriptionTextView.isEmpty || counterOfferTextView.isEmpty || chooseTagsView.isEmpty)
+        let validate =  !(titleTextView.isEmpty || descriptionTextView.isEmpty || (counterOfferTextView.isEmpty && !freeSwitch.isOn) || chooseTagsView.isEmpty)
         yellowButton.isEnabled = validate
     }
 
@@ -281,6 +281,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
         } else {
             counterOfferTextView.backgroundColor = .white
         }
+        validateConfirmation()
     }
 
     

@@ -33,7 +33,7 @@ class CreateOrderCell: UICollectionViewCell {
         label.backgroundColor = .clear
         label.font = UIFont.circeRegular(with: 13)
         label.textColor = #colorLiteral(red: 0.7294117647, green: 0.7294117647, blue: 0.7294117647, alpha: 1)
-        label.text = "Добавь свое первое предложение"
+        label.text = "Добавь новое предложение"
         label.textAlignment = .center
         label.clipsToBounds = true
         label.isUserInteractionEnabled = false
