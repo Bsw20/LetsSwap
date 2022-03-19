@@ -81,6 +81,7 @@ class FavoriteOrdersViewController: UIViewController, FavoriteOrdersDisplayLogic
     private func setupNavigationController() {
         navigationItem.title = "Закладки"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
+        navigationController?.navigationBar.isTranslucent = true
     }
 }
 

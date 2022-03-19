@@ -51,6 +51,7 @@ class CitiesListViewController: UIViewController {
     
     private func setupSearchBar() {
         navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
         let searchController = UISearchController(searchResultsController: nil)
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false

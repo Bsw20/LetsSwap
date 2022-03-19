@@ -54,6 +54,7 @@ class SMSConfirmViewController: UIViewController {
         setupConstraints()
         confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
         navigationController?.navigationBar.tintColor = .mainTextColor()
+        navigationController?.navigationBar.isTranslucent = true
         numbersView.delegate = self
     }
     

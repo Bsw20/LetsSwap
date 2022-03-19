@@ -110,6 +110,7 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
         
         navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(named: "settingsIcon"), style: .plain, target: self, action: #selector(settingsButtonTapped)), animated: true)
+        navigationController?.navigationBar.isTranslucent = true
     }
     
   

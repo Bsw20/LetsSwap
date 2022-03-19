@@ -105,6 +105,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     }
     
     private func setupSearchBar() {
+        navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.barTintColor = .mainBackground()
         self.navigationController?.hidesBarsOnSwipe = false
         self.navigationController?.navigationBar.shadowImage = UIImage()

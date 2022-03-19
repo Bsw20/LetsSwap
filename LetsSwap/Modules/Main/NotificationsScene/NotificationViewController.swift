@@ -154,7 +154,7 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
     private func setupNavigation() {
         navigationController?.navigationBar.topItem?.title = "Оповещения"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
-        
+        navigationController?.navigationBar.isTranslucent = true
     }
   
 }

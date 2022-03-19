@@ -128,6 +128,7 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
         
         navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.isTranslucent = true
     }
     
     private func confirmValidation() -> Bool{

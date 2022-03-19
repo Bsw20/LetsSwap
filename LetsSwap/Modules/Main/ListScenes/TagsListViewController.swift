@@ -55,6 +55,7 @@ class TagsListViewController: UIViewController {
         
         navigationItem.setLeftBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "goBackIcon"), style: .plain, target: self, action: #selector(leftBarButtonTapped)), animated: true)
         navigationItem.hidesBackButton = true
+        navigationController?.navigationBar.isTranslucent = true
     }
     
     private func setupCollectionView() {
