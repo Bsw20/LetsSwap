@@ -132,7 +132,7 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
     }
     
     private func confirmValidation() -> Bool{
-        return !phoneNubmerView.isEmpty()
+        return phoneNubmerView.numberLength() == 10
     }
 }
 
