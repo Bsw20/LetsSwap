@@ -37,8 +37,8 @@ struct SwapsManager: SwapsFetcher{
     
 
     func createChat(userId: Int, completion: @escaping (Result<Void, Error>) -> Void) {
-        guard let url = URL(string: "http://92.63.105.87:3000/chat/create") else {
-            SwiftyBeaver.error(String.incorrectUrl(url: "http://92.63.105.87:3000/chat/create"))
+        guard let url = URL(string: "http://178.154.210.140:3030/chatModule/chat/create") else {
+            SwiftyBeaver.error(String.incorrectUrl(url: "http://178.154.210.140:3030/chatModule/chat/create"))
             completion(.failure(NSError()))
             return
         }
@@ -71,8 +71,8 @@ struct SwapsManager: SwapsFetcher{
     //MARK: - Funcs
     
     func confirmSwap(swapId: Int, completion: @escaping (Result<Void, Error>) -> Void) {
-        guard let url = URL(string: "http://92.63.105.87:3000/change/confirm") else {
-            SwiftyBeaver.error(String.incorrectUrl(url: "http://92.63.105.87:3000/change/confirm"))
+        guard let url = URL(string: "http://178.154.210.140:3030/security/change/confirm") else {
+            SwiftyBeaver.error(String.incorrectUrl(url: "http://178.154.210.140:3030/security/change/confirm"))
             completion(.failure(NSError()))
             return
         }
@@ -106,8 +106,8 @@ struct SwapsManager: SwapsFetcher{
     
     func refuseSwap(swapId: Int, completion: @escaping (Result<Void, Error>) -> Void) {
         SwiftyBeaver.info(#function)
-        guard let url = URL(string: "http://92.63.105.87:3000/change/confirm") else {
-            SwiftyBeaver.error(String.incorrectUrl(url: "http://92.63.105.87:3000/change/confirm"))
+        guard let url = URL(string: "http://178.154.210.140:3030/security/change/confirm") else {
+            SwiftyBeaver.error(String.incorrectUrl(url: "http://178.154.210.140:3030/security/change/confirm"))
             completion(.failure(NSError()))
             return
         }
@@ -140,8 +140,8 @@ struct SwapsManager: SwapsFetcher{
     }
     
     func validateSwap(orderId: Int, completion: @escaping (Result<Void, Error>) -> Void) {
-        guard let url = URL(string: "http://92.63.105.87:3000/change/canMakeChange/\(orderId)") else {
-            SwiftyBeaver.error(String.incorrectUrl(url: "http://92.63.105.87:3000/change/canMakeChange/\(orderId)"))
+        guard let url = URL(string: "http://178.154.210.140:3030/security/change/canMakeChange/\(orderId)") else {
+            SwiftyBeaver.error(String.incorrectUrl(url: "http://178.154.210.140:3030/security/change/canMakeChange/\(orderId)"))
             completion(.failure(NSError()))
             return
         }
@@ -165,8 +165,8 @@ struct SwapsManager: SwapsFetcher{
     }
     
     func makeSwap(model: MakeSwapModel, completion: @escaping (Result<Void, Error>) -> Void) {
-        guard let url = URL(string: "http://92.63.105.87:3000/change/addChange") else {
-            SwiftyBeaver.error(String.incorrectUrl(url: "http://92.63.105.87:3000/change/addChange"))
+        guard let url = URL(string: "http://178.154.210.140:3030/security/change/addChange") else {
+            SwiftyBeaver.error(String.incorrectUrl(url: "http://178.154.210.140:3030/security/change/addChange"))
             completion(.failure(NSError()))
             return
         }

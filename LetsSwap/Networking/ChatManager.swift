@@ -17,17 +17,20 @@ protocol ConversationsManager {
 struct ChatManager: ConversationsManager {
     public static var shared = ChatManager()
     func getAllMessages(chatId: Int, completion: @escaping (Result<[String: Any], Error>) -> Void) {
-        guard let url = URL(string: APIManager.serverAddress + "/chat/getChatMessages/\(chatId)") else {
+        guard let url = URL(string: APIManager.serverAddress + "/chatModule/chat/getChatMessages") else {
             completion(.failure(NSError()))
             return
         }
+        let userData: [String: Any] = ["chatId" : chatId]
         
         let headers: HTTPHeaders = [
                     "Content-Type":"application/json",
             "Authorization" : APIManager.getToken()
                 ]
-
-        AF.request(url, method: .get, headers: headers)
+        print(APIManager.getToken())
+        AF.request(url, method: .post,parameters: userData,
+                   encoding: JSONEncoding.default,
+                   headers: headers)
             .validate(statusCode: 200..<300)
             .responseJSON(completionHandler: { (response) in
                 switch response.result {
@@ -48,7 +51,7 @@ struct ChatManager: ConversationsManager {
     }
     
     func getAllConversations(completion: @escaping (Result<Any, Error>) -> Void) {
-        guard let url = URL(string: "http://92.63.105.87:3000/chat/getAllChats") else {
+        guard let url = URL(string: "http://178.154.210.140:3030/chatModule/chat/getAll") else {
             completion(.failure(NSError()))
             return
         }

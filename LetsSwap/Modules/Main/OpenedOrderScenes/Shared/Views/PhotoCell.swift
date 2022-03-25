@@ -24,7 +24,7 @@ class PhotoCell: UICollectionViewCell {
     }
     //MARK: - Controls
     private lazy var imageView: WebImageView = {
-       let imageView = WebImageView()
+        let imageView = WebImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -42,7 +42,7 @@ class PhotoCell: UICollectionViewCell {
         backgroundColor = .mainBackground()
         deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         setupConstraints()
-
+        
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

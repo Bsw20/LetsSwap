@@ -61,6 +61,7 @@
 		3048EDB025E18E810021AD4D /* ChatModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048EDA925E18E810021AD4D /* ChatModels.swift */; };
 		3048EDB125E18E810021AD4D /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048EDAA25E18E810021AD4D /* ChatViewController.swift */; };
 		3048EDB225E18E810021AD4D /* ChatInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048EDAB25E18E810021AD4D /* ChatInteractor.swift */; };
+		30517A6026D824B600E02E2D /* LocalMediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30517A5F26D824B600E02E2D /* LocalMediaCell.swift */; };
 		3051A62A25EA6FD900EC3C17 /* UIScrollView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3051A62925EA6FD900EC3C17 /* UIScrollView + Extension.swift */; };
 		3060281F259B8DAA0046A2B0 /* MyProfileConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3060281E259B8DAA0046A2B0 /* MyProfileConstants.swift */; };
 		3060282B259BBE400046A2B0 /* FullOrderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30602824259BBE400046A2B0 /* FullOrderPresenter.swift */; };
@@ -119,11 +120,14 @@
 		308366022589F81D00578AE2 /* UIButton + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308366012589F81D00578AE2 /* UIButton + Extension.swift */; };
 		308366072589FDC000578AE2 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308366062589FDC000578AE2 /* Constraints.swift */; };
 		3083660B258A019A00578AE2 /* InsertableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3083660A258A019A00578AE2 /* InsertableTextField.swift */; };
+		30842F7C26C9298900C3E445 /* IMG_5092.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = 30842F7B26C9298800C3E445 /* IMG_5092.MP4 */; };
 		30895F7B2594AE820091FA31 /* RequestSentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30895F7A2594AE820091FA31 /* RequestSentViewController.swift */; };
 		308D28CE258E4BA70088D340 /* TagsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308D28CD258E4BA70088D340 /* TagsCollectionView.swift */; };
 		308D28D3258E6C530088D340 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308D28D2258E6C530088D340 /* TagsViewController.swift */; };
 		3095F04425DD8EFB00508B1B /* UIApplication + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3095F04325DD8EFB00508B1B /* UIApplication + Extension.swift */; };
 		3096301125C4335D0076090F /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3096301025C4335D0076090F /* AuthService.swift */; };
+		309FCDE526B49BD500A1BCFC /* FilesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309FCDE426B49BD500A1BCFC /* FilesService.swift */; };
+		309FCDE726B49C1C00A1BCFC /* ServerAddressConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309FCDE626B49C1C00A1BCFC /* ServerAddressConstants.swift */; };
 		30A4C9E425B8AD2400003DDE /* StackView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4C9E325B8AD2400003DDE /* StackView + Extension.swift */; };
 		30A4C9EE25B8AF8200003DDE /* NotificationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4C9E725B8AF8200003DDE /* NotificationPresenter.swift */; };
 		30A4C9EF25B8AF8200003DDE /* NotificationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A4C9E825B8AF8200003DDE /* NotificationWorker.swift */; };
@@ -239,6 +243,7 @@
 		3048EDA925E18E810021AD4D /* ChatModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModels.swift; sourceTree = "<group>"; };
 		3048EDAA25E18E810021AD4D /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		3048EDAB25E18E810021AD4D /* ChatInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInteractor.swift; sourceTree = "<group>"; };
+		30517A5F26D824B600E02E2D /* LocalMediaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalMediaCell.swift; sourceTree = "<group>"; };
 		3051A62925EA6FD900EC3C17 /* UIScrollView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView + Extension.swift"; sourceTree = "<group>"; };
 		3060281E259B8DAA0046A2B0 /* MyProfileConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileConstants.swift; sourceTree = "<group>"; };
 		30602824259BBE400046A2B0 /* FullOrderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullOrderPresenter.swift; sourceTree = "<group>"; };
@@ -297,11 +302,14 @@
 		308366012589F81D00578AE2 /* UIButton + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + Extension.swift"; sourceTree = "<group>"; };
 		308366062589FDC000578AE2 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
 		3083660A258A019A00578AE2 /* InsertableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertableTextField.swift; sourceTree = "<group>"; };
+		30842F7B26C9298800C3E445 /* IMG_5092.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_5092.MP4; sourceTree = "<group>"; };
 		30895F7A2594AE820091FA31 /* RequestSentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSentViewController.swift; sourceTree = "<group>"; };
 		308D28CD258E4BA70088D340 /* TagsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsCollectionView.swift; sourceTree = "<group>"; };
 		308D28D2258E6C530088D340 /* TagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
 		3095F04325DD8EFB00508B1B /* UIApplication + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication + Extension.swift"; sourceTree = "<group>"; };
 		3096301025C4335D0076090F /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		309FCDE426B49BD500A1BCFC /* FilesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesService.swift; sourceTree = "<group>"; };
+		309FCDE626B49C1C00A1BCFC /* ServerAddressConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerAddressConstants.swift; sourceTree = "<group>"; };
 		30A4C9E325B8AD2400003DDE /* StackView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StackView + Extension.swift"; sourceTree = "<group>"; };
 		30A4C9E725B8AF8200003DDE /* NotificationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPresenter.swift; sourceTree = "<group>"; };
 		30A4C9E825B8AF8200003DDE /* NotificationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationWorker.swift; sourceTree = "<group>"; };
@@ -523,6 +531,7 @@
 		303AB78C2580FB3300F287C2 /* LetsSwap */ = {
 			isa = PBXGroup;
 			children = (
+				30842F7B26C9298800C3E445 /* IMG_5092.MP4 */,
 				3022F66125C2E443004C50B7 /* AppCoordinator.swift */,
 				303AB78D2580FB3300F287C2 /* AppDelegate.swift */,
 				303AB78F2580FB3300F287C2 /* SceneDelegate.swift */,
@@ -585,6 +594,7 @@
 		3048EDA525E18DCE0021AD4D /* ChatScene */ = {
 			isa = PBXGroup;
 			children = (
+				30517A5E26D8249D00E02E2D /* Views */,
 				3048EDAA25E18E810021AD4D /* ChatViewController.swift */,
 				3048EDAB25E18E810021AD4D /* ChatInteractor.swift */,
 				3048EDA625E18E810021AD4D /* ChatPresenter.swift */,
@@ -592,6 +602,14 @@
 				3048EDA925E18E810021AD4D /* ChatModels.swift */,
 			);
 			path = ChatScene;
+			sourceTree = "<group>";
+		};
+		30517A5E26D8249D00E02E2D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				30517A5F26D824B600E02E2D /* LocalMediaCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		30602823259BBDD30046A2B0 /* FullOrderScene */ = {
@@ -676,6 +694,8 @@
 				302B049A25DC44F1009F1EC3 /* APIManager.swift */,
 				30FA0D3D25E81B2B00292651 /* ChatManager.swift */,
 				30C15AD225EBC2D8008D1493 /* StateTrackerManager.swift */,
+				309FCDE426B49BD500A1BCFC /* FilesService.swift */,
+				309FCDE626B49C1C00A1BCFC /* ServerAddressConstants.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -1056,6 +1076,7 @@
 				303AB79A2580FB3600F287C2 /* LaunchScreen.storyboard in Resources */,
 				30CB75022592795200CB84D6 /* Circe-Regular.ttf in Resources */,
 				3022F5D825BB07F9004C50B7 /* russia.json in Resources */,
+				30842F7C26C9298900C3E445 /* IMG_5092.MP4 in Resources */,
 				303A06602593694300C14BFD /* Circe-Bold.ttf in Resources */,
 				303AB7972580FB3600F287C2 /* Assets.xcassets in Resources */,
 			);
@@ -1171,6 +1192,7 @@
 				3072F33F25C57A3A00CE7C65 /* OTPTextField.swift in Sources */,
 				308366072589FDC000578AE2 /* Constraints.swift in Sources */,
 				3048ED9325E162A60021AD4D /* ConversationsRouter.swift in Sources */,
+				309FCDE526B49BD500A1BCFC /* FilesService.swift in Sources */,
 				3072F35125C6EC1E00CE7C65 /* UserAPIService.swift in Sources */,
 				30BC10CC2599342D00066D9B /* UIView + Extension.swift in Sources */,
 				308365D42589E59500578AE2 /* MainTabBarWorker.swift in Sources */,
@@ -1222,6 +1244,7 @@
 				30CB74E2259121C700CB84D6 /* FeedOrderViewController.swift in Sources */,
 				3022F65925C1E930004C50B7 /* SignUpPresentationViewController.swift in Sources */,
 				30740C1C25D5548A000457AD /* MainFeedHeader.swift in Sources */,
+				309FCDE726B49C1C00A1BCFC /* ServerAddressConstants.swift in Sources */,
 				30BC10C8259920DA00066D9B /* AlienProfileConstants.swift in Sources */,
 				3048EDB125E18E810021AD4D /* ChatViewController.swift in Sources */,
 				3075142525CC199A006D95F2 /* PhotosCarouselCollectionView.swift in Sources */,
@@ -1243,6 +1266,7 @@
 				3060283B259BC58E0046A2B0 /* UITextView + Extension.swift in Sources */,
 				30AC737825D83BE8006A4746 /* FavoriteOrdersInteractor.swift in Sources */,
 				308365E62589E65200578AE2 /* FeedRouter.swift in Sources */,
+				30517A6026D824B600E02E2D /* LocalMediaCell.swift in Sources */,
 				30A4C9FE25B8BB7800003DDE /* NotificationCell.swift in Sources */,
 				30BC10DF259A04C200066D9B /* AlienProfileError.swift in Sources */,
 				30602830259BBE400046A2B0 /* FullOrderInteractor.swift in Sources */,

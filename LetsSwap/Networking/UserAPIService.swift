@@ -47,15 +47,15 @@ struct UserAPIService:  EditProfileFetcher {
             switch self {
             
             case .getMyProfile:
-                return URL(string: "http://92.63.105.87:3000/user/getProfile")
+                return URL(string: "http://178.154.210.140:3030/security/user/getProfile")
             case .createOrder:
-                return URL(string: "http://92.63.105.87:3000/order/makeNew")
+                return URL(string: "http://178.154.210.140:3030/security/order/makeNew")
             case .uploadImage:
-                return URL(string: "http://92.63.105.87:3000/image/upload")
+                return URL(string: "http://178.154.210.140:3030/image/upload")
             case .updateUserInfo:
-                return URL(string: "http://92.63.105.87:3000/user/update")
+                return URL(string: "http://178.154.210.140:3030/security/user/update")
             case .getProfileForEditing:
-                return URL(string: "http://92.63.105.87:3000/user/getProfileEditing")
+                return URL(string: "http://178.154.210.140:3030/security/user/getProfileEditing")
             }
         }
     }
@@ -153,7 +153,7 @@ extension UserAPIService: MyProfileFetcher {
     
     func getOrder(orderId: Int, completion: @escaping (Result<MyProfileOrderResponse, MyProfileError>) -> Void) {
         
-        guard let url = URL(string: "http://92.63.105.87:3000/order/\(orderId)") else {
+        guard let url = URL(string: "http://178.154.210.140:3030/security/order/\(orderId)") else {
             completion(.failure(MyProfileError.APIUrlError))
             return
         }
@@ -225,7 +225,7 @@ extension UserAPIService: MyProfileFetcher {
 //MARK: - FullOrderFetcher
 extension UserAPIService: FullOrderFetcher {
     func updateOrder(orderId: Int, model: FullOrderViewModel, completion: @escaping (Result<Void, MyProfileError>) -> Void) {
-        guard let url = URL(string: "http://92.63.105.87:3000/order/update/\(orderId)") else {
+        guard let url = URL(string: "http://178.154.210.140:3030/security/order/update/\(orderId)") else {
             completion(.failure(MyProfileError.APIUrlError))
             return
         }
@@ -299,7 +299,7 @@ extension UserAPIService: FullOrderFetcher {
     }
     
     func uploadImage(image: UIImage, completion: @escaping (Result<StringURL, MyProfileError>) -> Void) {
-        guard let data = image.jpegData(compressionQuality: 0.9) else {
+        guard let fileData = image.jpegData(compressionQuality: 0.9) else {
            return
          }
         guard let url = RequestUrl.uploadImage.getUrl() else  {
@@ -311,9 +311,14 @@ extension UserAPIService: FullOrderFetcher {
             "Content-type": "multipart/form-data",
             "Authorization" : APIManager.getToken()
                 ]
+        
+        FilesService.shared.uploadFile(fileData: fileData) {_ in 
+            print("Here")
+        }
+        
         AF.upload(multipartFormData: { (multiPart) in
 //            multiPart.append(data, withName: "file", fileName: "file.png", mimeType: "image/png")
-            multiPart.append(data, withName: "fileData", fileName: "image.png", mimeType: "image/jpeg")
+            multiPart.append(fileData, withName: "fileData", fileName: "image.png", mimeType: "image/jpeg")
         }, to: url, headers: headers)
         .validate(statusCode: 200..<300)
         .responseJSON { (result) in
@@ -321,6 +326,9 @@ extension UserAPIService: FullOrderFetcher {
             switch result.result {
             
             case .success(let data):
+//                FilesService.shared.uploadFile(fileData: fileData) {
+//                    print("Here")
+//                }
                 if let data = data as? [String:String], let dataURL = data["url"] {
                     completion(.success(dataURL))
                     return
@@ -340,7 +348,7 @@ extension UserAPIService: FullOrderFetcher {
 //MARK: - FeedOrderFetcher
 extension UserAPIService: FeedOrderFetcher {
     func deleteOrder(orderId: Int, completion: @escaping (Result<Void, FeedOrderError>) -> Void) {
-        guard let url = URL(string: "http://92.63.105.87:3000/order/delete/\(orderId)") else {
+        guard let url = URL(string: "http://178.154.210.140:3030/security/order/delete/\(orderId)") else {
             completion(.failure(FeedOrderError.APIUrlError))
             return
         }
@@ -367,7 +375,7 @@ extension UserAPIService: FeedOrderFetcher {
     }
     
     func changeHidingState(orderId: Int, completion: @escaping (Result<Bool, FeedOrderError>) -> Void) {
-        guard let url = URL(string: "http://92.63.105.87:3000/order/changeHidden/\(orderId)") else {
+        guard let url = URL(string: "http://178.154.210.140:3030/security/order/changeHidden/\(orderId)") else {
             completion(.failure(FeedOrderError.APIUrlError))
             return
         }

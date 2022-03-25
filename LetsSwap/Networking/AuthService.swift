@@ -13,9 +13,9 @@ import SwiftyBeaver
 struct AuthService {
     public static var shared = AuthService()
     
-    private static var sendSmsUrl = URL(string: "http://92.63.105.87:3000/smsSend")
-    private static var signUpUrl = URL(string: "http://92.63.105.87:3000/register")
-    private static var signInUrl = URL(string: "http://92.63.105.87:3000/login")
+    private static var sendSmsUrl = URL(string: "http://178.154.210.140:3030/smsSend")
+    private static var signUpUrl = URL(string: "http://178.154.210.140:3030/register")
+    private static var signInUrl = URL(string: "http://178.154.210.140:3030/login")
     
     func sendSms(login: String, completion: @escaping (Result<Void, Error>) -> Void) {
         print("......")

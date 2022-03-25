@@ -13,7 +13,7 @@ import SwiftyJSON
 import SwiftyBeaver
 
 final class Socket: ObservableObject {
-    private var manager = SocketManager(socketURL: URL(string: "ws://92.63.105.87:3000")!, config: [.log(true), .compress, .connectParams(["token": APIManager.getToken()])])
+    private var manager = SocketManager(socketURL: URL(string: "ws://178.154.210.140:3030")!, config: [.log(true), .compress, .connectParams(["token": APIManager.getToken()])])
     
 
     var socket: SocketIOClient!
@@ -50,6 +50,20 @@ final class Socket: ObservableObject {
     
     public func sendMessage(model: MessageModel, completion: @escaping (Result<Void, Error>) -> Void ) {
         print(model.representation())
+//        "messageId": messageId,
+//                "chatId": chatId,
+//                "contentType": contentType,
+//                 "content": content
+        let newRepresentation: [String: Any]  = [
+            "chatId": model.chatId,
+//            "contentType": model.contentType,
+//            "content": model.content,
+            "forward": "",
+            "dataInfo": "",
+            "id": model.messageId,
+        ]
+        print(model.representation())
+        print(model.socketRepresentation())
         socket.emit("SendMessage", model.representation()) {
             completion(.success(Void()))
         }
@@ -74,21 +88,39 @@ final class Socket: ObservableObject {
     }
     
     struct MessageModel : SocketData {
-        let messageId: String
-        let chatId: Int
-        let contentType: String
-        let content: String
         let displayName: String
         let senderId: String
         let sendDate: Date
         
-
-       func representation() -> SocketData {
-           return ["messageId": messageId,
-                   "chatId": chatId,
-                   "contentType": contentType,
-                    "content": content
-           ]
+        let messageId: String
+        let chatId: Int
+        var forward: Int? = 0
+        var replyTo: Int? = 0
+        
+        var messageText: String?
+        var file: FilesService.File?
+        
+        func representation() -> SocketData {
+            var dataInfo: [String: Any]? = nil
+            let format = DateFormatter()
+             
+            format.timeZone = .current
+            format.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+            if let file = file {
+                dataInfo = ["fileId": file.id,
+                            "fileName": file.name,
+                            "filePath": file.path,
+                            "fileExtension": file.type
+                ]
+            }
+            return ["messageId": messageId,
+                    "chatId": chatId,
+                    "messageText": messageText ?? nil,
+                    "forward": nil,
+                    "dataInfo": dataInfo ?? nil,
+                    "date": format.string(from:sendDate)
+                    
+            ]
        }
     }
 }
@@ -104,6 +136,7 @@ extension Socket {
             SwiftyBeaver.error("Incorrect model, it must be json")
             return .failure(NSError())
         }
+        print(firstData)
         let json = JSON(data)
         let format = DateFormatter()
          
@@ -112,23 +145,45 @@ extension Socket {
         
         guard let chatId = json["chatId"].int,
               let senderId = json["senderId"].int,
-              let content = json["message"].string,
-              let contentType = json["contentType"].string,
               let displayName = json["senderName"].string,
               let messageId = json["messageId"].string,
               let stringSendDate = json["date"].string,
+
               let sendDate = format.date(from: stringSendDate)
         else {
             SwiftyBeaver.error("Incorrect model")
             return .failure(NSError())
         }
-        return .success(.init(messageId: messageId,
-                              chatId: chatId,
-                              contentType: contentType,
-                              content: content,
-                              displayName: displayName,
+        let messageText = json["messageText"].string
+        let fileId = json["fileId"].int
+        let fileName = json["fileName"].string
+        let filePath = json["filePath"].string
+//        let fileExtension = json["fileExtension"].string
+        let fileExtension: String? = json["fileExtension"].string
+        var file: FilesService.File? = nil
+        if let fileId = fileId, let fileName = fileName, let filePath = filePath, let fileExtension = fileExtension {
+            file = .init(id: fileId,
+                         name: fileName,
+                         path: filePath,
+                         type: fileExtension)
+        }
+        return .success(.init(displayName: displayName,
                               senderId: String(senderId),
-                              sendDate: sendDate))
+                              sendDate: sendDate,
+                              messageId: messageId,
+                              chatId: chatId,
+                              forward: 0,
+                              replyTo: 0,
+                              messageText: messageText,
+                              file: file))
+//        return .success(.init(messageId: messageId,
+//                              chatId: chatId,
+//                              contentType: contentType,
+//                              content: content,
+//                              displayName: displayName,
+//                              senderId: String(senderId),
+//                              sendDate: sendDate))
     }
 }
+
 
