@@ -129,6 +129,7 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
     //MARK: - Funcs
     private func setupNavigationController() {
         navigationItem.title = "Регистрация"
+        navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
         navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.tintColor = .black;

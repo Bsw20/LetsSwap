@@ -107,6 +107,7 @@ class ConversationsViewController: UIViewController, ConversationsDisplayLogic {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
         navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.tintColor = .black;
+        navigationController?.navigationBar.isTranslucent = true
     }
     
     private func setupTableView() {

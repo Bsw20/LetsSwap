@@ -58,8 +58,12 @@ class InputPhoneNumberView: UIView {
         #warning("Проверка на пустоту")
         return (countryCodeView.getText(), phoneNumberView.getText())
     }
-    func isEmpty() -> Bool{
+    func isEmpty() -> Bool {
         return phoneNumberView.isEmpty()
+    }
+    
+    func numberLength() -> Int {
+        return phoneNumberView.getText().count
     }
 }
 

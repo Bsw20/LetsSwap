@@ -108,6 +108,7 @@ class EditProfileViewController: UIViewController {
         navigationItem.title = "Редактирование профиля"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
         navigationController?.navigationBar.tintColor = .mainTextColor()
+        navigationController?.navigationBar.isTranslucent = true
         
         
         applyBarButton = UIBarButtonItem(image: UIImage(), style: .plain, target: self, action: #selector(rightBarButtonTapped))

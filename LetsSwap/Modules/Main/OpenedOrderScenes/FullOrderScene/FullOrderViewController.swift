@@ -172,7 +172,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
         }
     }
     private func validateConfirmation() {
-        let validate =  !(titleTextView.isEmpty || descriptionTextView.isEmpty || counterOfferTextView.isEmpty || chooseTagsView.isEmpty)
+        let validate =  !(titleTextView.isEmpty || descriptionTextView.isEmpty || (counterOfferTextView.isEmpty && !freeSwitch.isOn) || chooseTagsView.isEmpty)
         yellowButton.isEnabled = validate
     }
 
@@ -218,6 +218,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
 
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
         navigationController?.navigationBar.tintColor = .mainTextColor()
+        navigationController?.navigationBar.isTranslucent = true
         
     }
     
@@ -280,6 +281,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
         } else {
             counterOfferTextView.backgroundColor = .white
         }
+        validateConfirmation()
     }
 
     

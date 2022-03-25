@@ -253,6 +253,7 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         navigationItem.title = type.getNavigationTitle()
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
         navigationController?.navigationBar.tintColor = .mainTextColor()
+        navigationController?.navigationBar.isTranslucent = true
     }
     
     //MARK: - objc funcs
