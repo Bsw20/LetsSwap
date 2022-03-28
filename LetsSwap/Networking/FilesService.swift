@@ -27,7 +27,7 @@ class FilesService {
         var size: CGSize {
             CGSize(width: 400, height: 400)
         }
-        
+
         var id: Int
         var name: String
         var path: String
@@ -70,15 +70,11 @@ class FilesService {
 //                }
 //            }
         }
-                //                s
     }
 
-    public func uploadFile(fileData: Data, fileName: String = "IMG.png", completion: @escaping(File) -> ()) {
-//        var newFileData: Data = #imageLiteral(resourceName: "RU-ICON").pngData()!
+    public func uploadFile(fileData: Data, fileName: String = "IMG.png", completion: @escaping(Result<File, Error>) -> ()) {
         var newFileData = fileData
-//        if fileData == nil {
-//            fileData = #imageLiteral(resourceName: "tatu").pngData()
-//        }
+
         let url = ServerAddressConstants.UPLOAD_FILE
         let headers: HTTPHeaders = [
             "Content-type": "multipart/form-data",
@@ -104,13 +100,16 @@ class FilesService {
                     let model = try JSONDecoder().decode(File.self, from: dataInfo)
                     print(model)
                     print(model.url)
-                    completion(model)
+                    completion(.success(model))
+                    return
                 } catch(let error){
                     print(error)
+                    completion(.failure(NSError()))
                 }
             case .failure(let error):
                 print(result.debugDescription)
                 print(error)
+                completion(.failure(error))
 //                SwiftyBeaver.error(error.localizedDescription)
 //                completion(.failure(APIErrorFabrics.serverError(code: error.responseCode)))
             }
