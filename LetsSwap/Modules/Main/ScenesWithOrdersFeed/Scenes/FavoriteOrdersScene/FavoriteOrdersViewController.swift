@@ -76,6 +76,7 @@ class FavoriteOrdersViewController: UIViewController, FavoriteOrdersDisplayLogic
         case .displayOrder(orderViewModel: let orderViewModel):
             router?.routeToFeedOrderController(orderViewModel: orderViewModel)
         }
+        view.isUserInteractionEnabled = true
     }
     
     private func setupNavigationController() {
@@ -88,6 +89,7 @@ class FavoriteOrdersViewController: UIViewController, FavoriteOrdersDisplayLogic
 //MARK: - FeedCollectionViewDelegate
 extension FavoriteOrdersViewController: FeedCollectionViewDelegate {
     func cellDidSelect(orderId: Int) {
+        view.isUserInteractionEnabled = false
         interactor?.makeRequest(request: .getOrder(orderId: orderId))
     }
     

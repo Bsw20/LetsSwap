@@ -116,7 +116,6 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
   
     func displayData(viewModel: MyProfile.Model.ViewModel.ViewModelData) {
         switch viewModel {
-        
         case .displayWholeProfile(myProfileViewModel: let myProfileViewModel):
             feedCollectionView.updateData(feedViewModel: myProfileViewModel)
             print("My profile image")
@@ -128,12 +127,16 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
         case .displayFullProfileInfo(profileInfo: let model):
             router?.routeToEditScreen(model: model)
         }
-
+        onMainThread {
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+        }
+        view.isUserInteractionEnabled = true
     }
     
     //MARK: - Objc funcs
     @objc private func settingsButtonTapped() {
-        interactor?.makeRequest(request: .getFullProfileInfo)
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        self.interactor?.makeRequest(request: .getFullProfileInfo)
     }
   
   
@@ -146,6 +149,7 @@ extension MyProfileViewController: MyProfileFeedCollectionViewDelegate {
     }
     
     func openOrderCellTapped(orderId: Int) {
+        view.isUserInteractionEnabled = false
         interactor?.makeRequest(request: .getOrder(orderId: orderId))
     }
     

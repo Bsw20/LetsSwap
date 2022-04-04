@@ -77,8 +77,9 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags,
-//                                                           text: titleView.getTextFieldText())))
+        interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags, text: titleView.getTextFieldText())))
+        #warning("Заглушка для favorites. Часто не работает через updateData")
+        feedCollectionView.reloadData()
         navigationController?.hidesBarsOnSwipe = true
         print("VIEW WILL DISAPPEAR")
       }
@@ -102,6 +103,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
             #warning("TODO: ждать дизайнеров    ")
             showAlert(title: "Ошибка", message: "")
         }
+        view.isUserInteractionEnabled = true
     }
     
     private func setupSearchBar() {
@@ -109,6 +111,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         navigationController?.navigationBar.barTintColor = .mainBackground()
         self.navigationController?.hidesBarsOnSwipe = false
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        //self.navigationItem.prompt = nil
         self.navigationItem.titleView = titleView
     }
     private func applyFilterToFeed() {
@@ -131,6 +134,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
 //MARK: - FeedViewControllerDelegate
 extension FeedViewController: FeedCollectionViewDelegate {
     func cellDidSelect(orderId: Int) {
+        view.isUserInteractionEnabled = false
         interactor?.makeRequest(request: .getOrder(orderId: orderId))
     }
     

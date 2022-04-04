@@ -146,6 +146,8 @@ final class FeedCell: UICollectionViewCell {
             hiddenView.isHidden = true
             if cellViewModel.isFavourite {
                 setFavourite()
+            } else {
+                setUnfavourite()
             }
             setupCell(cellModel: cellViewModel)
             

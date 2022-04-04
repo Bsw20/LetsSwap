@@ -79,12 +79,13 @@ class FeedCollectionView: UICollectionView {
         
         snapshot.appendSections([.orders])
         snapshot.appendItems(self.feedViewModel.cells, toSection: .orders)
-
-        localDataSource?.apply(snapshot, animatingDifferences: true, completion: {
-             self.localDataSource?.apply(snapshot, animatingDifferences: false)
-        })
+        
+        onMainThread {
+            self.localDataSource?.apply(snapshot, animatingDifferences: true, completion: {
+                 self.localDataSource?.apply(snapshot, animatingDifferences: false)
+            })
+        }
         refreshControl?.endRefreshing()
-
     }
     
     
