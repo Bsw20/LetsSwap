@@ -39,10 +39,12 @@ enum Feed {
 struct FiltredFeedModel {
     var selectedTags: Set<FeedTag>
     var text: String
+    var city: String
     
     var representation: [String: Any] {
         var rep: [String: Any] = ["tags": Array(selectedTags).map{$0.rawValue}]
         rep["searchString"] = text
+        rep["city"] = city
         return rep
     }
 }

@@ -47,7 +47,7 @@ class FeedCollectionView: UICollectionView {
             supplementaryViews = [FeedCollectionLayout.createSectionHeader()]
         }
         let layout = FeedCollectionLayout.createCompositionalLayout(supplementaryViews: supplementaryViews)
-        super.init(frame: .zero, collectionViewLayout:layout )
+        super.init(frame: .zero, collectionViewLayout:layout)
         register(MainFeedHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainFeedHeader.reuseId)
         delegate = self
         createDataSource()

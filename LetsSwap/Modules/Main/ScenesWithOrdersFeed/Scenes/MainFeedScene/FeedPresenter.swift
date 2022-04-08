@@ -23,6 +23,9 @@ class FeedPresenter: FeedPresentationLogic {
             
             case .success(let feed):
                 let feedViewModel = FeedPresenter.getFeedViewModel(feed: feed)
+                if let city = feed.city {
+                    viewController?.setCity(cityString: city)
+                }
                 viewController?.displayData(viewModel: .displayFeed(feedViewModel: feedViewModel))
             case .failure(let feedError):
                 switch feedError {
