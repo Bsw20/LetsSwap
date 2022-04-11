@@ -63,6 +63,7 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
         SwiftyBeaver.info(user.username)
         SwiftyBeaver.info(user.id)
         setup()
+        setupNavigationController()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -81,6 +82,27 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
         interactor.presenter      = presenter
         presenter.viewController  = viewController
         router.viewController     = viewController
+    }
+    
+    private func setupNavigationController() {
+        navigationItem.title = chat.friendUsername
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
+        navigationController?.navigationBar.tintColor = .mainTextColor()
+        navigationController?.navigationBar.isTranslucent = true
+        let img = WebImageView(frame: CGRect(origin: .zero, size: CGSize(width: 32, height: 32)))
+        //img.image = #imageLiteral(resourceName: "settingsIcon")
+        img.backgroundColor = .imageFiller()
+        img.set(imageURL: chat.friendAvatarStringURL)
+//        if let imageUrl = chat.friendAvatarStringURL {
+//            img.set(imageURL: imageUrl)
+//        } else {
+//            img.image = UIColor.imageFiller().image(CGSize(width: 32, height: 32))
+//        }
+        img.layer.masksToBounds = false
+        img.layer.cornerRadius = 16
+        img.clipsToBounds = true
+        let rightButton = UIBarButtonItem(customView: img)
+        navigationItem.setRightBarButton(rightButton, animated: true)
     }
     
     //MARK: - DisplayLogic

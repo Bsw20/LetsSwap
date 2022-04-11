@@ -11,6 +11,7 @@ import UIKit
 struct FeedResponse: Decodable {
     var items: [FeedItem]
     var nextFrom: String?
+    var city: String?
 }
 
 struct FeedItem: Decodable {

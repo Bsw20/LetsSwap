@@ -39,6 +39,9 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
     
     private var authService = AuthService()
     
+    var registerButtonConstaintToBottom: NSLayoutConstraint?
+    var registerButtonConstaintToKeyboard: NSLayoutConstraint?
+    
     var router: (NSObjectProtocol & SignInRoutingLogic)?
 
       // MARK: Object lifecycle
@@ -76,6 +79,7 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
 
         setupDelegates()
         setupActions()
+        setupObservers()
         hideKeyboardWhenTappedAround()
         
     }
@@ -96,6 +100,7 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
             }
         }
     }
+    
     @objc private func signUpButtonTapped() {
         print(#function)
         let vc = SignUpViewController()
@@ -103,10 +108,30 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if registerButtonConstaintToKeyboard == nil {
+            if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
+                registerButtonConstaintToKeyboard = signUpButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -keyboardHeight)
+            }
+        }
+        registerButtonConstaintToKeyboard?.isActive = true
+        registerButtonConstaintToBottom?.isActive = false
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        registerButtonConstaintToKeyboard?.isActive = false
+        registerButtonConstaintToBottom?.isActive = true
+    }
+    
     //MARK: - Funcs
     private func setupActions() {
         confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
         signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+    }
+    
+    private func setupObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     private func setupDelegates() {
@@ -161,10 +186,12 @@ extension SignInViewController {
             phoneNubmerView.heightAnchor.constraint(equalToConstant: 96)
         ])
         
+        registerButtonConstaintToBottom = signUpButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
+        registerButtonConstaintToBottom?.isActive = true
+        
         NSLayoutConstraint.activate([
             signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: SignInConstants.leadingTrailingOffset),
             signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -SignInConstants.leadingTrailingOffset),
-            signUpButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
             signUpButton.heightAnchor.constraint(equalToConstant: 48)
         ])
         

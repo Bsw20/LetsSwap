@@ -47,4 +47,15 @@ extension UIColor {
     static func errorRed() -> UIColor {
         return #colorLiteral(red: 0.8274509804, green: 0, blue: 0, alpha: 1)
     }
+    
+    static func imageFiller() -> UIColor {
+        return #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
+    }
+    
+    func image(_ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { rendererContext in
+            self.setFill()
+            rendererContext.fill(CGRect(origin: .zero, size: size))
+        }
+    }
 }

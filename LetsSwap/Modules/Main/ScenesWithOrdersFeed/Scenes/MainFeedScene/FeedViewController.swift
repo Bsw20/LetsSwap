@@ -10,6 +10,7 @@ import UIKit
 
 protocol FeedDisplayLogic: class {
     func displayData(viewModel: Feed.Model.ViewModel.ViewModelData)
+    func setCity(cityString: String)
 }
 
 class FeedViewController: UIViewController, FeedDisplayLogic {
@@ -20,6 +21,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     private var titleView = TitleView()
     var interactor: FeedBusinessLogic?
     var router: (NSObjectProtocol & FeedRoutingLogic)?
+    var selectedCity: String = ""
     private var selectedTags: Set<FeedTag> {
         return feedCollectionView.getSelectedTags()
     }
@@ -64,7 +66,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         setupSearchBar()
         setupConstraints()
         interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags,
-                                                           text: titleView.getTextFieldText())))
+                                                                                  text: titleView.getTextFieldText(), city: selectedCity)))
         view.layoutIfNeeded()
 
 
@@ -77,8 +79,10 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags,
-//                                                           text: titleView.getTextFieldText())))
+        interactor?.makeRequest(request: .getFeed)
+        //interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags, text: titleView.getTextFieldText(), city: "Москва")))
+        #warning("Заглушка для favorites. Часто не работает через updateData")
+        feedCollectionView.reloadData()
         navigationController?.hidesBarsOnSwipe = true
         print("VIEW WILL DISAPPEAR")
       }
@@ -102,6 +106,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
             #warning("TODO: ждать дизайнеров    ")
             showAlert(title: "Ошибка", message: "")
         }
+        view.isUserInteractionEnabled = true
     }
     
     private func setupSearchBar() {
@@ -109,6 +114,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         navigationController?.navigationBar.barTintColor = .mainBackground()
         self.navigationController?.hidesBarsOnSwipe = false
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        //self.navigationItem.prompt = nil
         self.navigationItem.titleView = titleView
     }
     private func applyFilterToFeed() {
@@ -117,7 +123,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         interactor?.makeRequest(request: .getFilteredFeed(model:
                                                             FiltredFeedModel(
                                                                 selectedTags: tags,
-                                                                text: inputText
+                                                                text: inputText, city: selectedCity
                                                             )))
     }
     
@@ -126,11 +132,15 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         titleView.endEditing(true)
     }
     
+    func setCity(cityString: String) {
+        selectedCity = cityString
+    }
 }
 
 //MARK: - FeedViewControllerDelegate
 extension FeedViewController: FeedCollectionViewDelegate {
     func cellDidSelect(orderId: Int) {
+        view.isUserInteractionEnabled = false
         interactor?.makeRequest(request: .getOrder(orderId: orderId))
     }
     
@@ -140,7 +150,7 @@ extension FeedViewController: FeedCollectionViewDelegate {
     
     func selectedTagsChanged() {
         interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags,
-                                                           text: titleView.getTextFieldText())))
+                                                                                  text: titleView.getTextFieldText(), city: selectedCity)))
     }
     func moreTagsButtonTapped() {
 //        router?.routeToTagsController(currentTags: selectedTags)
@@ -149,7 +159,7 @@ extension FeedViewController: FeedCollectionViewDelegate {
     
     func refresh() {
         interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags,
-                                                           text: titleView.getTextFieldText())))
+                                                                                  text: titleView.getTextFieldText(), city: selectedCity)))
     }
     
     

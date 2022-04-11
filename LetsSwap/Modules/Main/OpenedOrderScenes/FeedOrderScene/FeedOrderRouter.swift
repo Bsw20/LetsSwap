@@ -41,6 +41,7 @@ class FeedOrderRouter: NSObject, FeedOrderRoutingLogic {
                                                 urls: model.photoAttachments.compactMap{$0.absoluteString})
         let vc = FullOrderViewController(type: .edit(model: orderViewModel))
         vc.customDelegate = viewController
+        vc.hidesBottomBarWhenPushed = true
         viewController?.navigationController?.push(vc)
     }
   

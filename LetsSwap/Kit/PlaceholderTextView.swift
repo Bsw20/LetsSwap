@@ -29,6 +29,7 @@ class PlaceholderTextView: UITextView {
         super.init(frame: .zero, textContainer: nil)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.textColor = placeholderColor
+        self.backgroundColor = .white
         self.text = placeholder
         self.font = font
         layer.cornerRadius = 10
