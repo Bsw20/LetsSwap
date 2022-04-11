@@ -47,7 +47,7 @@ class FeedCollectionView: UICollectionView {
             supplementaryViews = [FeedCollectionLayout.createSectionHeader()]
         }
         let layout = FeedCollectionLayout.createCompositionalLayout(supplementaryViews: supplementaryViews)
-        super.init(frame: .zero, collectionViewLayout:layout )
+        super.init(frame: .zero, collectionViewLayout:layout)
         register(MainFeedHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainFeedHeader.reuseId)
         delegate = self
         createDataSource()
@@ -79,12 +79,13 @@ class FeedCollectionView: UICollectionView {
         
         snapshot.appendSections([.orders])
         snapshot.appendItems(self.feedViewModel.cells, toSection: .orders)
-
-        localDataSource?.apply(snapshot, animatingDifferences: true, completion: {
-             self.localDataSource?.apply(snapshot, animatingDifferences: false)
-        })
+        
+        onMainThread {
+            self.localDataSource?.apply(snapshot, animatingDifferences: true, completion: {
+                 self.localDataSource?.apply(snapshot, animatingDifferences: false)
+            })
+        }
         refreshControl?.endRefreshing()
-
     }
     
     

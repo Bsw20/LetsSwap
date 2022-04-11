@@ -51,7 +51,7 @@ class EditProfileViewController: UIViewController {
     //MARK: - Variables
     private var viewModel: EditProfileViewModel
     private var networkService: EditProfileFetcher = UserAPIService.shared
-    private var picker: ImagePicker?
+    private lazy var picker: ImagePicker? = nil
     
     var router: (NSObjectProtocol & EditProfileRoutingLogic)?
     

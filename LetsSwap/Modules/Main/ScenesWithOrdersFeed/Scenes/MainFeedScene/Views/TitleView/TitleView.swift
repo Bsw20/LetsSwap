@@ -57,7 +57,7 @@ class TitleView: UIView {
                             leading: nil,
                             bottom: nil,
                             trailing: trailingAnchor,
-                            padding: UIEdgeInsets(top: 2, left: 777, bottom: 777, right: 4))
+                            padding: UIEdgeInsets(top: 0, left: 777, bottom: 777, right: 4))
         cityButton.heightAnchor.constraint(equalTo: myTextField.heightAnchor, multiplier: 1).isActive = true
         cityButton.widthAnchor.constraint(equalTo: myTextField.heightAnchor, multiplier: 1).isActive = true
         
@@ -68,9 +68,9 @@ class TitleView: UIView {
 //                           trailing: cityButton.leadingAnchor,
 //                           padding: UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 12))
         myTextField.snp.makeConstraints { make in
-            make.left.top.equalToSuperview().offset(2)
-            make.height.equalTo(48)
-//            make.top.equalToSuperview().offset(2)
+            make.left.equalToSuperview().offset(2)
+            make.height.equalTo(44)
+            make.bottom.equalToSuperview()
         }
         
         myTextField.trailingAnchor.constraint(equalTo: cityButton.leadingAnchor, constant: -12).isActive = true

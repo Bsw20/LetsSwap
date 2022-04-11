@@ -203,6 +203,7 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
             FeedOrderViewController.showAlert(title: "Успешно", message: "Предложение теперь \(newState ? "cкрыто" : "раскрыто")") {
                 self.trackerDelegate?.stateDidChange()
             }
+            hideOrderButton.setTitle(newState ? "Раскрыть" : "Скрыть", for: .normal)
 
         case .displayError(error: let error):
             FeedOrderViewController.showAlert(title: "Ошибка", message: error.localizedDescription)
@@ -400,9 +401,15 @@ extension FeedOrderViewController {
         NSLayoutConstraint.activate([
             photosCollectionView.topAnchor.constraint(equalTo: interimView.bottomAnchor, constant: FeedOrderConstants.photosCollectionViewInset.top),
             photosCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            photosCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            photosCollectionView.heightAnchor.constraint(equalToConstant: FeedOrderConstants.photosCollectionViewHeight)
+            photosCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            
         ])
+        
+        if orderViewModel.photoAttachments.isEmpty  {
+            photosCollectionView.heightAnchor.constraint(equalToConstant: 0).isActive = true
+        } else {
+            photosCollectionView.heightAnchor.constraint(equalToConstant: FeedOrderConstants.photosCollectionViewHeight).isActive = true
+        }
         
         pageControl.snp.makeConstraints { (make) in
             make.centerX.equalTo(view)

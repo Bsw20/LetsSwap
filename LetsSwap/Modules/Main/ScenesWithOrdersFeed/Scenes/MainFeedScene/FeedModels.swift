@@ -39,10 +39,12 @@ enum Feed {
 struct FiltredFeedModel {
     var selectedTags: Set<FeedTag>
     var text: String
+    var city: String
     
     var representation: [String: Any] {
         var rep: [String: Any] = ["tags": Array(selectedTags).map{$0.rawValue}]
         rep["searchString"] = text
+        rep["city"] = city
         return rep
     }
 }
@@ -82,13 +84,13 @@ enum FeedTag: String, CaseIterable, Hashable {
     case fashion = "Мода"
     case education = "Обучение"
     case handicraft = "Рукоделие"
-    case celebrations = "Праздники,мероприятия"
+    case celebrations = "Праздники, мероприятия"
     case advertising = "Реклама"
     case workWithChildren = "Работа с детьми"
     case repairOfEquipment = "Ремонт техники"
     case advertAgain = "Опять реклама"
     case building = "Строительство"
-    case plants = "Сад,растения"
+    case plants = "Сад, растения"
     case cleaning = "Уборка"
     case equipmentSetup = "Установка техники"
     case photography = "Фотография"

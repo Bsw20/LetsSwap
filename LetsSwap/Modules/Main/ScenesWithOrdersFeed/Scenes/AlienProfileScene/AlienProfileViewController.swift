@@ -179,12 +179,12 @@ extension AlienProfileViewController {
             chatButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -AlienProfileConstants.topViewInset.right),
             chatButton.heightAnchor.constraint(equalToConstant: AlienProfileConstants.chatButtonHeight),
             chatButton.widthAnchor.constraint(equalToConstant: AlienProfileConstants.chatButtonHeight),
-            chatButton.topAnchor.constraint(equalTo: view.topAnchor, constant: AlienProfileConstants.topViewInset.top)
+            chatButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: AlienProfileConstants.topViewInset.top)
         ])
         
         NSLayoutConstraint.activate([
             topView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: AlienProfileConstants.topViewInset.left),
-            topView.topAnchor.constraint(equalTo: view.topAnchor, constant: AlienProfileConstants.topViewInset.top),
+            topView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: AlienProfileConstants.topViewInset.top),
             topView.trailingAnchor.constraint(equalTo: chatButton.leadingAnchor, constant: -AlienProfileConstants.chatButtonLeadingOffset)
         ])
 
