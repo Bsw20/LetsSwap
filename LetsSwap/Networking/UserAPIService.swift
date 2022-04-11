@@ -312,37 +312,16 @@ extension UserAPIService: FullOrderFetcher {
             "Authorization" : APIManager.getToken()
                 ]
         
-        FilesService.shared.uploadFile(fileData: fileData) {_ in 
-            print("Here")
-        }
-        
-        AF.upload(multipartFormData: { (multiPart) in
-//            multiPart.append(data, withName: "file", fileName: "file.png", mimeType: "image/png")
-            multiPart.append(fileData, withName: "fileData", fileName: "image.png", mimeType: "image/jpeg")
-        }, to: url, headers: headers)
-        .validate(statusCode: 200..<300)
-        .responseJSON { (result) in
-            #warning("RECODE")
-            switch result.result {
-            
-            case .success(let data):
-//                FilesService.shared.uploadFile(fileData: fileData) {
-//                    print("Here")
-//                }
-                if let data = data as? [String:String], let dataURL = data["url"] {
-                    completion(.success(dataURL))
-                    return
-                }
-                SwiftyBeaver.error(String.incorrectJSON(data))
-                completion(.failure(MyProfileError.APIUrlError))
+        FilesService.shared.uploadFile(fileData: fileData) {result in
+            switch result {
+                
+            case .success(let model):
+                completion(.success(model.url?.absoluteString))
             case .failure(let error):
-                SwiftyBeaver.error(error.localizedDescription)
-                completion(.failure(MyProfileError.APIUrlError))
+                completion(.failure(.APIUrlError))
             }
-
         }
     }
-
 }
 
 //MARK: - FeedOrderFetcher

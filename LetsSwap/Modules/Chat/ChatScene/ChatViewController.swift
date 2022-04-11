@@ -528,27 +528,34 @@ extension ChatViewController: MessageCellDelegate {
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     private func sendMediaMessage(data: Data?, fileName: String = "IMG.png") {
         guard let data = data else { return }
-        FilesService.shared.uploadFile(fileData: data, fileName: fileName) { file in
-            let message = Message(user: self.user, chat: self.chat, file: file)
-            self.insertNewMessage(message: message)
-            self.listener.sendMessage(model: .init(displayName: self.user.username,
-                                                   senderId: message.sender.senderId,
-                                                   sendDate: message.sentDate,
-                                                   messageId: message.messageId,
-                                                   chatId: self.chat.chatId,
-                                                   forward: 0,
-                                                   replyTo: 0,
-                                                   messageText: message.messageText,
-                                                   file: message.file)) {[weak self] result in
-                switch result {
-                case .success():
-                    onMainThread {
-                        self?.messagesCollectionView.scrollToBottom()
+        FilesService.shared.uploadFile(fileData: data, fileName: fileName) { result in
+            switch result {
+                
+            case .success(let file):
+                let message = Message(user: self.user, chat: self.chat, file: file)
+                self.insertNewMessage(message: message)
+                self.listener.sendMessage(model: .init(displayName: self.user.username,
+                                                       senderId: message.sender.senderId,
+                                                       sendDate: message.sentDate,
+                                                       messageId: message.messageId,
+                                                       chatId: self.chat.chatId,
+                                                       forward: 0,
+                                                       replyTo: 0,
+                                                       messageText: message.messageText,
+                                                       file: message.file)) {[weak self] result in
+                    switch result {
+                    case .success():
+                        onMainThread {
+                            self?.messagesCollectionView.scrollToBottom()
+                        }
+                    case .failure(let error):
+                        UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
                     }
-                case .failure(let error):
-                    UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
                 }
+            case .failure(let error):
+                UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
             }
+ 
         }
     }
     

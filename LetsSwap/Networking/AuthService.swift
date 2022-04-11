@@ -17,6 +17,65 @@ struct AuthService {
     private static var signUpUrl = URL(string: "http://178.154.210.140:3030/register")
     private static var signInUrl = URL(string: "http://178.154.210.140:3030/login")
     
+    
+    func sendAPNSToken(token: String, completion:@escaping (Result<Void, Error>) -> Void ) {
+        let url = URL(string: "http://178.154.210.140:3030/security/user/setToken")!
+        
+        
+        let userData: [String: Any] = ["token": token]
+        print("tok \(APIManager.getToken())")
+        let headers: HTTPHeaders = [
+                    "Content-Type":"application/json",
+            "Authorization" : APIManager.getToken()
+                ]
+        AF.request(url, method: .post,
+                   parameters: userData,
+                   encoding: JSONEncoding.default,
+                   headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseJSON { (response) in
+                print(response.description)
+                switch response.result {
+
+                case .success(let data):
+                    completion(.success(Void()))
+
+                case .failure(let error):
+                    print(error.errorDescription)
+                    completion(.failure(AuthError.serverError))
+
+            }
+        }
+    }
+    
+//    func sendPush(token: String, completion:@escaping (Result<Void, Error>) -> Void ) {
+//        let url = URL(string: "http://178.154.210.140:3030/security/user/sendPush")!
+//
+////        let userData: [String: Any] = ["token": token]
+//        let headers: HTTPHeaders = [
+//                    "Content-Type":"application/json",
+//            "Authorization" : APIManager.getToken()
+//                ]
+//        AF.request(url, method: .get,
+////                   parameters: userData,
+//                   encoding: JSONEncoding.default,
+//                   headers: headers)
+//            .validate(statusCode: 200..<300)
+//            .responseJSON { (response) in
+//                print(response.description)
+//                switch response.result {
+//
+//                case .success(let data):
+//                    completion(.success(Void()))
+//
+//                case .failure(let error):
+//                    print(error.errorDescription)
+//                    completion(.failure(AuthError.serverError))
+//
+//            }
+//        }
+//    }
+    
     func sendSms(login: String, completion: @escaping (Result<Void, Error>) -> Void) {
         print("......")
         print(#function)
