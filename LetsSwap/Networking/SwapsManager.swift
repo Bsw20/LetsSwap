@@ -106,8 +106,8 @@ struct SwapsManager: SwapsFetcher{
     
     func refuseSwap(swapId: Int, completion: @escaping (Result<Void, Error>) -> Void) {
         SwiftyBeaver.info(#function)
-        guard let url = URL(string: "http://178.154.210.140:3030/security/change/confirm") else {
-            SwiftyBeaver.error(String.incorrectUrl(url: "http://178.154.210.140:3030/security/change/confirm"))
+        guard let url = URL(string: "http://178.154.210.140:3030/security/change/cancel") else {
+            SwiftyBeaver.error(String.incorrectUrl(url: "http://178.154.210.140:3030/security/change/cancel"))
             completion(.failure(NSError()))
             return
         }
@@ -127,7 +127,7 @@ struct SwapsManager: SwapsFetcher{
                 switch response.result {
 
                 case .success(_):
-                    print("Confirm swap success")
+                    print("Refuse swap success")
                     completion(.success(Void()))
 
                 case .failure(let error):

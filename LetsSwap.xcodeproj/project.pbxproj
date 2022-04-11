@@ -365,6 +365,7 @@
 		30CB750425927A4700CB84D6 /* FontsCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontsCheck.swift; sourceTree = "<group>"; };
 		30ED20C5258F8BF70039818A /* FeedCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionView.swift; sourceTree = "<group>"; };
 		30FA0D3D25E81B2B00292651 /* ChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatManager.swift; sourceTree = "<group>"; };
+		C401AEAB27F9ABDF004B1DB2 /* LetsSwap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LetsSwap.entitlements; sourceTree = "<group>"; };
 		F22BB14CA9FFFBF0B5D58E92 /* Pods-LetsSwap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsSwap.release.xcconfig"; path = "Target Support Files/Pods-LetsSwap/Pods-LetsSwap.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -531,6 +532,7 @@
 		303AB78C2580FB3300F287C2 /* LetsSwap */ = {
 			isa = PBXGroup;
 			children = (
+				C401AEAB27F9ABDF004B1DB2 /* LetsSwap.entitlements */,
 				30842F7B26C9298800C3E445 /* IMG_5092.MP4 */,
 				3022F66125C2E443004C50B7 /* AppCoordinator.swift */,
 				303AB78D2580FB3300F287C2 /* AppDelegate.swift */,
@@ -1439,15 +1441,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LetsSwap/LetsSwap.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GL28D5C2MP;
+				DEVELOPMENT_TEAM = FUD5CPHJR9;
 				INFOPLIST_FILE = LetsSwap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Bsw20.LetsSwap;
+				PRODUCT_BUNDLE_IDENTIFIER = su.brf.apps.mahnemsya;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1459,15 +1464,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LetsSwap/LetsSwap.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GL28D5C2MP;
+				DEVELOPMENT_TEAM = FUD5CPHJR9;
 				INFOPLIST_FILE = LetsSwap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Bsw20.LetsSwap;
+				PRODUCT_BUNDLE_IDENTIFIER = su.brf.apps.mahnemsya;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

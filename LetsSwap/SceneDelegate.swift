@@ -21,6 +21,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
         
+        if let notificationResponse = connectionOptions.notificationResponse {
+            print("Scene notifications if")
+        }
+        
         if let window = window {
             appCoordinator = AppCoordinator(contentWindow: window)
             appCoordinator?.start()
