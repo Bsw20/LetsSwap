@@ -172,7 +172,7 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
     }
     
     private func confirmValidation() -> Bool{
-        return !(nameTextView.isEmpty() || lastNameTextView.isEmpty() || phoneNubmerView.isEmpty() || cityView.isEmpty())
+        return !(nameTextView.isEmpty() || lastNameTextView.isEmpty() || phoneNubmerView.isEmpty() || cityView.isEmpty()) && phoneNubmerView.numberLength() == 10
     }
     func displayData(viewModel: SignUp.Model.ViewModel.ViewModelData) {
 

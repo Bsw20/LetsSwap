@@ -67,6 +67,15 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
         collectionView.customDelegate = self
         setupConstraints()
         
+        let backgroundImage = UIImage.init(named: "chatImage")
+        let backgroundImageView = UIImageView.init(frame: self.view.frame)
+        
+        backgroundImageView.image = backgroundImage
+        backgroundImageView.contentMode = .scaleAspectFill
+        backgroundImageView.alpha = 0.1
+        
+        self.view.addSubview(backgroundImageView)
+        
         service.listenForNotifications { (result) in
             switch result {
             

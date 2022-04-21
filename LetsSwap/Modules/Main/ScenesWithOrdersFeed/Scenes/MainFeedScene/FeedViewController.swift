@@ -79,7 +79,12 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        interactor?.makeRequest(request: .getFeed)
+        if !selectedCity.isEmpty {
+            interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags, text: titleView.getTextFieldText(), city: selectedCity)))
+        } else {
+            interactor?.makeRequest(request: .getFeed)
+        }
+        //interactor?.makeRequest(request: .getFeed)
         //interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags, text: titleView.getTextFieldText(), city: "Москва")))
         #warning("Заглушка для favorites. Часто не работает через updateData")
         feedCollectionView.reloadData()
@@ -165,6 +170,13 @@ extension FeedViewController: FeedCollectionViewDelegate {
     
 }
 
+//MARK: - CitiesListDelegate
+extension FeedViewController: CitiesListDelegate {
+    func citySelected(city: String) {
+        selectedCity = city
+    }
+}
+
 //MARK: - constraints
 extension FeedViewController {
     private func setupConstraints() {
@@ -182,7 +194,7 @@ extension FeedViewController: TitleViewDelegate {
     }
     
     func cityButtonTapped() {
-        router?.routeToCitiesController()
+        router?.routeToCitiesController(selectedCity: selectedCity)
     }
     
     

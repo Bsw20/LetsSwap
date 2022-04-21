@@ -31,6 +31,7 @@ class InsertableTextField: UITextField {
         clearButtonMode = .whileEditing
         layer.cornerRadius = 20
         layer.masksToBounds = true
+        InsertableTextField.appearance().tintColor = .black
         
         let image = UIImage(named: "search")
         leftView = UIImageView(image: image)
@@ -57,6 +58,10 @@ class InsertableTextField: UITextField {
     }
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.insetBy(dx: 36, dy: 0)
+    }
+    
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.insetBy(dx: 36, dy: 0)
     }
     

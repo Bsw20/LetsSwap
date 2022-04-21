@@ -155,9 +155,10 @@ class EditProfileViewController: UIViewController {
             
             case .success():
                 onMainThread {
-                    EditProfileViewController.showAlert(title: "Успешно", message: "Информация обновлена")
+                    //EditProfileViewController.showAlert(title: "Успешно", message: "Информация обновлена")
                     self.trackerDelegate?.stateDidChange()
                 }
+                self.navigationController?.popViewController(animated: true)
             case .failure(let error):
                 onMainThread {
                     EditProfileViewController.showAlert(title: "Ошибка", message: error.localizedDescription)

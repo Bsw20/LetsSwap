@@ -11,13 +11,14 @@ import UIKit
 protocol FeedRoutingLogic {
     func routeToTagsController(currentTags: Set<FeedTag>)
     func routeToFeedOrderController(orderViewModel: OrderViewModel)
-    func routeToCitiesController()
+    func routeToCitiesController(selectedCity: String)
 }
 
 class FeedRouter: NSObject, FeedRoutingLogic {
-    func routeToCitiesController() {
+    func routeToCitiesController(selectedCity: String) {
         #warning("TODO ")
-        let vc = CitiesListViewController(selectedCity: City.getCities()[0])
+        let vc = CitiesListViewController(selectedCity: selectedCity)
+        vc.delegate = viewController
         viewController?.navigationController?.pushViewController( vc, animated: true)
     }
     

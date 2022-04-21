@@ -105,8 +105,9 @@ extension SMSConfirmViewController: OTPDelegate {
                     case .success():
                         print("----------------")
                         print(result)
-                        self.authDelegate?.authFinished()
+                        self.numbersView.finishEnterAnimation(colorForAnimation: .green, isCorrectCode: true)
                     case .failure(_):
+                        self.numbersView.finishEnterAnimation(colorForAnimation: .red, isCorrectCode: false)
                         break
                     }
                 }

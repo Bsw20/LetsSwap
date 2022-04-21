@@ -47,6 +47,13 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
     var interactor: ChatBusinessLogic?
     var router: (NSObjectProtocol & ChatRoutingLogic)?
     
+    lazy var tap: UITapGestureRecognizer = {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardFromTopView))
+        tap.cancelsTouchesInView = false
+        return tap
+    }()
+    
+    
     // MARK: Object lifecycle
     
     init(conversation: Conversations.Conversation, userInfo: Conversations.MyProfileInfo) {
@@ -197,6 +204,7 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         messagesCollectionView.messageCellDelegate = self
+        messagesCollectionView.addGestureRecognizer(tap)
         
         
     }
@@ -247,13 +255,14 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
     
     
     func configureMessageInputBar() {
+        InputTextView.appearance().tintColor = .black
         messageInputBar.isTranslucent = false
         messageInputBar.separatorLine.isHidden = true
         messageInputBar.backgroundView.backgroundColor = .mainBackground()
         messageInputBar.inputTextView.backgroundColor = .mainBackground()
         messageInputBar.inputTextView.placeholderTextColor = #colorLiteral(red: 0.7411764706, green: 0.7411764706, blue: 0.7411764706, alpha: 1)
-        messageInputBar.inputTextView.textContainerInset = UIEdgeInsets(top: 14, left: 30, bottom: 14, right: 36)
-        messageInputBar.inputTextView.placeholderLabelInsets = UIEdgeInsets(top: 14, left: 36, bottom: 14, right: 36)
+        messageInputBar.inputTextView.textContainerInset = UIEdgeInsets(top: 14, left: 10, bottom: 14, right: 36)
+        messageInputBar.inputTextView.placeholderLabelInsets = UIEdgeInsets(top: 14, left: 16, bottom: 14, right: 36)
         messageInputBar.inputTextView.layer.borderColor = #colorLiteral(red: 0.7843137255, green: 0.7843137255, blue: 0.7843137255, alpha: 1)
         messageInputBar.inputTextView.layer.borderWidth = 0.2
         messageInputBar.inputTextView.layer.cornerRadius = 18.0
@@ -291,7 +300,9 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
         
     }
     
-    
+    @objc func hideKeyboardFromTopView() {
+        messageInputBar.inputTextView.resignFirstResponder()
+    }
     
 }
 

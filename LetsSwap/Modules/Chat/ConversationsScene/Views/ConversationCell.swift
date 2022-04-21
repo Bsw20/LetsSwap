@@ -25,7 +25,9 @@ class ConversationCell: UITableViewCell {
         let imageView = WebImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .imageFiller()
-        imageView.image = #imageLiteral(resourceName: "personImage")
+        //imageView.setPlaceholder(placeholder: #imageLiteral(resourceName: "profileImagePlaceholder"))
+        //imageView.image = #imageLiteral(resourceName: "personImage")
+        imageView.image = #imageLiteral(resourceName: "profileImagePlaceholder")
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 32
         return imageView
@@ -79,8 +81,14 @@ class ConversationCell: UITableViewCell {
     
     public func configure(model: ConversationCellViewModel) {
         usernameLabel.text = "\(model.name) \(model.lastName)"
-        profileImageView.set(imageURL: model.friendAvatarStringURL)
-        lastMessageLabel.text = model.lastMessageContent
+        if let avatarURL = model.friendAvatarStringURL {
+            profileImageView.set(imageURL: avatarURL)
+        }
+        if model.lastMessageContent.isEmpty {
+            lastMessageLabel.text = ("(Медиафайл)")
+        } else {
+            lastMessageLabel.text = model.lastMessageContent
+        }
         #warning("Make convert to days/minutes/sec..")
         if let date = model.date {
             messageDateLabel.text = "\(date.timeAgo() )"
