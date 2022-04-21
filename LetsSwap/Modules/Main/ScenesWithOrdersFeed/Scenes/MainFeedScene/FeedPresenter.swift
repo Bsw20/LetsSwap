@@ -81,7 +81,10 @@ class FeedPresenter: FeedPresentationLogic {
             userPhoto = URL(string: photoStringUrl)
         }
         
-        let orderViewModel = OrderViewModel.init(order: OrderViewModel.Order.init(videoAttachments: [], title: orderResponse.order.title, description: orderResponse.order.description, counterOffer: orderResponse.order.counterOffer, isFree: orderResponse.order.isFree, tags: tags, photoAttachments: attachments),
+        let orderViewModel = OrderViewModel.init(order: OrderViewModel.Order.init(videoAttachments: orderResponse.order.videoAttachments.compactMap { video in
+            URL(string: video)
+        },
+                                                                                  title: orderResponse.order.title, description: orderResponse.order.description, counterOffer: orderResponse.order.counterOffer, isFree: orderResponse.order.isFree, tags: tags, photoAttachments: attachments),
                                                  user: OrderViewModel.User.init(userName: orderResponse.user.name, userLastName: orderResponse.user.lastName, userCity: orderResponse.user.city, userPhoto: userPhoto),
                                                  orderId: orderResponse.order.orderId,
                                                  userId: orderResponse.user.userId)
