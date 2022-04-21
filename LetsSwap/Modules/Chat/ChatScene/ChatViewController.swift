@@ -89,19 +89,30 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
         navigationController?.navigationBar.tintColor = .mainTextColor()
         navigationController?.navigationBar.isTranslucent = true
-        let img = WebImageView(frame: CGRect(origin: .zero, size: CGSize(width: 32, height: 32)))
+        let img = WebImageView(frame: .zero)
+        
         //img.image = #imageLiteral(resourceName: "settingsIcon")
         img.backgroundColor = .imageFiller()
-        img.set(imageURL: chat.friendAvatarStringURL)
+        if let url = chat.friendAvatarStringURL {
+            img.set(imageURL: ServerAddressConstants.JAVA_SERVER_ADDRESS + url)
+        } else {
+            img.image = nil
+        }
+        
 //        if let imageUrl = chat.friendAvatarStringURL {
 //            img.set(imageURL: imageUrl)
 //        } else {
 //            img.image = UIColor.imageFiller().image(CGSize(width: 32, height: 32))
 //        }
-        img.layer.masksToBounds = false
+//        img.layer.masksToBounds = true
         img.layer.cornerRadius = 16
         img.clipsToBounds = true
         let rightButton = UIBarButtonItem(customView: img)
+        rightButton.customView?.clipsToBounds = true
+//        rightButton.customView?.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        rightButton.customView?.translatesAutoresizingMaskIntoConstraints = false
+        rightButton.customView?.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        rightButton.customView?.widthAnchor.constraint(equalToConstant: 32).isActive = true
         navigationItem.setRightBarButton(rightButton, animated: true)
     }
     
@@ -252,6 +263,7 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
         messageInputBar.backgroundView.backgroundColor = .mainBackground()
         messageInputBar.inputTextView.backgroundColor = .mainBackground()
         messageInputBar.inputTextView.placeholderTextColor = #colorLiteral(red: 0.7411764706, green: 0.7411764706, blue: 0.7411764706, alpha: 1)
+        messageInputBar.inputTextView.textColor = .mainTextColor()
         messageInputBar.inputTextView.textContainerInset = UIEdgeInsets(top: 14, left: 30, bottom: 14, right: 36)
         messageInputBar.inputTextView.placeholderLabelInsets = UIEdgeInsets(top: 14, left: 36, bottom: 14, right: 36)
         messageInputBar.inputTextView.layer.borderColor = #colorLiteral(red: 0.7843137255, green: 0.7843137255, blue: 0.7843137255, alpha: 1)

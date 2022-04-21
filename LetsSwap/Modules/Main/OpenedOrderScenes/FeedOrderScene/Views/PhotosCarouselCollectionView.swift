@@ -32,7 +32,7 @@ class PhotosCarouselCollectionView: UICollectionView {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         super.init(frame: .zero, collectionViewLayout: flowLayout)
-        register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseId)
+        register(MediaCollectionCell.self, forCellWithReuseIdentifier: MediaCollectionCell.reuseId)
         dataSource = self
         delegate = self
         backgroundColor = .mainBackground()
@@ -67,11 +67,11 @@ extension PhotosCarouselCollectionView: UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard photoAttachments.count != 0 else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaCollectionCell.reuseId, for: indexPath)
             return cell
         }
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId, for: indexPath) as! PhotoCell
-        cell.set(imageUrl: photoAttachments[indexPath.item])
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaCollectionCell.reuseId, for: indexPath) as! MediaCollectionCell
+        cell.configure(imageUrl: photoAttachments[indexPath.item])
         return cell
     }
     

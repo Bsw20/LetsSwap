@@ -29,6 +29,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     
     //MARK: - Controls
     private var photosCollectionView: PhotosCollectionView = PhotosCollectionView()
+    private var videosCollectionView: PhotosCollectionView = PhotosCollectionView()
     
     private lazy var scrollView: UIScrollView = {
        let scrollView = UIScrollView()
@@ -230,7 +231,10 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
                                        counterOffer: counterOfferTextView.getText().trimmingCharacters(in: .whitespaces),
                                        tags: (Array(chooseTagsView.getTags())).map{$0.rawValue
                                        },
-                                       urls: photosCollectionView.getPhotos())
+                               urls: photosCollectionView.getPhotos().map {
+                $0.deletingPrefix(ServerAddressConstants.JAVA_SERVER_ADDRESS)
+            },
+            videoUrls: ["/image/efd7eed92568c66bd4e5b159d381a982"])
         return model
     }
     
@@ -372,9 +376,9 @@ extension FullOrderViewController {
         contentView.addSubview(bottomEmptyView)
         contentView.addSubview(photoLabel)
         contentView.addSubview(videoLabel)
-        contentView.addSubview(addVideoButton)
+//        contentView.addSubview(addVideoButton)
         contentView.addSubview(photosCollectionView)
-        
+        contentView.addSubview(videosCollectionView)
         
         
         NSLayoutConstraint.activate([
@@ -441,14 +445,21 @@ extension FullOrderViewController {
         ])
         
         NSLayoutConstraint.activate([
-            addVideoButton.topAnchor.constraint(equalTo: videoLabel.bottomAnchor, constant: FullOrderConstants.labelPickerSpace),
-            addVideoButton.heightAnchor.constraint(equalToConstant: 80),
-            addVideoButton.widthAnchor.constraint(equalToConstant: 78),
-            addVideoButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+            videosCollectionView.heightAnchor.constraint(equalToConstant: FullOrderConstants.photosCollectionViewSize.height),
+            videosCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            videosCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            videosCollectionView.topAnchor.constraint(equalTo: videoLabel.bottomAnchor, constant: FullOrderConstants.labelPickerSpace)
         ])
         
+//        NSLayoutConstraint.activate([
+//            addVideoButton.topAnchor.constraint(equalTo: videoLabel.bottomAnchor, constant: FullOrderConstants.labelPickerSpace),
+//            addVideoButton.heightAnchor.constraint(equalToConstant: 80),
+//            addVideoButton.widthAnchor.constraint(equalToConstant: 78),
+//            addVideoButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+//        ])
+        
         NSLayoutConstraint.activate([
-            yellowButton.topAnchor.constraint(equalTo: addVideoButton.bottomAnchor, constant: FullOrderConstants.space),
+            yellowButton.topAnchor.constraint(equalTo: videosCollectionView.bottomAnchor, constant: FullOrderConstants.space),
             yellowButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             yellowButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             yellowButton.heightAnchor.constraint(equalToConstant: FullOrderConstants.yellowButtonHeight)
@@ -489,3 +500,9 @@ struct FullOrderVCProvider: PreviewProvider {
     }
 }
 
+extension String {
+    func deletingPrefix(_ prefix: String) -> String {
+        guard self.hasPrefix(prefix) else { return self }
+        return String(self.dropFirst(prefix.count))
+    }
+}

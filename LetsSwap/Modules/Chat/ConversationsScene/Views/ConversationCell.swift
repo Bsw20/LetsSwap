@@ -25,7 +25,7 @@ class ConversationCell: UITableViewCell {
         let imageView = WebImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .imageFiller()
-        imageView.image = #imageLiteral(resourceName: "personImage")
+//        imageView.image = #imageLiteral(resourceName: "personImage")
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 32
         return imageView
@@ -79,7 +79,10 @@ class ConversationCell: UITableViewCell {
     
     public func configure(model: ConversationCellViewModel) {
         usernameLabel.text = "\(model.name) \(model.lastName)"
-        profileImageView.set(imageURL: model.friendAvatarStringURL)
+        if let url = model.friendAvatarStringURL {
+            profileImageView.set(imageURL: ServerAddressConstants.JAVA_SERVER_ADDRESS + url)
+        }
+        
         lastMessageLabel.text = model.lastMessageContent
         #warning("Make convert to days/minutes/sec..")
         if let date = model.date {
@@ -87,6 +90,8 @@ class ConversationCell: UITableViewCell {
         } else {
             messageDateLabel.text = ""
         }
+        
+        messageDateLabel.isHidden = messageDateLabel.text == "0 seconds"
 
         if model.missedMessagesCount == 0 {
             missedMessagesLabel.isHidden = true

@@ -13,7 +13,7 @@ import MessageKit
 class FilesService {
     struct File: Codable, MediaItem {
         var url: URL? {
-            return URL(string: ServerAddressConstants.MAIN_SERVER_ADDRESS + path)
+            return URL(string: ServerAddressConstants.JAVA_SERVER_ADDRESS + path)
         }
         
         var image: UIImage? {
