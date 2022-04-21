@@ -42,6 +42,8 @@ enum FeedOrder {
 }
 
 struct FeedOrderModel: OrderRepresentableViewModel {
+    var videoAttachments: [URL]
+    
     
     var orderId: Int
     var title: String

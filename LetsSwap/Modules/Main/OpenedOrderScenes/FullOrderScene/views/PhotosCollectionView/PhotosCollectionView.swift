@@ -10,7 +10,7 @@ import UIKit
 
 protocol PhotosCollectionViewDelegate: NSObjectProtocol {
     func photosCollectionViewSize() -> CGSize
-    func addPhotoButtonTapped()
+    func addPhotoButtonTapped(view: PhotosCollectionView )
 }
 
 enum PhotosCollectionViewElementsType {
@@ -105,7 +105,7 @@ extension PhotosCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
 //MARK: - PlusButtonCellDelegate
 extension PhotosCollectionView: PlusButtonCellDelegate {
     func addButtonTapped() {
-        photosDelegate?.addPhotoButtonTapped()
+        photosDelegate?.addPhotoButtonTapped(view: self)
     }
 }
 

@@ -50,7 +50,8 @@ extension MyProfilePresenter {
     private func getFeedOrderModel(data: MyProfileOrderResponse) -> FeedOrderModel {
         let tags = data.tags.compactMap{FeedTag.init(rawValue: $0)}
         let urls = data.photoAttachments.compactMap{URL(string: $0)}
-        return FeedOrderModel(orderId: data.orderId,
+        return FeedOrderModel(videoAttachments: data.videoAttachments.compactMap{URL(string: $0)},
+                              orderId: data.orderId,
                               title: data.title,
                               description: data.description,
                               counterOffer: data.counterOffer,

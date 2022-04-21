@@ -12,13 +12,24 @@ import SnapKit
 
 protocol PhotosCarouselDelegate: NSObjectProtocol {
     func photosCollectionViewSize() -> CGSize
+    func didTap(collectionView: PhotosCarouselCollectionView, model: PhotosCarouselViewModel)
+}
+
+struct PhotosCarouselViewModel {
+    let type: PhotosCarouselEntityType
+    let url: String?
+}
+
+enum PhotosCarouselEntityType {
+    case photo
+    case video
 }
 
 class PhotosCarouselCollectionView: UICollectionView {
     //MARK: - Contols
     private var pageControl: UIPageControl
     //MARK: - Variables
-    private var photoAttachments: [StringURL] = [] {
+    private var attachments: [PhotosCarouselViewModel] = [] {
         didSet {
             reloadData()
         }
@@ -39,9 +50,8 @@ class PhotosCarouselCollectionView: UICollectionView {
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
         self.contentInset = contentInset
-        allowsSelection = false
         self.translatesAutoresizingMaskIntoConstraints = false
-        isPagingEnabled = true
+        allowsMultipleSelection = false
 
         
     }
@@ -50,10 +60,11 @@ class PhotosCarouselCollectionView: UICollectionView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func set(photoAttachments: [StringURL]) {
-        pageControl.numberOfPages = photoAttachments.count
+    public func set(attachments: [PhotosCarouselViewModel]) {
+        print(attachments.map{$0.url})
+        pageControl.numberOfPages = attachments.count
         pageControl.currentPage = 0
-        self.photoAttachments = photoAttachments
+        self.attachments = attachments
         print(#function)
     }
 }
@@ -61,17 +72,18 @@ class PhotosCarouselCollectionView: UICollectionView {
 //MARK: - Collection delegates&dataSource
 extension PhotosCarouselCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photoAttachments.count == 0 ? 1 : photoAttachments.count
+        return attachments.count == 0 ? 1 : attachments.count
 
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard photoAttachments.count != 0 else {
+        guard attachments.count != 0 else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaCollectionCell.reuseId, for: indexPath)
             return cell
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaCollectionCell.reuseId, for: indexPath) as! MediaCollectionCell
-        cell.configure(imageUrl: photoAttachments[indexPath.item])
+        let attachment = attachments[indexPath.item]
+        cell.configure(imageUrl: attachment.url, mediaType: attachment.type == .photo ? .photo : .video)
         return cell
     }
     
@@ -81,6 +93,10 @@ extension PhotosCarouselCollectionView: UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         self.pageControl.currentPage = indexPath.item
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        customDelegate?.didTap(collectionView: self, model: attachments[indexPath.item])
     }
     
 

@@ -39,7 +39,7 @@ class FeedOrderRouter: NSObject, FeedOrderRoutingLogic {
                                                 tags: model.tags.map{$0.rawValue},
                                                 id: model.orderId,
                                                 urls: model.photoAttachments.compactMap{$0.absoluteString},
-                                                videoUrls: [])
+                                                videoUrls: model.videoAttachments.compactMap{$0.absoluteString})
         let vc = FullOrderViewController(type: .edit(model: orderViewModel))
         vc.customDelegate = viewController
         vc.hidesBottomBarWhenPushed = true

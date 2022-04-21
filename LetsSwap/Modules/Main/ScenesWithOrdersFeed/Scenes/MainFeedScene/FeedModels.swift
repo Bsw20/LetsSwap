@@ -53,6 +53,8 @@ struct OrderViewModel: FeedOrderRepresentableModel {
     
     
     struct Order: OrderRepresentableViewModel {
+        var videoAttachments: [URL]
+        
         var title: String
         var description: String
         var counterOffer: String

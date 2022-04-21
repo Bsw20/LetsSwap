@@ -26,7 +26,13 @@ class MediaCollectionCell: UICollectionViewCell {
         case loaded(UIImage)
     }
     
-    let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+    let activityIndicator: UIActivityIndicatorView = {
+        let av = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        av.translatesAutoresizingMaskIntoConstraints = false
+        av.hidesWhenStopped = true
+        return av
+    }()
+    
     var loadingState: LoadingState = .notLoading {
         didSet {
             onMainThread {[weak self] in
@@ -37,6 +43,7 @@ class MediaCollectionCell: UICollectionViewCell {
                     self.activityIndicator.stopAnimating()
                 case .loading:
                     self.imageView.image = nil
+                    self.activityIndicator.isHidden = false
                     self.activityIndicator.startAnimating()
                 case let .loaded(img):
                     self.imageView.backgroundColor = .clear
@@ -56,6 +63,12 @@ class MediaCollectionCell: UICollectionViewCell {
         }
     }
     //MARK: - Controls
+    private var cameraImageView: UIImageView = {
+       let imageView = UIImageView(image: UIImage(named: "filled_camera"))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     private lazy var imageView: WebImageView = {
         let imageView = WebImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -76,7 +89,7 @@ class MediaCollectionCell: UICollectionViewCell {
         label.textColor = .white
         //        label.textColor = .red
         label.text = "00:20"
-        label.font = UIFont.systemFont(ofSize: 7)
+        label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()
     
@@ -105,6 +118,7 @@ class MediaCollectionCell: UICollectionViewCell {
             imageView.image = nil
             return
         }
+
         
         switch mediaType {
         case .video:
@@ -114,16 +128,19 @@ class MediaCollectionCell: UICollectionViewCell {
                 self.loadingState = .loaded(image ?? UIImage())
             }
         case .photo:
-            videoTimeLabel.isHidden = true
             imageView.set(imageURL: imageUrl)
         }
+        
+        videoTimeLabel.isHidden = mediaType == .photo
+        cameraImageView.isHidden = mediaType == .photo
     }
     
     private func getVideoPreview(value: String, completion: @escaping(UIImage?) -> Void) {
-        FilesService.shared.downloadFile(url: URL(string: ServerAddressConstants.JAVA_SERVER_ADDRESS + value)){ [weak self](data) in
+        FilesService.shared.downloadFile(url: URL(string: (value.starts(with: "http") ? "" : ServerAddressConstants.JAVA_SERVER_ADDRESS) + value)){ [weak self](data) in
             guard let self = self, let data = data else {
                 self?.imageView.image = nil
                 self?.videoTimeLabel.isHidden = true
+                completion(nil)
                 return
                 
             }
@@ -136,6 +153,7 @@ class MediaCollectionCell: UICollectionViewCell {
                     completion(image)
                 }
             } catch let error {
+                completion(nil)
                 print("SDFHSKDHFIUSDH")
                 print(error.localizedDescription)
             }
@@ -202,5 +220,26 @@ extension MediaCollectionCell {
             make.top.equalToSuperview()
             
         }
+        
+        imageView.addSubview(cameraImageView)
+        imageView.addSubview(videoTimeLabel)
+        imageView.addSubview(activityIndicator)
+        
+        cameraImageView.snp.makeConstraints { (make) in
+            make.width.equalTo(9.06 * 3)
+            make.height.equalTo(5.62 * 3)
+            make.bottom.equalToSuperview().inset(10)
+            make.left.equalToSuperview().offset(3*2)
+        }
+        
+        videoTimeLabel.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(7)
+            make.left.equalToSuperview().offset(3)
+        }
+        
+        activityIndicator.snp.makeConstraints { (make) in
+            make.centerX.centerY.equalToSuperview()
+        }
+        
     }
 }

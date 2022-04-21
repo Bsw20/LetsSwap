@@ -182,7 +182,8 @@
 		30CB750525927A4700CB84D6 /* FontsCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB750425927A4700CB84D6 /* FontsCheck.swift */; };
 		30ED20C6258F8BF70039818A /* FeedCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30ED20C5258F8BF70039818A /* FeedCollectionView.swift */; };
 		30FA0D3E25E81B2B00292651 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FA0D3D25E81B2B00292651 /* ChatManager.swift */; };
-		3FB27A2BA9E94049B037E8A1 /* Pods_LetsSwap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C714CECAE1115389BC2CA73 /* Pods_LetsSwap.framework */; };
+		7AA69C8F88C099B8056326EA /* Pods_LetsSwap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE21F565B2CCFD773AC5A5B /* Pods_LetsSwap.framework */; };
+		C4B1CBDE2811BB54003CB81B /* VideoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B1CBDD2811BB54003CB81B /* VideoPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -363,10 +364,11 @@
 		30CB750425927A4700CB84D6 /* FontsCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontsCheck.swift; sourceTree = "<group>"; };
 		30ED20C5258F8BF70039818A /* FeedCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionView.swift; sourceTree = "<group>"; };
 		30FA0D3D25E81B2B00292651 /* ChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatManager.swift; sourceTree = "<group>"; };
-		4C714CECAE1115389BC2CA73 /* Pods_LetsSwap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LetsSwap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		94CD235F6690BD21BA7E5593 /* Pods-LetsSwap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsSwap.release.xcconfig"; path = "Target Support Files/Pods-LetsSwap/Pods-LetsSwap.release.xcconfig"; sourceTree = "<group>"; };
+		99C9AEC9110206FCFE0A5F53 /* Pods-LetsSwap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsSwap.debug.xcconfig"; path = "Target Support Files/Pods-LetsSwap/Pods-LetsSwap.debug.xcconfig"; sourceTree = "<group>"; };
+		9AE21F565B2CCFD773AC5A5B /* Pods_LetsSwap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LetsSwap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C401AEAB27F9ABDF004B1DB2 /* LetsSwap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LetsSwap.entitlements; sourceTree = "<group>"; };
-		FE2D1BA13849FE4E35BD12F4 /* Pods-LetsSwap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsSwap.debug.xcconfig"; path = "Target Support Files/Pods-LetsSwap/Pods-LetsSwap.debug.xcconfig"; sourceTree = "<group>"; };
+		C4B1CBDD2811BB54003CB81B /* VideoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPicker.swift; sourceTree = "<group>"; };
+		DA2191AEE06D485BEC7AD0F5 /* Pods-LetsSwap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsSwap.release.xcconfig"; path = "Target Support Files/Pods-LetsSwap/Pods-LetsSwap.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -374,13 +376,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FB27A2BA9E94049B037E8A1 /* Pods_LetsSwap.framework in Frameworks */,
+				7AA69C8F88C099B8056326EA /* Pods_LetsSwap.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09F8BE123DB1D76A175BD2A6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9AE21F565B2CCFD773AC5A5B /* Pods_LetsSwap.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3022F5DA25BB0A0B004C50B7 /* ListScenes */ = {
 			isa = PBXGroup;
 			children = (
@@ -509,7 +519,7 @@
 				303AB78C2580FB3300F287C2 /* LetsSwap */,
 				303AB78B2580FB3300F287C2 /* Products */,
 				B3FB9C52585529090AA8BC87 /* Pods */,
-				ED3F98577B8255DD85FB6C10 /* Frameworks */,
+				09F8BE123DB1D76A175BD2A6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -844,6 +854,7 @@
 				307529DC25C9B5FB00D74939 /* PlaceholderTextView.swift */,
 				307529DF25C9FFD200D74939 /* PlusButtonCell.swift */,
 				3075142825CC53C5006D95F2 /* ImagePicker.swift */,
+				C4B1CBDD2811BB54003CB81B /* VideoPicker.swift */,
 			);
 			path = Kit;
 			sourceTree = "<group>";
@@ -1002,18 +1013,10 @@
 		B3FB9C52585529090AA8BC87 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				FE2D1BA13849FE4E35BD12F4 /* Pods-LetsSwap.debug.xcconfig */,
-				94CD235F6690BD21BA7E5593 /* Pods-LetsSwap.release.xcconfig */,
+				99C9AEC9110206FCFE0A5F53 /* Pods-LetsSwap.debug.xcconfig */,
+				DA2191AEE06D485BEC7AD0F5 /* Pods-LetsSwap.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		ED3F98577B8255DD85FB6C10 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				4C714CECAE1115389BC2CA73 /* Pods_LetsSwap.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1023,11 +1026,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 303AB79E2580FB3600F287C2 /* Build configuration list for PBXNativeTarget "LetsSwap" */;
 			buildPhases = (
-				3E92C5CFB90E7806266828B0 /* [CP] Check Pods Manifest.lock */,
+				C9330C9B631707B6598293D4 /* [CP] Check Pods Manifest.lock */,
 				303AB7862580FB3300F287C2 /* Sources */,
 				303AB7872580FB3300F287C2 /* Frameworks */,
 				303AB7882580FB3300F287C2 /* Resources */,
-				56A2FDD166F269A68AAD1919 /* [CP] Embed Pods Frameworks */,
+				F44D99E608DE71C12697C1AD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1087,7 +1090,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3E92C5CFB90E7806266828B0 /* [CP] Check Pods Manifest.lock */ = {
+		C9330C9B631707B6598293D4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1109,7 +1112,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		56A2FDD166F269A68AAD1919 /* [CP] Embed Pods Frameworks */ = {
+		F44D99E608DE71C12697C1AD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1276,6 +1279,7 @@
 				30CB74E0259121C700CB84D6 /* FeedOrderRouter.swift in Sources */,
 				307304E4258B75BC0091D2F1 /* FeedResponse.swift in Sources */,
 				30BC1102259AA0C500066D9B /* MyProfileModels.swift in Sources */,
+				C4B1CBDE2811BB54003CB81B /* VideoPicker.swift in Sources */,
 				30BC1103259AA0C500066D9B /* MyProfileViewController.swift in Sources */,
 				30CB74EF25912B3200CB84D6 /* GeneralModels.swift in Sources */,
 				30BC1104259AA0C500066D9B /* MyProfileInteractor.swift in Sources */,
@@ -1439,7 +1443,7 @@
 		};
 		303AB79F2580FB3600F287C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FE2D1BA13849FE4E35BD12F4 /* Pods-LetsSwap.debug.xcconfig */;
+			baseConfigurationReference = 99C9AEC9110206FCFE0A5F53 /* Pods-LetsSwap.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1462,7 +1466,7 @@
 		};
 		303AB7A02580FB3600F287C2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 94CD235F6690BD21BA7E5593 /* Pods-LetsSwap.release.xcconfig */;
+			baseConfigurationReference = DA2191AEE06D485BEC7AD0F5 /* Pods-LetsSwap.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

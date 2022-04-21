@@ -108,6 +108,8 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
     
     private lazy var addVideoButton: UIButton = UIButton.getPickerButton()
     private var picker: ImagePicker?
+    
+    private var videoPicker: VideoPicker?
 
   // MARK: Object lifecycle
   
@@ -116,6 +118,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
         self.operationType = type
         super.init(nibName: nil, bundle: nil)
         picker =  ImagePicker(presentationController: self, delegate: self)
+        videoPicker = VideoPicker(presentationController: self, delegate: self)
         setup()
     }
   
@@ -167,7 +170,8 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
             freeSwitch.setOn(model.isFree, animated: false)
             switchValueDidChange()
             chooseTagsView.set(selectedTags: model.tags.compactMap{FeedTag.init(rawValue: $0)})
-            photosCollectionView.set(photoAttachments: model.urls)
+            photosCollectionView.set(attachments: model.urls.map{.init(type: .photo, url: $0)})
+            videosCollectionView.set(attachments: model.videoUrls.map{.init(type: .video, url: $0)})
         case .create:
             break
         }
@@ -194,6 +198,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
         descriptionTextView.customDelegate = self
         counterOfferTextView.customDelegate = self
         photosCollectionView.photosDelegate = self
+        videosCollectionView.photosDelegate = self
         
     }
     
@@ -231,10 +236,14 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
                                        counterOffer: counterOfferTextView.getText().trimmingCharacters(in: .whitespaces),
                                        tags: (Array(chooseTagsView.getTags())).map{$0.rawValue
                                        },
-                               urls: photosCollectionView.getPhotos().map {
+                               urls: photosCollectionView.getPhotoAttachments().map {
                 $0.deletingPrefix(ServerAddressConstants.JAVA_SERVER_ADDRESS)
             },
-            videoUrls: ["/image/efd7eed92568c66bd4e5b159d381a982"])
+//            videoUrls: ["/image/efd7eed92568c66bd4e5b159d381a982"]
+                               videoUrls: videosCollectionView.getVideoAttachments().map {
+                $0.deletingPrefix(ServerAddressConstants.JAVA_SERVER_ADDRESS)
+            }
+            )
         return model
     }
     
@@ -255,7 +264,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
             case .showErrorAlert(title: let title, message: let message):
                 FullOrderViewController.showAlert(title: title, message: message)
             case .displayUploadedPhoto(photoUrl: let photoUrl):
-                self.photosCollectionView.add(photoAttachment: photoUrl)
+                self.photosCollectionView.add(attachment: .init(type: .photo, url: photoUrl))
             }
         }
     }
@@ -321,6 +330,45 @@ extension FullOrderViewController: PlaceholderTextViewDelegate {
     }
 }
 
+extension FullOrderViewController: VideoPickerDelegate {
+    func didSelect(view: VideoPicker, videoURL: NSURL?) {
+        if let url = videoURL as? URL, let data = try? Data(contentsOf: url) {
+            let fileName = url.lastPathComponent
+            FilesService.shared.uploadFile(fileData: data, fileName: fileName) { result in
+                switch result {
+                    
+                case .success(let file):
+//                    self.photosCollectionView.add(attachment: .init(type: .photo, url: photoUrl))
+                    self.videosCollectionView.add(attachment: .init(type: .video, url: file.path))
+//                    let message = Message(user: self.user, chat: self.chat, file: file)
+//                    self.insertNewMessage(message: message)
+//                    self.listener.sendMessage(model: .init(displayName: self.user.username,
+//                                                           senderId: message.sender.senderId,
+//                                                           sendDate: message.sentDate,
+//                                                           messageId: message.messageId,
+//                                                           chatId: self.chat.chatId,
+//                                                           forward: 0,
+//                                                           replyTo: 0,
+//                                                           messageText: message.messageText,
+//                                                           file: message.file)) {[weak self] result in
+//                        switch result {
+//                        case .success():
+//                            onMainThread {
+//                                self?.messagesCollectionView.scrollToBottom()
+//                            }
+//                        case .failure(let error):
+//                            UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
+//                        }
+//                    }
+                case .failure(let error):
+                    UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
+                }
+     
+            }
+        }
+    }
+}
+
 //MARK: - ImagePickerDelegate
 extension FullOrderViewController: ImagePickerDelegate  {
     func didSelect(image: UIImage?) {
@@ -333,9 +381,13 @@ extension FullOrderViewController: ImagePickerDelegate  {
 }
 //MARK: - PhotosCollectionViewDelegate
 extension FullOrderViewController: PhotosCollectionViewDelegate  {
-    func addPhotoButtonTapped() {
+    func addPhotoButtonTapped(view: PhotosCollectionView) {
+        if view == photosCollectionView {
+            picker?.present(from: view)
+        } else {
+            videoPicker?.present(from: view)
+        }
 
-        picker?.present(from: view)
 
     }
     
