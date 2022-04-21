@@ -128,7 +128,7 @@ class MediaCollectionCell: UICollectionViewCell {
                 self.loadingState = .loaded(image ?? UIImage())
             }
         case .photo:
-            imageView.set(imageURL: imageUrl)
+            imageView.set(imageURL: (imageUrl.starts(with: "http") ? "" : ServerAddressConstants.JAVA_SERVER_ADDRESS) + imageUrl)
         }
         
         videoTimeLabel.isHidden = mediaType == .photo

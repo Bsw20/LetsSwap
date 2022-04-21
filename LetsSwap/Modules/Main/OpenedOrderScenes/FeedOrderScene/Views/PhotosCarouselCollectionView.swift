@@ -40,6 +40,7 @@ class PhotosCarouselCollectionView: UICollectionView {
     //MARK: - Object lifecycle
     public init(contentInset: UIEdgeInsets, pageControl: UIPageControl) {
         self.pageControl = pageControl
+        pageControl.currentPage = 0
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         super.init(frame: .zero, collectionViewLayout: flowLayout)
