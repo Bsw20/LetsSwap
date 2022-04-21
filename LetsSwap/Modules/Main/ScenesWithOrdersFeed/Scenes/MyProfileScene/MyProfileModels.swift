@@ -108,5 +108,6 @@ struct MyProfileOrderResponse: Decodable {
     var isFree: Bool
     var tags: [String]
     var photoAttachments: [String]
+    var videoAttachments: [String]
     var isHidden: Bool
 }

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 struct ServerAddressConstants {
-    static let MAIN_SERVER_ADDRESS = "http://178.154.210.140:3030"
+    static let JAVA_SERVER_ADDRESS = "http://178.154.210.140:3000"
     
     static let UPLOAD_FILE = "http://178.154.210.140:3000" + "/image/uploadBinary"
 }

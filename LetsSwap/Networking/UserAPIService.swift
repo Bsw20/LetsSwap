@@ -230,6 +230,7 @@ extension UserAPIService: FullOrderFetcher {
             return
         }
         let userData = model.representation
+        print(userData)
         
         let headers: HTTPHeaders = [
                     "Content-Type":"application/json",
@@ -266,6 +267,7 @@ extension UserAPIService: FullOrderFetcher {
         }
         
         let userData: [String: Any] = model.representation
+        print(userData)
         let headers: HTTPHeaders = [
                     "Content-Type":"application/json",
             "Authorization" : APIManager.getToken()

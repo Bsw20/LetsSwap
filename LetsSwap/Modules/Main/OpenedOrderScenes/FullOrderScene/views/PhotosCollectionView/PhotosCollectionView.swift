@@ -10,11 +10,22 @@ import UIKit
 
 protocol PhotosCollectionViewDelegate: NSObjectProtocol {
     func photosCollectionViewSize() -> CGSize
-    func addPhotoButtonTapped()
+    func addPhotoButtonTapped(view: PhotosCollectionView )
+}
+
+enum PhotosCollectionViewElementsType {
+    case video
+    case photo
+}
+
+struct PhotosCollectionViewModel {
+    let type: PhotosCollectionViewElementsType
+    let url : String
 }
 
 class PhotosCollectionView: UICollectionView {
-    private var photoAttachments: [String] = [] {
+
+    private var attachments: [PhotosCollectionViewModel] = [] {
         didSet {
             reloadData()
         }
@@ -26,7 +37,7 @@ class PhotosCollectionView: UICollectionView {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         super.init(frame: .zero, collectionViewLayout: flowLayout)
-        register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseId)
+        register(MediaCollectionCell.self, forCellWithReuseIdentifier: MediaCollectionCell.reuseId)
         register(PlusButtonCell.self, forCellWithReuseIdentifier: PlusButtonCell.reuseId)
         dataSource = self
         delegate = self
@@ -40,31 +51,35 @@ class PhotosCollectionView: UICollectionView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    public func set(photoAttachments:[String]) {
-        self.photoAttachments = photoAttachments
+    public func set(attachments:[PhotosCollectionViewModel]) {
+        self.attachments = attachments
         reloadData()
     }
-    public func add(photoAttachment: String) {
-        photoAttachments.append(photoAttachment)
+    public func add(attachment: PhotosCollectionViewModel) {
+        attachments.append(attachment)
     }
-    private func delete(photoAttachment: String) {
-        photoAttachments = photoAttachments.filter {$0 != photoAttachment}
+    private func delete(attachment: PhotosCollectionViewModel) {
+        attachments = attachments.filter {$0.url != attachment.url}
 
     }
     
     private func remove(at: Int) {
-        photoAttachments.remove(at: at)
+        attachments.remove(at: at)
         reloadData()
     }
     
-    public func getPhotos() -> [String] {
-        return photoAttachments
+    public func getPhotoAttachments() -> [String] {
+        return attachments.filter{$0.type == .photo}.map {$0.url}
+    }
+    
+    public func getVideoAttachments() -> [String] {
+        return attachments.filter{$0.type == .video}.map {$0.url}
     }
 }
 
 extension PhotosCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photoAttachments.count + 1
+        return attachments.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -73,8 +88,10 @@ extension PhotosCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
             cell.customDelegate = self
             return cell
         }
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId, for: indexPath) as! PhotoCell
-        cell.set(imageUrl: photoAttachments[indexPath.item - 1])
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaCollectionCell.reuseId, for: indexPath) as! MediaCollectionCell
+//        cell.configure(imageUrl: photoAttachments[indexPath.item - 1])
+        let attachment = attachments[indexPath.item - 1]
+        cell.configure(imageUrl: attachment.url, mediaType: attachment.type == .photo ? .photo : .video)
         cell.delegate = self
         cell.isInEditingMode = true
         return cell
@@ -88,13 +105,13 @@ extension PhotosCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
 //MARK: - PlusButtonCellDelegate
 extension PhotosCollectionView: PlusButtonCellDelegate {
     func addButtonTapped() {
-        photosDelegate?.addPhotoButtonTapped()
+        photosDelegate?.addPhotoButtonTapped(view: self)
     }
 }
 
 //MARK: - PhotoCelDelegate
 extension PhotosCollectionView: PhotoCellDelegate {
-    func deleteButtonTapped(cell: PhotoCell) {
+    func deleteButtonTapped(cell: MediaCollectionCell) {
         let ip = indexPath(for: cell)
         if let ip = ip {
             remove(at: ip.item - 1)

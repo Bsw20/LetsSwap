@@ -7,7 +7,9 @@
 //
 
 import UIKit
+import AVFoundation
 import SnapKit
+import AVKit
 
 protocol FeedOrderDisplayLogic: class {
     func displayData(viewModel: FeedOrder.Model.ViewModel.ViewModelData)
@@ -19,13 +21,14 @@ protocol FeedOrderRepresentableModel {
 }
 
 protocol OrderRepresentableViewModel {
-
+    
     var title: String { get }
     var description: String { get }
     var counterOffer: String { get }
     var isFree: Bool { get }
     var tags: [FeedTag] { get }
     var photoAttachments: [URL]{ get }
+    var videoAttachments: [URL] {get}
 }
 protocol UserRepresentableViewModel {
     var userName: String { get }
@@ -36,7 +39,7 @@ protocol UserRepresentableViewModel {
 
 
 class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
-
+    
     //MARK: - variables
     private var type: FeedOrderType
     weak var trackerDelegate: StateTrackerDelegate?
@@ -53,7 +56,7 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
     private var tagsCollectionView: TagsCollectionView!
     
     private var scrollView: UIScrollView = {
-       let scrollView = UIScrollView()
+        let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.backgroundColor = .clear
         scrollView.isUserInteractionEnabled = true
@@ -61,15 +64,15 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
     }()
     
     private var topView: OrderTitleView = {
-       let view = OrderTitleView()
+        let view = OrderTitleView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = true
-
+        
         return view
     }()
     
     private var titleLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Делаю необычные тату"
         label.numberOfLines = 4
@@ -79,7 +82,7 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
     }()
     
     private var descriptionLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Ищу моделей для своего портфолио в инстаграм. Можете посмотреть уже готовые работы @okxytatt"
         label.font = UIFont.circeRegular(with: 20)
@@ -89,7 +92,7 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
     }()
     
     private var wantSwapLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Хочу махнуться на \u{27a9}"
         label.font = UIFont.circeBold(with: 16)
@@ -98,7 +101,7 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
     }()
     
     private var counterOfferLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Я бы хотела научиться читать рэп или взять пару уроков по битбоксу."
         label.font = UIFont.circeRegular(with: 20)
@@ -108,7 +111,7 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
     }()
     
     private lazy var freeSwapLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Готов реализовать предложение безвозмездно"
         label.textColor = #colorLiteral(red: 0.8666666667, green: 0.7098039216, blue: 0.2352941176, alpha: 1)
@@ -130,7 +133,7 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
     
     private lazy var pageControl: UIPageControl = UIPageControl.getStandard(currentPageIndex: 0, numberOfPages: 0)
     
-  // MARK: - Object lifecycle
+    // MARK: - Object lifecycle
     init(type: FeedOrderType) {
         self.type = type
         switch type {
@@ -150,10 +153,10 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         fatalError("init(coder:) has not been implemented")
     }
     
-
-  
-  // MARK: Setup
-  
+    
+    
+    // MARK: Setup
+    
     private func setup() {
         let viewController        = self
         let interactor            = FeedOrderInteractor()
@@ -164,12 +167,12 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         interactor.presenter      = presenter
         presenter.viewController  = viewController
         router.viewController     = viewController
-  }
-  
-  // MARK: Routing
-  
-  // MARK: - View lifecycle
-  
+    }
+    
+    // MARK: Routing
+    
+    // MARK: - View lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .mainBackground()
@@ -184,10 +187,10 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         super.loadView()
         tagsCollectionView = TagsCollectionView(displayedTags: orderViewModel.tags, showOnly: true)
         setupConstraints()
-
+        
     }
     
-
+    
     //MARK: - funcs
     func displayData(viewModel: FeedOrder.Model.ViewModel.ViewModelData) {
         switch viewModel {
@@ -198,13 +201,13 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
                 self.trackerDelegate?.stateDidChange()
                 self.navigationController?.popViewController(animated: true)
             }
-
+            
         case .displayNewHidingState(newState: let newState):
             FeedOrderViewController.showAlert(title: "Успешно", message: "Предложение теперь \(newState ? "cкрыто" : "раскрыто")") {
                 self.trackerDelegate?.stateDidChange()
             }
             hideOrderButton.setTitle(newState ? "Раскрыть" : "Скрыть", for: .normal)
-
+            
         case .displayError(error: let error):
             FeedOrderViewController.showAlert(title: "Ошибка", message: error.localizedDescription)
         case .displayUpdatingDataError:
@@ -232,7 +235,11 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         titleLabel.text = orderViewModel.title
         descriptionLabel.text = orderViewModel.description
         counterOfferLabel.text = orderViewModel.counterOffer
-        photosCollectionView.set(photoAttachments: orderViewModel.photoAttachments.map{$0.absoluteString})
+        
+        //        photosCollectionView.set(attachments: orderViewModel.photoAttachments.map{$0.absoluteString})
+        photosCollectionView.set(attachments: orderViewModel.photoAttachments.map{.init(type: .photo, url: $0.absoluteString)} +
+                                 orderViewModel.videoAttachments.map{.init(type: .video, url: $0.absoluteString)})
+        
         if let isHidden = type.isHidden() {
             if isHidden {
                 hideOrderButton.setTitle("Раскрыть", for: .normal)
@@ -269,16 +276,16 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
     
     @objc private func hideOrderButtonTapped() {
         print(#function)
-
+        
         interactor?.makeRequest(request: .changeHidingState(orderId: type.getOrderId()))
-
+        
     }
     
     @objc private func deleteOrderButtonTapped() {
         interactor?.makeRequest(request: .tryToDelete(orderId: type.getOrderId()))
     }
     @objc private func swapButtonTapped() {
-        #warning("мб имеет смысл сделать проверку, можно ли обратиться к order(возможно его уже приняли)")
+#warning("мб имеет смысл сделать проверку, можно ли обратиться к order(возможно его уже приняли)")
         switch type {
         case .alienProfileOrder(model: let model):
             interactor?.makeRequest(request: .validateSwap(orderId: type.getOrderId()))
@@ -289,7 +296,7 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         }
     }
     
-    #warning("Зачем в параметрах userid")
+#warning("Зачем в параметрах userid")
     @objc private func topViewTapped(userId: Int) {
         if let userId = type.getUserId() {
             router?.routeToAlienProfile(userId: userId)
@@ -299,6 +306,38 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
 
 //MARK: - PhotosCollectionViewDelegate
 extension FeedOrderViewController: PhotosCarouselDelegate {
+    func didTap(collectionView: PhotosCarouselCollectionView, model: PhotosCarouselViewModel) {
+        guard model.type == .video, let networkUrl = model.url else { return }
+        FilesService.shared.downloadFile(url: URL(string: (networkUrl.starts(with: "http") ? "" : ServerAddressConstants.JAVA_SERVER_ADDRESS) + networkUrl)) { data in
+            guard let data = data else { return }
+            do {
+                let directory = NSTemporaryDirectory()
+                let fileName = "\(NSUUID().uuidString).MP4"
+                let fullURL = NSURL.fileURL(withPathComponents: [directory, fileName ])
+                try data.write(to: fullURL! as URL)
+                onMainThread {
+                    self.playVideo(path: fullURL)
+                }
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func playVideo(path: URL?) {
+        //         guard let path = Bundle.main.url(forResource: "IMG_5092", withExtension: "MP4") else {
+        //             debugPrint("video.m4v not found")
+        //             return
+        //         }
+        guard let path = path else { return }
+        let player = AVPlayer(url: path)
+        let playerController = AVPlayerViewController()
+        playerController.player = player
+        present(playerController, animated: true) {
+            player.play()
+        }
+    }
+    
     func photosCollectionViewSize() -> CGSize {
         let width = UIScreen.main.bounds.width - FeedOrderConstants.photosCollectionViewInset.left + FeedOrderConstants.photosCollectionViewInset.right
         return CGSize(width: photosCollectionView.frame.width * 0.91, height: photosCollectionView.frame.height)
@@ -332,7 +371,7 @@ extension FeedOrderViewController {
         ])
         
         
-
+        
         scrollView.addSubview(titleLabel)
         scrollView.addSubview(descriptionLabel)
         scrollView.addSubview(wantSwapLabel)
@@ -378,8 +417,8 @@ extension FeedOrderViewController {
             counterOfferLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: FeedOrderConstants.counterOfferLabelInsets.left),
             counterOfferLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: FeedOrderConstants.counterOfferLabelInsets.right)
         ])
-        #warning("setup with real data")
-//        let isFree = true
+#warning("setup with real data")
+        //        let isFree = true
         let isFree = orderViewModel.isFree
         let interimView: UIView
         if isFree {
@@ -429,7 +468,7 @@ extension FeedOrderViewController {
             scrollView.addSubview(stackView)
             
             stackView.snp.makeConstraints { (make) in
-//                make.left.right.equalTo(titleLabel)
+                //                make.left.right.equalTo(titleLabel)
                 make.left.equalTo(view.snp.left).offset(FeedOrderConstants.swapButtonInsets.left)
                 make.right.equalTo(view.snp.right).offset(FeedOrderConstants.swapButtonInsets.right)
                 make.top.equalTo(tagsCollectionView.snp.bottom).offset(FeedOrderConstants.swapButtonInsets.top)
@@ -447,7 +486,7 @@ extension FeedOrderViewController {
                 swapButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -UIScreen.main.bounds.height * 0.036)
             ])
         }
-
+        
     }
 }
 
@@ -459,16 +498,16 @@ struct FeedOrderVCProvider: PreviewProvider {
     static var previews: some View {
         ContainerView().edgesIgnoringSafeArea(.all)
     }
-
+    
     struct ContainerView: UIViewControllerRepresentable {
         let feedOrderVC = MainTabBarController()
-
+        
         func makeUIViewController(context: Context) -> some MainTabBarController {
             return feedOrderVC
         }
-
+        
         func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-
+            
         }
     }
 }

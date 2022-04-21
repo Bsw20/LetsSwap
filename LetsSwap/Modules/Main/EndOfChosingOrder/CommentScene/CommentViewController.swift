@@ -31,6 +31,8 @@ class CommentViewController: UIViewController {
     private lazy var textView: UITextView = {
         let tf = UITextView.getNormalTextView()
         tf.text = stringPlaceholder
+//        tf.textColor = .mainTextColor()
+        tf.backgroundColor = .white
         return tf
     }()
     var router: (NSObjectProtocol & CommentRoutingLogic)?

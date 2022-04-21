@@ -30,4 +30,5 @@ struct Order: Decodable {
     var counterOffer: String
     var isFree: Bool
     var photoAttachments: [String]
+    var videoAttachments: [String]
 }
