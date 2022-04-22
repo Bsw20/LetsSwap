@@ -818,7 +818,6 @@
 			isa = PBXGroup;
 			children = (
 				308365FE2589F61700578AE2 /* UIColor + Extension.swift */,
-				308366012589F81D00578AE2 /* UIButton + Extension.swift */,
 				307304F6258B913D0091D2F1 /* UIViewController + Extension.swift */,
 				302CDE92258D5E08000B4275 /* String + Extension.swift */,
 				302CDE95258D6049000B4275 /* UIFont + Extension.swift */,
@@ -831,6 +830,7 @@
 				3022F65B25C1F1F8004C50B7 /* UIPageControl + Extension.swift */,
 				3022F65E25C2DA94004C50B7 /* NavigationController + Extension.swift */,
 				307529D125C97D1700D74939 /* UIBarButtonItem + Extension.swift */,
+				308366012589F81D00578AE2 /* UIButton + Extension.swift */,
 				3095F04325DD8EFB00508B1B /* UIApplication + Extension.swift */,
 				3051A62925EA6FD900EC3C17 /* UIScrollView + Extension.swift */,
 				30C15ACC25EBA711008D1493 /* Date + Extension.swift */,

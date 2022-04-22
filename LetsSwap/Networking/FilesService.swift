@@ -21,7 +21,7 @@ class FilesService {
         }
         
         var placeholderImage: UIImage {
-            #imageLiteral(resourceName: "RU-ICON")
+            UIImage(named: "image__placeholder") ?? UIImage()
         }
         
         var size: CGSize {
