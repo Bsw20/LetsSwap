@@ -397,12 +397,71 @@ extension ChatViewController: MessagesDisplayDelegate {
             imageView.kf.setImage(with: mediaItem.url, placeholder: nil, options: [.requestModifier(modifier)]) {_ in
             }
         case .video(let mediaItem):
-            imageView.image = #imageLiteral(resourceName: "pickerPlus")
+            getVideoPreview(value: mediaItem.url?.path ?? "") {image in
+                imageView.image = image
+            }
         default:
             break
         }
     }
     
+    private func getVideoPreview(value: String, completion: @escaping(UIImage?) -> Void) {
+        FilesService.shared.downloadFile(url: URL(string: (value.starts(with: "http") ? "" : ServerAddressConstants.JAVA_SERVER_ADDRESS) + value)){ [weak self](data) in
+            guard let self = self, let data = data else {
+                //self?.imageView.image = nil
+                //self?.videoTimeLabel.isHidden = true
+                completion(nil)
+                return
+                
+            }
+            do {
+                let directory = NSTemporaryDirectory()
+                let fileName = "\(NSUUID().uuidString).MOV"
+                let fullURL = NSURL.fileURL(withPathComponents: [directory, fileName ])
+                try data.write(to: fullURL! as URL)
+                self.imageFromVideo(url: fullURL!, at: 0) { (image) in
+                    completion(image)
+                }
+            } catch let error {
+                completion(nil)
+                print("SDFHSKDHFIUSDH")
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func imageFromVideo(url: URL, at time: TimeInterval, completion: @escaping (UIImage?) -> Void) {
+        DispatchQueue.global(qos: .default).async {
+            let asset = AVURLAsset(url: url)
+            
+            let assetIG = AVAssetImageGenerator(asset: asset)
+            assetIG.appliesPreferredTrackTransform = true
+            assetIG.apertureMode = AVAssetImageGenerator.ApertureMode.encodedPixels
+            
+            
+            let duration = asset.duration
+            let durationTime = Int(CMTimeGetSeconds(duration))
+            let minutes = durationTime / 60
+            let seconds = durationTime % 60
+            let videoDuration = "\(String(format: "%02d", minutes)):\(String(format: "%02d", seconds))"
+            onMainThread {[weak self] in
+                //self?.videoTimeLabel.text = videoDuration
+            }
+            
+            let cmTime = CMTime(seconds: time, preferredTimescale: 60)
+            let thumbnailImageRef: CGImage
+            do {
+                thumbnailImageRef = try assetIG.copyCGImage(at: cmTime, actualTime: nil)
+            } catch let error {
+                print("Error: \(error)")
+                return completion(nil)
+            }
+            
+            DispatchQueue.main.async {
+                completion(UIImage(cgImage: thumbnailImageRef))
+            }
+        }
+    }
     
     //TODO: implement func avatarSize(for message:...) -> CGSize
 }

@@ -39,6 +39,7 @@ enum AlienProfile {
                 var profileImage: String?
                 var raiting: Double
                 var swapsCount: Int
+                var chatId: Int?
             }
             struct Order: Decodable {
                 var counterOffer: String

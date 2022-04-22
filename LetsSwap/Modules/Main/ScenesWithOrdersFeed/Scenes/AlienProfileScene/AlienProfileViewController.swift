@@ -19,6 +19,7 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
     //variables
     private var userId: Int
     private var needToBeUpdated: Bool = true
+    private var chatId: Int? = nil
     
     //Controls
     
@@ -42,6 +43,7 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
     private lazy var chatButton: UIButton = {
         let button = UIButton.roundButton(backgroundColor: .mainDetailsYellow(), image: UIImage(named: "chatImage"), cornerRadius: AlienProfileConstants.chatButtonHeight / 2)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.isHidden = true
         return button
     }()
     
@@ -138,13 +140,20 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
         })
         feedCollectionView.updateData(feedViewModel: feedViewModel)
         let personInfo = viewModel.model.personInfo
+        if let chatId = personInfo.chatId {
+            self.chatId = chatId
+            chatButton.isHidden = false
+        }
         cityNameLabel.setup(name: String.username(name: personInfo.name, lastname: personInfo.lastname), city: personInfo.cityName)
         topView.setup(swapsCount: personInfo.swapsCount, raiting: personInfo.raiting, image: viewModel.model.personInfo.profileImage)
     }
     
     
     @objc private func chatButtonTapped() {
-        print(#function)
+        if let id = chatId {
+            print(id)
+            
+        }
     }
 }
 
