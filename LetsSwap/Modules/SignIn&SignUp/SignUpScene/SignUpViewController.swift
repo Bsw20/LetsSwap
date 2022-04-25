@@ -20,10 +20,19 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
         return view
     }()
     
+    let activityIndicator: UIActivityIndicatorView = {
+        let av = UIActivityIndicatorView(style: .medium)
+        av.translatesAutoresizingMaskIntoConstraints = false
+        av.color = .black
+        av.hidesWhenStopped = true
+        return av
+    }()
+    
     private lazy var confirmButton: UIButton = {
         let button = UIButton.getLittleRoundButton(text: "Подтвердить телефон")
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isEnabled = false
+        button.addActivityIndicator(activityIndicator: activityIndicator)
         return button
     }()
     
@@ -51,9 +60,8 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
     
     var router: (NSObjectProtocol & SignUpRoutingLogic)?
     
-    var signInButtonConstaintToBottom: NSLayoutConstraint?
-    var signInButtonConstaintToKeyboard: NSLayoutConstraint?
-
+    var keyboardButtonConstraint: NSLayoutConstraint?
+    
       // MARK: Object lifecycle
   
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -87,9 +95,13 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
         setupConstraints()
         setupNavigationController()
         setupActions()
-        setupObservers()
         setupDelegates()
         hideKeyboardWhenTappedAround()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        keyboardButtonConstraint?.isActive = true
     }
     
     // MARK: - Funcs
@@ -105,12 +117,15 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
     
     // MARK: - Objc funcs
     @objc private func confirmButtonTapped() {
+        activityIndicator.startAnimating()
+        keyboardButtonConstraint?.isActive = false
         self.navigationController?.setupAsBaseScreen(self, animated: true)
         let signUpViewModel = collectData()
         
         authService.sendSms(login: signUpViewModel.login) { (result) in
+            self.activityIndicator.stopAnimating()
             switch(result) {
-
+                
             case .success():
                 self.router?.routeToSMSScene(data: signUpViewModel)
 
@@ -130,28 +145,13 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if signInButtonConstaintToKeyboard == nil {
-            if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
-                signInButtonConstaintToKeyboard = signInButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -keyboardHeight)
-            }
-        }
-        signInButtonConstaintToKeyboard?.isActive = true
-        signInButtonConstaintToBottom?.isActive = false
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        signInButtonConstaintToKeyboard?.isActive = false
-        signInButtonConstaintToBottom?.isActive = true
-    }
-    
     //MARK: - Funcs
     private func setupNavigationController() {
         navigationItem.title = "Регистрация"
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
         navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.tintColor = .black;
+        self.navigationController?.navigationBar.tintColor = .black
     }
     
     private func setupActions() {
@@ -159,10 +159,6 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
         signInButton.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
     }
     
-    private func setupObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
     
     private func setupDelegates() {
         nameTextView.delegate = self
@@ -242,13 +238,17 @@ extension SignUpViewController {
             phoneNubmerView.heightAnchor.constraint(equalToConstant: 96)
         ])
         
-        signInButtonConstaintToBottom = signInButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
-        signInButtonConstaintToBottom?.isActive = true
+        keyboardButtonConstraint = view.keyboardLayoutGuide.topAnchor.constraint(equalToSystemSpacingBelow: signInButton.bottomAnchor, multiplier: 1.0)
+        keyboardButtonConstraint?.isActive = true
+        let buttonToBottomConstraint = signInButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
+        buttonToBottomConstraint.priority = UILayoutPriority(1)
+        //viewBottomPositionConstraint = signInButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
+        //viewBottomPositionConstraint?.isActive = true
         
         NSLayoutConstraint.activate([
             signInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: SignUpConstants.leadingTrailingOffset),
             signInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -SignUpConstants.leadingTrailingOffset),
-            //signInButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            buttonToBottomConstraint,
             signInButton.heightAnchor.constraint(equalToConstant: 48)
         ])
         
@@ -258,5 +258,7 @@ extension SignUpViewController {
             confirmButton.bottomAnchor.constraint(equalTo: signInButton.topAnchor, constant: -10),
             confirmButton.heightAnchor.constraint(equalToConstant: 48)
         ])
+        
+        
     }
 }

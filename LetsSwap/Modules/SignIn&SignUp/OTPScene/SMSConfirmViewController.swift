@@ -50,6 +50,7 @@ class SMSConfirmViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UITextField.appearance().keyboardAppearance = UIKeyboardAppearance.light
         view.backgroundColor = .mainBackground()
         setupConstraints()
         confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)

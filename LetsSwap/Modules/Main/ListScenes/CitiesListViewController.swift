@@ -50,6 +50,7 @@ class CitiesListViewController: UIViewController {
     }
     
     private func setupSearchBar() {
+        self.navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         let searchController = UISearchController(searchResultsController: nil)
@@ -67,9 +68,9 @@ class CitiesListViewController: UIViewController {
         
         navigationItem.title = "Выбери город"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
-        
-        navigationItem.setLeftBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "goBackIcon"), style: .plain, target: self, action: #selector(leftBarButtonTapped)), animated: true)
-        navigationItem.hidesBackButton = true
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        //navigationItem.setLeftBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "goBackIcon"), style: .plain, target: self, action: #selector(leftBarButtonTapped)), animated: true)
+        //navigationItem.hidesBackButton = true
     }
     
     @objc private func leftBarButtonTapped() {

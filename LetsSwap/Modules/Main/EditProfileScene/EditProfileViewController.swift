@@ -48,6 +48,14 @@ class EditProfileViewController: UIViewController {
         return button
     }()
     
+    let activityIndicator: UIActivityIndicatorView = {
+        let av = UIActivityIndicatorView(style: .large)
+        av.translatesAutoresizingMaskIntoConstraints = false
+        av.color = .black
+        av.hidesWhenStopped = true
+        return av
+    }()
+    
     //MARK: - Variables
     private var viewModel: EditProfileViewModel
     private var networkService: EditProfileFetcher = UserAPIService.shared
@@ -148,9 +156,11 @@ class EditProfileViewController: UIViewController {
     }
     
     @objc private func rightBarButtonTapped() {
+        self.activityIndicator.startAnimating()
         resignTextFields()
         let model =  collectData()
         networkService.updateProfileInfo(model: model) { (result) in
+            self.activityIndicator.stopAnimating()
             switch result {
             
             case .success():
@@ -257,7 +267,11 @@ extension EditProfileViewController {
             make.centerX.equalToSuperview()
         }
         
+        view.addSubview(activityIndicator)
         
+        activityIndicator.snp.makeConstraints { (make) in
+            make.centerX.centerY.equalToSuperview()
+        }
 
     }
 }

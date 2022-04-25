@@ -225,7 +225,7 @@ class FullOrderViewController: UIViewController, FullOrderDisplayLogic {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
         navigationController?.navigationBar.tintColor = .mainTextColor()
         navigationController?.navigationBar.isTranslucent = true
-        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     private func collectData() -> FullOrderViewModel {

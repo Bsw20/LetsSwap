@@ -16,7 +16,7 @@ protocol NotificationCellDelegate: NSObjectProtocol {
 }
 
 class NotificationCell: UICollectionViewCell {
-    typealias NotificationType = Notification.NotificationType
+    typealias NotificationType = SwapNotification.NotificationType
     //MARK: - Variables
     weak var customDelegate: NotificationCellDelegate?
     //MARK: - Controls

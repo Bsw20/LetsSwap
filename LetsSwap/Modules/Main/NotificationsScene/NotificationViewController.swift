@@ -11,11 +11,11 @@ import Alamofire
 import SwiftyBeaver
 
 protocol NotificationDisplayLogic: class {
-  func displayData(viewModel: Notification.Model.ViewModel.ViewModelData)
+  func displayData(viewModel: SwapNotification.Model.ViewModel.ViewModelData)
 }
 
 class NotificationViewController: UIViewController, NotificationDisplayLogic{
-    typealias NotificationModel = Notification.AllNotifications.ViewModel
+    typealias NotificationModel = SwapNotification.AllNotifications.ViewModel
     //MARK: - Controls
     private let collectionView: NotificationCollectionView = {
         var collectionView = NotificationCollectionView()
@@ -156,7 +156,7 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
             })
     }
   
-    func displayData(viewModel: Notification.Model.ViewModel.ViewModelData) {
+    func displayData(viewModel: SwapNotification.Model.ViewModel.ViewModelData) {
 
     }
     

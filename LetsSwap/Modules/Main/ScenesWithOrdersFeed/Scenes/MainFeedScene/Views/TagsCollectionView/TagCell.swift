@@ -55,7 +55,7 @@ class TagCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         backgroundColor = .mainBackground()
-        tagLabel.textColor = .black
+        tagLabel.textColor = .mainTextColor()
     }
     
     

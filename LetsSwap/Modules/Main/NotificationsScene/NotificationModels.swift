@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum Notification {
+enum SwapNotification {
     enum NotificationType {
         case unmatched
         case matched

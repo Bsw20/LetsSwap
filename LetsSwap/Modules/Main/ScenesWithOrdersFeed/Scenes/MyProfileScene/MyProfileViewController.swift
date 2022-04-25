@@ -25,6 +25,7 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
         let spinner = UIActivityIndicatorView(style: .large)
         spinner.tintColor = .green
         spinner.hidesWhenStopped = true
+        spinner.color = .black
         spinner.translatesAutoresizingMaskIntoConstraints = false
         return spinner
     }()
@@ -108,7 +109,7 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
     private func setupNavigationController() {
         navigationItem.title = "Мой профиль"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
-        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(named: "settingsIcon"), style: .plain, target: self, action: #selector(settingsButtonTapped)), animated: true)
         navigationController?.navigationBar.isTranslucent = true
     }

@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           return
         }
         
-        print("fetch remote notification in didReceiveRemoteNotification")
+        print("fetch remoate notification in didReceiveRemoteNotification")
         print(userInfo)
 //        NewsItem.makeNewsItem(aps)
     }

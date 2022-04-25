@@ -52,9 +52,9 @@ class TagsListViewController: UIViewController {
     private func setupNavigationController() {
         navigationItem.title = "Выбери тэги"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
-        
-        navigationItem.setLeftBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "goBackIcon"), style: .plain, target: self, action: #selector(leftBarButtonTapped)), animated: true)
-        navigationItem.hidesBackButton = true
+        self.navigationController?.navigationBar.tintColor = .black
+        //navigationItem.setLeftBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "goBackIcon"), style: .plain, target: self, action: #selector(leftBarButtonTapped)), animated: true)
+        //navigationItem.hidesBackButton = true
         navigationController?.navigationBar.isTranslucent = true
     }
     

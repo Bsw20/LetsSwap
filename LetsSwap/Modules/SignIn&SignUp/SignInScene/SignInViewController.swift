@@ -20,10 +20,19 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
         return view
     }()
     
+    let activityIndicator: UIActivityIndicatorView = {
+        let av = UIActivityIndicatorView(style: .medium)
+        av.translatesAutoresizingMaskIntoConstraints = false
+        av.color = .black
+        av.hidesWhenStopped = true
+        return av
+    }()
+    
     private lazy var confirmButton: UIButton = {
         let button = UIButton.getLittleRoundButton(text: "Подтвердить телефон")
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isEnabled = false
+        button.addActivityIndicator(activityIndicator: activityIndicator)
         return button
     }()
     
@@ -39,8 +48,7 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
     
     private var authService = AuthService()
     
-    var registerButtonConstaintToBottom: NSLayoutConstraint?
-    var registerButtonConstaintToKeyboard: NSLayoutConstraint?
+    var keyboardButtonConstraint: NSLayoutConstraint?
     
     var router: (NSObjectProtocol & SignInRoutingLogic)?
 
@@ -79,17 +87,23 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
 
         setupDelegates()
         setupActions()
-        setupObservers()
         hideKeyboardWhenTappedAround()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        keyboardButtonConstraint?.isActive = true
     }
     
     //MARK: - Objc funcs
     @objc private func confirmButtonTapped() {
         print(#function)
+        activityIndicator.startAnimating()
+        keyboardButtonConstraint?.isActive = false
         navigationController?.setupAsBaseScreen(self, animated: true)
         let signInViewModel = collectData()
         authService.sendSms(login: signInViewModel.login) { (result) in
+            self.activityIndicator.stopAnimating()
             switch(result) {
 
             case .success():
@@ -108,30 +122,10 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if registerButtonConstaintToKeyboard == nil {
-            if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
-                registerButtonConstaintToKeyboard = signUpButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -keyboardHeight)
-            }
-        }
-        registerButtonConstaintToKeyboard?.isActive = true
-        registerButtonConstaintToBottom?.isActive = false
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        registerButtonConstaintToKeyboard?.isActive = false
-        registerButtonConstaintToBottom?.isActive = true
-    }
-    
     //MARK: - Funcs
     private func setupActions() {
         confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
         signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
-    }
-    
-    private func setupObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     private func setupDelegates() {
@@ -186,12 +180,18 @@ extension SignInViewController {
             phoneNubmerView.heightAnchor.constraint(equalToConstant: 96)
         ])
         
-        registerButtonConstaintToBottom = signUpButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
-        registerButtonConstaintToBottom?.isActive = true
+        keyboardButtonConstraint = view.keyboardLayoutGuide.topAnchor.constraint(equalToSystemSpacingBelow: signUpButton.bottomAnchor, multiplier: 1.0)
+        keyboardButtonConstraint?.isActive = true
+        let buttonToBottomConstraint = signUpButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
+        buttonToBottomConstraint.priority = UILayoutPriority(1)
+        
+        //viewBottomPositionConstraint = signUpButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
+        //viewBottomPositionConstraint?.isActive = true
         
         NSLayoutConstraint.activate([
             signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: SignInConstants.leadingTrailingOffset),
             signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -SignInConstants.leadingTrailingOffset),
+            buttonToBottomConstraint,
             signUpButton.heightAnchor.constraint(equalToConstant: 48)
         ])
         

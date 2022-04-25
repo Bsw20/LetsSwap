@@ -9,7 +9,7 @@
 import UIKit
 
 protocol NotificationBusinessLogic {
-  func makeRequest(request: Notification.Model.Request.RequestType)
+  func makeRequest(request: SwapNotification.Model.Request.RequestType)
 }
 
 class NotificationInteractor: NotificationBusinessLogic {
@@ -17,7 +17,7 @@ class NotificationInteractor: NotificationBusinessLogic {
   var presenter: NotificationPresentationLogic?
   var service: NotificationService?
   
-  func makeRequest(request: Notification.Model.Request.RequestType) {
+  func makeRequest(request: SwapNotification.Model.Request.RequestType) {
     if service == nil {
       service = NotificationService()
     }

@@ -121,6 +121,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         //self.navigationItem.prompt = nil
         self.navigationItem.titleView = titleView
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     private func applyFilterToFeed() {
         let inputText = titleView.getTextFieldText()

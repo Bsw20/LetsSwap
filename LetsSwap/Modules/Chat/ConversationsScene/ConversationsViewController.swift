@@ -104,6 +104,7 @@ class ConversationsViewController: UIViewController, ConversationsDisplayLogic {
     
     private func setupNavigationUI() {
         navigationItem.title = "Мессенджер"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
         navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.tintColor = .black;

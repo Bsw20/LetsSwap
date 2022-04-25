@@ -16,7 +16,7 @@ protocol NotificationCollectionViewDelegate {
 
 
 class NotificationCollectionView: UICollectionView {
-    typealias NotificationModel = Notification.AllNotifications.ViewModel
+    typealias NotificationModel = SwapNotification.AllNotifications.ViewModel
     //MARK: - Variables
     private var service: SwapsFetcher = SwapsManager()
     private var notifications: NotificationModel = NotificationModel(offers: []) {

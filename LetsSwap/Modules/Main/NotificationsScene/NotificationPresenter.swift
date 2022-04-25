@@ -9,13 +9,13 @@
 import UIKit
 
 protocol NotificationPresentationLogic {
-  func presentData(response: Notification.Model.Response.ResponseType)
+  func presentData(response: SwapNotification.Model.Response.ResponseType)
 }
 
 class NotificationPresenter: NotificationPresentationLogic {
   weak var viewController: NotificationDisplayLogic?
   
-  func presentData(response: Notification.Model.Response.ResponseType) {
+  func presentData(response: SwapNotification.Model.Response.ResponseType) {
   
   }
   
