@@ -60,6 +60,8 @@ class CitiesListViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
         searchController.searchBar.tintColor = .mainTextColor()
+        searchController.searchBar.showsCancelButton = false
+        searchController.searchBar.placeholder = "Найди свой город"
     }
     private func setupNavigationController() {
         

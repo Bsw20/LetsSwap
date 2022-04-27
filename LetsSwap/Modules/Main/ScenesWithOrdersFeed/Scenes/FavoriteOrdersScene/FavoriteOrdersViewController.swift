@@ -29,6 +29,8 @@ class FavoriteOrdersViewController: UIViewController, FavoriteOrdersDisplayLogic
     required init?(coder aDecoder: NSCoder) {
         fatalError("required init doesn't implemented")
     }
+    
+    var backgroundImageView: UIImageView!
   
   // MARK: Setup
   
@@ -52,6 +54,14 @@ class FavoriteOrdersViewController: UIViewController, FavoriteOrdersDisplayLogic
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let backgroundImage = UIImage.init(named: "tabBarIconOn")
+        backgroundImageView = UIImageView.init(frame: self.view.frame)
+        
+        backgroundImageView.image = backgroundImage
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundImageView.contentMode = .scaleAspectFit
+        
         view.backgroundColor = .mainBackground()
         setupConstraints()
         setupNavigationController()
@@ -67,9 +77,17 @@ class FavoriteOrdersViewController: UIViewController, FavoriteOrdersDisplayLogic
         switch viewModel {
         
         case .displayFeed(feedViewModel: let feedViewModel):
-            onMainThread {
-                self.feedCollectionView.updateData(feedViewModel: feedViewModel)
+            if feedViewModel.cells.isEmpty {
+                self.feedCollectionView.isHidden = true
+                self.backgroundImageView.isHidden = false
+            } else {
+                self.feedCollectionView.isHidden = false
+                self.backgroundImageView.isHidden = true
+                onMainThread {
+                    self.feedCollectionView.updateData(feedViewModel: feedViewModel)
+                }
             }
+            
 
         case .displayError(error: let error):
             showAlert(title: "Ошибка", message: error.localizedDescription)
@@ -114,5 +132,13 @@ extension FavoriteOrdersViewController {
         feedCollectionView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
+        
+        self.view.addSubview(backgroundImageView)
+        
+        NSLayoutConstraint.activate([
+            backgroundImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
+        ])
     }
 }

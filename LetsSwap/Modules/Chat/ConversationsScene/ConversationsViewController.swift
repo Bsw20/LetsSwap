@@ -37,7 +37,8 @@ class ConversationsViewController: UIViewController, ConversationsDisplayLogic {
     var interactor: ConversationsBusinessLogic?
     var router: (NSObjectProtocol & ConversationsRoutingLogic)?
     
-
+    var backgroundImageView: UIImageView!
+    
     // MARK: Object lifecycle
   
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -72,6 +73,14 @@ class ConversationsViewController: UIViewController, ConversationsDisplayLogic {
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let backgroundImage = UIImage.init(named: "chatIconOn")
+        backgroundImageView = UIImageView.init(frame: self.view.frame)
+        
+        backgroundImageView.image = backgroundImage
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundImageView.contentMode = .scaleAspectFit
+        
         view.backgroundColor = .mainBackground()
         setupUI()
         setupConstraints()
@@ -88,9 +97,16 @@ class ConversationsViewController: UIViewController, ConversationsDisplayLogic {
     }
     
     func displayAllConversations(viewModel: Conversations.AllConversations.ViewModel) {
-        self.conversations = viewModel.chats
-        self.myProfileInfo = Conversations.MyProfileInfo(myId: viewModel.myId, myProfileImage: viewModel.myProfileImage, myUserName: viewModel.myUserName)
-        self.tableView.reloadData()
+        if viewModel.chats.isEmpty {
+            self.tableView.isHidden = true
+            self.backgroundImageView.isHidden = false
+        } else {
+            self.tableView.isHidden = false
+            self.backgroundImageView.isHidden = true
+            self.conversations = viewModel.chats
+            self.myProfileInfo = Conversations.MyProfileInfo(myId: viewModel.myId, myProfileImage: viewModel.myProfileImage, myUserName: viewModel.myUserName)
+            self.tableView.reloadData()
+        }
     }
     
     func displayError(error: Error) {
@@ -157,6 +173,14 @@ extension ConversationsViewController {
         tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
         }
+        
+        self.view.addSubview(backgroundImageView)
+        
+        NSLayoutConstraint.activate([
+            backgroundImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
+        ])
     }
 }
 

@@ -22,6 +22,8 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
          collectionView.translatesAutoresizingMaskIntoConstraints = false
          return collectionView
     }()
+    
+    var backgroundImageView: UIImageView!
 
     var interactor: NotificationBusinessLogic?
     var router: (NSObjectProtocol & NotificationRoutingLogic)?
@@ -62,19 +64,18 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let backgroundImage = UIImage.init(named: "presentationThirdImage")
+        backgroundImageView = UIImageView.init(frame: self.view.frame)
+        
+        backgroundImageView.image = backgroundImage
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundImageView.contentMode = .scaleAspectFit
+        
         view.backgroundColor = .mainBackground()
         setupNavigation()
         collectionView.customDelegate = self
         setupConstraints()
-        
-        let backgroundImage = UIImage.init(named: "chatImage")
-        let backgroundImageView = UIImageView.init(frame: self.view.frame)
-        
-        backgroundImageView.image = backgroundImage
-        backgroundImageView.contentMode = .scaleAspectFill
-        backgroundImageView.alpha = 0.1
-        
-        self.view.addSubview(backgroundImageView)
         
         service.listenForNotifications { (result) in
             switch result {
@@ -85,7 +86,15 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
                     switch result {
                     
                     case .success(let notifications):
-                        self?.collectionView.updateData(notifications: notifications)
+                        if notifications.offers.isEmpty {
+                            self?.collectionView.isHidden = true
+                            self?.backgroundImageView.isHidden = false
+                        } else {
+                            self?.collectionView.isHidden = false
+                            self?.backgroundImageView.isHidden = true
+                            self?.collectionView.updateData(notifications: notifications)
+                        }
+                        
                     case .failure(let error):
                         SwiftyBeaver.error(error.localizedDescription)
                         UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
@@ -216,6 +225,13 @@ extension NotificationViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
+        self.view.addSubview(backgroundImageView)
+        
+        NSLayoutConstraint.activate([
+            backgroundImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
+        ])
     }
 }
 
