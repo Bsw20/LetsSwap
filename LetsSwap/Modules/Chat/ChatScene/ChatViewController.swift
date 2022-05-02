@@ -107,12 +107,22 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
 //        img.layer.masksToBounds = true
         img.layer.cornerRadius = 16
         img.clipsToBounds = true
-        let rightButton = UIBarButtonItem(customView: img)
+        let items = UIMenu(title: "More", options: .displayInline, children: [
+            UIAction(title: "Item 1", image: UIImage(systemName: "mic"), handler: { _ in }),
+            UIAction(title: "Item 2", image: UIImage(systemName: "envelope"), handler: { _ in }),
+            UIAction(title: "Item 3", image: UIImage(systemName: "flame.fill"), handler: { _ in }),
+            UIAction(title: "Item 4", image: UIImage(systemName: "video"), state: .on, handler: { _ in })
+        ])
+        
+        let rightButton = UIBarButtonItem(image: img.image, menu: items)
+        //let rightButton = UIBarButtonItem(customView: img, menu: items)
+        
         rightButton.customView?.clipsToBounds = true
 //        rightButton.customView?.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         rightButton.customView?.translatesAutoresizingMaskIntoConstraints = false
         rightButton.customView?.heightAnchor.constraint(equalToConstant: 32).isActive = true
         rightButton.customView?.widthAnchor.constraint(equalToConstant: 32).isActive = true
+        
         navigationItem.setRightBarButton(rightButton, animated: true)
     }
     

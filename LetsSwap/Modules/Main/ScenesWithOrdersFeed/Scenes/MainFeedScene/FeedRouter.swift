@@ -24,6 +24,8 @@ class FeedRouter: NSObject, FeedRoutingLogic {
     
     func routeToTagsController(currentTags: Set<FeedTag>) {
         let vc = TagsViewController()
+        vc.selectedTags = currentTags
+        vc.delegate = viewController
         viewController?.navigationController?.pushViewController(vc, animated: true)
     }
     

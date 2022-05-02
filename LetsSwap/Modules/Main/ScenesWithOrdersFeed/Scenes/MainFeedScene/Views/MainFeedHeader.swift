@@ -43,5 +43,9 @@ class MainFeedHeader: UICollectionReusableView {
     func configure(selectedTags: Set<FeedTag>) {
         tagsCollectionView.setSelectedTags(selectedTags: selectedTags)
     }
+    
+    func addSelectedTags(tags: Set<FeedTag>) {
+        tagsCollectionView.setSelectedTags(selectedTags: tags)
+    }
 }
 

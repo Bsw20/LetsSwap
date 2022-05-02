@@ -22,8 +22,9 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     var interactor: FeedBusinessLogic?
     var router: (NSObjectProtocol & FeedRoutingLogic)?
     var selectedCity: String = ""
+    var selectedAllTags = Set<FeedTag>()
     private var selectedTags: Set<FeedTag> {
-        return feedCollectionView.getSelectedTags()
+        return feedCollectionView.getSelectedTags().union(selectedAllTags)
     }
 
   // MARK: Object lifecycle
@@ -159,8 +160,8 @@ extension FeedViewController: FeedCollectionViewDelegate {
                                                                                   text: titleView.getTextFieldText(), city: selectedCity)))
     }
     func moreTagsButtonTapped() {
-//        router?.routeToTagsController(currentTags: selectedTags)
-        UIViewController.showAlert(title: "Уведомление!", message: "Данный функционал будет реализован позже")
+        router?.routeToTagsController(currentTags: selectedTags)
+        //UIViewController.showAlert(title: "Уведомление!", message: "Данный функционал будет реализован позже")
     }
     
     func refresh() {
@@ -168,13 +169,23 @@ extension FeedViewController: FeedCollectionViewDelegate {
                                                                                   text: titleView.getTextFieldText(), city: selectedCity)))
     }
     
-    
 }
 
 //MARK: - CitiesListDelegate
 extension FeedViewController: CitiesListDelegate {
     func citySelected(city: String) {
         selectedCity = city
+    }
+}
+
+//MARK: - AllTagsListDelegate
+extension FeedViewController: AllTagsListDelegate {
+    func tagsSelected(tags: Set<FeedTag>) {
+        self.selectedAllTags = tags
+        feedCollectionView.setSelectedTags(tags: tags)
+        
+        interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags,
+                                                                                  text: titleView.getTextFieldText(), city: selectedCity)))
     }
 }
 

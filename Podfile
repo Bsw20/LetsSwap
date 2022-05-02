@@ -13,4 +13,5 @@ target 'LetsSwap' do
   pod 'SwiftyBeaver'
   pod 'MessageKit'
   pod 'SwiftyJSON'
+  pod 'Tags'
 end

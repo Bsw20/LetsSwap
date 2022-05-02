@@ -12,6 +12,7 @@ PODS:
   - Starscream (4.0.4)
   - SwiftyBeaver (1.9.5)
   - SwiftyJSON (5.0.1)
+  - Tags (0.3.2)
 
 DEPENDENCIES:
   - Alamofire
@@ -21,6 +22,7 @@ DEPENDENCIES:
   - Socket.IO-Client-Swift
   - SwiftyBeaver
   - SwiftyJSON
+  - Tags
 
 SPEC REPOS:
   trunk:
@@ -33,6 +35,7 @@ SPEC REPOS:
     - Starscream
     - SwiftyBeaver
     - SwiftyJSON
+    - Tags
 
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
@@ -44,7 +47,8 @@ SPEC CHECKSUMS:
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SwiftyBeaver: 84069991dd5dca07d7069100985badaca7f0ce82
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
+  Tags: e1d330baa83b7c855ef1eb47b04532771e32b5f5
 
-PODFILE CHECKSUM: d8f8458e52b723ab1a3d206b2892b59f64014b30
+PODFILE CHECKSUM: aff8d17ab36129b8636220472e58a5b7bd7bf0af
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

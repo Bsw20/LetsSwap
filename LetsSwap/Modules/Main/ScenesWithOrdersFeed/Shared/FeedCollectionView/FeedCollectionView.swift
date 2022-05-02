@@ -88,6 +88,9 @@ class FeedCollectionView: UICollectionView {
         refreshControl?.endRefreshing()
     }
     
+    public func setSelectedTags(tags: Set<FeedTag>) {
+        selectedTags = tags
+    }
     
 }
 
