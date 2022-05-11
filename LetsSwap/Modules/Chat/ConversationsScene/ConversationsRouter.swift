@@ -19,7 +19,7 @@ class ConversationsRouter: NSObject, ConversationsRoutingLogic {
   
     // MARK: Routing
     func routeToChat(conversation: Conversations.Conversation, userInfo: Conversations.MyProfileInfo) {
-        let vc = ChatViewController(conversation: conversation, userInfo: userInfo)
+        let vc = ChatViewController(conversation: conversation, userInfo: userInfo, chatId: nil)
         viewController?.navigationController?.push(vc)
     }
   

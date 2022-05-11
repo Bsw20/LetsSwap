@@ -15,7 +15,7 @@ protocol MyProfileHeaderViewModel {
     var lastname: String { get }
     var cityName: String { get }
     var swapsCount: Int { get }
-    var raiting: Double { get }
+    var rating: Double { get }
 }
 
 class MyProfileHeaderView: UICollectionReusableView {

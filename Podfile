@@ -14,4 +14,6 @@ target 'LetsSwap' do
   pod 'MessageKit'
   pod 'SwiftyJSON'
   pod 'Tags'
+  pod 'FloatRatingView'
+  pod 'SwiftyRate'
 end

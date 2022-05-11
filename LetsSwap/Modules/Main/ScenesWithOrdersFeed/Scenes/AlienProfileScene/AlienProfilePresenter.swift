@@ -47,7 +47,7 @@ class AlienProfilePresenter: AlienProfilePresentationLogic {
         
         return ProfileDescriptionViewModel.init(userPhoto: url,
                                                 swapsCount: profileDescription.swapsCount,
-                                                raiting: profileDescription.raiting,
+                                                rating: profileDescription.rating,
                                                 name: profileDescription.name,
                                                 lastName: profileDescription.lastName,
                                                 cityName: profileDescription.cityName)

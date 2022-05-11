@@ -16,7 +16,7 @@ protocol MyProfileFeedCollectionViewDelegate: NSObjectProtocol {
 class MyProfileFeedCollectionView: UICollectionView {
     weak var myProfileDelegate: MyProfileFeedCollectionViewDelegate?
     private var feedViewModel = MyProfileViewModel(
-        personInfo: MyProfileViewModel.PersonInfo.init(profileImage: "", name: "", lastname: "", cityName: "", swapsCount: 0, raiting: 0),
+        personInfo: MyProfileViewModel.PersonInfo.init(profileImage: "", name: "", lastname: "", cityName: "", swapsCount: 0, rating: 0),
         feedInfo: MyProfileViewModel.FeedModel.init(cells: []))
     
     init() {

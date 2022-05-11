@@ -16,7 +16,7 @@ private struct UserPlan {
     var email: Email?
     var city: String
     var swapsCount: Int
-    var raiting: Double
+    var rating: Double
     var photo: PhotoPlan
     var posts: [PostPlan]
     var favouritePosts: [FavouritePost]

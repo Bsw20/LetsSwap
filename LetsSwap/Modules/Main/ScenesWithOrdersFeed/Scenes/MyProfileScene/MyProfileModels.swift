@@ -43,9 +43,9 @@ struct MyProfileResponseModel: Decodable {
         var lastname: String
         var cityName: String
         var swapsCount: Int
-        var raiting: Double
+        var rating: Double
     }
-    
+    var chatId: Int?
     struct Cell: Decodable {
         
         var orderId: Int
@@ -69,9 +69,9 @@ struct MyProfileViewModel: Decodable {
         var lastname: String
         var cityName: String
         var swapsCount: Int
-        var raiting: Double
+        var rating: Double
     }
-    
+    var chatId: Int?
     struct FeedModel: Decodable {
         struct Cell: Hashable, BaseFeedCellViewModel, Decodable {
             

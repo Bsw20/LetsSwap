@@ -17,7 +17,7 @@ struct ProfileResponse: Decodable {
 struct ProfileDescription: Decodable {
     var userPhoto: Photo?
     var swapsCount: Int
-    var raiting: Double
+    var rating: Double
     var name: String
     var lastName: String
     var cityName: String

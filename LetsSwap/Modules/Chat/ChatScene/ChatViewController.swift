@@ -18,6 +18,8 @@ import MobileCoreServices
 protocol ChatDisplayLogic: NSObjectProtocol {
     func displayAllMessages(model: Chat.AllMessages.ViewModel)
     func displayError(error: Error)
+    func displayData(viewModel: MyProfileViewModel.PersonInfo)
+    func closeView()
 }
 
 class ChatViewController: MessagesViewController, ChatDisplayLogic {
@@ -47,24 +49,53 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
     var interactor: ChatBusinessLogic?
     var router: (NSObjectProtocol & ChatRoutingLogic)?
     
+    var containerView = UIView()
+    let ratingView = RatingView(frame: .zero)
+    
     // MARK: Object lifecycle
     
-    init(conversation: Conversations.Conversation, userInfo: Conversations.MyProfileInfo) {
-        chat = CChat(friendAvatarStringURL: conversation.friendAvatarStringURL,
-                     friendId: conversation.friendId,
-                     friendUsername: String.username(name: conversation.name, lastname: conversation.lastName),
-                     chatId: conversation.chatId)
-        user = CUser(username: userInfo.myUserName,
-                     avatarStringURL: userInfo.myProfileImage,
-                     id: String(userInfo.myId))
+    init(conversation: Conversations.Conversation?, userInfo: Conversations.MyProfileInfo?, chatId: Int?) {
         
         
-        super.init(nibName: nil, bundle: nil)
+        if let conversation = conversation, let userInfo = userInfo {
+            chat = CChat(friendAvatarStringURL: conversation.friendAvatarStringURL,
+                         friendId: conversation.friendId,
+                         friendUsername: String.username(name: conversation.name, lastname: conversation.lastName),
+                         chatId: conversation.chatId)
+            user = CUser(username: userInfo.myUserName,
+                         avatarStringURL: userInfo.myProfileImage,
+                         id: String(userInfo.myId))
+            super.init(nibName: nil, bundle: nil)
+            setup()
+            self.setupNavigationController()
+        } else {
+            
+            chat = CChat(friendAvatarStringURL: "",
+                         friendId: 0,
+                         friendUsername: "",
+                         chatId: 0)
+            user = CUser(username: "",
+                         avatarStringURL: "",
+                         id: "")
+            super.init(nibName: nil, bundle: nil)
+            setup()
+            if let chatId = chatId {
+                chat.chatId = chatId
+                interactor?.getChatInfo(chatId: chatId)
+            }
+        }
+        
+        
+        
         SwiftyBeaver.info(user.username)
         SwiftyBeaver.info(user.id)
-        setup()
-        setupNavigationController()
+        
+        
     }
+    
+//    init(chatId: Int) {
+//        super.init(nibName: nil, bundle: nil)
+//    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("ERROR")
@@ -82,6 +113,7 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
         interactor.presenter      = presenter
         presenter.viewController  = viewController
         router.viewController     = viewController
+        ratingView.delegate = self
     }
     
     private func setupNavigationController() {
@@ -107,27 +139,28 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
 //        img.layer.masksToBounds = true
         img.layer.cornerRadius = 16
         img.clipsToBounds = true
-        let items = UIMenu(title: "More", options: .displayInline, children: [
-            UIAction(title: "Item 1", image: UIImage(systemName: "mic"), handler: { _ in }),
-            UIAction(title: "Item 2", image: UIImage(systemName: "envelope"), handler: { _ in }),
-            UIAction(title: "Item 3", image: UIImage(systemName: "flame.fill"), handler: { _ in }),
-            UIAction(title: "Item 4", image: UIImage(systemName: "video"), state: .on, handler: { _ in })
-        ])
         
-        let rightButton = UIBarButtonItem(image: img.image, menu: items)
-        //let rightButton = UIBarButtonItem(customView: img, menu: items)
+        //let rightButton = UIBarButtonItem(image: img.image, menu: items)
+        let rightButton = UIBarButtonItem(customView: img)
         
         rightButton.customView?.clipsToBounds = true
 //        rightButton.customView?.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         rightButton.customView?.translatesAutoresizingMaskIntoConstraints = false
         rightButton.customView?.heightAnchor.constraint(equalToConstant: 32).isActive = true
         rightButton.customView?.widthAnchor.constraint(equalToConstant: 32).isActive = true
+        rightButton.customView?.isUserInteractionEnabled = true
         
+        let interaction = UIContextMenuInteraction(delegate: self)
         navigationItem.setRightBarButton(rightButton, animated: true)
+        navigationItem.rightBarButtonItem?.customView?.addInteraction(interaction )
     }
     
     //MARK: - DisplayLogic
-    
+    func displayData(viewModel: MyProfileViewModel.PersonInfo) {
+        chat.friendUsername = String.username(name: viewModel.name, lastname: viewModel.lastname)
+        chat.friendAvatarStringURL = viewModel.profileImage
+        setupNavigationController()
+    }
     func displayAllMessages(model: Chat.AllMessages.ViewModel) {
         SwiftyBeaver.verbose("All messages")
         self.messages = model.messages
@@ -135,6 +168,9 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
     }
     func displayError(error: Error) {
         UIApplication.showAlert(title: "Ошибка", message: error.localizedDescription)
+    }
+    func closeView() {
+        navigationController?.popViewController(animated: true)
     }
     
     
@@ -710,5 +746,75 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
         //            }
         //        }
         
+    }
+}
+
+extension ChatViewController: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+
+                // Create an action for sharing
+                let rating = UIAction(title: "Обмен состоялся", image: UIImage(systemName: "checkmark")) { action in
+                    //self.interactor?.changeFinished(request: .init(chatId: self.chat.chatId))
+                    let window = UIApplication.shared.keyWindow
+                    self.containerView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
+                    self.containerView.frame = self.view.frame
+                    window?.addSubview(self.containerView)
+                    
+                    self.containerView.alpha = 0
+                    UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+                    self.containerView.alpha = 0.8
+                    }, completion: nil)
+                    self.messageInputBar.isHidden = true
+                    
+                    let screenSize = UIScreen.main.bounds.size
+                    self.ratingView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: 200)
+                    
+                    window?.addSubview(self.ratingView)
+//                    let vc = RatingViewController()
+//                    vc.providesPresentationContextTransitionStyle = true
+//                    vc.definesPresentationContext = true
+//                    vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+//                    vc.delegate = self
+//                    self.navigationController?.present(vc, animated: true)
+                    UIView.animate(withDuration: 0.5,
+                                   delay: 0, usingSpringWithDamping: 1.0,
+                                   initialSpringVelocity: 1.0,
+                                   options: .curveEaseInOut, animations: {
+                        self.containerView.alpha = 0.8
+                        self.ratingView.frame = CGRect(x: 0, y: screenSize.height - 200, width: screenSize.width, height: 200)
+                    }, completion: nil)
+                }
+
+                // Here we specify the "destructive" attribute to show that it’s destructive in nature
+            let delete = UIAction(title: "Удалить чат", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
+                self.interactor?.deleteChat(request: .init(chatId: self.chat.chatId))
+                }
+
+                // Create and return a UIMenu with all of the actions as children
+                return UIMenu(title: "", children: [rating, delete])
+            }
+    }
+}
+
+extension ChatViewController: RatingProtocol {
+    func setRating(rating: Int) {
+        let screenSize = UIScreen.main.bounds.size
+        UIView.animate(withDuration: 0.5,
+                       delay: 0, usingSpringWithDamping: 1.0,
+                       initialSpringVelocity: 1.0,
+                       options: .curveEaseInOut, animations: {
+            self.containerView.alpha = 0
+        }, completion: nil)
+        UIView.animate(withDuration: 0.5,
+                       delay: 0, usingSpringWithDamping: 1.0,
+                       initialSpringVelocity: 1.0,
+                       options: .curveEaseInOut, animations: {
+            self.containerView.alpha = 0
+            self.ratingView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: 200)
+        }, completion: nil)
+        self.messageInputBar.isHidden = false
+        interactor?.setRating(rating: rating, request: chat)
+        interactor?.changeFinished(request: chat)
     }
 }

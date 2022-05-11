@@ -215,7 +215,10 @@ class FeedOrderViewController: UIViewController, FeedOrderDisplayLogic {
         case .displayUpdatedData(model: let model):
             self.orderViewModel = model
             trackerDelegate?.stateDidChange()
+        case .displayAlert:
+            FeedOrderViewController.showAlert(title: "Ошибка", message: "Обмен уже создан")
         }
+    
     }
     private func setupDelegates() {
         photosCollectionView.customDelegate = self

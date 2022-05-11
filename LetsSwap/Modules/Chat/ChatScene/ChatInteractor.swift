@@ -13,9 +13,15 @@ import SwiftyJSON
 protocol ChatBusinessLogic {
     func sendMessage(request: Chat.CMessage)
     func getAllMessages(request: Chat.AllMessages.Request)
+    func setRating(rating: Int, request: Chat.CChat)
+    func deleteChat(request: Chat.AllMessages.Request)
+    func changeFinished(request: Chat.CChat)
+    func getChatInfo(chatId: Int)
 }
 
 class ChatInteractor: ChatBusinessLogic {
+    
+    
     //MARK: - Variables
     typealias Message = Chat.CMessage
     private var service: ChatManager = ChatManager.shared
@@ -155,5 +161,68 @@ extension ChatInteractor {
 //                              displayName: displayName,
 //                              senderId: String(senderId),
 //                              sendDate: sendDate))
+    }
+    
+    func setRating(rating: Int, request: Chat.CChat) {
+        service.setRating(userId: request.friendId, rating: rating) {[weak self] (result) in
+            print(#function)
+//            SwiftyBeaver.info(#function)
+           switch result {
+           
+           case .success(let model):
+               break
+               
+           case .failure(let error):
+               self?.presenter?.presentError(error: error)
+           }
+       }
+    }
+    
+    func changeFinished(request: Chat.CChat) {
+        service.changeDone(chatId: request.chatId) {[weak self] (result) in
+            print(#function)
+//            SwiftyBeaver.info(#function)
+           switch result {
+           
+           case .success(let model):
+               break
+               
+           case .failure(let error):
+               self?.presenter?.presentError(error: error)
+           }
+       }
+    }
+    
+    func deleteChat(request: Chat.AllMessages.Request) {
+        SwiftyBeaver.info(#function)
+        service.deleteChat(chatId: request.chatId) {[weak self] (result) in
+             print(#function)
+//            SwiftyBeaver.info(#function)
+            switch result {
+            
+            case .success(let model):
+                self?.presenter?.closeView()
+                
+            case .failure(let error):
+                self?.presenter?.presentError(error: error)
+            }
+        }
+    }
+    
+    func getChatInfo(chatId: Int) {
+        SwiftyBeaver.info(#function)
+        service.getChatData(chatId: chatId) {[weak self] (result) in
+             print(#function)
+//            SwiftyBeaver.info(#function)
+            switch result {
+            
+            case .success(let model):
+                self?.presenter?.presentData(model: model)
+                break
+                
+            case .failure(let error):
+                self?.presenter?.presentError(error: error)
+            }
+        }
     }
 }

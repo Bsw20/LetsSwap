@@ -56,7 +56,7 @@ class MyProfileInteractor: MyProfileBusinessLogic {
                                                       lastname: oldModel.personInfo.lastname,
                                                       cityName: oldModel.personInfo.cityName,
                                                       swapsCount: oldModel.personInfo.swapsCount,
-                                                      raiting: oldModel.personInfo.raiting),
+                                                      rating: oldModel.personInfo.rating),
             feedInfo: MyProfileViewModel.FeedModel.init(cells: oldModel.feedInfo.map{ MyProfileViewModel.FeedModel.Cell.init(orderId: $0.orderId , title: $0.title, description: $0.description, counterOffer: $0.counterOffer, photo: getUrl(str: $0.photo) , isFree: $0.isFree, isHidden: $0.isHidden)}))
     }
     

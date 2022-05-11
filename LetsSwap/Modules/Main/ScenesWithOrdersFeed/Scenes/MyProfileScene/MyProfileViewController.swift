@@ -74,7 +74,7 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
         setupNavigationController()
          
         setupConstraints()
-//        topView.setup(swapsCount: 23, raiting: 3.8, imageView: nil)
+//        topView.setup(swapsCount: 23, rating: 3.8, imageView: nil)
 //        cityNameLabel.setup(name: "Митя Матвеев", city: "г. Москва")
         setupDelegates()
     }

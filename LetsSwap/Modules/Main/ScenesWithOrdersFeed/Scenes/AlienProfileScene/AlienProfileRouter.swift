@@ -10,6 +10,7 @@ import UIKit
 
 protocol AlienProfileRoutingLogic {
     func routeToFeedOrderController(orderViewModel: OrderViewModel)
+    func routeToChat(chatId: Int)
 }
 
 class AlienProfileRouter: NSObject, AlienProfileRoutingLogic {
@@ -24,5 +25,10 @@ class AlienProfileRouter: NSObject, AlienProfileRoutingLogic {
         viewController?.navigationController?.push(vc)
 //        let vc = FeedOrderViewController(orderViewModel: orderViewModel)
 //        viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func routeToChat(chatId: Int) {
+        let vc = ChatViewController(conversation: nil, userInfo: nil, chatId: chatId)
+        viewController?.navigationController?.push(vc)
     }
 }

@@ -102,7 +102,7 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
 
         setupConstraints()
         chatButton.addTarget(self, action: #selector(chatButtonTapped), for: .touchUpInside)
-//        topView.setup(swapsCount: 25, raiting: 3.5, imageView: nil)
+//        topView.setup(swapsCount: 25, rating: 3.5, imageView: nil)
 
         feedCollectionView.customDelegate = self
 
@@ -140,19 +140,18 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
         })
         feedCollectionView.updateData(feedViewModel: feedViewModel)
         let personInfo = viewModel.model.personInfo
-        if let chatId = personInfo.chatId {
+        if let chatId = viewModel.model.chatId {
             self.chatId = chatId
             chatButton.isHidden = false
         }
         cityNameLabel.setup(name: String.username(name: personInfo.name, lastname: personInfo.lastname), city: personInfo.cityName)
-        topView.setup(swapsCount: personInfo.swapsCount, raiting: personInfo.raiting, image: viewModel.model.personInfo.profileImage)
+        topView.setup(swapsCount: personInfo.swapsCount, rating: personInfo.rating, image: viewModel.model.personInfo.profileImage)
     }
     
     
     @objc private func chatButtonTapped() {
         if let id = chatId {
-            print(id)
-            
+            router?.routeToChat(chatId: id)
         }
     }
 }

@@ -23,7 +23,7 @@ enum FeedOrder {
             enum ResponseType {
                 case presentDeleting(Result<Void, FeedOrderError>)
                 case presentNewHidingState(Result<Bool, FeedOrderError>)
-                case presentSwapping(Result<Void, Error>)
+                case presentSwapping(Result<Bool, Error>)
                 case presentUpdatedData(Result<MyProfileOrderResponse, MyProfileError>)
             }
         }
@@ -36,6 +36,7 @@ enum FeedOrder {
                 case displayNewHidingState(newState: Bool)
                 case displaySwapping
                 case displayError(error: Error)
+                case displayAlert
             }
         }
     }

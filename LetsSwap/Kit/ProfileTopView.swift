@@ -11,7 +11,7 @@ import UIKit
 protocol ProfileTopViewModel {
     var profileImage: String? { get }
     var swapsCount: Int { get }
-    var raiting: Double { get }
+    var rating: Double { get }
 }
 class ProfileTopView: UIView {
     private lazy var imageView: WebImageView  = {
@@ -51,7 +51,7 @@ class ProfileTopView: UIView {
         return label
     }()
     
-    private lazy var raitingLabel: UILabel = {
+    private lazy var ratingLabel: UILabel = {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = #colorLiteral(red: 0.8666666667, green: 0.7098039216, blue: 0.2352941176, alpha: 1)
@@ -100,15 +100,15 @@ class ProfileTopView: UIView {
     
     func setup(topViewModel: ProfileTopViewModel) {
         swapsCountLabel.text = "\(topViewModel.swapsCount)"
-        raitingLabel.text = String(format: "%.1f", topViewModel.raiting)
+        ratingLabel.text = String(format: "%.1f", topViewModel.rating)
         #warning("TODO")
         imageView.set(imageURL: topViewModel.profileImage)
 
     }
     
-    func setup(swapsCount: Int, raiting: Double, image: String?) {
+    func setup(swapsCount: Int, rating: Double, image: String?) {
         swapsCountLabel.text = "\(swapsCount)"
-        raitingLabel.text = String(format: "%.1f", raiting)
+        ratingLabel.text = String(format: "%.1f", rating)
         imageView.set(imageURL: image)
     }
     
@@ -124,7 +124,7 @@ class ProfileTopView: UIView {
         rightBackView.addSubview(label2)
         
         leftBackView.addSubview(swapsCountLabel)
-        rightBackView.addSubview(raitingLabel)
+        rightBackView.addSubview(ratingLabel)
         
         heightAnchor.constraint(equalToConstant: 50).isActive = true
 //        imageView.image.pla
@@ -181,8 +181,8 @@ class ProfileTopView: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            raitingLabel.centerXAnchor.constraint(equalTo: rightBackView.centerXAnchor),
-            raitingLabel.bottomAnchor.constraint(equalTo: label2.topAnchor, constant: 6)
+            ratingLabel.centerXAnchor.constraint(equalTo: rightBackView.centerXAnchor),
+            ratingLabel.bottomAnchor.constraint(equalTo: label2.topAnchor, constant: 6)
         ])
     }
 }

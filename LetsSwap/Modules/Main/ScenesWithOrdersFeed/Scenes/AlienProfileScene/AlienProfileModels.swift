@@ -37,10 +37,10 @@ enum AlienProfile {
                 var lastname: String
                 var name: String
                 var profileImage: String?
-                var raiting: Double
+                var rating: Double
                 var swapsCount: Int
-                var chatId: Int?
             }
+            var chatId: Int?
             struct Order: Decodable {
                 var counterOffer: String
                 var description: String

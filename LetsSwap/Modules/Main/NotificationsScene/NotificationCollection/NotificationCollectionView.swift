@@ -108,7 +108,7 @@ extension NotificationCollectionView: NotificationCellDelegate {
                 switch result {
                 
                 case .success():
-                    self.service.createChat(userId: self.notifications.offers[ip.item].userId) { (result) in
+                    self.service.createChat(userId: self.notifications.offers[ip.item].userId, swapId: self.notifications.offers[ip.item].swapId) { (result) in
                         switch result {
                         
                         case .success():

@@ -185,6 +185,7 @@
 		7AA69C8F88C099B8056326EA /* Pods_LetsSwap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE21F565B2CCFD773AC5A5B /* Pods_LetsSwap.framework */; };
 		AF397E1B2819BA39004AE5D9 /* AllTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF397E1A2819BA39004AE5D9 /* AllTagsViewController.swift */; };
 		AF90EAFD281715A4006AC62A /* KeyboardLayoutGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF90EAFC281715A4006AC62A /* KeyboardLayoutGuide.swift */; };
+		AF94F8A72820869A00346AAB /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF94F8A62820869A00346AAB /* RatingView.swift */; };
 		C4B1CBDE2811BB54003CB81B /* VideoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B1CBDD2811BB54003CB81B /* VideoPicker.swift */; };
 /* End PBXBuildFile section */
 
@@ -370,6 +371,7 @@
 		9AE21F565B2CCFD773AC5A5B /* Pods_LetsSwap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LetsSwap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF397E1A2819BA39004AE5D9 /* AllTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTagsViewController.swift; sourceTree = "<group>"; };
 		AF90EAFC281715A4006AC62A /* KeyboardLayoutGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutGuide.swift; sourceTree = "<group>"; };
+		AF94F8A62820869A00346AAB /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		C401AEAB27F9ABDF004B1DB2 /* LetsSwap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LetsSwap.entitlements; sourceTree = "<group>"; };
 		C4B1CBDD2811BB54003CB81B /* VideoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPicker.swift; sourceTree = "<group>"; };
 		DA2191AEE06D485BEC7AD0F5 /* Pods-LetsSwap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsSwap.release.xcconfig"; path = "Target Support Files/Pods-LetsSwap/Pods-LetsSwap.release.xcconfig"; sourceTree = "<group>"; };
@@ -617,6 +619,7 @@
 			isa = PBXGroup;
 			children = (
 				30517A5F26D824B600E02E2D /* LocalMediaCell.swift */,
+				AF94F8A62820869A00346AAB /* RatingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1250,6 +1253,7 @@
 				30BC10BB2599156A00066D9B /* AlienProfileWorker.swift in Sources */,
 				3072F33125C4750900CE7C65 /* SMSConfirmViewController.swift in Sources */,
 				30CB74DE259121C700CB84D6 /* FeedOrderPresenter.swift in Sources */,
+				AF94F8A72820869A00346AAB /* RatingView.swift in Sources */,
 				3022F5EF25BDFC00004C50B7 /* MyProfileFeedCollectionView.swift in Sources */,
 				307304EA258B7D0A0091D2F1 /* FeedDataFetcher.swift in Sources */,
 				307304DD258B692A0091D2F1 /* FeedCell.swift in Sources */,

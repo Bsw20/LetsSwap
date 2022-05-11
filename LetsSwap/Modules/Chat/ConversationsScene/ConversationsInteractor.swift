@@ -13,6 +13,7 @@ import SwiftyBeaver
 protocol ConversationsBusinessLogic {
     func makeRequest(request: Conversations.Model.Request.RequestType)
     func getAllConversations(requst: Conversations.AllConversations.Request)
+    //func getUserData(requst: Conversations.AllConversations.Request)
 }
 
 class ConversationsInteractor: ConversationsBusinessLogic {
@@ -47,6 +48,19 @@ class ConversationsInteractor: ConversationsBusinessLogic {
             }
         }
     }
+    
+//    func getUserData(requst: Conversations.AllConversations.Request) {
+//        manager.getChatData(chatId: 6) {[weak self] (result) in
+//            switch result {
+//             
+//            case .success(let data):
+//                print(data)
+//                
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+//    }
     
 
   

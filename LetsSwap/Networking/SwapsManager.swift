@@ -11,13 +11,13 @@ import Alamofire
 import SwiftyBeaver
 
 protocol SwapsFetcher {
-    func validateSwap(orderId: Int, completion: @escaping (Result<Void, Error>) -> Void)
+    func validateSwap(orderId: Int, completion: @escaping (Result<Bool, Error>) -> Void)
     func makeSwap(model: MakeSwapModel, completion: @escaping (Result<Void, Error>) -> Void)
     
     func confirmSwap(swapId: Int, completion: @escaping (Result<Void, Error>) -> Void)
     func refuseSwap(swapId: Int, completion: @escaping (Result<Void, Error>) -> Void)
     
-    func createChat(userId: Int, completion: @escaping (Result<Void, Error>) -> Void)
+    func createChat(userId: Int, swapId: Int, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 struct MakeSwapModel {
@@ -36,13 +36,13 @@ struct SwapsManager: SwapsFetcher{
     static var shared = SwapsManager()
     
 
-    func createChat(userId: Int, completion: @escaping (Result<Void, Error>) -> Void) {
+    func createChat(userId: Int, swapId: Int, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let url = URL(string: "http://178.154.210.140:3030/chatModule/chat/create") else {
             SwiftyBeaver.error(String.incorrectUrl(url: "http://178.154.210.140:3030/chatModule/chat/create"))
             completion(.failure(NSError()))
             return
         }
-        let userData: [String: Any] = ["userId" : userId]
+        let userData: [String: Any] = ["userId" : userId, "changeId" : swapId]
         let headers: HTTPHeaders = [
                     "Content-Type":"application/json",
             "Authorization" : APIManager.getToken()
@@ -139,7 +139,7 @@ struct SwapsManager: SwapsFetcher{
         }
     }
     
-    func validateSwap(orderId: Int, completion: @escaping (Result<Void, Error>) -> Void) {
+    func validateSwap(orderId: Int, completion: @escaping (Result<Bool, Error>) -> Void) {
         guard let url = URL(string: "http://178.154.210.140:3030/security/change/canMakeChange/\(orderId)") else {
             SwiftyBeaver.error(String.incorrectUrl(url: "http://178.154.210.140:3030/security/change/canMakeChange/\(orderId)"))
             completion(.failure(NSError()))
@@ -154,9 +154,19 @@ struct SwapsManager: SwapsFetcher{
             .responseData { (response) in
                 switch response.result {
                 
-                case .success(_):
-                    print("Swap validate success")
-                    completion(.success(Void()))
+                case .success(let data):
+                    if let data = data as? [String:Bool] {
+                        print("change has already added")
+                        print(data)
+                            //TODO: Вызывать алёрт.
+                        completion(.success(false))
+                    } else {
+                        print("Swap validate success")
+                        completion(.success(true))
+                    }
+                    
+                    
+                    
                 case .failure(let error):
                     SwiftyBeaver.error(error.localizedDescription)
                     completion(.failure(error))
@@ -184,7 +194,10 @@ struct SwapsManager: SwapsFetcher{
             .responseJSON { (response) in
                 switch response.result {
 
-                case .success(_):
+                case .success(let data):
+                    if let data = data as? [String:String] {
+                        print(data["message"])
+                    }
                     print("Make swap success")
                     completion(.success(Void()))
 

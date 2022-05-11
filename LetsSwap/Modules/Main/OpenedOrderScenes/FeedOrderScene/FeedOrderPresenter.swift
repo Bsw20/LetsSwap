@@ -33,8 +33,10 @@ class FeedOrderPresenter: FeedOrderPresentationLogic {
             }
         case .presentSwapping(let result):
             switch result {
-            case .success():
+            case .success(true):
                 viewController?.displayData(viewModel: .displaySwapping)
+            case .success(false):
+                viewController?.displayData(viewModel: .displayAlert)
             case .failure(let error):
                 viewController?.displayData(viewModel: .displayError(error: error))
             }

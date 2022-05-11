@@ -11,9 +11,16 @@ import UIKit
 protocol ChatPresentationLogic {
     func presentAllMessages(model: Chat.AllMessages.Response)
     func presentError(error: Error)
+    func presentData(model: MyProfileViewModel.PersonInfo)
+    func closeView()
+    //func initChat(profile: MyProfileViewModel.PersonInfo)
 }
 
 class ChatPresenter: ChatPresentationLogic {
+    func presentData(model: MyProfileViewModel.PersonInfo) {
+        viewController?.displayData(viewModel: model)
+    }
+    
     func presentAllMessages(model: Chat.AllMessages.Response) {
 //        viewController?.displayAllMessages(model: <#T##Chat.AllMessages.ViewModel#>)
         viewController?.displayAllMessages(model: .init(messages: model.messages))
@@ -23,5 +30,8 @@ class ChatPresenter: ChatPresentationLogic {
         viewController?.displayError(error: error)
     }
     
+    func closeView() {
+        viewController?.closeView()
+    }
   weak var viewController: ChatDisplayLogic?
 }

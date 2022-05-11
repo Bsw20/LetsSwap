@@ -84,7 +84,8 @@ class ConversationsViewController: UIViewController, ConversationsDisplayLogic {
         view.backgroundColor = .mainBackground()
         setupUI()
         setupConstraints()
-
+        #warning("Удалить")
+        //interactor?.getUserData(requst: .init())
     }
     
     override func viewWillAppear(_ animated: Bool) {
