@@ -67,14 +67,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
         print("Device Token: \(token)")
-        AuthService.shared.sendAPNSToken(token: token) { result in
-            switch result {
-            case .success():
-                print("Ssssuccess")
-            case .failure(let error):
-                print("error apns")
+        if APIManager.isAuthorized() {
+            AuthService.shared.sendAPNSToken(token: token) { result in
+                switch result {
+                case .success():
+                    print("Ssssuccess")
+                case .failure(let error):
+                    print("error apns")
+                }
             }
         }
+
     }
     
     func registerForPushNotifications() {

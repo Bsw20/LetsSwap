@@ -187,6 +187,7 @@
 		AF90EAFD281715A4006AC62A /* KeyboardLayoutGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF90EAFC281715A4006AC62A /* KeyboardLayoutGuide.swift */; };
 		AF94F8A72820869A00346AAB /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF94F8A62820869A00346AAB /* RatingView.swift */; };
 		C4B1CBDE2811BB54003CB81B /* VideoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B1CBDD2811BB54003CB81B /* VideoPicker.swift */; };
+		C4D8103D28317334000525B7 /* TabBarWithCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D8103C28317334000525B7 /* TabBarWithCorners.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -374,6 +375,7 @@
 		AF94F8A62820869A00346AAB /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		C401AEAB27F9ABDF004B1DB2 /* LetsSwap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LetsSwap.entitlements; sourceTree = "<group>"; };
 		C4B1CBDD2811BB54003CB81B /* VideoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPicker.swift; sourceTree = "<group>"; };
+		C4D8103C28317334000525B7 /* TabBarWithCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarWithCorners.swift; sourceTree = "<group>"; };
 		DA2191AEE06D485BEC7AD0F5 /* Pods-LetsSwap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsSwap.release.xcconfig"; path = "Target Support Files/Pods-LetsSwap/Pods-LetsSwap.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -793,6 +795,7 @@
 				308365CE2589E59500578AE2 /* MainTabBarRouter.swift */,
 				308365CF2589E59500578AE2 /* MainTabBarModels.swift */,
 				308365D12589E59500578AE2 /* MainTabBarInteractor.swift */,
+				C4D8103C28317334000525B7 /* TabBarWithCorners.swift */,
 			);
 			path = MainTabBarController;
 			sourceTree = "<group>";
@@ -1232,6 +1235,7 @@
 				AF90EAFD281715A4006AC62A /* KeyboardLayoutGuide.swift in Sources */,
 				308365D52589E59500578AE2 /* MainTabBarRouter.swift in Sources */,
 				3060284C259DE52C0046A2B0 /* UITextField + Extension.swift in Sources */,
+				C4D8103D28317334000525B7 /* TabBarWithCorners.swift in Sources */,
 				30BC10AE2599042000066D9B /* ChooseOrderError.swift in Sources */,
 				308365D72589E59500578AE2 /* MainTabBarController.swift in Sources */,
 				3060281F259B8DAA0046A2B0 /* MyProfileConstants.swift in Sources */,
