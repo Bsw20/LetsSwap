@@ -13,7 +13,6 @@ import SwiftyBeaver
 protocol ConversationsBusinessLogic {
     func makeRequest(request: Conversations.Model.Request.RequestType)
     func getAllConversations(requst: Conversations.AllConversations.Request)
-    //func getUserData(requst: Conversations.AllConversations.Request)
 }
 
 class ConversationsInteractor: ConversationsBusinessLogic {
@@ -48,22 +47,6 @@ class ConversationsInteractor: ConversationsBusinessLogic {
             }
         }
     }
-    
-//    func getUserData(requst: Conversations.AllConversations.Request) {
-//        manager.getChatData(chatId: 6) {[weak self] (result) in
-//            switch result {
-//             
-//            case .success(let data):
-//                print(data)
-//                
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//    }
-    
-
-  
 }
 
 //MARK: - mapping
@@ -100,8 +83,6 @@ extension ConversationsInteractor {
                 let name = $0["name"].string,
                 let lastName = $0["lastName"].string,
                 let missedMessagesCount = $0["missedMessagesCount"].int
-//                let lastMessageContent = $0["lastMessageContent"].string
-//                let stringSendDate = $0["date"].string TODO
                   else {
                     SwiftyBeaver.error("Incorrect model")
                     return nil

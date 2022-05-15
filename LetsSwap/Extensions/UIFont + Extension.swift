@@ -10,7 +10,6 @@ import UIKit
 
 extension UIFont {
     static func circeRegular(with size: CGFloat) -> UIFont {
-        //IF nil fatal error
         return UIFont.init(name: "Circe-Regular", size: size)!
     }
     

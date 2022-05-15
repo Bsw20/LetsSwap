@@ -53,22 +53,6 @@ class FilesService {
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
-//            guard let status = response.response?.statusCode else { return }
-//                switch response
-//            switch response
-//            switch status {
-//            case 200 :
-//                guard let data = response.data else {return}
-//                let decoder = JSONDecoder()
-//                do {
-//                    DispatchQueue.main.async {
-//                        completion?(data)
-//                    }
-//                } catch let error{
-//                    print(error.localizedDescription)
-//                    print("it is an error")
-//                }
-//            }
         }
     }
 
@@ -110,8 +94,6 @@ class FilesService {
                 print(result.debugDescription)
                 print(error)
                 completion(.failure(error))
-//                SwiftyBeaver.error(error.localizedDescription)
-//                completion(.failure(APIErrorFabrics.serverError(code: error.responseCode)))
             }
 
         }

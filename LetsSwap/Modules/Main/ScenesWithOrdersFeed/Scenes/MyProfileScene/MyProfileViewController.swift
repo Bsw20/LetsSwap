@@ -38,7 +38,6 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
 
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-//        feedCollectionHeightAnchor.constraint(equalTo: feedCollectionView.heightAnchor).isActive = true
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
     }
@@ -74,8 +73,6 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
         setupNavigationController()
          
         setupConstraints()
-//        topView.setup(swapsCount: 23, rating: 3.8, imageView: nil)
-//        cityNameLabel.setup(name: "Митя Матвеев", city: "г. Москва")
         setupDelegates()
     }
     

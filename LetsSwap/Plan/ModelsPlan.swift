@@ -32,7 +32,6 @@ private struct OrderPlan {
 private enum OrderState {
     case Accepted
     case Finished
-    //..
 }
 
 private struct PostPlan {

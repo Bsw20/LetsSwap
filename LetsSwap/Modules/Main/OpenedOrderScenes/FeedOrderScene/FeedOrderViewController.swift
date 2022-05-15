@@ -328,10 +328,6 @@ extension FeedOrderViewController: PhotosCarouselDelegate {
     }
     
     private func playVideo(path: URL?) {
-        //         guard let path = Bundle.main.url(forResource: "IMG_5092", withExtension: "MP4") else {
-        //             debugPrint("video.m4v not found")
-        //             return
-        //         }
         guard let path = path else { return }
         let player = AVPlayer(url: path)
         let playerController = AVPlayerViewController()

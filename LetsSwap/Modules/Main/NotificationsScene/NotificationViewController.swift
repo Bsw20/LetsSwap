@@ -170,8 +170,6 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
                 case .success(let data):
                     do {
                         let model = try JSONDecoder().decode(NotificationModel.self, from: data)
-//                        let model = data as? [String: Any]
-//                        print(model)
                         completion(.success(model))
                     } catch(let error){
                         completion(.failure(FeedError.incorrectDataModel))
@@ -252,7 +250,6 @@ extension NotificationViewController: NotificationCollectionViewDelegate {
                 self?.collectionView.updateData(notifications: notifications)
             case .failure(let error):
                 SwiftyBeaver.error(error.localizedDescription)
-//                UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
             }
         }
     }

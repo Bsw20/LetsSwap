@@ -116,31 +116,11 @@ class NotificationCell: UICollectionViewCell {
     }
     
     @objc private func yellowButtonTapped() {
-//        switch notificationType {
-//        case .unmatched:
-//            print("unmatched")
-//        case .matched:
-//            print("matched")
-//        case .mvpVersion:
-//            print("mvp version")
-//        case .none:
-//            print("none")
-//        }
         
         customDelegate?.swapButtonTapped(cell: self)
     }
     
     @objc private func refuseButtonTapped() {
-//        switch notificationType {
-//        case .unmatched:
-//            print("unmatched")
-//        case .matched:
-//            print("matched")
-//        case .mvpVersion:
-//            print("mvp version")
-//        case .none:
-//            print("none")
-//        }
         
         customDelegate?.refuseButtonTapped(cell: self)
     }
@@ -191,11 +171,6 @@ extension NotificationCell {
             commentLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20)
         ])
         
-//        NSLayoutConstraint.activate([
-//            yellowButton.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: NotificationSceneConstants.labelsLeadingOffset),
-//                                        yellowButton.heightAnchor.constraint(equalToConstant: 40),
-//            yellowButton.topAnchor.constraint(equalTo: commentLabel.bottomAnchor,constant: NotificationSceneConstants.thirdGapHeight)
-//        ])
         
         
         switch notificationType {

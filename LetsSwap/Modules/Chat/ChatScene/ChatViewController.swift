@@ -36,7 +36,6 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
     }
     
     private var messages: [Message] = [
-        //        Message(content: "First message")
     ] {
         didSet {
             messagesCollectionView.reloadData()
@@ -93,10 +92,6 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
         
     }
     
-//    init(chatId: Int) {
-//        super.init(nibName: nil, bundle: nil)
-//    }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("ERROR")
     }
@@ -131,20 +126,12 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
             img.image = nil
         }
         
-//        if let imageUrl = chat.friendAvatarStringURL {
-//            img.set(imageURL: imageUrl)
-//        } else {
-//            img.image = UIColor.imageFiller().image(CGSize(width: 32, height: 32))
-//        }
-//        img.layer.masksToBounds = true
         img.layer.cornerRadius = 16
         img.clipsToBounds = true
         
-        //let rightButton = UIBarButtonItem(image: img.image, menu: items)
         let rightButton = UIBarButtonItem(customView: img)
         
         rightButton.customView?.clipsToBounds = true
-//        rightButton.customView?.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         rightButton.customView?.translatesAutoresizingMaskIntoConstraints = false
         rightButton.customView?.heightAnchor.constraint(equalToConstant: 32).isActive = true
         rightButton.customView?.widthAnchor.constraint(equalToConstant: 32).isActive = true
@@ -197,12 +184,6 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
             case .success(let model):
                 if self.chat.chatId == model.chatId {
                     print("GET MESSAGE")
-                    //                    let message = Message(messageId: model.messageId,
-                    //                                          senderId: model.senderId,
-                    //                                          displayName: model.displayName,
-                    //                                          content: model.content,
-                    //                                          sendDate: model.sendDate,
-                    //                                          chatId: model.chatId)
                     let message = Message(messageId: model.messageId,
                                           senderId: model.senderId,
                                           displayName: model.displayName,
@@ -274,31 +255,6 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
         vc.allowsEditing = false
         vc.delegate = self
         self.present(vc, animated: true)
-//        if let fileURL = Bundle.main.url(forResource: "IMG_5092", withExtension: "MP4"), let data = try? Data.init(contentsOf: fileURL) {
-//
-//            FilesService.shared.uploadFile(fileData: data) { file in
-//                let message = Message(user: self.user, chat: self.chat, file: file)
-//                self.insertNewMessage(message: message)
-//                self.listener.sendMessage(model: .init(displayName: self.user.username,
-//                                                       senderId: message.sender.senderId,
-//                                                       sendDate: message.sentDate,
-//                                                       messageId: message.messageId,
-//                                                       chatId: self.chat.chatId,
-//                                                       forward: 0,
-//                                                       replyTo: 0,
-//                                                       messageText: message.messageText,
-//                                                       file: message.file)) {[weak self] result in
-//                    switch result {
-//                    case .success():
-//                        onMainThread {
-//                            self?.messagesCollectionView.scrollToBottom()
-//                        }
-//                    case .failure(let error):
-//                        UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
-//                    }
-//                }
-//            }
-//        }
     }
     
     
@@ -375,21 +331,6 @@ extension ChatViewController: MessagesDataSource  {
     func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         
         if indexPath.item % 4 == 0 {
-            //            let formatter = DateFormatter()
-            //            let date = message.sentDate
-            //            formatter.timeZone = TimeZone(identifier: "Europe/Moscow")
-            //            switch true {
-            //            case Calendar.current.isDateInToday(date) || Calendar.current.isDateInYesterday(date):
-            //                formatter.doesRelativeDateFormatting = true
-            //                formatter.dateStyle = .short
-            //                formatter.timeStyle = .short
-            //            case Calendar.current.isDate(date, equalTo: Date(), toGranularity: .weekOfYear):
-            //                formatter.dateFormat = "EEEE h:mm a"
-            //            case Calendar.current.isDate(date, equalTo: Date(), toGranularity: .year):
-            //                formatter.dateFormat = "E, d MMM, h:mm a"
-            //            default:
-            //                formatter.dateFormat = "MMM d, yyyy, h:mm a"
-            //            }
             
             return NSAttributedString(string: MessageKitDateFormatter.shared.string(from: message.sentDate),
                                       attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10),
@@ -454,8 +395,6 @@ extension ChatViewController: MessagesDisplayDelegate {
     private func getVideoPreview(value: String, completion: @escaping(UIImage?) -> Void) {
         FilesService.shared.downloadFile(url: URL(string: (value.starts(with: "http") ? "" : ServerAddressConstants.JAVA_SERVER_ADDRESS) + value)){ [weak self](data) in
             guard let self = self, let data = data else {
-                //self?.imageView.image = nil
-                //self?.videoTimeLabel.isHidden = true
                 completion(nil)
                 return
                 
@@ -509,7 +448,6 @@ extension ChatViewController: MessagesDisplayDelegate {
         }
     }
     
-    //TODO: implement func avatarSize(for message:...) -> CGSize
 }
 //MARK: - InputBarAccessoryViewDelegate
 extension ChatViewController: InputBarAccessoryViewDelegate {
@@ -543,10 +481,6 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
     }
     
     private func playVideo(path: URL?) {
-        //         guard let path = Bundle.main.url(forResource: "IMG_5092", withExtension: "MP4") else {
-        //             debugPrint("video.m4v not found")
-        //             return
-        //         }
         guard let path = path else { return }
         let player = AVPlayer(url: path)
         let playerController = AVPlayerViewController()
@@ -555,69 +489,6 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
             player.play()
         }
     }
-    
-    //    SEND IMAGE
-    //        func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
-    //            playVideo()
-    //        let message = Message(user: user, chat: chat, messageText: text)
-    //            let image: UIImage = #imageLiteral(resourceName: "unselectedTick")
-    //            FilesService.shared.uploadFile(fileData: image.pngData()!) { file in
-    //                let message = Message(user: self.user, chat: self.chat, file: file)
-    //                self.listener.sendMessage(model: .init(displayName: self.user.username,
-    //                                                  senderId: message.sender.senderId,
-    //                                                  sendDate: message.sentDate,
-    //                                                  messageId: message.messageId,
-    //                                                  chatId: self.chat.chatId,
-    //                                                  forward: 0,
-    //                                                  replyTo: 0,
-    //                                                  messageText: message.messageText,
-    //                                                  file: message.file)) {[weak self] result in
-    //                                switch result {
-    //                                    case .success():
-    //                                        onMainThread {
-    //                                            self?.messagesCollectionView.scrollToBottom()
-    //                                        }
-    //                                case .failure(let error):
-    //                                    UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
-    //                                }
-    //                }
-    //            }
-    
-    //            print("Sending message")
-    //        print(message)
-    #warning("В будущем сервер должен отсылать это сообщение двум клиентам")
-    //        self.insertNewMessage(message: message)
-    //        listener.sendMessage(model: .init(messageId: message.messageId, chatId: chat.chatId, contentType: message.contentType, content: message.content, displayName: user.username, senderId: message.sender.senderId, sendDate: message.sentDate)) {[weak self] (result) in
-    //            switch result {
-    //                case .success():
-    //                    onMainThread {
-    //                        self?.messagesCollectionView.scrollToBottom()
-    //                    }
-    //            case .failure(let error):
-    //                UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
-    //            }
-    //        }
-    //        listener.sendMessage(model: .init(displayName: user.username,
-    //                                          senderId: message.sender.senderId,
-    //                                          sendDate: message.sentDate,
-    //                                          messageId: message.messageId,
-    //                                          chatId: chat.chatId,
-    //                                          forward: 0,
-    //                                          replyTo: 0,
-    //                                          messageText: message.messageText,
-    //                                          file: message.file)) {[weak self] result in
-    //                        switch result {
-    //                            case .success():
-    //                                onMainThread {
-    //                                    self?.messagesCollectionView.scrollToBottom()
-    //                                }
-    //                        case .failure(let error):
-    //                            UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
-    //                        }
-    //        }
-    //            print(#function)
-    //            inputBar.inputTextView.text = ""
-    //        }
 }
 
 extension ChatViewController: MessageCellDelegate {
@@ -643,24 +514,6 @@ extension ChatViewController: MessageCellDelegate {
                 print(error.localizedDescription)
             }
         }
-        //        message.file.
-        //        FilesService.shared.getFileById(id: value) { [weak self](data) in
-        //            guard let self = self else { return }
-        //            do {
-        //                let directory = NSTemporaryDirectory()
-        //                let fileName = "\(NSUUID().uuidString).MOV"
-        //                let fullURL = NSURL.fileURL(withPathComponents: [directory, fileName ])
-        //                try data.write(to: fullURL! as URL)
-        //                self.imageFromVideo(url: fullURL!, at: 0) { (image) in
-        //                    completion(image)
-        //                }
-        //            } catch let error {
-        //                print("SDFHSKDHFIUSDH")
-        //                print(error.localizedDescription)
-        //            }
-        //
-        //
-        //        }
     }
 }
 
@@ -704,12 +557,6 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
-//            print(videoURL.path)
-//            print(videoURL.pathExtension)
-//            print(videoURL.deletingPathExtension().lastPathComponent)
-//            print(videoURL.lastPathComponent)
-//            dismiss(animated: true, completion: nil)
-//
             let data = try? Data(contentsOf: videoURL)
             sendMediaMessage(data: data, fileName: videoURL.lastPathComponent)
             dismiss(animated: true, completion: nil)
@@ -720,32 +567,6 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
             dismiss(animated: true, completion: nil)
             return
         }
-        
-//        guard let image = info[.originalImage] as? UIImage else {
-//            dismiss(animated: true, completion: nil)
-//            print("No image found")
-//            return
-//        }
-//        sendMediaMessage(data: image.pngData())
-        //        DispatchQueue.global(qos: .userInitiated).async {
-        //            UserAPIService.shared.sendImageWithSign(model: .init(fileData: data,
-        //                                                                 latitude: latitude,
-        //                                                                 longitude: longitude,
-        //                                                                 direction: self.locationManager.heading?.magneticHeading ?? 0)) { result in
-        //                switch result {
-        //
-        //                case .success():
-        //                    break
-        //                case .failure(_):
-        //                    onMainThread {
-        //                        UIApplication.showAlert(title: "Ошибка!", message: "Не получилось загрузить фотографию, попробуйте позже")
-        //                    }
-        //
-        //                }
-        //
-        //            }
-        //        }
-        
     }
 }
 
@@ -771,12 +592,6 @@ extension ChatViewController: UIContextMenuInteractionDelegate {
                     self.ratingView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: 200)
                     
                     window?.addSubview(self.ratingView)
-//                    let vc = RatingViewController()
-//                    vc.providesPresentationContextTransitionStyle = true
-//                    vc.definesPresentationContext = true
-//                    vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-//                    vc.delegate = self
-//                    self.navigationController?.present(vc, animated: true)
                     UIView.animate(withDuration: 0.5,
                                    delay: 0, usingSpringWithDamping: 1.0,
                                    initialSpringVelocity: 1.0,

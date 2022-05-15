@@ -50,14 +50,8 @@ final class Socket: ObservableObject {
     
     public func sendMessage(model: MessageModel, completion: @escaping (Result<Void, Error>) -> Void ) {
         print(model.representation())
-//        "messageId": messageId,
-//                "chatId": chatId,
-//                "contentType": contentType,
-//                 "content": content
         let newRepresentation: [String: Any]  = [
             "chatId": model.chatId,
-//            "contentType": model.contentType,
-//            "content": model.content,
             "forward": "",
             "dataInfo": "",
             "id": model.messageId,
@@ -73,7 +67,6 @@ final class Socket: ObservableObject {
         socket.on("GetMessage") { (data, ack) in
             print(#function)
             print(data)
-//            print(ack)
             completion(Socket.parseToMessageModel(data: data))
         }
     }
@@ -158,7 +151,6 @@ extension Socket {
         let fileId = json["fileId"].int
         let fileName = json["fileName"].string
         let filePath = json["filePath"].string
-//        let fileExtension = json["fileExtension"].string
         let fileExtension: String? = json["fileExtension"].string
         var file: FilesService.File? = nil
         if let fileId = fileId, let fileName = fileName, let filePath = filePath, let fileExtension = fileExtension {
@@ -176,13 +168,6 @@ extension Socket {
                               replyTo: 0,
                               messageText: messageText,
                               file: file))
-//        return .success(.init(messageId: messageId,
-//                              chatId: chatId,
-//                              contentType: contentType,
-//                              content: content,
-//                              displayName: displayName,
-//                              senderId: String(senderId),
-//                              sendDate: sendDate))
     }
 }
 

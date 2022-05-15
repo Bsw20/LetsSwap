@@ -189,9 +189,6 @@ extension SignInViewController {
         let buttonToBottomConstraint = signUpButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
         buttonToBottomConstraint.priority = UILayoutPriority(1)
         
-        //viewBottomPositionConstraint = signUpButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
-        //viewBottomPositionConstraint?.isActive = true
-        
         NSLayoutConstraint.activate([
             signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: SignInConstants.leadingTrailingOffset),
             signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -SignInConstants.leadingTrailingOffset),

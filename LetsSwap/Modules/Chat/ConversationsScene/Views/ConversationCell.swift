@@ -25,7 +25,6 @@ class ConversationCell: UITableViewCell {
         let imageView = WebImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .imageFiller()
-//        imageView.image = #imageLiteral(resourceName: "personImage")
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 32
         return imageView

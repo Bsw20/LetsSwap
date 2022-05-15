@@ -114,53 +114,5 @@ enum Chat {
         }
         
     }
-//    struct CMessage: Hashable, Comparable, MessageType {
-//        var file: File?
-//
-//        var messageId: String
-//
-//        var kind: MessageKind {
-//            return .text(messageText!)
-//        }
-//        var sender: SenderType
-//        let messageText: String?
-//        let sentDate: Date
-//        let chatId: Int
-//        var contentType: String = "text"
-//
-//        init(user: CUser, chat: CChat, messageText: String) {
-//            self.messageText = messageText
-//            sender = Sender(senderId: user.id, displayName: user.username)
-//            sentDate = Date()
-//            messageId = UUID().uuidString
-//            chatId = chat.chatId
-//        }
-//
-////        init(content: String, messageId: String, chatId: String, friendUsername: String, friend) {
-////
-////        }
-//        init(messageId: String, senderId: String, displayName: String, content: String, sendDate: Date, chatId: Int) {
-//            self.messageId = messageId
-//            sender = Sender(senderId: senderId, displayName: displayName)
-//            self.sentDate = sendDate
-//            self.messageText = content
-//            self.chatId = chatId
-//
-//        }
-//
-//
-//        static func == (lhs: Chat.CMessage, rhs: Chat.CMessage) -> Bool {
-//            return lhs.messageId == rhs.messageId
-//        }
-//
-//        func hash(into hasher: inout Hasher) {
-//            hasher.combine(messageId)
-//        }
-//
-//        static func < (lhs: CMessage, rhs: CMessage) -> Bool {
-//            return lhs.sentDate < rhs.sentDate
-//        }
-//
-//    }
   
 }

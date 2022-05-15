@@ -44,7 +44,6 @@ struct NetworkDataFetcher: FeedDataFetcher {
                 case .success(let data):
                     do {
                         let model = try JSONDecoder().decode(FeedResponse.self, from: data)
-//                        let model = data as? [String: Any]
                         completion(.success(model))
                     } catch(let error){
                         SwiftyBeaver.error(error.localizedDescription)
@@ -98,7 +97,6 @@ struct NetworkDataFetcher: FeedDataFetcher {
     
 
     func getFeed(nextBatchFrom: String?, completion: @escaping (Result<FeedResponse, FeedError>) -> Void) {
-//        completion(.success(FeedResponse(items: NetworkDataFetcher.feedItems, nextFrom: "nextBatch")))
         guard let url = getFeedUrl else {
             completion(.failure(FeedError.serverError))
             return
@@ -166,7 +164,6 @@ struct NetworkDataFetcher: FeedDataFetcher {
 
     func chooseOrder(chooseOrderModel: ChooseOrderModel, completion: @escaping (Result<Void, ChooseOrderError>) -> Void) {
         completion(.success(Void()))
-//        completion(.failure(ChooseOrderError.orderAlreadyChoose))
     }
     
     typealias FullProfileResponse = AlienProfile.FullModel.Response

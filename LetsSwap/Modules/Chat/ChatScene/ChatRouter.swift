@@ -9,16 +9,13 @@
 import UIKit
 
 protocol ChatRoutingLogic {
-    //func closeView()
+
 }
 
 class ChatRouter: NSObject, ChatRoutingLogic {
 
   weak var viewController: ChatViewController?
   
-//    func closeView() {
-//        viewController?.navigationController?.popViewController(animated: true)
-//    }
   // MARK: Routing
   
 }

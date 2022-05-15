@@ -95,7 +95,6 @@ class ConversationsViewController: UIViewController, ConversationsDisplayLogic {
         setupUI()
         setupConstraints()
         #warning("Удалить")
-        //interactor?.getUserData(requst: .init())
     }
     
     override func viewWillAppear(_ animated: Bool) {

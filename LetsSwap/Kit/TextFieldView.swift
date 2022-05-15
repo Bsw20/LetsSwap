@@ -64,15 +64,6 @@ class TextFieldView: UIView {
         delegate?.textDidChange(textFieldView: self, newText: textField.text ?? "")
     }
     
-//    override func didMoveToSuperview() {
-//        superview?.backgroundColor = .blue
-//        let recognizer = UITapGestureRecognizer(target: self, action: #selector(resignTextField))
-//        superview?.addGestureRecognizer(recognizer)
-//    }
-//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        textField.resignFirstResponder()
-//    }
-    
     @objc public func resignTextField() {
         textField.resignFirstResponder()
     }

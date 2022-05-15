@@ -62,34 +62,11 @@ class SMSConfirmViewController: UIViewController {
     //MARK: - Objc funcs
     
     @objc private func confirmButtonTapped() {
-
-//        print(#function)
-//        print(textView.getText())
-//
-//        let model = SignUpViewModel(name: "Ярослав",
-//                                    lastName: "Карпунькин",
-//                                    city: "Москва",
-//                                    login: "89858182278",
-//                                    smsCode: textView.getText())
-//
-//        authService.signUp(signUpModel: model) { (result) in
-//            print("RESULT FROM VC")
-//            switch result {
-//
-//            case .success(_):
-//                print("NICE")
-//            case .failure(_):
-//                print("ZVIZDEC")
-//            }
-//        }
-        
-
     }
 }
 
 
 //MARK: - OTPDelegate
-//ma token ["token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwiaWF0IjoxNjEyMDEzNzIwfQ.xppDQuayBeLYIhH7oNkLiednNrqJkoDoM8Oz1ZUzcf0"]
 extension SMSConfirmViewController: OTPDelegate {
     func animationWithCorrectCodeFinished() {
         self.authDelegate?.authFinished()
@@ -114,13 +91,6 @@ extension SMSConfirmViewController: OTPDelegate {
                 }
                 
             case .signUp(data: var data):
-//                ["token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTYxMjA5NjQ2NH0.sfXLi1rDR-uGqnUSvH6zVaVtLTwOm8EMs7S_glAWwaQ"]
-//                let isCorrectCode = numbersView.getOTP() == "111111"
-//                if isCorrectCode {
-//                    numbersView.finishEnterAnimation(colorForAnimation: .green, isCorrectCode: isCorrectCode)
-//                } else {
-//                    numbersView.finishEnterAnimation(colorForAnimation: .red, isCorrectCode: isCorrectCode)
-//                }
                 data.smsCode = numbersView.getOTP()
                 authService.signUp(signUpModel: data) { (result) in
                     switch result {
@@ -140,7 +110,6 @@ extension SMSConfirmViewController: OTPDelegate {
 extension SMSConfirmViewController {
     private func setupConstraints() {
         view.addSubview(topLabel)
-//        view.addSubview(textView)
         view.addSubview(confirmButton)
         view.addSubview(numbersView)
         
@@ -149,13 +118,6 @@ extension SMSConfirmViewController {
             topLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
-//        NSLayoutConstraint.activate([
-//            textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-//            textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-//            textView.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: 30),
-//            textView.heightAnchor.constraint(equalToConstant: 50)
-//        ])
-//
         NSLayoutConstraint.activate([
             confirmButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: SignInConstants.leadingTrailingOffset),
             confirmButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -SignInConstants.leadingTrailingOffset),

@@ -85,8 +85,6 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         } else {
             interactor?.makeRequest(request: .getFeed)
         }
-        //interactor?.makeRequest(request: .getFeed)
-        //interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags, text: titleView.getTextFieldText(), city: "Москва")))
         #warning("Заглушка для favorites. Часто не работает через updateData")
         feedCollectionView.reloadData()
         navigationController?.hidesBarsOnSwipe = true
@@ -161,7 +159,6 @@ extension FeedViewController: FeedCollectionViewDelegate {
     }
     func moreTagsButtonTapped() {
         router?.routeToTagsController(currentTags: selectedTags)
-        //UIViewController.showAlert(title: "Уведомление!", message: "Данный функционал будет реализован позже")
     }
     
     func refresh() {

@@ -17,7 +17,6 @@ struct City: Codable, Equatable {
     }
     
     static func getCities() -> [String]{
-        //    var countryCodes = CountryCodes()
         
         do {
 

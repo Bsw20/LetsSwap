@@ -53,8 +53,6 @@ class TagsListViewController: UIViewController {
         navigationItem.title = "Выбери тэги"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
         self.navigationController?.navigationBar.tintColor = .black
-        //navigationItem.setLeftBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "goBackIcon"), style: .plain, target: self, action: #selector(leftBarButtonTapped)), animated: true)
-        //navigationItem.hidesBackButton = true
         navigationController?.navigationBar.isTranslucent = true
     }
     

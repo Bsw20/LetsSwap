@@ -33,9 +33,6 @@ class FeedOrderInteractor: FeedOrderBusinessLogic {
             swapsManager.validateSwap(orderId: orderId) { (result) in
                 self.presenter?.presentData(response: .presentSwapping(result))
             }
-//            fetcher.makeSwap(orderId: orderId) { (result) in
-//                self.presenter?.presentData(response: .presentSwapping(result))
-//            }
         case .reloadWholeData(orderId: let orderId):
             fetcher.getOrder(orderId: orderId) { (result) in
                 self.presenter?.presentData(response: .presentUpdatedData(result))
