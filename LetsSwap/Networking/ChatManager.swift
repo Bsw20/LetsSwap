@@ -52,7 +52,7 @@ struct ChatManager: ConversationsManager {
     }
     
     func getAllConversations(completion: @escaping (Result<Any, Error>) -> Void) {
-        guard let url = URL(string: "http://178.154.210.140:3030/chatModule/chat/getAll") else {
+        guard let url = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/chatModule/chat/getAll") else {
             completion(.failure(NSError()))
             return
         }
@@ -79,7 +79,7 @@ struct ChatManager: ConversationsManager {
     }
     
     func getChatData(chatId: Int, completion: @escaping (Result<MyProfileViewModel.PersonInfo, Error>) -> Void) {
-        guard let url = URL(string: "http://178.154.210.140:3030/security/user/getUserInfoForChat") else {
+        guard let url = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/security/user/getUserInfoForChat") else {
             completion(.failure(NSError()))
             return
         }
@@ -115,7 +115,7 @@ struct ChatManager: ConversationsManager {
     }
     
     func setRating(userId: Int, rating: Int, completion: @escaping (Result<Any, Error>) -> Void) {
-        guard let url = URL(string: "http://178.154.210.140:3030/security/change/setRating") else {
+        guard let url = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/security/change/setRating") else {
             completion(.failure(NSError()))
             return
         }
@@ -142,7 +142,7 @@ struct ChatManager: ConversationsManager {
     }
     
     func changeDone(chatId: Int, completion: @escaping (Result<Any, Error>) -> Void) {
-        guard let url = URL(string: "http://178.154.210.140:3030/security/change/finishChange") else {
+        guard let url = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/security/change/finishChange") else {
             completion(.failure(NSError()))
             return
         }
@@ -169,7 +169,7 @@ struct ChatManager: ConversationsManager {
     }
     
     func deleteChat(chatId: Int, completion: @escaping (Result<Any, Error>) -> Void) {
-        guard let url = URL(string: "http://178.154.210.140:3030/security/user/removeChat") else {
+        guard let url = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/security/user/removeChat") else {
             completion(.failure(NSError()))
             return
         }

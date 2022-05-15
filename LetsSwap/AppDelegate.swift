@@ -7,6 +7,7 @@
 
 import UIKit
 import UserNotifications
+import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         print(APIManager.getToken())
+        let config = Realm.Configuration(
+                schemaVersion: 3 ,
+                migrationBlock: { _, oldSchemaVersion in
+                    if oldSchemaVersion < 1 {
+                    }
+                })
+
+        // Tell Realm to use this new configuration object for the default Realm
+        Realm.Configuration.defaultConfiguration = config
         UNUserNotificationCenter.current().delegate = self
         if let notificationOption = launchOptions?[.remoteNotification] {
             print("remote notification options exists in app delegate")

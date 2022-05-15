@@ -13,13 +13,13 @@ import SwiftyBeaver
 struct AuthService {
     public static var shared = AuthService()
     
-    private static var sendSmsUrl = URL(string: "http://178.154.210.140:3030/smsSend")
-    private static var signUpUrl = URL(string: "http://178.154.210.140:3030/register")
-    private static var signInUrl = URL(string: "http://178.154.210.140:3030/login")
+    private static var sendSmsUrl = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/smsSend")
+    private static var signUpUrl = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/register")
+    private static var signInUrl = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/login")
     
     
     func sendAPNSToken(token: String, completion:@escaping (Result<Void, Error>) -> Void ) {
-        let url = URL(string: "http://178.154.210.140:3030/security/user/setToken")!
+        let url = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/security/user/setToken")!
         
         
         let userData: [String: Any] = ["token": token]
@@ -49,7 +49,7 @@ struct AuthService {
     }
     
 //    func sendPush(token: String, completion:@escaping (Result<Void, Error>) -> Void ) {
-//        let url = URL(string: "http://178.154.210.140:3030/security/user/sendPush")!
+//        let url = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/security/user/sendPush")!
 //
 ////        let userData: [String: Any] = ["token": token]
 //        let headers: HTTPHeaders = [

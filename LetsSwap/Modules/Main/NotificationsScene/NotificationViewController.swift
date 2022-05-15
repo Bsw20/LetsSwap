@@ -144,7 +144,7 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
         
     }
     func getNotifications(completion: @escaping (Result<NotificationModel, Error>) -> Void) {
-        guard let url = URL(string: "http://178.154.210.140:3030/security/change/getNotifications") else {
+        guard let url = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/security/change/getNotifications") else {
             completion(.failure(FeedError.serverError))
             return
         }

@@ -7,6 +7,11 @@ PODS:
   - Kingfisher (6.3.1)
   - MessageKit (3.6.1):
     - InputBarAccessoryView (~> 5.3.1)
+  - Realm (10.25.1):
+    - Realm/Headers (= 10.25.1)
+  - Realm/Headers (10.25.1)
+  - RealmSwift (10.25.1):
+    - Realm (= 10.25.1)
   - SnapKit (5.0.1)
   - Socket.IO-Client-Swift (16.0.1):
     - Starscream (~> 4.0)
@@ -21,6 +26,7 @@ DEPENDENCIES:
   - FloatRatingView
   - Kingfisher
   - MessageKit
+  - RealmSwift
   - SnapKit
   - Socket.IO-Client-Swift
   - SwiftyBeaver
@@ -35,6 +41,8 @@ SPEC REPOS:
     - InputBarAccessoryView
     - Kingfisher
     - MessageKit
+    - Realm
+    - RealmSwift
     - SnapKit
     - Socket.IO-Client-Swift
     - Starscream
@@ -49,14 +57,16 @@ SPEC CHECKSUMS:
   InputBarAccessoryView: 1f75d8c9f75e5e57f3ffac36ed58635a8005e0bc
   Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
   MessageKit: d153fbbbcb12f3f4045a1ba8874298924dacfb62
+  Realm: 1a6e9b4f6983711655d8c0bcb6d2d29c3afbb1f3
+  RealmSwift: e72669550d27082aa4fad5d176f5076cfe806245
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   Socket.IO-Client-Swift: c116d6dc9fd6be9c259bacfe143f8725bce7d79e
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SwiftyBeaver: 84069991dd5dca07d7069100985badaca7f0ce82
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
-  SwiftyRate: 57e86f7d988a5be405b70265c44cef800663098d
+  SwiftyRate: 29dd53f6215f4990941a2c4d5aee5b351d8c6605
   Tags: e1d330baa83b7c855ef1eb47b04532771e32b5f5
 
-PODFILE CHECKSUM: a894b069af1a5bfa44d665d695570973cda6e5a1
+PODFILE CHECKSUM: 27fa41f2fc31663df29094e058282137925561f0
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.11.2

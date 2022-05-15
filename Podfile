@@ -16,4 +16,5 @@ target 'LetsSwap' do
   pod 'Tags'
   pod 'FloatRatingView'
   pod 'SwiftyRate'
+  pod 'RealmSwift'
 end

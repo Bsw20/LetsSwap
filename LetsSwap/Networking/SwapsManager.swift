@@ -37,8 +37,8 @@ struct SwapsManager: SwapsFetcher{
     
 
     func createChat(userId: Int, swapId: Int, completion: @escaping (Result<Void, Error>) -> Void) {
-        guard let url = URL(string: "http://178.154.210.140:3030/chatModule/chat/create") else {
-            SwiftyBeaver.error(String.incorrectUrl(url: "http://178.154.210.140:3030/chatModule/chat/create"))
+        guard let url = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/chatModule/chat/create") else {
+            SwiftyBeaver.error(String.incorrectUrl(url: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/chatModule/chat/create"))
             completion(.failure(NSError()))
             return
         }
@@ -71,8 +71,8 @@ struct SwapsManager: SwapsFetcher{
     //MARK: - Funcs
     
     func confirmSwap(swapId: Int, completion: @escaping (Result<Void, Error>) -> Void) {
-        guard let url = URL(string: "http://178.154.210.140:3030/security/change/confirm") else {
-            SwiftyBeaver.error(String.incorrectUrl(url: "http://178.154.210.140:3030/security/change/confirm"))
+        guard let url = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/security/change/confirm") else {
+            SwiftyBeaver.error(String.incorrectUrl(url: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/security/change/confirm"))
             completion(.failure(NSError()))
             return
         }
@@ -106,8 +106,8 @@ struct SwapsManager: SwapsFetcher{
     
     func refuseSwap(swapId: Int, completion: @escaping (Result<Void, Error>) -> Void) {
         SwiftyBeaver.info(#function)
-        guard let url = URL(string: "http://178.154.210.140:3030/security/change/cancel") else {
-            SwiftyBeaver.error(String.incorrectUrl(url: "http://178.154.210.140:3030/security/change/cancel"))
+        guard let url = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/security/change/cancel") else {
+            SwiftyBeaver.error(String.incorrectUrl(url: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/security/change/cancel"))
             completion(.failure(NSError()))
             return
         }
@@ -140,8 +140,8 @@ struct SwapsManager: SwapsFetcher{
     }
     
     func validateSwap(orderId: Int, completion: @escaping (Result<Bool, Error>) -> Void) {
-        guard let url = URL(string: "http://178.154.210.140:3030/security/change/canMakeChange/\(orderId)") else {
-            SwiftyBeaver.error(String.incorrectUrl(url: "http://178.154.210.140:3030/security/change/canMakeChange/\(orderId)"))
+        guard let url = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/security/change/canMakeChange/\(orderId)") else {
+            SwiftyBeaver.error(String.incorrectUrl(url: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/security/change/canMakeChange/\(orderId)"))
             completion(.failure(NSError()))
             return
         }
@@ -175,8 +175,8 @@ struct SwapsManager: SwapsFetcher{
     }
     
     func makeSwap(model: MakeSwapModel, completion: @escaping (Result<Void, Error>) -> Void) {
-        guard let url = URL(string: "http://178.154.210.140:3030/security/change/addChange") else {
-            SwiftyBeaver.error(String.incorrectUrl(url: "http://178.154.210.140:3030/security/change/addChange"))
+        guard let url = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/security/change/addChange") else {
+            SwiftyBeaver.error(String.incorrectUrl(url: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/security/change/addChange"))
             completion(.failure(NSError()))
             return
         }
