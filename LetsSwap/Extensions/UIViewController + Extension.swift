@@ -16,7 +16,22 @@ extension UIViewController {
             completion()
         }
         alertController.addAction(okAction)
-        UIApplication.getTopViewController()?.present(alertController, animated: true, completion: nil)
+        if let topViewController = UIApplication.getTopViewController() {
+            if let oldAlertController = topViewController as? UIAlertController {
+                
+                if (oldAlertController.message?.contains("Ошибка") ?? false) && message.contains("Ошибка") {
+                    oldAlertController.dismiss(animated: false) {
+                        DispatchQueue.main.async {
+                            UIApplication.getTopViewController()?.present(alertController, animated: true, completion: nil)
+                        }
+                    }
+                } else {
+                    oldAlertController.present(alertController, animated: true, completion: nil)
+                }
+            } else {
+                topViewController.present(alertController, animated: true, completion: nil)
+            }
+        }
     }
     
     var topbarHeight: CGFloat {
