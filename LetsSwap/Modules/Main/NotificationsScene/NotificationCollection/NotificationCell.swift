@@ -92,7 +92,7 @@ class NotificationCell: UICollectionViewCell {
             case .mvpVersion(model: let model):
                 nameLabel.text = String.username(name: model.name, lastname: model.lastname)
                 commentLabel.text = model.comment
-                descriptionLabel.text = model.description
+                descriptionLabel.text = model.desc
                 imageView.set(imageURL: model.image)
             default:
                 break
