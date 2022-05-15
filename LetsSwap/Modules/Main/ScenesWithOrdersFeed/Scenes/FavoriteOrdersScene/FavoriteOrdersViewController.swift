@@ -76,7 +76,6 @@ class FavoriteOrdersViewController: UIViewController, FavoriteOrdersDisplayLogic
         setupConstraints()
         setupNavigationController()
         feedCollectionView.customDelegate = self
-//        interactor?.makeRequest(request: .getFeed)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

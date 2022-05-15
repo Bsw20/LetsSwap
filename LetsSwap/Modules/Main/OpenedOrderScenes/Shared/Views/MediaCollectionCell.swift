@@ -93,7 +93,6 @@ class MediaCollectionCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
-        //        label.textColor = .red
         label.text = "00:20"
         label.font = UIFont.systemFont(ofSize: 15)
         return label

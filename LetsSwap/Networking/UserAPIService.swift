@@ -204,8 +204,6 @@ extension UserAPIService: MyProfileFetcher {
 
                 case .success(let data):
                     do {
-//                        let data = data as! [String: Any]
-//                        print(data)
                         let model = try JSONDecoder().decode(MyProfileResponseModel.self, from: data)
                         completion(.success(model))
                     } catch(let error){

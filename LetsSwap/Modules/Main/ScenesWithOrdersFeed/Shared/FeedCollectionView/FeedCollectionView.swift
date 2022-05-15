@@ -16,8 +16,6 @@ import SwiftyBeaver
     @objc optional func selectedTagsChanged()
     @objc optional func favouriteButtonTapped(newState: Bool)
     @objc optional func refresh()
-//    func getSelectedTags(tags: [FeedTag])
-//    func setSelectedTags(tags: [FeedTag])
 }
 
 class FeedCollectionView: UICollectionView {
@@ -124,9 +122,6 @@ extension FeedCollectionView {
             collectionView, kind, indexPath in
             guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MainFeedHeader.reuseId, for: indexPath) as? MainFeedHeader else { fatalError("Can not create new section header") }
             
-//            sectionHeader.configure(text: section.description(usersCount: items.count),
-//                                    font: .systemFont(ofSize: 36, weight: .light ),
-//                                    textColor: .label)            sectionHeader.setTagsDelegate(delegate: self)
             sectionHeader.configure(selectedTags: self.selectedTags)
             sectionHeader.setTagsDelegate(delegate: self)
             return sectionHeader
@@ -167,7 +162,6 @@ extension FeedCollectionView: FeedCellDelegate {
             case .success(let newState):
                 SwiftyBeaver.info("New value \(newState)")
                 self?.feedViewModel.cells[item].isFavourite = newState
-//                self?.reloadItems(at: [indexPath])
                 self?.reloadData()
                 self?.customDelegate?.favouriteButtonTapped?(newState: newState)
             case .failure(let error):

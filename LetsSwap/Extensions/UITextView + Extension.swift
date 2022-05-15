@@ -19,11 +19,8 @@ extension UITextView {
         textView.layer.borderWidth = 1
         textView.textContainerInset = UIEdgeInsets(top: 23, left: 24, bottom: 24, right: 23)
         textView.clipsToBounds = true
-//        textView.placeholder = placeholder
         return textView
     }
-    
-//    open var placeholder = ""
     
     func isEmpty() -> Bool {
         guard let text = text else {

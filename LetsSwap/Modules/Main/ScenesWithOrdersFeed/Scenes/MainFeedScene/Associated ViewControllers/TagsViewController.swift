@@ -14,9 +14,7 @@ protocol AllTagsListDelegate: NSObjectProtocol {
 }
 
 class TagsViewController: UIViewController {
-//    weak var k
     private var displayedTags = FeedTag.allCases
-//    private var selectedTags
     var selectedTags = Set<FeedTag>()
     var delegate: AllTagsListDelegate!
     private let tagsView = TagsView()
@@ -44,8 +42,6 @@ class TagsViewController: UIViewController {
         tagsView.clipsToBounds = true
         tagsView.paddingHorizontal = 30
         tagsView.paddingVertical = 6
-//        tagsView.marginHorizontal = 6
-//        tagsView.marginVertical = 4
         tagsView.tagFont = UIFont.circeRegular(with: 19)
         tagsView.tagTitleColor = .mainTextColor()
     }

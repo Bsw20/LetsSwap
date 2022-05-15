@@ -99,7 +99,6 @@ extension TagsCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
             } else {
                 selectedTags.insert(selectedTag)
             }
-//            reloadData()
             reloadItems(at: [indexPath])
             tagDelegate?.tagDidSelect(selectedTags: selectedTags)
         }

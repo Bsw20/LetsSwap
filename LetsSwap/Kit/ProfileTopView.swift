@@ -46,7 +46,6 @@ class ProfileTopView: UIView {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = #colorLiteral(red: 0.8666666667, green: 0.7098039216, blue: 0.2352941176, alpha: 1)
-//        label.text = "5"
         label.font = UIFont.circeBold(with: 18)
         return label
     }()
@@ -55,7 +54,6 @@ class ProfileTopView: UIView {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = #colorLiteral(red: 0.8666666667, green: 0.7098039216, blue: 0.2352941176, alpha: 1)
-//        label.text = "4.5"
         label.font = UIFont.circeBold(with: 18)
         return label
     }()

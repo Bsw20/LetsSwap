@@ -44,7 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         print(notification)
         notificationRecieved(notification: notification)
-        //completionHandler(UIBackgroundFetchResult.newData)
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -128,21 +127,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         }
         print(notification)
         notificationRecieved(notification: notification)
-        // По идее тут должен быть переход в чат и во вкладку с уведомлениями
-//        if
-//          let aps = userInfo["aps"] as? [String: AnyObject],
-//          let newsItem = NewsItem.makeNewsItem(aps) {
-//          (window?.rootViewController as? UITabBarController)?.selectedIndex = 1
-//
-//          // 3
-//          if response.actionIdentifier == Identifiers.viewAction,
-//            let url = URL(string: newsItem.link) {
-//            let safari = SFSafariViewController(url: url)
-//            window?.rootViewController?
-//              .present(safari, animated: true, completion: nil)
-//          }
-//        }
-        
     }
     
       func userNotificationCenter(

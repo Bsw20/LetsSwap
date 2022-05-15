@@ -51,9 +51,6 @@ open class VideoPicker: NSObject {
         if let action = self.action(for: .camera, title: "Take video") {
             alertController.addAction(action)
         }
-//        if let action = self.action(for: .savedPhotosAlbum, title: "Camera roll") {
-//            alertController.addAction(action)
-//        }
         if let action = self.action(for: .photoLibrary, title: "Video library") {
             alertController.addAction(action)
         }
@@ -65,9 +62,6 @@ open class VideoPicker: NSObject {
     }
 
     private func pickerController(_ controller: UIImagePickerController, didSelect image: UIImage?) {
-//        controller.dismiss(animated: true, completion: nil)
-//
-//        self.delegate?.didSelect(image: image)
     }
 }
 
@@ -80,12 +74,10 @@ extension VideoPicker: UIImagePickerControllerDelegate {
     public func imagePickerController(_ picker: UIImagePickerController,
                                       didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let videoURL = info[.mediaURL] as? NSURL else {
-//            return self.pickerController(picker, didSelect: nil)
             picker.dismiss(animated: true, completion: nil)
             self.delegate?.didSelect(view: self, videoURL: nil)
             return
         }
-//        self.pickerController(picker, didSelect: image)
         picker.dismiss(animated: true, completion: nil)
 
         self.delegate?.didSelect(view: self, videoURL: videoURL)
