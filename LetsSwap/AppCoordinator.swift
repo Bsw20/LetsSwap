@@ -17,7 +17,7 @@ private let platform = SBPlatformDestination(appID: "B1QVk8",
                                      appSecret: "7pyCbJmsnj5bjPAvwksvhdogKRoq3Kvq",
                                      encryptionKey: "2dhrdUKksb4a23f3vwPtPstsx9yD6rzr")
 class AppCoordinator {
-    private let contentWindow: UIWindow
+    public let contentWindow: UIWindow
     
     init(contentWindow: UIWindow) {
         self.contentWindow = contentWindow
@@ -86,4 +86,5 @@ extension AppCoordinator: AuthFinishedDelegate {
         startMain()
     }
 }
+
 

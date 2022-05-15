@@ -31,6 +31,16 @@ class FavoriteOrdersViewController: UIViewController, FavoriteOrdersDisplayLogic
     }
     
     var backgroundImageView: UIImageView!
+    var backgroundLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .mainYellow()
+        label.font = UIFont.circeRegular(with: 17)
+        label.text = "Добавьте в избранные предложения на главной ленте"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
   
   // MARK: Setup
   
@@ -60,7 +70,7 @@ class FavoriteOrdersViewController: UIViewController, FavoriteOrdersDisplayLogic
         
         backgroundImageView.image = backgroundImage
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundImageView.contentMode = .scaleAspectFit
+        backgroundImageView.contentMode = .scaleAspectFill
         
         view.backgroundColor = .mainBackground()
         setupConstraints()
@@ -137,8 +147,17 @@ extension FavoriteOrdersViewController {
         
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
-            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 150),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -150)
         ])
+        
+        self.view.addSubview(backgroundLabel)
+        NSLayoutConstraint.activate([
+            backgroundLabel.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: 50),
+            backgroundLabel.centerXAnchor.constraint(equalTo: backgroundImageView.centerXAnchor),
+            backgroundLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            backgroundLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+        ])
+        
     }
 }

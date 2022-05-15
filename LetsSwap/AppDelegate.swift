@@ -10,8 +10,12 @@ import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+    
+    enum NotificationType {
+        case chat
+        case swapConfirmed
+        case swapRecieved
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -21,21 +25,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("remote notification options exists in app delegate")
         }
         registerForPushNotifications()
+        // Check if launched from notification
+        let notificationOption = launchOptions?[.remoteNotification]
+
+        // 1
+        if let notification = notificationOption as? [String: AnyObject], let aps = notification["aps"] as? [String: AnyObject] {
+            print(aps)
+            notificationRecieved(notification: notification)
+        }
         return true
     }
     
     func application(_ application: UIApplication,
                      userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        completionHandler(UIBackgroundFetchResult.newData)
-        guard let aps = userInfo["aps"] as? [String: AnyObject] else {
+        guard let notification = userInfo["aps"] as? [String: AnyObject] else {
           completionHandler(.failed)
           return
         }
-        
-        print("fetch remoate notification in didReceiveRemoteNotification")
-        print(userInfo)
-//        NewsItem.makeNewsItem(aps)
+        print(notification)
+        notificationRecieved(notification: notification)
+        //completionHandler(UIBackgroundFetchResult.newData)
     }
+    
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("Unable to register for remote notifications: \(error.localizedDescription)")
     }
@@ -74,12 +85,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
       }
     }
+    
+    func notificationRecieved(notification: [String: AnyObject]) {
+        print("lol")
+        if let tabBarController = (SceneDelegate.shared().appCoordinator?.contentWindow.rootViewController as? UITabBarController), let type = notificationParser(notification: notification) {
+            print("kek")
+            switch type {
+            case .chat:
+                tabBarController.selectedIndex = 2
+                if let chatId = notification["chatId"] {
+                    let vc = ChatViewController(conversation: nil, userInfo: nil, chatId: chatId as? Int)
+                    tabBarController.navigationController?.push(vc)
+                }
+            case .swapConfirmed:
+                tabBarController.selectedIndex = 3
+            case .swapRecieved:
+                tabBarController.selectedIndex = 3
+            }
+        }
+    }
+    
+    func notificationParser(notification: [String: AnyObject]) -> NotificationType? {
+        if let message = notification["alert"] as? String {
+            if message.contains("сообщение") {
+                return .chat
+            } else if message.contains("подтверждён") {
+                return .swapConfirmed
+            } else if message.contains("мах") {
+                return .swapRecieved
+            }
+        }
+        return nil
+    }
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
         let userInfo = response.notification.request.content.userInfo
         print(userInfo)
+        guard let notification = userInfo["aps"] as? [String: AnyObject] else {
+          return
+        }
+        print(notification)
+        notificationRecieved(notification: notification)
         // По идее тут должен быть переход в чат и во вкладку с уведомлениями
 //        if
 //          let aps = userInfo["aps"] as? [String: AnyObject],

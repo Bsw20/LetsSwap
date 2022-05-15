@@ -21,6 +21,7 @@ struct APIManager {
     }
     
     static func isAuthorized() -> Bool {
+        //return true
         return getToken() !=  ""
     }
     

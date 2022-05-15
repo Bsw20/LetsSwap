@@ -24,6 +24,16 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
     }()
     
     var backgroundImageView: UIImageView!
+    var backgroundLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .mainYellow()
+        label.font = UIFont.circeRegular(with: 17)
+        label.text = "Ждите ответов на свои предложения махнуться"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
 
     var interactor: NotificationBusinessLogic?
     var router: (NSObjectProtocol & NotificationRoutingLogic)?
@@ -123,6 +133,7 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
             switch result {
             
             case .success(let notifications):
+                self?.updateBackgroundView(notifications: notifications)
                 self?.collectionView.updateData(notifications: notifications)
             case .failure(let error):
                 SwiftyBeaver.error(error.localizedDescription)
@@ -174,6 +185,16 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
         navigationController?.navigationBar.isTranslucent = true
     }
+    
+    func updateBackgroundView(notifications: NotificationModel) {
+        if notifications.offers.isEmpty {
+            self.collectionView.isHidden = true
+            self.backgroundImageView.isHidden = false
+        } else {
+            self.collectionView.isHidden = false
+            self.backgroundImageView.isHidden = true
+        }
+    }
   
 }
 
@@ -187,6 +208,7 @@ extension NotificationViewController: NotificationCollectionViewDelegate {
             switch result {
             
             case .success(let notifications):
+                self?.updateBackgroundView(notifications: notifications)
                 self?.collectionView.updateData(notifications: notifications)
             case .failure(let error):
                 SwiftyBeaver.error(error.localizedDescription)
@@ -202,6 +224,7 @@ extension NotificationViewController: NotificationCollectionViewDelegate {
             switch result {
             
             case .success(let notifications):
+                self?.updateBackgroundView(notifications: notifications)
                 self?.collectionView.updateData(notifications: notifications)
             case .failure(let error):
                 SwiftyBeaver.error(error.localizedDescription)
@@ -228,9 +251,17 @@ extension NotificationViewController {
         self.view.addSubview(backgroundImageView)
         
         NSLayoutConstraint.activate([
-            backgroundImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
-            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
+            backgroundImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 150),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -150)
+        ])
+        
+        self.view.addSubview(backgroundLabel)
+        NSLayoutConstraint.activate([
+            backgroundLabel.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: -28),
+            backgroundLabel.centerXAnchor.constraint(equalTo: backgroundImageView.centerXAnchor),
+            backgroundLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            backgroundLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
         ])
     }
 }
