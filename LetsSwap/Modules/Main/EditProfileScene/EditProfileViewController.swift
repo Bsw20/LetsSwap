@@ -160,7 +160,9 @@ class EditProfileViewController: UIViewController {
         resignTextFields()
         let model =  collectData()
         networkService.updateProfileInfo(model: model) { (result) in
-            self.activityIndicator.stopAnimating()
+            onMainThread {
+                self.activityIndicator.stopAnimating()
+            }
             switch result {
             
             case .success():

@@ -117,13 +117,17 @@ class SignUpViewController: UIViewController, SignUpDisplayLogic {
     
     // MARK: - Objc funcs
     @objc private func confirmButtonTapped() {
-        activityIndicator.startAnimating()
+        onMainThread {
+            self.activityIndicator.startAnimating()
+        }
         keyboardButtonConstraint?.isActive = false
         self.navigationController?.setupAsBaseScreen(self, animated: true)
         let signUpViewModel = collectData()
         
         authService.sendSms(login: signUpViewModel.login) { (result) in
-            self.activityIndicator.stopAnimating()
+            onMainThread {
+                self.activityIndicator.stopAnimating()
+            }
             switch(result) {
                 
             case .success():

@@ -40,15 +40,21 @@ class MediaCollectionCell: UICollectionViewCell {
                 switch self.loadingState {
                 case .notLoading:
                     self.imageView.image = nil
-                    self.activityIndicator.stopAnimating()
+                    onMainThread {
+                        self.activityIndicator.stopAnimating()
+                    }
                 case .loading:
-                    self.imageView.image = nil
-                    self.activityIndicator.isHidden = false
-                    self.activityIndicator.startAnimating()
+                    onMainThread {
+                        self.imageView.image = nil
+                        self.activityIndicator.isHidden = false
+                        self.activityIndicator.startAnimating()
+                    }
                 case let .loaded(img):
-                    self.imageView.backgroundColor = .clear
-                    self.imageView.image = img
-                    self.activityIndicator.stopAnimating()
+                    onMainThread {
+                        self.imageView.backgroundColor = .clear
+                        self.imageView.image = img
+                        self.activityIndicator.stopAnimating()
+                    }
                 }
             }
         }

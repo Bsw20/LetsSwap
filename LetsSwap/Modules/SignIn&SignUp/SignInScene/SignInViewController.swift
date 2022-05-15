@@ -98,12 +98,16 @@ class SignInViewController: UIViewController, SignInDisplayLogic {
     //MARK: - Objc funcs
     @objc private func confirmButtonTapped() {
         print(#function)
-        activityIndicator.startAnimating()
+        onMainThread {
+            self.activityIndicator.startAnimating()
+        }
         keyboardButtonConstraint?.isActive = false
         navigationController?.setupAsBaseScreen(self, animated: true)
         let signInViewModel = collectData()
         authService.sendSms(login: signInViewModel.login) { (result) in
-            self.activityIndicator.stopAnimating()
+            onMainThread {
+                self.activityIndicator.stopAnimating()
+            }
             switch(result) {
 
             case .success():

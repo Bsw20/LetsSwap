@@ -127,7 +127,9 @@ class LoadingButton: UIButton {
             self.alpha = 0.7
             showSpinning()
         } else {
-            activityIndicator.stopAnimating()
+            onMainThread {
+                self.activityIndicator.stopAnimating()
+            }
             self.isEnabled = true
             self.alpha = 1.0
         }
@@ -144,7 +146,9 @@ class LoadingButton: UIButton {
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(activityIndicator)
         positionActivityIndicatorInButton()
-        activityIndicator.startAnimating()
+        onMainThread {
+            self.activityIndicator.startAnimating()
+        }
     }
     
     private func positionActivityIndicatorInButton() {
