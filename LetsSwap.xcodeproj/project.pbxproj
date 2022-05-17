@@ -47,7 +47,6 @@
 		303AB7972580FB3600F287C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 303AB7962580FB3600F287C2 /* Assets.xcassets */; };
 		303AB79A2580FB3600F287C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 303AB7982580FB3600F287C2 /* LaunchScreen.storyboard */; };
 		303AB7A6258163F400F287C2 /* ModelsPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303AB7A5258163F400F287C2 /* ModelsPlan.swift */; };
-		303AB7A92581715300F287C2 /* DataFetcherPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303AB7A82581715300F287C2 /* DataFetcherPlan.swift */; };
 		3048ED9125E162A60021AD4D /* ConversationsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048ED8A25E162A60021AD4D /* ConversationsPresenter.swift */; };
 		3048ED9225E162A60021AD4D /* ConversationsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048ED8B25E162A60021AD4D /* ConversationsWorker.swift */; };
 		3048ED9325E162A60021AD4D /* ConversationsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3048ED8C25E162A60021AD4D /* ConversationsRouter.swift */; };
@@ -233,7 +232,6 @@
 		303AB7992580FB3600F287C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		303AB79B2580FB3600F287C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		303AB7A5258163F400F287C2 /* ModelsPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsPlan.swift; sourceTree = "<group>"; };
-		303AB7A82581715300F287C2 /* DataFetcherPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetcherPlan.swift; sourceTree = "<group>"; };
 		3048ED8A25E162A60021AD4D /* ConversationsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsPresenter.swift; sourceTree = "<group>"; };
 		3048ED8B25E162A60021AD4D /* ConversationsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsWorker.swift; sourceTree = "<group>"; };
 		3048ED8C25E162A60021AD4D /* ConversationsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsRouter.swift; sourceTree = "<group>"; };
@@ -568,7 +566,6 @@
 			isa = PBXGroup;
 			children = (
 				303AB7A5258163F400F287C2 /* ModelsPlan.swift */,
-				303AB7A82581715300F287C2 /* DataFetcherPlan.swift */,
 			);
 			path = Plan;
 			sourceTree = "<group>";
@@ -1201,7 +1198,6 @@
 				30BC10D8259A025900066D9B /* FeedViewModel.swift in Sources */,
 				30A4C9F025B8AF8200003DDE /* NotificationRouter.swift in Sources */,
 				3048EDAF25E18E810021AD4D /* ChatRouter.swift in Sources */,
-				303AB7A92581715300F287C2 /* DataFetcherPlan.swift in Sources */,
 				30C15ACD25EBA711008D1493 /* Date + Extension.swift in Sources */,
 				303A067D2593843F00C14BFD /* LittleRoundButton.swift in Sources */,
 				307304FA258BF4C80091D2F1 /* TagCell.swift in Sources */,

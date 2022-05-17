@@ -338,28 +338,7 @@ extension FullOrderViewController: VideoPickerDelegate {
                 switch result {
                     
                 case .success(let file):
-//                    self.photosCollectionView.add(attachment: .init(type: .photo, url: photoUrl))
                     self.videosCollectionView.add(attachment: .init(type: .video, url: file.path))
-//                    let message = Message(user: self.user, chat: self.chat, file: file)
-//                    self.insertNewMessage(message: message)
-//                    self.listener.sendMessage(model: .init(displayName: self.user.username,
-//                                                           senderId: message.sender.senderId,
-//                                                           sendDate: message.sentDate,
-//                                                           messageId: message.messageId,
-//                                                           chatId: self.chat.chatId,
-//                                                           forward: 0,
-//                                                           replyTo: 0,
-//                                                           messageText: message.messageText,
-//                                                           file: message.file)) {[weak self] result in
-//                        switch result {
-//                        case .success():
-//                            onMainThread {
-//                                self?.messagesCollectionView.scrollToBottom()
-//                            }
-//                        case .failure(let error):
-//                            UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
-//                        }
-//                    }
                 case .failure(let error):
                     UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
                 }
@@ -411,7 +390,6 @@ extension FullOrderViewController {
         ])
         
         scrollView.addSubview(contentView)
-//        contentView.backgroundColor = .lightGray
         NSLayoutConstraint.activate([
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 2 * FullOrderConstants.leadingTrailingViewOffset),
@@ -428,7 +406,6 @@ extension FullOrderViewController {
         contentView.addSubview(bottomEmptyView)
         contentView.addSubview(photoLabel)
         contentView.addSubview(videoLabel)
-//        contentView.addSubview(addVideoButton)
         contentView.addSubview(photosCollectionView)
         contentView.addSubview(videosCollectionView)
         
@@ -502,13 +479,6 @@ extension FullOrderViewController {
             videosCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             videosCollectionView.topAnchor.constraint(equalTo: videoLabel.bottomAnchor, constant: FullOrderConstants.labelPickerSpace)
         ])
-        
-//        NSLayoutConstraint.activate([
-//            addVideoButton.topAnchor.constraint(equalTo: videoLabel.bottomAnchor, constant: FullOrderConstants.labelPickerSpace),
-//            addVideoButton.heightAnchor.constraint(equalToConstant: 80),
-//            addVideoButton.widthAnchor.constraint(equalToConstant: 78),
-//            addVideoButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
-//        ])
         
         NSLayoutConstraint.activate([
             yellowButton.topAnchor.constraint(equalTo: videosCollectionView.bottomAnchor, constant: FullOrderConstants.space),

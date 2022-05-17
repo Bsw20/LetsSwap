@@ -34,7 +34,6 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
     
     
     private lazy var topView: ProfileTopView = {
-//        let view = ProfileTopView(topViewModel: ProfileTopViewModel(profileImage: nil, swapsCount: 5, rating: 4.5))
         let view = ProfileTopView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -102,7 +101,6 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
 
         setupConstraints()
         chatButton.addTarget(self, action: #selector(chatButtonTapped), for: .touchUpInside)
-//        topView.setup(swapsCount: 25, rating: 3.5, imageView: nil)
 
         feedCollectionView.customDelegate = self
 
@@ -111,7 +109,6 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         interactor?.getFullModel(request: .init(userId: userId))
-//        needToBeUpdated = false
     }
     
 
@@ -166,7 +163,6 @@ extension AlienProfileViewController: FeedCollectionViewDelegate {
     }
     
     func refresh() {
-//        interactor?.makeRequest(request: .getOrder(orderId: orderId))
         interactor?.getFullModel(request: .init(userId: userId))
     }
     

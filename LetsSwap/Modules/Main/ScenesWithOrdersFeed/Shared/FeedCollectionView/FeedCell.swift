@@ -27,7 +27,6 @@ final class FeedCell: UICollectionViewCell {
         case myProfileCell(cellViewModel: MyProfileViewModel.FeedModel.Cell)
     }
     
-//    private var titleLabelHeightAnchor: NSLayoutConstraint!
     static let reuseId = "FeedCell"
     private var cellModel: BaseFeedCellViewModel?
     weak var delegate: FeedCellDelegate?
@@ -122,7 +121,6 @@ final class FeedCell: UICollectionViewCell {
     override func layoutSubviews() {
 
         self.containerView.layer.cornerRadius = 21
-//        self.containerView.clipsToBounds = true
         self.containerView.layer.masksToBounds = true
         
         containerView.layer.shadowColor = #colorLiteral(red: 0.7411764706, green: 0.7411764706, blue: 0.7411764706, alpha: 1)

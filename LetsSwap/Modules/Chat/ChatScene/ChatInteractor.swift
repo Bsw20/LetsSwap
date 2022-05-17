@@ -30,7 +30,6 @@ class ChatInteractor: ChatBusinessLogic {
         SwiftyBeaver.info(#function)
         service.getAllMessages(chatId: request.chatId) {[weak self] (result) in
              print(#function)
-//            SwiftyBeaver.info(#function)
             switch result {
             
             case .success(let model):
@@ -78,37 +77,10 @@ extension ChatInteractor {
                 case .failure(let error):
                     return nil
                 }
-//                guard
-//                    let messageId =  $0["id"].string,
-//                    let senderId =  $0["sender"]["senderId"].int,
-//                    let displayName =  $0["sender"]["displayName"].string,
-//                    let content = $0["content"].string,
-//                    let stringSendDate = $0["sentDate"].string,
-//                    let sendDate = format.date(from: stringSendDate)
-//                      else {
-//                        SwiftyBeaver.error("Incorrect model")
-//                        return nil
-//                }
-//               return  Message(messageId: messageId,
-//                                senderId: String(senderId),
-//                                displayName: displayName,
-//                                messageText: content,
-//                                sendDate: sendDate,
-//                                chatId: chatId, file: nil)
-                
             }
     }
     
     static func parseToMessageModel(chatId: Int, data: Any) -> Result<Message, Error> {
-//        guard let firstData = data as? [Any] else {
-//            SwiftyBeaver.error("Incorrect model, it must be json")
-//            return .failure(NSError())
-//        }
-//        guard let data = firstData[0] as? [String: Any] else {
-//            SwiftyBeaver.error("Incorrect model, it must be json")
-//            return .failure(NSError())
-//        }
-//        print(firstData)
         let json = JSON(data)
         let format = DateFormatter()
          
@@ -129,7 +101,6 @@ extension ChatInteractor {
         let fileId = json["fileId"].int
         let fileName = json["fileName"].string
         let filePath = json["filePath"].string
-//        let fileExtension = json["fileExtension"].string
         let fileExtension: String? = "FileExtension"
         var file: FilesService.File? = nil
         if let fileId = fileId, let fileName = fileName, let filePath = filePath, let fileExtension = fileExtension {
@@ -145,28 +116,11 @@ extension ChatInteractor {
                               sendDate: sendDate,
                               chatId: chatId,
                               file: file))
-//        return .success(.init(displayName: displayName,
-//                              senderId: String(senderId),
-//                              sendDate: sendDate,
-//                              messageId: messageId,
-//                              chatId: chatId,
-//                              forward: 0,
-//                              replyTo: 0,
-//                              messageText: messageText,
-//                              file: file))
-//        return .success(.init(messageId: messageId,
-//                              chatId: chatId,
-//                              contentType: contentType,
-//                              content: content,
-//                              displayName: displayName,
-//                              senderId: String(senderId),
-//                              sendDate: sendDate))
     }
     
     func setRating(rating: Int, request: Chat.CChat) {
         service.setRating(userId: request.friendId, rating: rating) {[weak self] (result) in
             print(#function)
-//            SwiftyBeaver.info(#function)
            switch result {
            
            case .success(let model):
@@ -181,7 +135,6 @@ extension ChatInteractor {
     func changeFinished(request: Chat.CChat) {
         service.changeDone(chatId: request.chatId) {[weak self] (result) in
             print(#function)
-//            SwiftyBeaver.info(#function)
            switch result {
            
            case .success(let model):
@@ -197,7 +150,6 @@ extension ChatInteractor {
         SwiftyBeaver.info(#function)
         service.deleteChat(chatId: request.chatId) {[weak self] (result) in
              print(#function)
-//            SwiftyBeaver.info(#function)
             switch result {
             
             case .success(let model):
@@ -213,7 +165,6 @@ extension ChatInteractor {
         SwiftyBeaver.info(#function)
         service.getChatData(chatId: chatId) {[weak self] (result) in
              print(#function)
-//            SwiftyBeaver.info(#function)
             switch result {
             
             case .success(let model):

@@ -99,18 +99,6 @@ extension InputPhoneNumberView {
             phoneNumberView.leadingAnchor.constraint(equalTo: countryCodeView.trailingAnchor, constant: 8)
         ])
         
-//        let mainStackView = UIStackView(arrangedSubviews: [countryButton, bottomView], axis: .vertical, spacing: 15)
-//        mainStackView.translatesAutoresizingMaskIntoConstraints = false
-//
-//        addSubview(mainStackView)
-//
-//        NSLayoutConstraint.activate([
-//            mainStackView.topAnchor.constraint(equalTo: topAnchor),
-//            mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
-//        ])
-        
         addSubview(countryButton)
         addSubview(bottomView)
         

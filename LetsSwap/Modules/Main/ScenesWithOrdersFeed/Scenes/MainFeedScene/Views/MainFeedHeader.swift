@@ -22,9 +22,7 @@ class MainFeedHeader: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//
         addSubview(tagsCollectionView)
-//
         tagsCollectionView.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.top.equalToSuperview().offset(17)

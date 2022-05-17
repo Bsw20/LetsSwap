@@ -167,7 +167,6 @@ class EditProfileViewController: UIViewController {
             
             case .success():
                 onMainThread {
-                    //EditProfileViewController.showAlert(title: "Успешно", message: "Информация обновлена")
                     self.trackerDelegate?.stateDidChange()
                 }
                 self.navigationController?.popViewController(animated: true)

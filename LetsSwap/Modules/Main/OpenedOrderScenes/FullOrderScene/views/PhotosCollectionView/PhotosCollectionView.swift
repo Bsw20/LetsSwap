@@ -89,7 +89,6 @@ extension PhotosCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
             return cell
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaCollectionCell.reuseId, for: indexPath) as! MediaCollectionCell
-//        cell.configure(imageUrl: photoAttachments[indexPath.item - 1])
         let attachment = attachments[indexPath.item - 1]
         cell.configure(imageUrl: attachment.url, mediaType: attachment.type == .photo ? .photo : .video)
         cell.delegate = self

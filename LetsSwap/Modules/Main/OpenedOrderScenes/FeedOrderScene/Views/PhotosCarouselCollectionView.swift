@@ -107,24 +107,5 @@ extension PhotosCarouselCollectionView: UICollectionViewDelegate, UICollectionVi
         let roundedIndex = round(index)
         self.pageControl.currentPage = Int(roundedIndex)
     }
-    
-//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        if scrollView == self {
-////            CGPoint currentCellOffset = self.collectionView.contentOffset;
-////              currentCellOffset.x += self.collectionView.frame.size.width / 2;
-////              NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:currentCellOffset];
-////              [self.collectionView scrollToItemAtIndexPath:indexPath
-////                                          atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
-////                                                  animated:YES];
-//            var currentCellOffset = contentOffset
-//            currentCellOffset.x += frame.size.width / 4
-//            var indexPath = indexPathForItem(at: currentCellOffset)
-//            print(indexPath)
-//            if let indexPath = indexPath {
-//                scrollToItem(at: IndexPath(item: 3, section: 0), at: .left, animated: true)
-//            }
-//
-//        }
-//    }
 }
 

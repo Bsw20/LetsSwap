@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol FavoriteOrdersDisplayLogic: class {
   func displayData(viewModel: FavoriteOrders.Model.ViewModel.ViewModelData)
@@ -76,7 +77,6 @@ class FavoriteOrdersViewController: UIViewController, FavoriteOrdersDisplayLogic
         setupConstraints()
         setupNavigationController()
         feedCollectionView.customDelegate = self
-//        interactor?.makeRequest(request: .getFeed)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -111,6 +111,22 @@ class FavoriteOrdersViewController: UIViewController, FavoriteOrdersDisplayLogic
         navigationItem.title = "Закладки"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
         navigationController?.navigationBar.isTranslucent = true
+    }
+    
+    func loadFavorites() -> [FeedItem] {
+        let realm = try! Realm()
+        let items = realm.objects(FeedItem.self)
+        let favorites = Array(items)
+        return favorites
+    }
+    
+    func writeFavorites(favorites: [FeedItem]) {
+        let realm = try! Realm()
+        try! realm.write() {
+            for item in favorites {
+                realm.add(item)
+            }
+        }
     }
 }
 

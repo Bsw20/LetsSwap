@@ -60,25 +60,12 @@ class MainTabBarController: UITabBarController, MainTabBarDisplayLogic {
         UITabBar.appearance().backgroundColor = .mainBackground()
         UITabBar.appearance().barTintColor = .mainBackground()
         viewControllers = [
-//            generateNavigationController(rootViewController: FeedViewController(), image: UIImage(named: "feedIcon")!)
-//            generateNavigationController(rootViewController: FeedOrderViewController(), image: UIImage(named: "feedIcon")!)
-//            generateNavigationController(rootViewController: CommentViewController(commentsModel: CommentsOrderModel(orderId: 12387)), image: UIImage(named: "feedIcon")!)
-//            generateNavigationController(rootViewController: RequestSentViewController(), image: UIImage(named: "feedIcon")!)
-//            generateNavigationController(rootViewController: FeedViewController(), image: UIImage(named: "feedIcon")!),
-//            generateNavigationController(rootViewController: FullOrderViewController(), image: UIImage(named: "personIconOff")!)
-//            generateNavigationController(rootViewController: EditProfileViewController(), image: UIImage(named: "personIconOff")!)
-//            generateNavigationController(rootViewController: NotificationViewController(), image: UIImage(named: "notificationIcon")!)
-//            generateNavigationController(rootViewController: TagsListViewController(), image: UIImage(named: "notificationIcon")!)
-//
-            
             
             generateNavigationController(rootViewController: FeedViewController(), unselectedImage: UIImage(named: "feedIconOff")!, selectedImage: UIImage(named: "feedIconOn")!),
             generateNavigationController(rootViewController: FavoriteOrdersViewController(), unselectedImage: UIImage(named: "tabBarIconOff")!, selectedImage: UIImage(named: "tabBarIconOn")!),
             generateNavigationController(rootViewController: ConversationsViewController(), unselectedImage: UIImage(named: "chatIconOff")!, selectedImage: UIImage(named: "chatIconOn")!),
             generateNavigationController(rootViewController: NotificationViewController(), unselectedImage: UIImage(named: "notificationIconOff")!, selectedImage: UIImage(named: "notificationIconOn")!),
                         generateNavigationController(rootViewController: MyProfileViewController(), unselectedImage: UIImage(named: "personIconOff")!, selectedImage: UIImage(named: "personIconOn")!)
-            
-//            generateNavigationController(rootViewController: ConversationsViewController(), unselectedImage: UIImage(named: "chatIconOff")!, selectedImage: UIImage(named: "chatIconOn")!)
             
         ]
     }

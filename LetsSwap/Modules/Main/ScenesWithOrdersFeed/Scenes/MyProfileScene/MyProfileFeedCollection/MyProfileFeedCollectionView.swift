@@ -22,7 +22,6 @@ class MyProfileFeedCollectionView: UICollectionView {
     init() {
         let layout = FeedCollectionLayout.createCompositionalLayout(supplementaryViews: [
             FeedCollectionLayout.createSectionHeader(widthDimenstion: .fractionalWidth(1))
-//            FeedCollectionLayout.createSectionFooter()
         ])
         super.init(frame: .zero, collectionViewLayout:layout )
         delegate = self
@@ -50,10 +49,6 @@ class MyProfileFeedCollectionView: UICollectionView {
         self.feedViewModel.personInfo = personInfo
         reloadData()
     }
-    
-//    private func getHeight() -> CGFloat {
-//        return 0
-//    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

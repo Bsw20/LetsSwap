@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 enum SwapNotification {
     enum NotificationType {
@@ -17,16 +18,16 @@ enum SwapNotification {
     
 
     enum AllNotifications {
-        struct Notification: Decodable {
-            var comment: String
-            var description: String
-            var image: String?
-            var name: String
-            var lastname: String
-            var orderId: Int
-            var status: String
-            var userId: Int
-            var swapId: Int
+        class Notification: Object, Decodable {
+            dynamic var comment = ""
+            dynamic var desc = ""
+            dynamic var image = ""
+            dynamic var name = ""
+            dynamic var lastname = ""
+            dynamic var orderId = 0
+            dynamic var status = ""
+            dynamic var userId = 0
+            dynamic var swapId = 0
         }
         struct Request {
         }

@@ -95,7 +95,6 @@ class ChangePropertyView: UIView {
     }
     //MARK: - Objc funcs
     @objc private func editButtonTapped() {
-//        delegate?.editButtonTapped(currentCity: currentCity)
         delegate?.editButtonTapped(view: self, currentProperty: currentProperty)
     }
     

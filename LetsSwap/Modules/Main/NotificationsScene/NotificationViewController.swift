@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyBeaver
+import RealmSwift
 
 protocol NotificationDisplayLogic: class {
   func displayData(viewModel: SwapNotification.Model.ViewModel.ViewModelData)
@@ -103,6 +104,9 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
                             self?.collectionView.isHidden = false
                             self?.backgroundImageView.isHidden = true
                             self?.collectionView.updateData(notifications: notifications)
+                            onMainThread {
+                                self?.writeNotifications(notifications: notifications)
+                            }
                         }
                         
                     case .failure(let error):
@@ -117,9 +121,13 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
                     
                     case .success(let notifications):
                         self?.collectionView.updateData(notifications: notifications)
+                        self?.writeNotifications(notifications: notifications)
                     case .failure(let error):
                         SwiftyBeaver.error(error.localizedDescription)
                         UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
+                        if let notifications = self?.loadNotifications() {
+                            self?.collectionView.updateData(notifications: notifications)
+                        }
                     }
                 }
             }
@@ -162,8 +170,6 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
                 case .success(let data):
                     do {
                         let model = try JSONDecoder().decode(NotificationModel.self, from: data)
-//                        let model = data as? [String: Any]
-//                        print(model)
                         completion(.success(model))
                     } catch(let error){
                         completion(.failure(FeedError.incorrectDataModel))
@@ -193,6 +199,22 @@ class NotificationViewController: UIViewController, NotificationDisplayLogic{
         } else {
             self.collectionView.isHidden = false
             self.backgroundImageView.isHidden = true
+        }
+    }
+    
+    func loadNotifications() -> NotificationModel {
+        let realm = try! Realm()
+        let offers = realm.objects(SwapNotification.AllNotifications.Notification.self)
+        let notifications = NotificationModel(offers: Array(offers))
+        return notifications
+    }
+    
+    func writeNotifications(notifications: NotificationModel) {
+        let realm = try! Realm()
+        try! realm.write() {
+            for offer in notifications.offers {
+                realm.add(offer)
+            }
         }
     }
   
@@ -228,7 +250,6 @@ extension NotificationViewController: NotificationCollectionViewDelegate {
                 self?.collectionView.updateData(notifications: notifications)
             case .failure(let error):
                 SwiftyBeaver.error(error.localizedDescription)
-//                UIApplication.showAlert(title: "Ошибка!", message: error.localizedDescription)
             }
         }
     }

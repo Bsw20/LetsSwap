@@ -23,8 +23,6 @@ class AlienProfileRouter: NSObject, AlienProfileRoutingLogic {
         let vc = FeedOrderViewController(type: .alienProfileOrder(model: orderViewModel))
         vc.trackerDelegate = viewController
         viewController?.navigationController?.push(vc)
-//        let vc = FeedOrderViewController(orderViewModel: orderViewModel)
-//        viewController?.navigationController?.pushViewController(vc, animated: true)
     }
     
     func routeToChat(chatId: Int) {
