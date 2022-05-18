@@ -14,6 +14,7 @@ struct APIManager {
     static func setToken(token: String) {
         SwiftyBeaver.info("token was updated")
         UserDefaults.standard.set(token, forKey: "userSecret")
+        UIApplication.shared.registerForRemoteNotifications()
     }
     
     static func getToken() -> String {
