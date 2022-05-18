@@ -42,7 +42,7 @@ class ConversationsViewController: UIViewController, ConversationsDisplayLogic {
         let label = UILabel()
         label.textColor = .mainYellow()
         label.font = UIFont.circeRegular(with: 17)
-        label.text = "Начните обсуждение по подтверждённым махам"
+        label.text = "Начните обсуждение по подтверждённым \n махам"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -110,9 +110,11 @@ class ConversationsViewController: UIViewController, ConversationsDisplayLogic {
         if viewModel.chats.isEmpty {
             self.tableView.isHidden = true
             self.backgroundImageView.isHidden = false
+            self.backgroundLabel.isHidden = false
         } else {
             self.tableView.isHidden = false
             self.backgroundImageView.isHidden = true
+            self.backgroundLabel.isHidden = true
             self.conversations = viewModel.chats
             self.myProfileInfo = Conversations.MyProfileInfo(myId: viewModel.myId, myProfileImage: viewModel.myProfileImage, myUserName: viewModel.myUserName)
             self.tableView.reloadData()

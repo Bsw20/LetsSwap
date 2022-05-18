@@ -77,7 +77,14 @@ class FavoriteOrdersViewController: UIViewController, FavoriteOrdersDisplayLogic
         setupConstraints()
         setupNavigationController()
         feedCollectionView.customDelegate = self
+        let favorites = RealmManager.shared.loadFavorites()
+        if !favorites.cells.isEmpty {
+            backgroundImageView.isHidden = true
+            backgroundLabel.isHidden = true
+            self.feedCollectionView.updateData(feedViewModel: favorites)
+        }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         interactor?.makeRequest(request: .getFeed)
@@ -90,11 +97,14 @@ class FavoriteOrdersViewController: UIViewController, FavoriteOrdersDisplayLogic
             if feedViewModel.cells.isEmpty {
                 self.feedCollectionView.isHidden = true
                 self.backgroundImageView.isHidden = false
+                self.backgroundLabel.isHidden = false
             } else {
                 self.feedCollectionView.isHidden = false
                 self.backgroundImageView.isHidden = true
+                self.backgroundLabel.isHidden = true
                 onMainThread {
                     self.feedCollectionView.updateData(feedViewModel: feedViewModel)
+                    RealmManager.shared.saveFavorites(feedViewModel: feedViewModel)
                 }
             }
             
@@ -111,22 +121,6 @@ class FavoriteOrdersViewController: UIViewController, FavoriteOrdersDisplayLogic
         navigationItem.title = "Закладки"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.circeRegular(with: 22), NSAttributedString.Key.foregroundColor: UIColor.mainTextColor()]
         navigationController?.navigationBar.isTranslucent = true
-    }
-    
-    func loadFavorites() -> [FeedItem] {
-        let realm = try! Realm()
-        let items = realm.objects(FeedItem.self)
-        let favorites = Array(items)
-        return favorites
-    }
-    
-    func writeFavorites(favorites: [FeedItem]) {
-        let realm = try! Realm()
-        try! realm.write() {
-            for item in favorites {
-                realm.add(item)
-            }
-        }
     }
 }
 

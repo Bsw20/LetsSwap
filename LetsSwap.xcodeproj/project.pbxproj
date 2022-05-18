@@ -183,6 +183,7 @@
 		30FA0D3E25E81B2B00292651 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FA0D3D25E81B2B00292651 /* ChatManager.swift */; };
 		7AA69C8F88C099B8056326EA /* Pods_LetsSwap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE21F565B2CCFD773AC5A5B /* Pods_LetsSwap.framework */; };
 		AF397E1B2819BA39004AE5D9 /* AllTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF397E1A2819BA39004AE5D9 /* AllTagsViewController.swift */; };
+		AF7FBB28283461180054970E /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7FBB27283461180054970E /* RealmManager.swift */; };
 		AF90EAFD281715A4006AC62A /* KeyboardLayoutGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF90EAFC281715A4006AC62A /* KeyboardLayoutGuide.swift */; };
 		AF94F8A72820869A00346AAB /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF94F8A62820869A00346AAB /* RatingView.swift */; };
 		C4B1CBDE2811BB54003CB81B /* VideoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B1CBDD2811BB54003CB81B /* VideoPicker.swift */; };
@@ -369,6 +370,7 @@
 		99C9AEC9110206FCFE0A5F53 /* Pods-LetsSwap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsSwap.debug.xcconfig"; path = "Target Support Files/Pods-LetsSwap/Pods-LetsSwap.debug.xcconfig"; sourceTree = "<group>"; };
 		9AE21F565B2CCFD773AC5A5B /* Pods_LetsSwap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LetsSwap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF397E1A2819BA39004AE5D9 /* AllTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTagsViewController.swift; sourceTree = "<group>"; };
+		AF7FBB27283461180054970E /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		AF90EAFC281715A4006AC62A /* KeyboardLayoutGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutGuide.swift; sourceTree = "<group>"; };
 		AF94F8A62820869A00346AAB /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		C401AEAB27F9ABDF004B1DB2 /* LetsSwap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LetsSwap.entitlements; sourceTree = "<group>"; };
@@ -874,6 +876,7 @@
 				308366062589FDC000578AE2 /* Constraints.swift */,
 				30CB750425927A4700CB84D6 /* FontsCheck.swift */,
 				AF90EAFC281715A4006AC62A /* KeyboardLayoutGuide.swift */,
+				AF7FBB27283461180054970E /* RealmManager.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1299,6 +1302,7 @@
 				30A4CA0125B9E55500003DDE /* NotificationSceneConstants.swift in Sources */,
 				3048ED9125E162A60021AD4D /* ConversationsPresenter.swift in Sources */,
 				307529D225C97D1700D74939 /* UIBarButtonItem + Extension.swift in Sources */,
+				AF7FBB28283461180054970E /* RealmManager.swift in Sources */,
 				30BC10BC2599156A00066D9B /* AlienProfileRouter.swift in Sources */,
 				30CB74FA259237ED00CB84D6 /* WebImageView.swift in Sources */,
 				30BC10BA2599156A00066D9B /* AlienProfilePresenter.swift in Sources */,

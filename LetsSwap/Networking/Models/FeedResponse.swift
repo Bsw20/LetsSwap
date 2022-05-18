@@ -15,14 +15,14 @@ struct FeedResponse: Decodable {
     var city: String?
 }
 
-class FeedItem: Object, Decodable {
-    dynamic var orderId = 0
-    dynamic var title = ""
-    dynamic var desc = ""
-    dynamic var counterOffer = ""
-    dynamic var isFavorite = false
-    dynamic var isFree = false
-    dynamic var photo = ""
+struct FeedItem: Decodable {
+    let orderId: Int
+    let title: String
+    let description: String
+    let counterOffer: String
+    let isFavorite: Bool
+    let isFree: Bool
+    let photo: String?
 }
 
 

@@ -57,7 +57,7 @@ class FeedPresenter: FeedPresentationLogic {
     
     private static func cellViewModel(from feedItem: FeedItem) -> FeedViewModel.Cell {
         var url: URL? = nil
-        if !feedItem.photo.isEmpty, let photoURL = URL(string: feedItem.photo) {
+        if let photo = feedItem.photo, let photoURL = URL(string: photo) {
             url = photoURL
         }
         return FeedViewModel.Cell.init(orderId: feedItem.orderId,
