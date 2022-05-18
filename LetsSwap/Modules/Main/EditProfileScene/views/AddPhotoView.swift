@@ -70,7 +70,7 @@ class AddPhotoView: UIView {
     }
     
     public func setPhoto(photoStringUrl: String?) {
-        self.imageView.set(imageURL: photoStringUrl)
+        self.imageView.set(imageURL: photoStringUrl, placeholder: #imageLiteral(resourceName: "profileImagePlaceholder").withTintColor(.lightGray))
     }
     public func getPhotoUrl() -> StringURL {
         return imageView.getCurrentUrl

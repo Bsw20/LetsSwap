@@ -40,7 +40,7 @@ class TagsViewController: UIViewController {
         tagsView.tagLayerWidth = 1
         tagsView.tagLayerColor = UIColor.mainYellow()
         tagsView.clipsToBounds = true
-        tagsView.paddingHorizontal = 30
+        tagsView.paddingHorizontal = 20
         tagsView.paddingVertical = 6
         tagsView.tagFont = UIFont.circeRegular(with: 19)
         tagsView.tagTitleColor = .mainTextColor()

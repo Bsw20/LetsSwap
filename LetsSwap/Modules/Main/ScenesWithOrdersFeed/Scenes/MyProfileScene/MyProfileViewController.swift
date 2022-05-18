@@ -78,11 +78,7 @@ class MyProfileViewController: UIViewController, MyProfileDisplayLogic {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        if needToBeUpdated {
-            interactor?.makeRequest(request: .getWholeProfile)
-            needToBeUpdated = false
-        }
-
+        interactor?.makeRequest(request: .getWholeProfile)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

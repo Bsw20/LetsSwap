@@ -24,7 +24,7 @@ class ConversationCell: UITableViewCell {
     private var profileImageView: WebImageView = {
         let imageView = WebImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .imageFiller()
+        //imageView.backgroundColor = .imageFiller()
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 32
         return imageView
@@ -74,12 +74,14 @@ class ConversationCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         profileImageView.resetUrl()
+        profileImageView.setPlaceholder(placeholder: #imageLiteral(resourceName: "profileImagePlaceholder").withTintColor(.lightGray))
     }
     
     public func configure(model: ConversationCellViewModel) {
         usernameLabel.text = "\(model.name) \(model.lastName)"
+        profileImageView.setPlaceholder(placeholder: #imageLiteral(resourceName: "profileImagePlaceholder").withTintColor(.lightGray))
         if let url = model.friendAvatarStringURL {
-            profileImageView.set(imageURL: ServerAddressConstants.JAVA_SERVER_ADDRESS + url)
+            profileImageView.set(imageURL: ServerAddressConstants.JAVA_SERVER_ADDRESS + url, placeholder: #imageLiteral(resourceName: "profileImagePlaceholder").withTintColor(.lightGray))
         }
         
         lastMessageLabel.text = model.lastMessageContent

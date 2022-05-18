@@ -12,7 +12,7 @@ import SwiftyBeaver
 
 protocol ConversationsManager {
     func getAllConversations(completion: @escaping (Result<Any, Error>) -> Void)
-    func getChatData(chatId: Int, completion: @escaping (Result<MyProfileViewModel.PersonInfo, Error>) -> Void)
+    func getChatData(chatId: Int, completion: @escaping (Result<Any, Error>) -> Void)
 }
 
 struct ChatManager: ConversationsManager {
@@ -78,7 +78,7 @@ struct ChatManager: ConversationsManager {
             })
     }
     
-    func getChatData(chatId: Int, completion: @escaping (Result<MyProfileViewModel.PersonInfo, Error>) -> Void) {
+    func getChatData(chatId: Int, completion: @escaping (Result<Any, Error>) -> Void) {
         guard let url = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/security/user/getUserInfoForChat") else {
             completion(.failure(NSError()))
             return
@@ -95,19 +95,10 @@ struct ChatManager: ConversationsManager {
                 switch response.result {
 
                 case .success(let data):
-                    do {
-                        if let json = data as? [String : AnyObject] {
-                            print(json)
-                        }
-                        let model = try JSONDecoder().decode(MyProfileViewModel.PersonInfo.self, from: data as! Data)
-                        completion(.success(model))
-                    } catch(let error){
-                        SwiftyBeaver.error(String.cantDecodeDataString(error: error))
-                        completion(.failure(MyProfileError.incorrectDataModel))
-                    }
-
+                        completion(.success(data))
                 case .failure(let error):
                     SwiftyBeaver.error(error.localizedDescription)
+                    
                     completion(.failure(MyProfileError.serverError))
                     #warning("figure out with error types")
                 }

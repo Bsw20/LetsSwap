@@ -18,7 +18,7 @@ import MobileCoreServices
 protocol ChatDisplayLogic: NSObjectProtocol {
     func displayAllMessages(model: Chat.AllMessages.ViewModel)
     func displayError(error: Error)
-    func displayData(viewModel: MyProfileViewModel.PersonInfo)
+    func displayData(viewModel: Conversations.OtherProfileInfo)
     func closeView()
 }
 
@@ -45,6 +45,7 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
     
     private var user: CUser
     private var chat: CChat
+    var hasMyUserId = false
     var interactor: ChatBusinessLogic?
     var router: (NSObjectProtocol & ChatRoutingLogic)?
     
@@ -57,6 +58,7 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
         
         
         if let conversation = conversation, let userInfo = userInfo {
+            hasMyUserId = true
             chat = CChat(friendAvatarStringURL: conversation.friendAvatarStringURL,
                          friendId: conversation.friendId,
                          friendUsername: String.username(name: conversation.name, lastname: conversation.lastName),
@@ -143,13 +145,21 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
     }
     
     //MARK: - DisplayLogic
-    func displayData(viewModel: MyProfileViewModel.PersonInfo) {
-        chat.friendUsername = String.username(name: viewModel.name, lastname: viewModel.lastname)
-        chat.friendAvatarStringURL = viewModel.profileImage
+    func displayData(viewModel: Conversations.OtherProfileInfo) {
+        chat.friendUsername = String.username(name: viewModel.name, lastname: viewModel.lastName)
+        chat.friendAvatarStringURL = viewModel.photoUrl
+        chat.friendId = viewModel.id
         setupNavigationController()
     }
     func displayAllMessages(model: Chat.AllMessages.ViewModel) {
         SwiftyBeaver.verbose("All messages")
+        if !hasMyUserId {
+            if let message = model.messages.first(where: {$0.sender.senderId != String(chat.friendId) }) {
+                user.id = message.sender.senderId
+                hasMyUserId = true
+            }
+        }
+        
         self.messages = model.messages
         messagesCollectionView.reloadData()
     }
@@ -191,6 +201,12 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
                                           sendDate: model.sendDate,
                                           chatId: model.chatId,
                                           file: model.file)
+                    if !self.hasMyUserId {
+                        if model.senderId != String(self.chat.friendId) {
+                            self.user.id = model.senderId
+                            self.hasMyUserId = true
+                        }
+                    }
                     debugPrint(message)
                     self.insertNewMessage(message: message)
                 }

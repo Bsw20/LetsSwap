@@ -81,6 +81,10 @@ class MainTabBarController: UITabBarController, MainTabBarDisplayLogic {
     func displayData(viewModel: MainTabBar.Model.ViewModel.ViewModelData) {
 
     }
+    
+    func showChat(chatId: Int) {
+        router?.routeToChat(chatId: chatId, navVC: viewControllers![2] as! UINavigationController)
+    }
   
 }
 

@@ -22,6 +22,7 @@ class WebImageView: UIImageView {
     }
     
     public func setPlaceholder(placeholder: UIImage?) {
+        imagePlaceholder = placeholder
     }
     
     private var currentUrlSring: String?
@@ -38,7 +39,7 @@ class WebImageView: UIImageView {
     }
     
     public func resetUrl() {
-        self.image = nil
+        self.image = imagePlaceholder
         self.currentUrlSring = nil
     }
     

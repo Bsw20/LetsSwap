@@ -50,13 +50,14 @@ class MyProfileInteractor: MyProfileBusinessLogic {
     }
     
     private func getProfileModel(oldModel: MyProfileResponseModel) -> MyProfileViewModel  {
+        let rating = oldModel.personInfo.swapsCount == 0 ? 0 : (oldModel.personInfo.rating / Double(oldModel.personInfo.swapsCount)).rounded()
         return MyProfileViewModel(
             personInfo: MyProfileViewModel.PersonInfo(profileImage: oldModel.personInfo.profileImage,
                                                       name: oldModel.personInfo.name,
                                                       lastname: oldModel.personInfo.lastname,
                                                       cityName: oldModel.personInfo.cityName,
                                                       swapsCount: oldModel.personInfo.swapsCount,
-                                                      rating: oldModel.personInfo.rating),
+                                                      rating: rating),
             feedInfo: MyProfileViewModel.FeedModel.init(cells: oldModel.feedInfo.map{ MyProfileViewModel.FeedModel.Cell.init(orderId: $0.orderId , title: $0.title, description: $0.description, counterOffer: $0.counterOffer, photo: getUrl(str: $0.photo) , isFree: $0.isFree, isHidden: $0.isHidden)}))
     }
     

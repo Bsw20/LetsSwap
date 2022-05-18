@@ -84,7 +84,7 @@ class ConversationsViewController: UIViewController, ConversationsDisplayLogic {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let backgroundImage = UIImage.init(named: "chatIconOn")
+        let backgroundImage = UIImage.init(named: "chatPlace")
         backgroundImageView = UIImageView.init(frame: self.view.frame)
         
         backgroundImageView.image = backgroundImage
@@ -190,8 +190,8 @@ extension ConversationsViewController {
         
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
-            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 150),
-            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -150)
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 130),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -130)
         ])
         
         self.view.addSubview(backgroundLabel)

@@ -270,13 +270,13 @@ extension NotificationViewController {
         
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
-            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 150),
-            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -150)
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 130),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -130)
         ])
         
         self.view.addSubview(backgroundLabel)
         NSLayoutConstraint.activate([
-            backgroundLabel.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: -28),
+            backgroundLabel.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: -18),
             backgroundLabel.centerXAnchor.constraint(equalTo: backgroundImageView.centerXAnchor),
             backgroundLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             backgroundLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
