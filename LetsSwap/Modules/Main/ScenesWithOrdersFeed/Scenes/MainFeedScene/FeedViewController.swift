@@ -26,6 +26,18 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     private var selectedTags: Set<FeedTag> {
         return feedCollectionView.getSelectedTags().union(selectedAllTags)
     }
+    
+    var backgroundImageView: UIImageView!
+    var backgroundLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .mainYellow()
+        label.font = UIFont.circeRegular(with: 17)
+        label.text = "Обменов не найдено :("
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
 
   // MARK: Object lifecycle
   
@@ -56,6 +68,14 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
   // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let backgroundImage = UIImage.init(named: "feedIconOn")
+        backgroundImageView = UIImageView.init(frame: self.view.frame)
+        
+        backgroundImageView.image = backgroundImage
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundImageView.contentMode = .scaleAspectFill
+        
         view.backgroundColor = .mainBackground()
         feedCollectionView.customDelegate = self
         titleView.customDelegate = self
@@ -101,6 +121,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         switch viewModel {
         
         case .displayFeed(feedViewModel: let feedViewModel):
+            self.updateBackgroundView(viewModel: feedViewModel)
             feedCollectionView.updateData(feedViewModel: feedViewModel)
         case .displayOrder(orderViewModel: let orderViewModel):
             router?.routeToFeedOrderController(orderViewModel: orderViewModel)
@@ -139,6 +160,18 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     
     func setCity(cityString: String) {
         selectedCity = cityString
+    }
+    
+    func updateBackgroundView(viewModel: FeedViewModel) {
+        if viewModel.cells.isEmpty {
+            self.feedCollectionView.isHidden = true
+            self.backgroundImageView.isHidden = false
+            self.backgroundLabel.isHidden = false
+        } else {
+            self.feedCollectionView.isHidden = false
+            self.backgroundImageView.isHidden = true
+            self.backgroundLabel.isHidden = true
+        }
     }
 }
 
@@ -194,6 +227,22 @@ extension FeedViewController {
         feedCollectionView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
+        
+        self.view.addSubview(backgroundImageView)
+        
+        NSLayoutConstraint.activate([
+            backgroundImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 150),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -150)
+        ])
+        
+        self.view.addSubview(backgroundLabel)
+        NSLayoutConstraint.activate([
+            backgroundLabel.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: 50),
+            backgroundLabel.centerXAnchor.constraint(equalTo: backgroundImageView.centerXAnchor),
+            backgroundLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            backgroundLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+        ])
     }
 }
 

@@ -13,7 +13,7 @@ import SwiftyJSON
 import SwiftyBeaver
 
 final class Socket: ObservableObject {
-    private var manager = SocketManager(socketURL: URL(string: "ws://178.154.210.140:3030")!, config: [.log(true), .compress, .connectParams(["token": APIManager.getToken()])])
+    private var manager = SocketManager(socketURL: URL(string: "ws://84.201.150.166:3030")!, config: [.log(true), .compress, .connectParams(["token": APIManager.getToken()])])
     
 
     var socket: SocketIOClient!

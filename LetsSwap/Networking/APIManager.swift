@@ -26,6 +26,7 @@ struct APIManager {
     
     static func logOut() {
         setToken(token: "")
+        RealmManager.shared.deleteAllData()
         SceneDelegate.shared().appCoordinator?.startSignIn()
         SwiftyBeaver.info("User log out")
     }
