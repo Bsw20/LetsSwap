@@ -149,6 +149,10 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
         chat.friendUsername = String.username(name: viewModel.name, lastname: viewModel.lastName)
         chat.friendAvatarStringURL = viewModel.photoUrl
         chat.friendId = viewModel.id
+        if let userId = viewModel.myId {
+            user.id = String(userId)
+            hasMyUserId = true
+        }
         setupNavigationController()
     }
     func displayAllMessages(model: Chat.AllMessages.ViewModel) {

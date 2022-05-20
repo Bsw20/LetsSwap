@@ -94,20 +94,10 @@ class FavoriteOrdersViewController: UIViewController, FavoriteOrdersDisplayLogic
         switch viewModel {
         
         case .displayFeed(feedViewModel: let feedViewModel):
-            if feedViewModel.cells.isEmpty {
-                self.feedCollectionView.isHidden = true
-                self.backgroundImageView.isHidden = false
-                self.backgroundLabel.isHidden = false
-            } else {
-                self.feedCollectionView.isHidden = false
-                self.backgroundImageView.isHidden = true
-                self.backgroundLabel.isHidden = true
-                onMainThread {
-                    self.feedCollectionView.updateData(feedViewModel: feedViewModel)
-                    RealmManager.shared.saveFavorites(feedViewModel: feedViewModel)
-                }
+            onMainThread {
+                RealmManager.shared.saveFavorites(feedViewModel: feedViewModel)
             }
-            
+            self.feedCollectionView.updateData(feedViewModel: feedViewModel)
 
         case .displayError(error: let error):
             showAlert(title: "Ошибка", message: error.localizedDescription)

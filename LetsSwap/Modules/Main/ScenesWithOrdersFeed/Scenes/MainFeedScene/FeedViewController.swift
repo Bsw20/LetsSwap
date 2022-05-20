@@ -23,6 +23,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     var router: (NSObjectProtocol & FeedRoutingLogic)?
     var selectedCity: String = ""
     var selectedAllTags = Set<FeedTag>()
+    var selectedNowTags = Set<FeedTag>()
     private var selectedTags: Set<FeedTag> {
         return feedCollectionView.getSelectedTags().union(selectedAllTags)
     }
@@ -185,6 +186,8 @@ extension FeedViewController: FeedCollectionViewDelegate {
     }
     
     func selectedTagsChanged() {
+        selectedAllTags.subtract(feedCollectionView.getSelectedTags().subtracting(selectedNowTags))
+        selectedNowTags = selectedAllTags
         interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags,
                                                                                   text: titleView.getTextFieldText(), city: selectedCity)))
     }

@@ -184,7 +184,7 @@ extension ChatInteractor {
     
     static func parseToOtherProfile(data: Any) -> Conversations.OtherProfileInfo? {
         guard let dictionary = data as? [String: AnyObject] else {return nil}
-        let model = Conversations.OtherProfileInfo(lastName: dictionary["lastname"] as! String, name: dictionary["name"] as! String, photoUrl: dictionary["photoUrl"] as? String, id: dictionary["id"] as! Int)
+        let model = Conversations.OtherProfileInfo(lastName: dictionary["lastname"] as! String, name: dictionary["name"] as! String, photoUrl: dictionary["photoUrl"] as? String, id: dictionary["id"] as! Int, myId: dictionary["myId"] as? Int)
         return model
     }
 }

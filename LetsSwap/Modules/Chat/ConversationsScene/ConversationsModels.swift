@@ -52,6 +52,7 @@ enum Conversations {
         var name: String
         var photoUrl: String?
         var id: Int
+        var myId: Int?
     }
     
    
