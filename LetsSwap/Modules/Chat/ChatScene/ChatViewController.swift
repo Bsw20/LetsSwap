@@ -119,11 +119,10 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
         navigationController?.navigationBar.tintColor = .mainTextColor()
         navigationController?.navigationBar.isTranslucent = true
         let img = WebImageView(frame: .zero)
-        
         //img.image = #imageLiteral(resourceName: "settingsIcon")
-        img.backgroundColor = .imageFiller()
+        //img.backgroundColor = .imageFiller()
         if let url = chat.friendAvatarStringURL {
-            img.set(imageURL: ServerAddressConstants.JAVA_SERVER_ADDRESS + url)
+            img.set(imageURL: ServerAddressConstants.JAVA_SERVER_ADDRESS + url, placeholder: #imageLiteral(resourceName: "profileImagePlaceholder").withTintColor(.lightGray))
         } else {
             img.image = nil
         }
