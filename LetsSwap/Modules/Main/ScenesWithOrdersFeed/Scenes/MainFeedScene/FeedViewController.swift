@@ -23,6 +23,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     var router: (NSObjectProtocol & FeedRoutingLogic)?
     var selectedCity: String = ""
     var selectedAllTags = Set<FeedTag>()
+    var selectedNowTags = Set<FeedTag>()
     private var selectedTags: Set<FeedTag> {
         return feedCollectionView.getSelectedTags().union(selectedAllTags)
     }
@@ -69,7 +70,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let backgroundImage = UIImage.init(named: "feedIconOn")
+        let backgroundImage = UIImage.init(named: "feedPlace")
         backgroundImageView = UIImageView.init(frame: self.view.frame)
         
         backgroundImageView.image = backgroundImage
@@ -164,11 +165,9 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
     
     func updateBackgroundView(viewModel: FeedViewModel) {
         if viewModel.cells.isEmpty {
-            self.feedCollectionView.isHidden = true
             self.backgroundImageView.isHidden = false
             self.backgroundLabel.isHidden = false
         } else {
-            self.feedCollectionView.isHidden = false
             self.backgroundImageView.isHidden = true
             self.backgroundLabel.isHidden = true
         }
@@ -187,6 +186,8 @@ extension FeedViewController: FeedCollectionViewDelegate {
     }
     
     func selectedTagsChanged() {
+        selectedAllTags.subtract(feedCollectionView.getSelectedTags().subtracting(selectedNowTags))
+        selectedNowTags = selectedAllTags
         interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags,
                                                                                   text: titleView.getTextFieldText(), city: selectedCity)))
     }
@@ -231,14 +232,14 @@ extension FeedViewController {
         self.view.addSubview(backgroundImageView)
         
         NSLayoutConstraint.activate([
-            backgroundImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
-            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 150),
-            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -150)
+            backgroundImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 150),
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 130),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -130)
         ])
         
         self.view.addSubview(backgroundLabel)
         NSLayoutConstraint.activate([
-            backgroundLabel.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: 50),
+            backgroundLabel.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: 55),
             backgroundLabel.centerXAnchor.constraint(equalTo: backgroundImageView.centerXAnchor),
             backgroundLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             backgroundLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)

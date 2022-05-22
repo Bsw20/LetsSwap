@@ -138,6 +138,7 @@ extension ChatInteractor {
            switch result {
            
            case .success(let model):
+               self?.presenter?.closeView()
                break
                
            case .failure(let error):
@@ -167,13 +168,23 @@ extension ChatInteractor {
              print(#function)
             switch result {
             
-            case .success(let model):
-                self?.presenter?.presentData(model: model)
+            case .success(let data):
+                if let model = ChatInteractor.parseToOtherProfile(data: data) {
+                    self?.presenter?.presentData(model: model)
+                } else {
+                    self?.presenter?.presentError(error: MyProfileError.incorrectDataModel)
+                }
                 break
                 
             case .failure(let error):
                 self?.presenter?.presentError(error: error)
             }
         }
+    }
+    
+    static func parseToOtherProfile(data: Any) -> Conversations.OtherProfileInfo? {
+        guard let dictionary = data as? [String: AnyObject] else {return nil}
+        let model = Conversations.OtherProfileInfo(lastName: dictionary["lastname"] as! String, name: dictionary["name"] as! String, photoUrl: dictionary["photoUrl"] as? String, id: dictionary["id"] as! Int, myId: dictionary["myId"] as? Int)
+        return model
     }
 }

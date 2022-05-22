@@ -142,7 +142,8 @@ class AlienProfileViewController: UIViewController, AlienProfileDisplayLogic {
             chatButton.isHidden = false
         }
         cityNameLabel.setup(name: String.username(name: personInfo.name, lastname: personInfo.lastname), city: personInfo.cityName)
-        topView.setup(swapsCount: personInfo.swapsCount, rating: personInfo.rating, image: viewModel.model.personInfo.profileImage)
+        let rating = personInfo.swapsCount == 0 ? 0 : (personInfo.rating / Double(personInfo.swapsCount)).rounded()
+        topView.setup(swapsCount: personInfo.swapsCount, rating: rating, image: viewModel.model.personInfo.profileImage)
     }
     
     

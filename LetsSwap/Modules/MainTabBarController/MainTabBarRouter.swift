@@ -9,7 +9,7 @@
 import UIKit
 
 protocol MainTabBarRoutingLogic {
-
+    func routeToChat(chatId: Int, navVC: UINavigationController)
 }
 
 class MainTabBarRouter: NSObject, MainTabBarRoutingLogic {
@@ -17,5 +17,8 @@ class MainTabBarRouter: NSObject, MainTabBarRoutingLogic {
   weak var viewController: MainTabBarController?
   
   // MARK: Routing
-  
+    func routeToChat(chatId: Int, navVC: UINavigationController) {
+        let vc = ChatViewController.init(conversation: nil, userInfo: nil, chatId: chatId)
+        navVC.push(vc)
+    }
 }

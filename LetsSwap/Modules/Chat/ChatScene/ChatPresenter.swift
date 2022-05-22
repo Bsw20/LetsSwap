@@ -11,12 +11,12 @@ import UIKit
 protocol ChatPresentationLogic {
     func presentAllMessages(model: Chat.AllMessages.Response)
     func presentError(error: Error)
-    func presentData(model: MyProfileViewModel.PersonInfo)
+    func presentData(model: Conversations.OtherProfileInfo)
     func closeView()
 }
 
 class ChatPresenter: ChatPresentationLogic {
-    func presentData(model: MyProfileViewModel.PersonInfo) {
+    func presentData(model: Conversations.OtherProfileInfo) {
         viewController?.displayData(viewModel: model)
     }
     

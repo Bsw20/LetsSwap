@@ -66,7 +66,7 @@ class FavoriteOrdersViewController: UIViewController, FavoriteOrdersDisplayLogic
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let backgroundImage = UIImage.init(named: "tabBarIconOn")
+        let backgroundImage = UIImage.init(named: "favPlace")
         backgroundImageView = UIImageView.init(frame: self.view.frame)
         
         backgroundImageView.image = backgroundImage
@@ -94,20 +94,10 @@ class FavoriteOrdersViewController: UIViewController, FavoriteOrdersDisplayLogic
         switch viewModel {
         
         case .displayFeed(feedViewModel: let feedViewModel):
-            if feedViewModel.cells.isEmpty {
-                self.feedCollectionView.isHidden = true
-                self.backgroundImageView.isHidden = false
-                self.backgroundLabel.isHidden = false
-            } else {
-                self.feedCollectionView.isHidden = false
-                self.backgroundImageView.isHidden = true
-                self.backgroundLabel.isHidden = true
-                onMainThread {
-                    self.feedCollectionView.updateData(feedViewModel: feedViewModel)
-                    RealmManager.shared.saveFavorites(feedViewModel: feedViewModel)
-                }
+            onMainThread {
+                RealmManager.shared.saveFavorites(feedViewModel: feedViewModel)
             }
-            
+            self.feedCollectionView.updateData(feedViewModel: feedViewModel)
 
         case .displayError(error: let error):
             showAlert(title: "Ошибка", message: error.localizedDescription)
@@ -157,13 +147,13 @@ extension FavoriteOrdersViewController {
         
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
-            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 150),
-            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -150)
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 130),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -130)
         ])
         
         self.view.addSubview(backgroundLabel)
         NSLayoutConstraint.activate([
-            backgroundLabel.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: 50),
+            backgroundLabel.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: 80),
             backgroundLabel.centerXAnchor.constraint(equalTo: backgroundImageView.centerXAnchor),
             backgroundLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             backgroundLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)

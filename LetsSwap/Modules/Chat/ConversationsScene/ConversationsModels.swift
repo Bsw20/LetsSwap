@@ -47,6 +47,13 @@ enum Conversations {
         }
     }
     
+    struct OtherProfileInfo: Decodable {
+        var lastName: String
+        var name: String
+        var photoUrl: String?
+        var id: Int
+        var myId: Int?
+    }
     
    
   enum Model {

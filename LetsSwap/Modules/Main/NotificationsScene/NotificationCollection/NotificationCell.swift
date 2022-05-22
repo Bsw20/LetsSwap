@@ -31,7 +31,8 @@ class NotificationCell: UICollectionViewCell {
     private var imageView: WebImageView = {
        let view = WebImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
+        //view.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
+        view.setPlaceholder(placeholder: #imageLiteral(resourceName: "profileImagePlaceholder").withTintColor(.lightGray))
         return view
     }()
     
@@ -93,7 +94,8 @@ class NotificationCell: UICollectionViewCell {
                 nameLabel.text = String.username(name: model.name, lastname: model.lastname)
                 commentLabel.text = model.comment
                 descriptionLabel.text = model.description
-                imageView.set(imageURL: model.image)
+                imageView.setPlaceholder(placeholder: #imageLiteral(resourceName: "profileImagePlaceholder").withTintColor(.lightGray))
+                imageView.set(imageURL: model.image, placeholder: #imageLiteral(resourceName: "profileImagePlaceholder").withTintColor(.lightGray))
             default:
                 break
             }

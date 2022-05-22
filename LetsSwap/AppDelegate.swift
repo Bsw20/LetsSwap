@@ -100,14 +100,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func notificationRecieved(notification: [String: AnyObject]) {
         print("lol")
-        if let tabBarController = (SceneDelegate.shared().appCoordinator?.contentWindow.rootViewController as? UITabBarController), let type = notificationParser(notification: notification) {
+        if let tabBarController = (SceneDelegate.shared().appCoordinator?.contentWindow.rootViewController as? MainTabBarController), let type = notificationParser(notification: notification) {
             print("kek")
             switch type {
             case .chat:
                 tabBarController.selectedIndex = 2
-                if let chatId = notification["chatId"] {
-                    let vc = ChatViewController(conversation: nil, userInfo: nil, chatId: chatId as? Int)
-                    tabBarController.navigationController?.push(vc)
+                if let chatId = notification["badge"] as? Int {
+                    tabBarController.showChat(chatId: chatId)
                 }
             case .swapConfirmed:
                 tabBarController.selectedIndex = 3

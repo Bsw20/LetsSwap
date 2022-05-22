@@ -18,8 +18,8 @@ class ProfileTopView: UIView {
         let imageView = WebImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
-        imageView.setPlaceholder(placeholder: #imageLiteral(resourceName: "profileImagePlaceholder"))
-        imageView.backgroundColor = .imageFiller()
+        imageView.setPlaceholder(placeholder: #imageLiteral(resourceName: "profileImagePlaceholder").withTintColor(.lightGray))
+        //imageView.backgroundColor = .imageFiller()
         return imageView
     }()
     
@@ -100,14 +100,14 @@ class ProfileTopView: UIView {
         swapsCountLabel.text = "\(topViewModel.swapsCount)"
         ratingLabel.text = String(format: "%.1f", topViewModel.rating)
         #warning("TODO")
-        imageView.set(imageURL: topViewModel.profileImage)
+        imageView.set(imageURL: topViewModel.profileImage, placeholder: #imageLiteral(resourceName: "profileImagePlaceholder").withTintColor(.lightGray))
 
     }
     
     func setup(swapsCount: Int, rating: Double, image: String?) {
         swapsCountLabel.text = "\(swapsCount)"
         ratingLabel.text = String(format: "%.1f", rating)
-        imageView.set(imageURL: image)
+        imageView.set(imageURL: image, placeholder: #imageLiteral(resourceName: "profileImagePlaceholder").withTintColor(.lightGray))
     }
     
     
