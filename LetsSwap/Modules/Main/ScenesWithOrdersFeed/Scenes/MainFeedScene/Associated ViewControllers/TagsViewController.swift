@@ -23,6 +23,7 @@ class TagsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .mainBackground()
+        self.navigationController?.navigationBar.tintColor = .black
         setupTags()
         setupTagsView()
         setupConstraints()

@@ -74,6 +74,8 @@ class FavoriteOrdersViewController: UIViewController, FavoriteOrdersDisplayLogic
         backgroundImageView.contentMode = .scaleAspectFill
         
         view.backgroundColor = .mainBackground()
+        backgroundImageView.isHidden = true
+        backgroundLabel.isHidden = true
         setupConstraints()
         setupNavigationController()
         feedCollectionView.customDelegate = self

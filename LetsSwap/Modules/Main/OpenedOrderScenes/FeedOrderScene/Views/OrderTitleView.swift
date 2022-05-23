@@ -19,8 +19,8 @@ class OrderTitleView: UIView {
     private var imageView: WebImageView = {
        let view = WebImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.setPlaceholder(placeholder: #imageLiteral(resourceName: "personIconOn"))
-        view.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
+        view.setPlaceholder(placeholder: #imageLiteral(resourceName: "profileImagePlaceholder").withTintColor(.lightGray))
+        //view.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
         return view
     }()
     private var nameLabel: UILabel = {
@@ -55,7 +55,7 @@ class OrderTitleView: UIView {
     func configure(model: OrderTitleViewModel) {
         nameLabel.text = "\(model.userName) \(model.userLastName)"
         cityLabel.text = model.userCity
-        imageView.set(imageURL: model.userPhoto?.absoluteString)
+        imageView.set(imageURL: model.userPhoto?.absoluteString, placeholder: #imageLiteral(resourceName: "profileImagePlaceholder").withTintColor(.lightGray))
     }
 }
 

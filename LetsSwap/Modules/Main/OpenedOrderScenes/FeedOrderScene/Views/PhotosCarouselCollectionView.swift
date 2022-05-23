@@ -92,9 +92,9 @@ extension PhotosCarouselCollectionView: UICollectionViewDelegate, UICollectionVi
         return customDelegate?.photosCollectionViewSize() ?? collectionView.bounds.size
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        self.pageControl.currentPage = indexPath.item
-    }
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        self.pageControl.currentPage = indexPath.item
+//    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         customDelegate?.didTap(collectionView: self, model: attachments[indexPath.item])
