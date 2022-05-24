@@ -41,7 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 1
         if let notification = notificationOption as? [String: AnyObject], let aps = notification["aps"] as? [String: AnyObject] {
             print(aps)
-            notificationRecieved(notification: notification)
+            let chatId = notification["chatId"] as? Int
+            notificationRecieved(notification: notification, chatId: chatId)
         }
         return true
     }
@@ -52,8 +53,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           completionHandler(.failed)
           return
         }
+        let chatId = userInfo["chatId"] as? Int
         print(notification)
-        notificationRecieved(notification: notification)
+        notificationRecieved(notification: notification, chatId: chatId)
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -96,15 +98,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       }
     }
     
-    func notificationRecieved(notification: [String: AnyObject]) {
+    func notificationRecieved(notification: [String: AnyObject], chatId: Int?) {
         print("lol")
         if let tabBarController = (SceneDelegate.shared().appCoordinator?.contentWindow.rootViewController as? MainTabBarController), let type = notificationParser(notification: notification) {
             print("kek")
             switch type {
             case .chat:
                 tabBarController.selectedIndex = 2
-                if let chatId = notification["badge"] as? Int {
-                    tabBarController.showChat(chatId: chatId)
+                if let id = chatId {
+                    tabBarController.showChat(chatId: id)
                 }
             case .swapConfirmed:
                 tabBarController.selectedIndex = 3
@@ -135,8 +137,9 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         guard let notification = userInfo["aps"] as? [String: AnyObject] else {
           return
         }
+        let chatId = userInfo["chatId"] as? Int
         print(notification)
-        notificationRecieved(notification: notification)
+        notificationRecieved(notification: notification, chatId: chatId)
     }
     
       func userNotificationCenter(
