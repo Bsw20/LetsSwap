@@ -50,7 +50,7 @@ class MyProfileInteractor: MyProfileBusinessLogic {
     }
     
     private func getProfileModel(oldModel: MyProfileResponseModel) -> MyProfileViewModel  {
-        let rating = oldModel.personInfo.swapsCount == 0 ? 0 : (oldModel.personInfo.rating / Double(oldModel.personInfo.swapsCount)).rounded()
+        let rating = oldModel.personInfo.swapsCount == 0 ? 0 : ((oldModel.personInfo.rating / Double(oldModel.personInfo.swapsCount)) * 10).rounded() / 10
         return MyProfileViewModel(
             personInfo: MyProfileViewModel.PersonInfo(profileImage: oldModel.personInfo.profileImage,
                                                       name: oldModel.personInfo.name,

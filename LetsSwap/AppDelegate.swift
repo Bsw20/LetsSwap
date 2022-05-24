@@ -65,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(apns)
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
+        AuthService.shared.token = token
         print("Device Token: \(token)")
         AuthService.shared.sendAPNSToken(token: token) { result in
             switch result {

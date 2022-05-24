@@ -12,7 +12,7 @@ import SwiftyBeaver
 
 struct AuthService {
     public static var shared = AuthService()
-    
+    public var token: String? = nil
     private static var sendSmsUrl = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/smsSend")
     private static var signUpUrl = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/register")
     private static var signInUrl = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/login")
@@ -43,6 +43,35 @@ struct AuthService {
                 case .failure(let error):
                     print(error.errorDescription)
                     completion(.failure(AuthError.serverError))
+
+            }
+        }
+    }
+    
+    func removeAPNSToken() {
+        let url = URL(string: "\(ServerAddressConstants.MAIN_SERVER_ADDRESS)/security/user/removeToken")!
+        guard let phoneToken = token else { return }
+        
+        let userData: [String: Any] = ["token": phoneToken]
+        print("tok \(APIManager.getToken())")
+        let headers: HTTPHeaders = [
+                    "Content-Type":"application/json",
+            "Authorization" : APIManager.getToken()
+                ]
+        AF.request(url, method: .post,
+                   parameters: userData,
+                   encoding: JSONEncoding.default,
+                   headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseJSON { (response) in
+                print(response.description)
+                switch response.result {
+
+                case .success(let data):
+                    print("Токен удалён")
+
+                case .failure(let error):
+                    print(error.errorDescription)
 
             }
         }

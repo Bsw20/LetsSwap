@@ -87,8 +87,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic {
         
         setupSearchBar()
         setupConstraints()
-        interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags,
-                                                                                  text: titleView.getTextFieldText(), city: selectedCity)))
+        //interactor?.makeRequest(request: .getFilteredFeed(model: FiltredFeedModel(selectedTags: selectedTags,text: titleView.getTextFieldText(), city: selectedCity)))
         view.layoutIfNeeded()
 
 

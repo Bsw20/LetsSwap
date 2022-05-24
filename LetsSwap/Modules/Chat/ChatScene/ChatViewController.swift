@@ -124,7 +124,7 @@ class ChatViewController: MessagesViewController, ChatDisplayLogic {
         if let url = chat.friendAvatarStringURL {
             img.set(imageURL: ServerAddressConstants.JAVA_SERVER_ADDRESS + url, placeholder: #imageLiteral(resourceName: "profileImagePlaceholder").withTintColor(.lightGray))
         } else {
-            img.image = nil
+            img.setPlaceholder(placeholder: #imageLiteral(resourceName: "profileImagePlaceholder").withTintColor(.lightGray))
         }
         
         img.layer.cornerRadius = 16
